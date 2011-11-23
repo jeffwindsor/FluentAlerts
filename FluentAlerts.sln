@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentAlerts.Specs", "FluentAlerts.Specs\FluentAlerts.Specs.csproj", "{7AF9A1AA-EAC6-420E-807C-520CD0982741}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentAlerts", "FluentAlerts\FluentAlerts.csproj", "{5006EC6A-3CCD-4D9D-9C02-47BBDE187BA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentAlerts.Tests", "FluentAlerts.Tests\FluentAlerts.Tests.csproj", "{E2A0AE12-0B3F-4ED5-ACA1-9A88ACB87AE4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7AF9A1AA-EAC6-420E-807C-520CD0982741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF9A1AA-EAC6-420E-807C-520CD0982741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF9A1AA-EAC6-420E-807C-520CD0982741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF9A1AA-EAC6-420E-807C-520CD0982741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5006EC6A-3CCD-4D9D-9C02-47BBDE187BA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5006EC6A-3CCD-4D9D-9C02-47BBDE187BA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5006EC6A-3CCD-4D9D-9C02-47BBDE187BA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5006EC6A-3CCD-4D9D-9C02-47BBDE187BA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2A0AE12-0B3F-4ED5-ACA1-9A88ACB87AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2A0AE12-0B3F-4ED5-ACA1-9A88ACB87AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2A0AE12-0B3F-4ED5-ACA1-9A88ACB87AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2A0AE12-0B3F-4ED5-ACA1-9A88ACB87AE4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
