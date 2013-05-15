@@ -8,7 +8,7 @@ namespace Tests.FluentAlerts
 {
     public class AlertBaseTest 
     {
-        protected readonly IAlertBuilderFactory BuilderFactory = new AlertBuilderFactory();
+        protected readonly IFluentAlertFactory  BuilderFactory = new FluentAlertFactory() ;
 
         [TestFixtureSetUp] public void AttributedTestFixtureSetup() { TestFixtureSetUp(); }
         [SetUp] public void AttributedTestSetup(){TestSetUp();}

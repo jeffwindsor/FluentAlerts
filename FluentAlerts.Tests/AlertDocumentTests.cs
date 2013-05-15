@@ -11,7 +11,7 @@ namespace Tests.FluentAlerts
 {
     public class AlertDocumentTests:AlertBaseTest
     {
-        private readonly IAlertBuilderFactory _builderFactory = new AlertBuilderFactory();
+        private readonly IFluentAlertFactory _builderFactory = new FluentAlertFactory() ;
         
         [Test]
         public void CanCreateAnAlertDocument()

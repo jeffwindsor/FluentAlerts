@@ -40,24 +40,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FluentAlertFactory.cs" />
-    <Compile Include="FluentAlertBuilder.cs" />
-    <Compile Include="FluentAlertTableBuilder.cs" />
-    <Compile Include="FluentAlertException.cs" />
-    <Compile Include="Extensions\IAlertExtensions.cs" />
-    <Compile Include="Nodes\FluentAlertSeperator.cs" />
-    <Compile Include="Serializers\AlertSerializer.cs" />
-    <Compile Include="Serializers\AlertSerializerToHtml.cs" />
-    <Compile Include="Serializers\AlertSerializerToText.cs" />
-    <Compile Include="Nodes\FluentAlertTable.cs" />
-    <Compile Include="Nodes\FluentAlertTextBlock.cs" />
-    <Compile Include="Nodes\FluentAlertUrl.cs" />
-    <Compile Include="Enumerations\RowStyle.cs" />
-    <Compile Include="Nodes\CompositeFluentAlert.cs" />
-    <Compile Include="Extensions\ExceptionExtensions.cs" />
-    <Compile Include="IFluentAlert.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AlertException.cs" />
+    <Compile Include="Alerts.cs" />
+    <Compile Include="Alerts\AlertFactory.cs" />
+    <Compile Include="Builders\AlertBuilder.cs" />
+    <Compile Include="Builders\AlertTableBuilder.cs" />
+    <Compile Include="Enumerations\AlertStyle.cs" />
+    <Compile Include="Builders\AlertBuilderFactory.cs" />
+    <Compile Include="Builders\AlertDocumentBuilder.cs" />
+    <Compile Include="Enumerations\GroupStyle.cs" />
+    <Compile Include="Enumerations\TableRowStyle.cs" />
+    <Compile Include="Enumerations\TableSpanningRowStyle.cs" />
     <Compile Include="Enumerations\TextStyle.cs" />
+    <Compile Include="Extensions\EnumerationExtensions.cs" />
+    <Compile Include="Items\AlertGroup.cs" />
+    <Compile Include="Items\AlertTextBlock.cs" />
+    <Compile Include="Items\IAlertItem.cs" />
+    <Compile Include="Alerts\Alert.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Serializers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

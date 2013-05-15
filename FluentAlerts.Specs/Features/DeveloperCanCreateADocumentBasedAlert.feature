@@ -1,53 +1,91 @@
 ﻿Feature: A developer can create a document like alert
-	In order to document the current system state in a human readable format
+	In order to document the current system state
 	As a developer
-	I want to be able to create a document of information
+	I want to be able to create an alert of current state
 
-Background: 
-	Given I have an alert factory
+Scenario: Can create an alert with a title
+	Given I have an alert builder and a title
+	When I build the alert
+	Then the alert should contain title as the first item
+	
+Scenario: Can create an alert
+	Given I have an alert builder
+	When I build the alert 
+	Then the alert should be empty
+	 And the alert should be a list of alert items
 
-Scenario: Can create a document
-	When I create a document
-	Then the document should be empty
-	 And the document should be a list of alerts
+Scenario: Can add a title
+	Given I have an alert builder
+	When I add a title
+	 And I build the alert
+	Then the alert should contain title as the first item
 
-Scenario: Can create a document with a title
-	Given I have some text
-	When I create a document with the text
-	Then the document should contain a text block with a value of the text as the last alert
+Scenario: Can add a format based title 
+	Given I have an alert builder
+	When I add a format based title
+	 And I build the alert
+	Then the alert should contain title as the first item
+
+Scenario: Can add text
+	Given I have an alert builder
+	When I add Normal text
+	 And I build the alert
+	Then the alert should contain Normal text as the last item
+
+Scenario: Can add a format based text
+	Given I have an alert builder
+	When I add Normal text
+	 And I build the alert
+	Then the alert should contain Normal text as the last item
+
+Scenario Outline: Can add a styled text
+	Given I have an alert builder
+	When I add <style> text
+	 And I build the alert 
+	Then the alert should contain <style> text as the last item
+Examples:
+	| style  |
+	| Normal |
+	| Bold   |
+	| Title  |
+
+Scenario Outline: Can add a format based styled text
+	Given I have an alert builder
+	When I add <style> text
+	 And I build the alert
+	Then the alert should contain <style> text as the last item
+Examples:
+	| style  |
+	| Normal |
+	| Bold   |
+	| Title  |
 
 Scenario: Can add a seperator
-	Given I have a document builder
+	Given I have an alert builder
 	When I add a seperator
-	Then the document should contain a seperator as the last alert
+	 And I build the alert
+	Then the alert should contain a seperator as the last item
 
 Scenario: Can add a url
-	Given I have a document builder
-	 And I have some text
-	 And I have some url
-	When I add a url wit the text as the name
-	Then the document should contain a url as the last alert with the url and text
+	Given I have an alert builder
+	When I add a url
+	 And I build the alert
+	Then the alert should contain a url as the last item with the url and text
 
-Scenario: Can add an exception as a list of alerts
-	Given I have a document builder
-	 And I have an exception
-	When I add a exception as a list
-	Then the document should contain a url as the last alert
+Scenario: Can add an object
+	Given I have an alert builder
+	When I add an object
+	 And I build the alert
+	Then the alert should contain that object as the last item
 
-Scenario: Can add an exception as a table
-	Given I have a document builder
-	 And I have an exception
-	When I add a exception as a table
-	Then the document should contain a url as the last alert
+Scenario: Can add a list of objects
+	Given I have an alert builder
+	When I add a list of object
+	 And I build the alert
+	Then the alert should contain each object in order
 
-Scenario: Can add an object as a table
-	Given I have a document builder
-	 And I have an object
-	When I add a object as a table
-	Then the document should contain a url as the last alert
-
-Scenario: Can add a list of object as a list of tables
-	Given I have a document builder
-	And I have a list of  objects
-	When I add a list of objects as a list of tables
-	Then the document should contain a url as the last alert
+Scenario: Can add an alert
+	Given I have an alert builder
+	When I add another alert
+	 And I build the alert
+	Then the alert should contain the other alert as the last item
