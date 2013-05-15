@@ -5,23 +5,14 @@
     /// </summary>
     public class Alerts
     {
-        private static readonly IAlertBuilderFactory BuilderFactory = 
-            new AlertBuilderFactory(new GenericNotificationFactory<Alert>());
-
-        public static IAlertDocumentBuilder Create(string title = "")
+        private static readonly IAlertFactory AlertFactory = new GenericNotificationFactory<Alert>();
+        public static IAlertBuilder Create()
         {
-            return BuilderFactory.Create(title);
+            return new AlertBuilder(AlertFactory);
         }
-
-        public static IAlertTableBuilder CreateTable(object o, string title = "")
+        public static IAlertBuilder Create(string title)
         {
-            return BuilderFactory.CreateTable(o, title);
-        }
-
-        public static IAlertTableBuilder CreateTable(string title = "")
-        {
-            return BuilderFactory.CreateTable(title);
-        }
-
+           return Create().WithTitleOf(title);
+        } 
     }
 }

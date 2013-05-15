@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Specs.FluentAlerts
+namespace FluentAlerts.Specs
 {
-    public static class Mother
+    public static class StepsMother
     {
 
         public static Exception GetNestedException(int nestingDepth)

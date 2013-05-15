@@ -2,25 +2,14 @@
 {
     internal static class EnumerationExtensions
     {
-        public static GroupStyle ToGroupStyle(this TableRowStyle style)
+        public static GroupStyle ToGroupStyle(this RowStyle style)
         {
             switch (style)
             {
-                case TableRowStyle.Highlight:
-                    return GroupStyle.HighlightedText;
+                case RowStyle.Highlight:
+                    return GroupStyle.HighlightedRow;
                 default:
-                    return GroupStyle.NormalText;
-            }
-        }
-
-        public static GroupStyle ToGroupStyle(this TableSpanningRowStyle style)
-        {
-            switch (style)
-            {
-                case TableSpanningRowStyle.Footer:
-                    return GroupStyle.Footer;
-                default:
-                    return GroupStyle.Header;
+                    return GroupStyle.NormalRow;
             }
         }
     }

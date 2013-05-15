@@ -1,76 +1,210 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using FluentAlerts.Extensions;
 
 namespace FluentAlerts
 {
+    //TODO : WIth footer of ??
     public interface IAlertBuilder
     {
+        /// <summary>
+        /// Appends text to first item if it is a text block, otherwise it inserts a text block at
+        /// the first position
+        /// </summary>
+        void AppendTitleWith(string text);
+        IAlertBuilder WithTitleOf(string text);
+        IAlertBuilder WithTitleOf(string format, params object[] args);
+        IAlertBuilder WithSeperator();
+        IAlertBuilder WithTextBlock(string text);
+        IAlertBuilder WithTextBlock(TextStyle style, string text);
+        IAlertBuilder WithTextBlock(string format, params object[] args);
+        IAlertBuilder WithTextBlock(TextStyle style, string format, params object[] args);
+        IAlertBuilder WithUrl(string text, string url);
+        IAlertBuilder WithValue(object value);
+        IAlertBuilder WithValues(IEnumerable<object> values);
+        IAlertBuilder WithRow(params object[] items);
+        IAlertBuilder WithRow(RowStyle style, params object[] items);
+        IAlertBuilder WithAlert(IAlert n);
+
         /// <summary>
         /// The build function, produces a notification with the current items
         /// </summary>
         IAlert ToAlert();
     }
 
-    public abstract class BaseAlertBuilder : IAlertBuilder
+    public class AlertBuilder : IAlertBuilder
     {
         private readonly IAlertFactory _notificationFactory;
-      
-        protected BaseAlertBuilder(IAlertFactory nf)
+        private AlertStyle _style;
+        private readonly IList<IAlertItem> _items;
+
+        public AlertBuilder(IAlertFactory nf)
         {
             _notificationFactory = nf;
-            NotificationItems = new List<IAlertItem>();
+            _items = new List<IAlertItem>();
         }
 
-        protected AlertStyle NotificationStyle { get; private set; }
-        protected IList<IAlertItem> NotificationItems { get; private set; }
 
-        //TODO: Is this needed for fluent build, is so change name to WithStyle otherwise remove and use property
-        protected void SetStyle(AlertStyle style)
+        /// <summary>
+        /// Appends text to first item if it is a text block, otherwise it inserts a text block at
+        /// the first position
+        /// </summary>
+        public void AppendTitleWith(string text)
         {
-            NotificationStyle = style;
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                GetCreateTitle().Text.Append(text);
+            }
         }
 
-        protected void AppendNotifications(IEnumerable<IAlert> ns)
+        public IAlertBuilder WithTitleOf(string text)
+        {
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                var title = GetCreateTitle().Text;
+                //Clear and Append Text
+                title.Length = 0;
+                title.Append(text);
+            }
+            return this;
+        }
+
+        public IAlertBuilder WithTitleOf(string format, params object[] args)
+        {
+            return WithTitleOf(string.Format(format, args));
+        }
+
+        public IAlertBuilder WithSeperator()
+        {
+            AddGroup(GroupStyle.Seperator, string.Empty);
+            return this;
+        }
+
+        public IAlertBuilder WithUrl(string text, string url)
+        {
+            AddGroup(GroupStyle.Url, text, url);
+            return this;
+        }
+
+        public IAlertBuilder WithValue(object value)
+        {
+            AddGroup(GroupStyle.Value, value);
+            return this;
+        }
+
+        public IAlertBuilder WithValues(IEnumerable<object> values)
+        {
+            if (values != null)
+            {
+                foreach (var v in values)
+                {
+                    WithValue(v);
+                }
+            }
+            return this;
+        }
+
+        public IAlertBuilder WithAlert(IAlert n)
+        {
+            Add_items(n);
+            return this;
+        }
+
+        public IAlertBuilder WithTextBlock(TextStyle style, string text)
+        {
+            AddText(text, style);
+            return this;
+        }
+
+        public IAlertBuilder WithTextBlock(TextStyle style, string format, params object[] args)
+        {
+            return WithTextBlock(style, string.Format(format, args));
+        }
+
+        public IAlertBuilder WithTextBlock(string text)
+        {
+            return WithTextBlock(TextStyle.Normal, text);
+        }
+
+        public IAlertBuilder WithTextBlock(string format, params object[] args)
+        {
+            return WithTextBlock(TextStyle.Normal, format, args);
+        }
+
+        public IAlertBuilder WithRow(params object[] items)
+        {
+            return WithRow(RowStyle.Normal, items);
+        }
+
+        public IAlertBuilder WithRow(RowStyle style, params object[] items)
+        {
+            AddGroup(style.ToGroupStyle(), items);
+            return this;
+        }
+        public IAlertBuilder WithSpanningRow(object item)
+        {
+            return WithSpanningRow(RowStyle.Highlight, item);
+        }
+
+        public IAlertBuilder WithSpanningRow(RowStyle style, object item)
+        {
+            AddGroup(style.ToGroupStyle(), new[] { item });
+            return this;
+        }
+        
+        public IAlert ToAlert()
+        {
+            return _notificationFactory.Create(_style, _items);
+        }
+        
+        //TODO: Is this needed for fluent build, is so change name to WithStyle otherwise remove and use property
+        private void SetStyle(AlertStyle style)
+        {
+            _style = style;
+        }
+
+        private void AppendNotifications(IEnumerable<IAlert> ns)
         {
             if (ns == null) return;
             foreach (var n in ns) {
                 AppendNotification(n);
             }
         }
-        protected void AppendNotification(IAlert n)
+        private void AppendNotification(IAlert n)
         {
             if (n != null)
             {
-                AddNotificationItems(n);
+                Add_items(n);
             }
         }
 
-        protected void AddNotificationItems(IEnumerable<IAlertItem> items)
+        private void Add_items(IEnumerable<IAlertItem> items)
         {
             if (items == null) return;
             foreach (var item in items) {
                 AddNotificationItem(item);
             }
         }
-        protected void AddNotificationItem(IAlertItem item)
+        private void AddNotificationItem(IAlertItem item)
         {
             if (item != null)
             {
-                NotificationItems.Add(item);
+                _items.Add(item);
             }
         }
  
         //TODO : any advatage to making INotification.AddValue generic, maybe for type incerception inserializers?
-        protected void AddValue(object item)
+        private void AddValue(object item)
         {
             AddGroup(GroupStyle.Value, new object[] { item });
         }
 
-        protected void AddGroup(GroupStyle style, params object[] items)
+        private void AddGroup(GroupStyle style, params object[] items)
         {
             AddNotificationItem(new AlertGroup{Style = style,Values = items});
         }
 
-        protected void AddText(string text, TextStyle style = TextStyle.Normal)
+        private void AddText(string text, TextStyle style = TextStyle.Normal)
         {
             if (!string.IsNullOrEmpty(text))
             {
@@ -78,9 +212,44 @@ namespace FluentAlerts
             }
         }
 
-        public IAlert ToAlert()
+
+        /// <summary>
+        /// Title is defined in a document as a text block of style title in the first item position
+        /// </summary>
+        /// <returns>Current or new inserted Title</returns>
+        private AlertTextBlock GetCreateTitle()
         {
-            return _notificationFactory.Create(NotificationStyle, NotificationItems);
+            if (HasTitle())
+            {
+                return _items[0] as AlertTextBlock;
+            }
+            return CreateTitle();
+        }
+
+        private bool HasTitle()
+        {
+            return (_items.Any() && IsTitle(_items[0]));
+        }
+
+        private AlertTextBlock CreateTitle()
+        {
+            //Othewise insert
+            var result = new AlertTextBlock { Style = TextStyle.Header };
+            _items.Insert(0, result);
+            return result;
+        }
+
+        /// <summary>
+        /// Return true if object is a text block with a style of Title
+        /// </summary>
+        private static bool IsTitle(object o)
+        {
+            var block = o as AlertTextBlock;
+            if (block != null)
+            {
+                return block.Style == TextStyle.Header;
+            }
+            return false;
         }
 
     }

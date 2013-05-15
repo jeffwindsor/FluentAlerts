@@ -3,7 +3,8 @@
     public enum TextStyle
     {
         Normal,
-        Title,
-        Bold
+        Bold,
+        Header,
+        Footer
     }
 }

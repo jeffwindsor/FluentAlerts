@@ -2,8 +2,8 @@
 {
     public enum GroupStyle
     {
-        NormalText,
-        HighlightedText,
+        NormalRow,
+        HighlightedRow,
         Header,
         Footer,
         Url,

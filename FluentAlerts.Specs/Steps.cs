@@ -3,13 +3,14 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using FluentAssertions;
 using System.Collections.Generic;
+using FluentAlerts.Extensions;
 
 namespace FluentAlerts.Specs.Features
 {
     [Binding]
     public class Steps
     {
-        private IAlertDocumentBuilder _builder;
+        private IAlertBuilder _builder;
         private IAlert _alert;
         private string _text = "Test Text String";
         private const string _url = "Test Url String";
@@ -27,6 +28,7 @@ namespace FluentAlerts.Specs.Features
         {
             _builder = Alerts.Create(_text);
         }
+
 
         [When(@"I build the alert")]
         public void WhenICreateAnAlert()
@@ -58,7 +60,6 @@ namespace FluentAlerts.Specs.Features
             _builder.WithValues(_values);
         }
         
-
         [When(@"I add a title")]
         public void WhenIAddATitle()
         {
@@ -90,6 +91,34 @@ namespace FluentAlerts.Specs.Features
         public void WhenIAddStyledText(TextStyle style)
         {
             _builder.WithTextBlock(style, _text);
+        }
+
+        [When(@"I add a row")]
+        public void WhenIAddARows()
+        {
+            _builder.WithRow(_values);
+        }
+
+        [When(@"I add a (.*) row")]
+        public void WhenIAddAStyledRows(RowStyle style)
+        {
+            _builder.WithRow(style, _values);
+        }
+        
+        [Then(@"the alert should contain that '(.*)' row as the last item")]
+        public void ThenTheAlertShouldContainThatRowAsTheLastItem(RowStyle style)
+        {
+            var item = AssertLastItemIsGroupOfStyle(style.ToGroupStyle());
+            for (var i = 0; i < _values.Length; ++i)
+            {
+                item.Values[i].Should().Be(_values[i]);
+            }
+        }
+
+        [Then(@"the alert should contain that Normal row as the last item")]
+        public void ThenTheAlertShouldContainThatNormalRowAsTheLastItem()
+        {
+            ScenarioContext.Current.Pending();
         }
 
         [Then(@"the alert should contain (.*) text as the last item")]
@@ -143,23 +172,24 @@ namespace FluentAlerts.Specs.Features
         [Then(@"the alert should contain each object in order")]
         public void ThenTheAlertShouldContainEachObjectInOrder()
         {
-            for(var i=0; i < _alert.Count;++i)
+            var delta = _alert.Count - _values.Length;
+            for (var i = 0; i < _values.Length; ++i)
             {
-                var value = AssertGroupIs(_alert[i], GroupStyle.Value);
+                var value = AssertGroupIs(_alert[i + delta], GroupStyle.Value);
                 value.Values[0].Should().Be(_values[i]);
             }
         }
 
-        [Then(@"the alert should contain the other alert as the last item")]
-        public void ThenTheAlertShouldContainTheOtherAlertAsTheLastItem()
+        [Then(@"the alert should contain all the other alert's items")]
+        public void ThenTheAlertShouldContainTheOtherAlertsItems()
         {
-            var item = AssertLastItemIsGroupOfStyle(GroupStyle.Value);
-            item.Values.Count().Should().Be(1);
-            item.Values[0].Should().Be(_otherAlert);
+            var delta = _alert.Count - _otherAlert.Count;
+            for (var i = 0; i < _otherAlert.Count; ++i)
+            {
+                _alert[i + delta].Should().Be(_otherAlert[i]);
+            }
         }
-
-
-
+        
         private AlertGroup AssertLastItemIsGroupOfStyle(GroupStyle style)
         {
             return AssertGroupIs(_alert.Last(), style);

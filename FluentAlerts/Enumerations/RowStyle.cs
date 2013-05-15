@@ -1,6 +1,6 @@
 ﻿namespace FluentAlerts
 {
-    public enum TableRowStyle
+    public enum RowStyle
     {
         Normal,
         Highlight

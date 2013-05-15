@@ -44,13 +44,10 @@
     <Compile Include="Alerts.cs" />
     <Compile Include="Alerts\AlertFactory.cs" />
     <Compile Include="Builders\AlertBuilder.cs" />
-    <Compile Include="Builders\AlertTableBuilder.cs" />
     <Compile Include="Enumerations\AlertStyle.cs" />
     <Compile Include="Builders\AlertBuilderFactory.cs" />
-    <Compile Include="Builders\AlertDocumentBuilder.cs" />
     <Compile Include="Enumerations\GroupStyle.cs" />
-    <Compile Include="Enumerations\TableRowStyle.cs" />
-    <Compile Include="Enumerations\TableSpanningRowStyle.cs" />
+    <Compile Include="Enumerations\RowStyle.cs" />
     <Compile Include="Enumerations\TextStyle.cs" />
     <Compile Include="Extensions\EnumerationExtensions.cs" />
     <Compile Include="Items\AlertGroup.cs" />
