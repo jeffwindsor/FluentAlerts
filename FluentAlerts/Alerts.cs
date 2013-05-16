@@ -9,7 +9,7 @@ namespace FluentAlerts
     {
         public static IAlertBuilder Create()
         {
-            return new AlertBuilder(new GenericNotificationFactory<Alert>());
+            return new AlertBuilder(new AlertFactory<Alert>());
         }
         public static IAlertBuilder Create(string title)
         {
@@ -18,7 +18,7 @@ namespace FluentAlerts
 
         internal static IAlertBuilder Create(Exception inner)
         {
-            var builder = new AlertBuilder(new GenericNotificationFactory<Alert>());
+            var builder = new AlertBuilder(new AlertFactory<Alert>());
             builder.WithInnerException(inner);
             return builder;
         }

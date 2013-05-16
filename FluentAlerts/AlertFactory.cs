@@ -4,10 +4,19 @@ namespace FluentAlerts
 {
     public interface IAlertFactory
     {
+        /// <summary>
+        /// Create an alert from a style and list of alert items (in order)
+        /// </summary>
+        /// <returns></returns>
         IAlert Create(AlertStyle style, IList<IAlertItem> items);
     }
     
-    public class GenericNotificationFactory<T> : IAlertFactory where T : IAlert, new()
+    /// <summary>
+    /// Generic based alert factory for any IAlert implmenting concrete class
+    /// that has a parameterless constructor
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class AlertFactory<T> : IAlertFactory where T : IAlert, new()
     {
         public IAlert Create(AlertStyle style, IList<IAlertItem> items)
 	    {

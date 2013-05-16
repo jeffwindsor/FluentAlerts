@@ -19,6 +19,19 @@ namespace FluentAlerts.Specs
             _builder = Alerts.Create().WithTitleOf(_title);
         }
 
+        [Given(@"I have an exception")]
+        public void GivenIHaveAnException()
+        {
+            _originalException = StepsMother.GetNestedException(0);
+        }
+
+
+        [When(@"I wrap it in an alert")]
+        public void WhenIWrapItInAnAlert()
+        {
+            _builder = _originalException.WrapInAlert().WithTitleOf(_title);
+        }
+
         [When(@"I throw the alert")]
         public void WhenIThrowTheAlert()
         {
@@ -32,6 +45,25 @@ namespace FluentAlerts.Specs
                 _caughtException = ex;
             }
         }
+
+        /// <summary>
+        /// Throw an alert inside an exception that inherits AlertException and exposes
+        /// at a minimum a constructor of (IAlert alert, Exception inner)
+        /// </summary>
+        [When(@"I throw the alert as some dervied alert exception")]
+        public void WhenIThrowTheAlertAsSomeDerviedAlertException()
+        {
+            try
+            {
+                _alert = _builder.ToAlert();
+                _builder.ThrowAs((alert, inner) => new SpecsAlertException(alert, inner));
+            }
+            catch (AlertException ex)
+            {
+                _caughtException = ex;
+            }
+        }
+
 
         [Then(@"the exception is an alert exception")]
         public void ThenTheExceptionIsAnAlertException()
@@ -50,37 +82,11 @@ namespace FluentAlerts.Specs
         {
             _caughtException.Alert.Title.Should().Be(_title);
         }
-
-        [When(@"I throw the alert as some dervied alert exception")]
-        public void WhenIThrowTheAlertAsSomeDerviedAlertException()
-        {
-            try
-            {
-                _alert = _builder.ToAlert();
-                _builder.ThrowAs<SpecsAlertException>((alert, inner) => new SpecsAlertException(alert, inner));
-            }
-            catch (AlertException ex)
-            {
-                _caughtException = ex;
-            }
-        }
-
+        
         [Then(@"the exception is of the derived alert exception type")]
         public void ThenTheExceptionIsOfTheDerivedAlertExceptionType()
         {
             _caughtException.Should().BeOfType<SpecsAlertException>();
-        }
-
-        [Given(@"I have an exception")]
-        public void GivenIHaveAnException()
-        {
-            _originalException = StepsMother.GetNestedException(0);
-        }
-
-        [When(@"I wrap it in an alert")]
-        public void WhenIWrapItInAnAlert()
-        {
-            _builder = _originalException.WrapInAlert().WithTitleOf(_title);
         }
 
         [Then(@"the original exception is now the inner exception")]
