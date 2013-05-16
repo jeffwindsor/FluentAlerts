@@ -3,12 +3,11 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using FluentAssertions;
 using System.Collections.Generic;
-using FluentAlerts.Extensions;
 
-namespace FluentAlerts.Specs.Features
+namespace FluentAlerts.Specs
 {
     [Binding]
-    public class Steps
+    public class StepsForAlertBuilding
     {
         private IAlertBuilder _builder;
         private IAlert _alert;
@@ -105,7 +104,7 @@ namespace FluentAlerts.Specs.Features
             _builder.WithRow(style, _values);
         }
         
-        [Then(@"the alert should contain that '(.*)' row as the last item")]
+        [Then(@"the alert should contain that (.*) row as the last item")]
         public void ThenTheAlertShouldContainThatRowAsTheLastItem(RowStyle style)
         {
             var item = AssertLastItemIsGroupOfStyle(style.ToGroupStyle());
@@ -115,17 +114,11 @@ namespace FluentAlerts.Specs.Features
             }
         }
 
-        [Then(@"the alert should contain that Normal row as the last item")]
-        public void ThenTheAlertShouldContainThatNormalRowAsTheLastItem()
-        {
-            ScenarioContext.Current.Pending();
-        }
-
         [Then(@"the alert should contain (.*) text as the last item")]
         public void ThenTheAlertShouldContainTextAsThLastAlertItem(TextStyle style)
         {
             var item = AssertLastItemIsTypeAndConvertTo<AlertTextBlock>();
-            item.Text.ToString().Should().Be(_text);
+            item.ToString().Should().Be(_text);
         }
         
         [Then(@"the alert should be empty")]
@@ -144,7 +137,7 @@ namespace FluentAlerts.Specs.Features
         public void ThenTheAlertShouldContainTitleAsTheFirstAlertItem()
         {
             var item = AssertItemIsTypeAndConvertTo<AlertTextBlock>(_alert.First()); 
-            item.Text.ToString().Should().Be(_text);
+            item.ToString().Should().Be(_text);
         }
         
         [Then(@"the alert should contain a seperator as the last item")]
@@ -213,5 +206,6 @@ namespace FluentAlerts.Specs.Features
             result.Should().NotBeNull();
             return result;
         }
+
     }
 }

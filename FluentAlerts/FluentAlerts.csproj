@@ -42,18 +42,18 @@
   <ItemGroup>
     <Compile Include="AlertException.cs" />
     <Compile Include="Alerts.cs" />
-    <Compile Include="Alerts\AlertFactory.cs" />
-    <Compile Include="Builders\AlertBuilder.cs" />
+    <Compile Include="AlertFactory.cs" />
+    <Compile Include="AlertBuilder.cs" />
     <Compile Include="Enumerations\AlertStyle.cs" />
-    <Compile Include="Builders\AlertBuilderFactory.cs" />
     <Compile Include="Enumerations\GroupStyle.cs" />
     <Compile Include="Enumerations\RowStyle.cs" />
     <Compile Include="Enumerations\TextStyle.cs" />
-    <Compile Include="Extensions\EnumerationExtensions.cs" />
+    <Compile Include="ExceptionExtensions.cs" />
+    <Compile Include="EnumerationExtensions.cs" />
     <Compile Include="Items\AlertGroup.cs" />
     <Compile Include="Items\AlertTextBlock.cs" />
     <Compile Include="Items\IAlertItem.cs" />
-    <Compile Include="Alerts\Alert.cs" />
+    <Compile Include="Alert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

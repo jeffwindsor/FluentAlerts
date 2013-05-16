@@ -85,7 +85,7 @@ Scenario: Can add rows
 	Given I have an alert builder
 	When I add a row
 	 And I build the alert
-	Then the alert should contain that 'Normal' row as the last item
+	Then the alert should contain that Normal row as the last item
 
 Scenario Outline: Can add styled rows
 	Given I have an alert builder

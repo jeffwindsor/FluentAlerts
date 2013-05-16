@@ -59,11 +59,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanFluentlyAddAlertItems.feature</DependentUpon>
     </Compile>
+    <Compile Include="DeveloperCanFluentlyThrowAlertAsAnException.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeveloperCanFluentlyThrowAlertAsAnException.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\undone\DeveloperCanIncludeAlertsInAnException.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanIncludeAlertsInAnException.feature</DependentUpon>
     </Compile>
+    <Compile Include="StepsForExceptions.cs" />
     <Compile Include="StepsMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DeveloperCanSerializeAlertIntoMultpleFormats.feature.cs">
@@ -76,7 +82,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanCreateATableBasedAlert.feature</DependentUpon>
     </Compile>
-    <Compile Include="Steps.cs" />
+    <Compile Include="StepsForAlertBuilding.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DeveloperCanCreateAnAlert.feature">
@@ -86,6 +92,10 @@
     <None Include="DeveloperCanFluentlyAddAlertItems.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanFluentlyAddAlertItems.feature.cs</LastGenOutput>
+    </None>
+    <None Include="DeveloperCanFluentlyThrowAlertAsAnException.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DeveloperCanFluentlyThrowAlertAsAnException.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\undone\DeveloperCanIncludeAlertsInAnException.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

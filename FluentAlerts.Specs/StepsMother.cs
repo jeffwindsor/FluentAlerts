@@ -23,20 +23,25 @@ namespace FluentAlerts.Specs
 
         private static void ThrowNestedException(int nestingDepth)
         {
+            if (nestingDepth == 0)
+            {
+                throw new ApplicationException(string.Format("Depth {0}", nestingDepth));
+            }
             try
             {
-                //Re-curse to Bottom
-                if (nestingDepth > 1) ThrowNestedException(nestingDepth - 1);
-
-                //Throw exception at bottom
-                throw new ApplicationException(string.Format("Depth {0}", nestingDepth - 1));
+                ThrowNestedException(nestingDepth - 1);
             }
             catch (Exception ex)
             {
-                //Wrap Nested Exception in new Exception and throw
                 throw new ApplicationException(string.Format("Depth {0}", nestingDepth), ex);
             }
         }       
+    }
+    //Simulates an external exception derived from the alert exception
+    public class SpecsAlertException : AlertException
+    {
+        public SpecsAlertException(IAlert alert) : base(alert) { }
+        public SpecsAlertException(IAlert alert, Exception inner) : base(alert, inner) { }
     }
 
     public class TestObject

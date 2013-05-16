@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using FluentAlerts.Extensions;
 
 namespace FluentAlerts
 {
-    //TODO : WIth footer of ??
+    //TODO : With footer of ??
     public interface IAlertBuilder
     {
+        //Fluent Methods
+
         /// <summary>
         /// Appends text to first item if it is a text block, otherwise it inserts a text block at
         /// the first position
@@ -25,11 +27,15 @@ namespace FluentAlerts
         IAlertBuilder WithRow(params object[] items);
         IAlertBuilder WithRow(RowStyle style, params object[] items);
         IAlertBuilder WithAlert(IAlert n);
+        
+        //Terminal Methods
 
         /// <summary>
         /// The build function, produces a notification with the current items
         /// </summary>
         IAlert ToAlert();
+        void Throw();
+        void ThrowAs<TException>(Func<IAlert, Exception, TException> constructor) where TException : AlertException;
     }
 
     public class AlertBuilder : IAlertBuilder
@@ -37,13 +43,20 @@ namespace FluentAlerts
         private readonly IAlertFactory _notificationFactory;
         private AlertStyle _style;
         private readonly IList<IAlertItem> _items;
+        private Exception _inner = null;
 
-        public AlertBuilder(IAlertFactory nf)
+        public AlertBuilder(IAlertFactory iaf)
         {
-            _notificationFactory = nf;
+            _notificationFactory = iaf;
             _items = new List<IAlertItem>();
         }
 
+        //NOTE: special case still debating form
+        internal IAlertBuilder WithInnerException(Exception ex)
+        {
+            _inner = ex;
+            return this;
+        }
 
         /// <summary>
         /// Appends text to first item if it is a text block, otherwise it inserts a text block at
@@ -156,7 +169,17 @@ namespace FluentAlerts
         {
             return _notificationFactory.Create(_style, _items);
         }
-        
+
+        public void Throw()
+        {
+            throw new AlertException(ToAlert(), _inner);
+        }
+
+        public void ThrowAs<TException>(Func<IAlert, Exception, TException> constructor) where TException : AlertException
+        {
+            throw constructor(ToAlert(), _inner);
+        }
+
         //TODO: Is this needed for fluent build, is so change name to WithStyle otherwise remove and use property
         private void SetStyle(AlertStyle style)
         {

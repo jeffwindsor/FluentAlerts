@@ -23,5 +23,10 @@ namespace FluentAlerts
         {
             get { return _text.Length == 0; }
         }
+
+        public override string ToString()
+        {
+            return _text.ToString();
+        }
     }
 }

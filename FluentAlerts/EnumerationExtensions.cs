@@ -1,4 +1,4 @@
-﻿namespace FluentAlerts.Extensions
+﻿namespace FluentAlerts
 {
     internal static class EnumerationExtensions
     {
