@@ -1,4 +1,5 @@
-﻿Feature: A developer can create an alert
+﻿@Alerts
+Feature: A developer can create an alert
 	In order to document the current system state
 	As a developer
 	I want to be able to create an alert of current state

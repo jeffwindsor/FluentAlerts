@@ -59,15 +59,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanFluentlyAddAlertItems.feature</DependentUpon>
     </Compile>
-    <Compile Include="DeveloperCanFluentlyThrowAlertAsAnException.feature.cs">
+    <Compile Include="DeveloperCanFluentlyThrowAlertsAsExceptions.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanFluentlyThrowAlertAsAnException.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\undone\DeveloperCanIncludeAlertsInAnException.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanIncludeAlertsInAnException.feature</DependentUpon>
+      <DependentUpon>DeveloperCanFluentlyThrowAlertsAsExceptions.feature</DependentUpon>
     </Compile>
     <Compile Include="StepsForExceptions.cs" />
     <Compile Include="StepsMother.cs" />
@@ -93,13 +88,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanFluentlyAddAlertItems.feature.cs</LastGenOutput>
     </None>
-    <None Include="DeveloperCanFluentlyThrowAlertAsAnException.feature">
+    <None Include="DeveloperCanFluentlyThrowAlertsAsExceptions.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanFluentlyThrowAlertAsAnException.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\undone\DeveloperCanIncludeAlertsInAnException.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanIncludeAlertsInAnException.feature.cs</LastGenOutput>
+      <LastGenOutput>DeveloperCanFluentlyThrowAlertsAsExceptions.feature.cs</LastGenOutput>
     </None>
     <None Include="App.config">
       <SubType>Designer</SubType>

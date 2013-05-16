@@ -9,14 +9,14 @@ namespace FluentAlerts.Specs
     {
         private IAlertBuilder _builder;
         private IAlert _alert;
-        private string _title = "Test TItle";
+        private const string _testText = "Test Title";
         private AlertException _caughtException;
         private Exception _originalException;
 
         [Given(@"I have an filled alert builder")]
         public void GivenIHaveAnAlertBuilder()
         {
-            _builder = Alerts.Create().WithTitleOf(_title);
+            _builder = Alerts.Create().WithTitleOf(_testText);
         }
 
         [Given(@"I have an exception")]
@@ -29,7 +29,7 @@ namespace FluentAlerts.Specs
         [When(@"I wrap it in an alert")]
         public void WhenIWrapItInAnAlert()
         {
-            _builder = _originalException.WrapInAlert().WithTitleOf(_title);
+            _builder = _originalException.WrapInAlert().WithTitleOf(_testText);
         }
 
         [When(@"I throw the alert")]
@@ -37,7 +37,7 @@ namespace FluentAlerts.Specs
         {
             try
             {
-                _alert = _builder.ToAlert();
+                _alert = _builder.ToAlert();  //for comparison later
                 _builder.Throw();
             }
             catch (AlertException ex)
@@ -55,7 +55,7 @@ namespace FluentAlerts.Specs
         {
             try
             {
-                _alert = _builder.ToAlert();
+                _alert = _builder.ToAlert();  //for comparison later
                 _builder.ThrowAs((alert, inner) => new SpecsAlertException(alert, inner));
             }
             catch (AlertException ex)
@@ -63,7 +63,32 @@ namespace FluentAlerts.Specs
                 _caughtException = ex;
             }
         }
+        
+        [When(@"I create an alert exception with the builder")]
+        public void WhenICreateAnAlertExceptionWithTheBuilder()
+        {
+            _alert = _builder.ToAlert();  //for comparison later
+            _caughtException = new AlertException(_builder);
+        }
 
+        [When(@"I create an alert exception with a builder and other exception")]
+        public void WhenICreateAnAlertExceptionWithABuilderAndOtherException()
+        {
+            _alert = _builder.ToAlert();  //for comparison later
+            _caughtException = new AlertException(_builder,_originalException);
+        }
+
+        [When(@"I create an alert exception with the text message")]
+        public void WhenICreateAnAlertExceptionWithTheTextMessage()
+        {
+            _caughtException = new AlertException(_testText);
+        }
+
+        [When(@"I create an alert exception with text message and the inner exception")]
+        public void WhenICreateAnAlertExceptionWithTextMessageAndTheInnerException()
+        {
+            _caughtException = new AlertException(_testText,_originalException);
+        }
 
         [Then(@"the exception is an alert exception")]
         public void ThenTheExceptionIsAnAlertException()
@@ -80,7 +105,7 @@ namespace FluentAlerts.Specs
         [Then(@"the exception's message is the alerts title")]
         public void ThenTheExceptionsMessageIsTheAlertsTitle()
         {
-            _caughtException.Alert.Title.Should().Be(_title);
+            _caughtException.Alert.Title.Should().Be(_testText);
         }
         
         [Then(@"the exception is of the derived alert exception type")]
@@ -94,6 +119,12 @@ namespace FluentAlerts.Specs
         {
             _caughtException.InnerException.Should().Be(_originalException);
         }
-
+       
+        [Then(@"exception message is the simple text")]
+        public void ThenExceptionMessageIsTheTextMessage()
+        {
+            _caughtException.Message.Should().Be(_testText);
+        }
+        
     }
 }

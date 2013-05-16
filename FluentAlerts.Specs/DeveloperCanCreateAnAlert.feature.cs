@@ -20,6 +20,7 @@ namespace FluentAlerts.Specs
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("A developer can create an alert")]
+    [NUnit.Framework.CategoryAttribute("Alerts")]
     public partial class ADeveloperCanCreateAnAlertFeature
     {
         
@@ -33,7 +34,8 @@ namespace FluentAlerts.Specs
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "A developer can create an alert", "In order to document the current system state\r\nAs a developer\r\nI want to be able " +
-                    "to create an alert of current state", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "to create an alert of current state", ProgrammingLanguage.CSharp, new string[] {
+                        "Alerts"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -70,13 +72,13 @@ namespace FluentAlerts.Specs
         public virtual void CanCreateAnAlertWithATitle()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert with a title", ((string[])(null)));
-#line 6
-this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("I have an alert builder and a title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have an alert builder and a title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
+ testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 10
  testRunner.Then("the alert should contain title as the first item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -87,15 +89,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanCreateAnAlert()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert", ((string[])(null)));
-#line 11
-this.ScenarioSetup(scenarioInfo);
 #line 12
- testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 13
- testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 14
- testRunner.Then("the alert should be empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
+ testRunner.Then("the alert should be empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 16
   testRunner.And("the alert should be a list of alert items", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

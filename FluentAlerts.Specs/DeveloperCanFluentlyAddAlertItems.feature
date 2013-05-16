@@ -1,4 +1,5 @@
-﻿Feature: A developer can fluently add documenation times to an alert
+﻿@Alerts @FluentInterface 
+Feature: A developer can fluently add documenation times to an alert
 	In order to document the current system state
 	As a developer
 	I want to be able to add items to an alert
