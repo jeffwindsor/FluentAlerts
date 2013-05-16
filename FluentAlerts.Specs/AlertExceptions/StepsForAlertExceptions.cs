@@ -5,7 +5,7 @@ using FluentAssertions;
 namespace FluentAlerts.Specs
 {
     [Binding]
-    public class StepsForExceptions
+    public class StepsForAlertsExceptions
     {
         private IAlertBuilder _builder;
         private IAlert _alert;
@@ -22,7 +22,7 @@ namespace FluentAlerts.Specs
         [Given(@"I have an exception")]
         public void GivenIHaveAnException()
         {
-            _originalException = StepsMother.GetNestedException(0);
+            _originalException = Mother.GetNestedException(0);
         }
 
 
@@ -126,5 +126,12 @@ namespace FluentAlerts.Specs
             _caughtException.Message.Should().Be(_testText);
         }
         
+        //Simulates an external exception derived from the alert exception
+        public class SpecsAlertException : AlertException
+        {
+            public SpecsAlertException(IAlert alert) : base(alert) { }
+            public SpecsAlertException(IAlert alert, Exception inner) : base(alert, inner) { }
+        }
     }
+
 }

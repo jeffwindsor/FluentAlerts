@@ -1,14 +1,8 @@
 ﻿Feature: A developer can serialize an alert into multiple formats
 
-#html
-#text
-#json
-#xml
-#pre vs post serialization of objects
-#add conventions to serializers and overides
+#bracketed formatted : html, text, json, xml
 #open closed - inject serializer into ToSerializadString(). 
-# Expose serializer base and component types? and ability to route inside the serializer
-
+#hooks
 
 Scenario: Can create a table from an objects property values
 	Given I create a table with an object using depth 0

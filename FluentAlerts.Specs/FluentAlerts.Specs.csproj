@@ -49,59 +49,77 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeveloperCanCreateAnAlert.feature.cs">
+    <Compile Include="AlertBuilding\DeveloperCanFluentlyCreateAlerts.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanCreateAnAlert.feature</DependentUpon>
+      <DependentUpon>DeveloperCanFluentlyCreateAlerts.feature</DependentUpon>
     </Compile>
-    <Compile Include="DeveloperCanFluentlyAddAlertItems.feature.cs">
+    <Compile Include="AlertBuilding\DeveloperCanFluentlyAddAlertItems.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanFluentlyAddAlertItems.feature</DependentUpon>
     </Compile>
-    <Compile Include="DeveloperCanFluentlyThrowAlertsAsExceptions.feature.cs">
+    <Compile Include="AlertExceptions\DeveloperCanFluentlyThrowAlertsAsExceptions.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanFluentlyThrowAlertsAsExceptions.feature</DependentUpon>
     </Compile>
-    <Compile Include="StepsForExceptions.cs" />
-    <Compile Include="StepsMother.cs" />
+    <Compile Include="AlertExceptions\StepsForAlertExceptions.cs" />
+    <Compile Include="AlertSerialization\DeveloperCanSpecifyDepthOfObjectGraphSerializationByType.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeveloperCanSpecifyDepthOfObjectGraphSerializationByType.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AlertSerialization\DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AlertSerialization\DeveloperCanSpecifyWhichTypeMembersAreSerialized.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeveloperCanSpecifyWhichTypeMembersAreSerialized.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Mother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DeveloperCanSerializeAlertIntoMultpleFormats.feature.cs">
+    <Compile Include="AlertSerialization\DeveloperCanSpecifySerializationFormats.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanSerializeAlertIntoMultpleFormats.feature</DependentUpon>
+      <DependentUpon>DeveloperCanSpecifySerializationFormats.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\undone\DeveloperCanCreateATableBasedAlert.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanCreateATableBasedAlert.feature</DependentUpon>
-    </Compile>
-    <Compile Include="StepsForAlertBuilding.cs" />
+    <Compile Include="AlertBuilding\StepsForAlertBuilding.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DeveloperCanCreateAnAlert.feature">
+    <None Include="AlertBuilding\DeveloperCanFluentlyCreateAlerts.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanCreateAnAlert.feature.cs</LastGenOutput>
+      <LastGenOutput>DeveloperCanFluentlyCreateAlerts.feature.cs</LastGenOutput>
     </None>
-    <None Include="DeveloperCanFluentlyAddAlertItems.feature">
+    <None Include="AlertBuilding\DeveloperCanFluentlyAddAlertItems.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanFluentlyAddAlertItems.feature.cs</LastGenOutput>
     </None>
-    <None Include="DeveloperCanFluentlyThrowAlertsAsExceptions.feature">
+    <None Include="AlertExceptions\DeveloperCanFluentlyThrowAlertsAsExceptions.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanFluentlyThrowAlertsAsExceptions.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AlertSerialization\DeveloperCanSpecifyDepthOfObjectGraphSerializationByType.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DeveloperCanSpecifyDepthOfObjectGraphSerializationByType.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AlertSerialization\DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AlertSerialization\DeveloperCanSpecifyWhichTypeMembersAreSerialized.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DeveloperCanSpecifyWhichTypeMembersAreSerialized.feature.cs</LastGenOutput>
     </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="DeveloperCanSerializeAlertIntoMultpleFormats.feature">
+    <None Include="AlertSerialization\DeveloperCanSpecifySerializationFormats.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanSerializeAlertIntoMultpleFormats.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\undone\DeveloperCanCreateATableBasedAlert.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanCreateATableBasedAlert.feature.cs</LastGenOutput>
+      <LastGenOutput>DeveloperCanSpecifySerializationFormats.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

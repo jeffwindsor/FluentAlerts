@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace FluentAlerts.Specs
+namespace FluentAlerts.Specs.AlertSerialization
 {
     using TechTalk.SpecFlow;
     
@@ -25,7 +25,7 @@ namespace FluentAlerts.Specs
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "DeveloperCanSerializeAlertIntoMultpleFormats.feature"
+#line 1 "DeveloperCanSpecifySerializationFormats.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
@@ -69,15 +69,15 @@ namespace FluentAlerts.Specs
         public virtual void CanCreateATableFromAnObjectsPropertyValues()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create a table from an objects property values", ((string[])(null)));
-#line 13
+#line 7
 this.ScenarioSetup(scenarioInfo);
-#line 14
+#line 8
  testRunner.Given("I create a table with an object using depth 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 15
+#line 9
  testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 16
+#line 10
  testRunner.Then("the title is the objects type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 17
+#line 11
   testRunner.And("a row is added for each property with cells for property name and property value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -90,15 +90,15 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create a table from an objects property values recursing reference types exce" +
                     "pt strings to a given depth", ((string[])(null)));
-#line 19
+#line 13
 this.ScenarioSetup(scenarioInfo);
-#line 20
+#line 14
  testRunner.Given("I create a table with an object using depth 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 21
+#line 15
  testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 22
+#line 16
  testRunner.Then("the title is the objects type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 23
+#line 17
   testRunner.And("a row is added for each property with cells for property name and property value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -109,13 +109,13 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanCreateATableFromAnException()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create a table from an exception", ((string[])(null)));
-#line 25
+#line 19
 this.ScenarioSetup(scenarioInfo);
-#line 26
+#line 20
  testRunner.Given("I create a table with an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 27
+#line 21
  testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 28
+#line 22
  testRunner.Then("the table should have a row", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

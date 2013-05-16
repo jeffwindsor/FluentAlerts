@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Alerts")]
 [assembly: AssemblyDescription("Object Graphs for of state information, which can be transported via exceptions or other vehicles, and serialized to any format at any time")]
 [assembly: AssemblyProduct("Alerts")]
-[assembly: ComVisible(false)]
 [assembly: Guid("e45bf408-ef7e-48ee-a2f8-f7283355f332")]
 
 [assembly: AssemblyVersion("1.0.0.0")]

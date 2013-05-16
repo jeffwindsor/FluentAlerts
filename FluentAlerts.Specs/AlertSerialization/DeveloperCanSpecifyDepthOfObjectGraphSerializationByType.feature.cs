@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace FluentAlerts.Specs
+namespace FluentAlerts.Specs.AlertSerialization
 {
     using TechTalk.SpecFlow;
     
@@ -19,23 +19,22 @@ namespace FluentAlerts.Specs
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("A developer can create an alert")]
-    [NUnit.Framework.CategoryAttribute("Alerts")]
-    public partial class ADeveloperCanCreateAnAlertFeature
+    [NUnit.Framework.DescriptionAttribute("DeveloperCanSpecifyDepthOfObjectGraphSerializationByType")]
+    [NUnit.Framework.CategoryAttribute("Serialization")]
+    public partial class DeveloperCanSpecifyDepthOfObjectGraphSerializationByTypeFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "DeveloperCanCreateAnAlert.feature"
+#line 1 "DeveloperCanSpecifyDepthOfObjectGraphSerializationByType.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "A developer can create an alert", "In order to document the current system state\r\nAs a developer\r\nI want to be able " +
-                    "to create an alert of current state", ProgrammingLanguage.CSharp, new string[] {
-                        "Alerts"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanSpecifyDepthOfObjectGraphSerializationByType", "", ProgrammingLanguage.CSharp, new string[] {
+                        "Serialization"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,37 +67,23 @@ namespace FluentAlerts.Specs
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can create an alert with a title")]
-        public virtual void CanCreateAnAlertWithATitle()
+        [NUnit.Framework.DescriptionAttribute("Can specify serialization go no deeper than type member chain")]
+        public virtual void CanSpecifySerializationGoNoDeeperThanTypeMemberChain()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert with a title", ((string[])(null)));
-#line 7
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify serialization go no deeper than type member chain", ((string[])(null)));
+#line 5
 this.ScenarioSetup(scenarioInfo);
-#line 8
- testRunner.Given("I have an alert builder and a title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 9
- testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 10
- testRunner.Then("the alert should contain title as the first item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can create an alert")]
-        public virtual void CanCreateAnAlert()
+        [NUnit.Framework.DescriptionAttribute("Can specify serialization go no deeper than type")]
+        public virtual void CanSpecifySerializationGoNoDeeperThanType()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert", ((string[])(null)));
-#line 12
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify serialization go no deeper than type", ((string[])(null)));
+#line 9
 this.ScenarioSetup(scenarioInfo);
-#line 13
- testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 14
- testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 15
- testRunner.Then("the alert should be empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 16
-  testRunner.And("the alert should be a list of alert items", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
