@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using FluentAlerts.Formatters;
 using FluentAlerts.Serializers.Templates;
 using FluentAlerts.Transformers;
@@ -19,11 +18,6 @@ namespace FluentAlerts.Serializers
             :base(transformer,transformStrategy,formatter)
         {
             _template = template;
-        }
-
-        protected virtual ISerializerTemplate<string> GetTemplate()
-        {
-            return _template;
         }
 
         protected override void Add(string text)

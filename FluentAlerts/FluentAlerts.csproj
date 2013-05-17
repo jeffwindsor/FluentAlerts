@@ -53,7 +53,7 @@
     <Compile Include="IAlertItem.cs" />
     <Compile Include="Alert.cs" />
     <Compile Include="Formatters\ToStringFormatter.cs" />
-    <Compile Include="Transformers\AllNonPrimitiveTransformStrategy.cs" />
+    <Compile Include="Transformers\DefaultTransformStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializers\AlertSerializer.cs" />
     <Compile Include="Formatters\IFormatter.cs" />

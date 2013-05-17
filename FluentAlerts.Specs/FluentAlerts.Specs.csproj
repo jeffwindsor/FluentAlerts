@@ -59,6 +59,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanFluentlyAddAlertItems.feature</DependentUpon>
     </Compile>
+    <Compile Include="AlertBuilding\DeveloperCanFluentlyTransformAlertValues.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeveloperCanFluentlyTransformAlertValues.feature</DependentUpon>
+    </Compile>
     <Compile Include="AlertExceptions\DeveloperCanFluentlyThrowAlertsAsExceptions.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -97,6 +102,10 @@
     <None Include="AlertBuilding\DeveloperCanFluentlyAddAlertItems.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanFluentlyAddAlertItems.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AlertBuilding\DeveloperCanFluentlyTransformAlertValues.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DeveloperCanFluentlyTransformAlertValues.feature.cs</LastGenOutput>
     </None>
     <None Include="AlertExceptions\DeveloperCanFluentlyThrowAlertsAsExceptions.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

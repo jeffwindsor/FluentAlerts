@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace FluentAlerts.Specs.AlertSerialization
+namespace FluentAlerts.Specs.AlertBuilding
 {
     using TechTalk.SpecFlow;
     
@@ -19,22 +19,20 @@ namespace FluentAlerts.Specs.AlertSerialization
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("DeveloperCanSpecifyDepthOfObjectGraphSerializationByType")]
-    [NUnit.Framework.CategoryAttribute("Serialization")]
-    public partial class DeveloperCanSpecifyDepthOfObjectGraphSerializationByTypeFeature
+    [NUnit.Framework.DescriptionAttribute("DeveloperCanFluentlyTransformAlertValues")]
+    public partial class DeveloperCanFluentlyTransformAlertValuesFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "DeveloperCanSpecifyDepthOfObjectGraphSerializationByType.feature"
+#line 1 "DeveloperCanFluentlyTransformAlertValues.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanSpecifyDepthOfObjectGraphSerializationByType", "", ProgrammingLanguage.CSharp, new string[] {
-                        "Serialization"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanFluentlyTransformAlertValues", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -67,26 +65,26 @@ namespace FluentAlerts.Specs.AlertSerialization
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can specify serialization go no deeper than type member chain")]
-        public virtual void CanSpecifySerializationGoNoDeeperThanTypeMemberChain()
+        [NUnit.Framework.DescriptionAttribute("Can fluently transform alert values to primitives")]
+        public virtual void CanFluentlyTransformAlertValuesToPrimitives()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify serialization go no deeper than type member chain", ((string[])(null)));
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can fluently transform alert values to primitives", ((string[])(null)));
+#line 3
 this.ScenarioSetup(scenarioInfo);
-#line 7
+#line 4
  testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can specify serialization go no deeper than type")]
-        public virtual void CanSpecifySerializationGoNoDeeperThanType()
+        [NUnit.Framework.DescriptionAttribute("Can fluently transform and format alert values to strings")]
+        public virtual void CanFluentlyTransformAndFormatAlertValuesToStrings()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify serialization go no deeper than type", ((string[])(null)));
-#line 11
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can fluently transform and format alert values to strings", ((string[])(null)));
+#line 6
 this.ScenarioSetup(scenarioInfo);
-#line 12
+#line 7
  testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();

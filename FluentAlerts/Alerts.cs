@@ -15,7 +15,7 @@ namespace FluentAlerts
         {
            return Create().WithTitleOf(title);
         }
-
+         
         internal static IAlertBuilder Create(Exception inner)
         {
             var builder = new AlertBuilder(new AlertFactory<Alert>());

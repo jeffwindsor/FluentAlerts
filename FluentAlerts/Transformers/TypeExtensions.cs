@@ -11,5 +11,10 @@ namespace FluentAlerts.Transformers
         {
             return type.IsPrimitive || type == typeof(string) || type == typeof(DateTime);
         }
+
+        public static bool IsClassOrUserDefinedStruct(this Type type)
+        {
+            return !type.IsFundamental() && !type.IsEnum;
+        }
     }
 }

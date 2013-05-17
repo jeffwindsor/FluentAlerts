@@ -88,6 +88,8 @@ this.ScenarioSetup(scenarioInfo);
                         "Extensibility"});
 #line 11
 this.ScenarioSetup(scenarioInfo);
+#line 12
+ testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -99,8 +101,10 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add to type selections", new string[] {
                         "Extensibility"});
-#line 14
+#line 15
 this.ScenarioSetup(scenarioInfo);
+#line 16
+ testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -112,8 +116,10 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can limit global selections", new string[] {
                         "Extensibility"});
-#line 17
+#line 19
 this.ScenarioSetup(scenarioInfo);
+#line 20
+ testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -125,8 +131,10 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add to global selections", new string[] {
                         "Extensibility"});
-#line 20
+#line 23
 this.ScenarioSetup(scenarioInfo);
+#line 24
+ testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
         }

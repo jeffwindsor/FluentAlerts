@@ -73,6 +73,8 @@ namespace FluentAlerts.Specs.AlertSerialization
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cyclic references", ((string[])(null)));
 #line 4
 this.ScenarioSetup(scenarioInfo);
+#line 5
+ testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -82,8 +84,10 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ObtainValueFailure()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Obtain value failure", ((string[])(null)));
-#line 6
+#line 7
 this.ScenarioSetup(scenarioInfo);
+#line 8
+ testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -93,8 +97,10 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void NoInfoForType()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No info for type", ((string[])(null)));
-#line 8
+#line 10
 this.ScenarioSetup(scenarioInfo);
+#line 11
+ testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -104,8 +110,10 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void NullValue()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Null value", ((string[])(null)));
-#line 10
+#line 13
 this.ScenarioSetup(scenarioInfo);
+#line 14
+ testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
         }

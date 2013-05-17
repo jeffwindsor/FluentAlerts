@@ -66,7 +66,7 @@ namespace FluentAlerts.Serializers
         {
             //Route value by type
             if (value is IAlert)
-            {
+            { 
                 //Embedded Alert in Group, send to base for routing
                 Add((IAlert)value);
             }
@@ -77,18 +77,19 @@ namespace FluentAlerts.Serializers
             }
             else
             {
-                if (_transformStrategy.IsTransformRequired(value))
+                if (_transformStrategy.IsTransformRequired(value,0))
                 {
                     //If object qualifies, transform object into an alert, and add 
-                    Add(_transformer.Transform(value,_transformStrategy));
+                    Add(_transformer.Transform(value, _transformStrategy, 0));
                 }
-                else
+                else 
                 {
                     //otherwise add formatted value
                     Add(_formatter.Format(value));
                 }
             }
         }
+
         protected abstract void Add(TResult value);
         protected abstract void BeginSerialization();
         protected abstract void BeginAlert();
