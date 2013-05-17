@@ -1,4 +1,6 @@
-﻿namespace FluentAlerts.Transformers
+﻿using FluentAlerts.Transformers.Strategies;
+
+namespace FluentAlerts.Transformers
 {
     public interface ITransformer
     {

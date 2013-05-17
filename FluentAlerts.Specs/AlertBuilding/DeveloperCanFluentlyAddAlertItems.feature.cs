@@ -19,10 +19,10 @@ namespace FluentAlerts.Specs.AlertBuilding
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("A developer can fluently add documenation times to an alert")]
+    [NUnit.Framework.DescriptionAttribute("A developer can fluently add alert times")]
     [NUnit.Framework.CategoryAttribute("Alerts")]
     [NUnit.Framework.CategoryAttribute("FluentInterface")]
-    public partial class ADeveloperCanFluentlyAddDocumenationTimesToAnAlertFeature
+    public partial class ADeveloperCanFluentlyAddAlertTimesFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -34,7 +34,7 @@ namespace FluentAlerts.Specs.AlertBuilding
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "A developer can fluently add documenation times to an alert", "In order to document the current system state\r\nAs a developer\r\nI want to be able " +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "A developer can fluently add alert times", "In order to document the current system state\r\nAs a developer\r\nI want to be able " +
                     "to add items to an alert", ProgrammingLanguage.CSharp, new string[] {
                         "Alerts",
                         "FluentInterface"});
@@ -286,19 +286,21 @@ this.ScenarioSetup(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Can add rows")]
-        public virtual void CanAddRows()
+        [NUnit.Framework.TestCaseAttribute("Normal", null)]
+        [NUnit.Framework.TestCaseAttribute("Emphasized", null)]
+        public virtual void CanAddRows(string row_Style, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add rows", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add rows", exampleTags);
 #line 83
 this.ScenarioSetup(scenarioInfo);
 #line 84
  testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 85
- testRunner.When("I add a row", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I add a {0} row", row_Style), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 86
   testRunner.And("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 87
- testRunner.Then("the alert should contain that Normal row as the last item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the alert should contain that {0} row as the last item", row_Style), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

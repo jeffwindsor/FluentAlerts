@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace FluentAlerts.Transformers
+namespace FluentAlerts.Transformers.Strategies
 {
     public interface ITransformStrategy
     {
@@ -15,12 +15,7 @@ namespace FluentAlerts.Transformers
     public abstract class TransformStrategy : ITransformStrategy
     {
         protected delegate bool TransformationAtDepthRule(Type type, int currentDepth);
-        protected ICollection<TransformationAtDepthRule> Rules { get; private set; }
-
-        protected TransformStrategy()
-        {
-            Rules = new List<TransformationAtDepthRule>();
-        }
+        protected readonly ICollection<TransformationAtDepthRule> Rules = new List<TransformationAtDepthRule>();
 
         public virtual bool IsTransformRequired(object o, int depth)
         {

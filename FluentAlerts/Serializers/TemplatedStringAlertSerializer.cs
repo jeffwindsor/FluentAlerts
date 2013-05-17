@@ -2,6 +2,7 @@
 using FluentAlerts.Formatters;
 using FluentAlerts.Serializers.Templates;
 using FluentAlerts.Transformers;
+using FluentAlerts.Transformers.Strategies;
 
 namespace FluentAlerts.Serializers
 {

@@ -1,5 +1,6 @@
 ﻿ using FluentAlerts.Formatters;
  using FluentAlerts.Transformers;
+ using FluentAlerts.Transformers.Strategies;
 
 namespace FluentAlerts.Serializers
 {
@@ -57,35 +58,58 @@ namespace FluentAlerts.Serializers
         {
             if (item == null) return;
 
-            if (item is IAlert)              { Add((IAlert)item);}
-            else if (item is AlertGroup)     { Add((AlertGroup)item);}
-            else if (item is AlertTextBlock) { Add((AlertTextBlock)item);}
+            var alert = item as IAlert;
+            if (alert != null)
+            {
+                Add(alert);
+            }
+            else
+            {
+                var @group = item as AlertGroup;
+                if (@group != null)
+                {
+                    Add(@group);
+                }
+                else
+                {
+                    var block = item as AlertTextBlock;
+                    if (block != null)
+                    {
+                        Add(block);
+                    }
+                }
+            }
         }
 
         protected virtual void AddValue(object value)
         {
             //Route value by type
-            if (value is IAlert)
+            var item = value as IAlert;
+            if (item != null)
             { 
                 //Embedded Alert in Group, send to base for routing
-                Add((IAlert)value);
-            }
-            else if (value is IAlertItem)
-            {
-                //Embedded Alert Item in Group, send to base for routing
-                Add((IAlertItem)value);
+                Add(item);
             }
             else
             {
-                if (_transformStrategy.IsTransformRequired(value,0))
+                var alertItem = value as IAlertItem;
+                if (alertItem != null)
                 {
-                    //If object qualifies, transform object into an alert, and add 
-                    Add(_transformer.Transform(value, _transformStrategy, 0));
+                    //Embedded Alert Item in Group, send to base for routing
+                    Add(alertItem);
                 }
-                else 
+                else
                 {
-                    //otherwise add formatted value
-                    Add(_formatter.Format(value));
+                    if (_transformStrategy.IsTransformRequired(value,0))
+                    {
+                        //If object qualifies, transform object into an alert, and add 
+                        Add(_transformer.Transform(value, _transformStrategy, 0));
+                    }
+                    else 
+                    {
+                        //otherwise add formatted value
+                        Add(_formatter.Format(value));
+                    }
                 }
             }
         }

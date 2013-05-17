@@ -4,7 +4,6 @@
     {
         Normal,
         Emphasized,
-        Header,
-        Footer
+        Header
     }
 }

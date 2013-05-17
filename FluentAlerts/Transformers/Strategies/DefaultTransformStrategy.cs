@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace FluentAlerts.Transformers
+namespace FluentAlerts.Transformers.Strategies
 {
     /// <summary>
     /// Will not transform primitives, strings, enums or datetimes.

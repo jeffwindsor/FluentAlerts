@@ -2,7 +2,7 @@
 
 namespace FluentAlerts
 {
-    internal static class ExceptionExtensions
+    internal static class ExtensionsToExceptions
     {
         public static IAlertBuilder WrapInAlert<TException>(this TException ex) where TException : Exception
         {

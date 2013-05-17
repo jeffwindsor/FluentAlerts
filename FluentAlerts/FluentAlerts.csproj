@@ -45,28 +45,26 @@
     <Compile Include="AlertFactory.cs" />
     <Compile Include="AlertBuilder.cs" />
     <Compile Include="GroupStyle.cs" />
-    <Compile Include="RowStyle.cs" />
     <Compile Include="TextStyle.cs" />
-    <Compile Include="ExceptionExtensions.cs" />
+    <Compile Include="ExtensionsToExceptions.cs" />
     <Compile Include="AlertGroup.cs" />
     <Compile Include="AlertTextBlock.cs" />
     <Compile Include="IAlertItem.cs" />
     <Compile Include="Alert.cs" />
     <Compile Include="Formatters\ToStringFormatter.cs" />
-    <Compile Include="Transformers\DefaultTransformStrategy.cs" />
+    <Compile Include="Transformers\Strategies\DefaultTransformStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializers\AlertSerializer.cs" />
     <Compile Include="Formatters\IFormatter.cs" />
     <Compile Include="Serializers\Templates\ISerializerTemplate.cs" />
     <Compile Include="Transformers\HeirarchialNameValueRowTransformer.cs" />
-    <Compile Include="Transformers\ITransformStrategy.cs" />
+    <Compile Include="Transformers\Strategies\ITransformStrategy.cs" />
     <Compile Include="Transformers\ITransformer.cs" />
     <Compile Include="Serializers\TemplatedStringAlertSerializer.cs" />
-    <Compile Include="Transformers\TypeExtensions.cs" />
-    <Compile Include="TypeInformers\AllPublicPropertiesAndFieldsSelector.cs" />
-    <Compile Include="TypeInformers\ITypeInfoSelector.cs" />
-    <Compile Include="TypeInformers\TypeInfo.cs" />
-    <Compile Include="TypeInformers\TypeInfoRepository.cs" />
+    <Compile Include="ExtensionsToType.cs" />
+    <Compile Include="Transformers\TypeInformers\DefaultTypeInformer.cs" />
+    <Compile Include="Transformers\TypeInformers\TypeInfo.cs" />
+    <Compile Include="Transformers\TypeInformers\TypeInformer.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FluentAlerts.Transformers
+namespace FluentAlerts
 {
     internal static class TypeExtensions
     {

@@ -1,5 +1,5 @@
 ﻿@Alerts @FluentInterface 
-Feature: A developer can fluently add documenation times to an alert
+Feature: A developer can fluently add alert times
 	In order to document the current system state
 	As a developer
 	I want to be able to add items to an alert
@@ -80,18 +80,12 @@ Scenario: Can add an alert
 	 And I build the alert
 	Then the alert should contain all the other alert's items
 
-Scenario: Can add rows
+Scenario Outline: Can add rows
 	Given I have an alert builder
-	When I add a row
+	When I add a <row_style> row
 	 And I build the alert
-	Then the alert should contain that Normal row as the last item
-
-#Scenario Outline: Can add styled rows
-#	Given I have an alert builder
-#	When I add a <row_style> row
-#	 And I build the alert
-#	Then the alert should contain that <row_style> row as the last item
-#Examples:
-#	| row_style |
-#	| Normal    |
-#	| Highlight |
+	Then the alert should contain that <row_style> row as the last item
+Examples:
+	| row_style  |
+	| Normal     |
+	| Emphasized |

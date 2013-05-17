@@ -26,6 +26,7 @@ namespace FluentAlerts
         IAlertBuilder WithValue(object value);
         IAlertBuilder WithValues(IEnumerable<object> values);
         IAlertBuilder WithRow(params object[] values);
+        IAlertBuilder WithEmphasizedRow(params object[] values);
         IAlertBuilder WithRows(IEnumerable <object[]> listOfValues);
         IAlertBuilder WithAlert(IAlert n);
         
@@ -145,6 +146,12 @@ namespace FluentAlerts
         public IAlertBuilder WithRow(params object[] cells)
         {
             AddGroup(GroupStyle.Row, cells);
+            return this;
+        }
+
+        public IAlertBuilder WithEmphasizedRow(params object[] cells)
+        {
+            AddGroup(GroupStyle.EmphasizedRow, cells);
             return this;
         }
 

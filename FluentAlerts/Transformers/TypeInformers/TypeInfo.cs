@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace FluentAlerts.TypeInformers
+namespace FluentAlerts.Transformers.TypeInformers
 {
     public class TypeInfo 
     {
@@ -10,13 +10,9 @@ namespace FluentAlerts.TypeInformers
         {
             PropertyInfos = Enumerable.Empty<PropertyInfo>();
             FieldInfos = Enumerable.Empty<FieldInfo>();
-            MethodInfos = Enumerable.Empty<MethodInfo>();
-            EventInfos = Enumerable.Empty<EventInfo>();
         }
 
         public IEnumerable<PropertyInfo> PropertyInfos { get; set; }
         public IEnumerable<FieldInfo> FieldInfos { get; set; }
-        public IEnumerable<MethodInfo> MethodInfos { get; set; }
-        public IEnumerable<EventInfo> EventInfos { get; set; }
     }
 }

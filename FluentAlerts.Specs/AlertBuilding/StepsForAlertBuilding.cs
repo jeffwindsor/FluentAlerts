@@ -104,27 +104,40 @@ namespace FluentAlerts.Specs
             _builder.WithHeader( _text);
         }
 
-        [When(@"I add a row")]
-        public void WhenIAddARows()
+        [When(@"I add a Normal row")]
+        public void WhenIAddANormalRow()
         {
             _builder.WithRow(_values);
         }
 
-        [When(@"I add a (.*) row")]
-        public void WhenIAddAStyledRows(RowStyle style)
+        [When(@"I add a Emphasized row")]
+        public void WhenIAddAEmphasizedRow()
         {
-            _builder.WithRow(style, _values);
+            _builder.WithEmphasizedRow(_values);
         }
         
-        [Then(@"the alert should contain that (.*) row as the last item")]
-        public void ThenTheAlertShouldContainThatRowAsTheLastItem(RowStyle style)
+        [Then(@"the alert should contain that Normal row as the last item")]
+        public void ThenTheAlertShouldContainThatNormalRowAsTheLastItem()
         {
-            var item = AssertLastItemIsGroupOfStyle(GroupStyle.Row);
+            ThenTheAlertShouldContainThatGroupStyleRowAsTheLastItem(GroupStyle.Row);
+        }
+
+        [Then(@"the alert should contain that Emphasized row as the last item")]
+        public void ThenTheAlertShouldContainThatEmphasizedRowAsTheLastItem()
+        {
+            ThenTheAlertShouldContainThatGroupStyleRowAsTheLastItem(GroupStyle.EmphasizedRow);
+        }
+
+        public void ThenTheAlertShouldContainThatGroupStyleRowAsTheLastItem(GroupStyle style)
+        {
+            var item = AssertLastItemIsGroupOfStyle(style);
             for (var i = 0; i < _values.Length; ++i)
-            { 
+            {
                 item.Values[i].Should().Be(_values[i]);
             }
         }
+
+
 
         [Then(@"the alert should contain (.*) text as the last item")]
         public void ThenTheAlertShouldContainTextAsThLastAlertItem(TextStyle style)

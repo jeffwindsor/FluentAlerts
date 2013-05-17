@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using FluentAlerts.TypeInformers;
+using FluentAlerts.Transformers.Strategies;
+using FluentAlerts.Transformers.TypeInformers;
 
 namespace FluentAlerts.Transformers
 {
     public class HeirarchialNameValueRowTransformer: ITransformer 
     {
-        private readonly ITypeInfoRepository _typeInfos;
+        private readonly ITypeInfomer _typeInfos;
 
-        public HeirarchialNameValueRowTransformer(ITypeInfoRepository typeInfos)
+        public HeirarchialNameValueRowTransformer(ITypeInfomer typeInfos)
         {
             _typeInfos = typeInfos;
         }
