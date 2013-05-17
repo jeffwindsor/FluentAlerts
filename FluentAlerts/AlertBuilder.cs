@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,19 +18,21 @@ namespace FluentAlerts
         IAlertBuilder WithTitleOf(string text);
         IAlertBuilder WithTitleOf(string format, params object[] args);
         IAlertBuilder WithSeperator();
-        IAlertBuilder WithTextBlock(string text);
-        IAlertBuilder WithTextBlock(TextStyle style, string text);
-        IAlertBuilder WithTextBlock(string format, params object[] args);
-        IAlertBuilder WithTextBlock(TextStyle style, string format, params object[] args);
+        IAlertBuilder With(string text);
+        IAlertBuilder With(string format, params object[] args);
+        IAlertBuilder WithEmphasized(string text);
+        IAlertBuilder WithEmphasized(string format, params object[] args);
+        IAlertBuilder WithHeader(string text);
+        IAlertBuilder WithHeader(string format, params object[] args);
         IAlertBuilder WithUrl(string text, string url);
         IAlertBuilder WithValue(object value);
         IAlertBuilder WithValues(IEnumerable<object> values);
-        IAlertBuilder WithRow(params object[] items);
-        IAlertBuilder WithRow(RowStyle style, params object[] items);
+        IAlertBuilder WithRow(params object[] values);
+        IAlertBuilder WithRows(IEnumerable <object[]> listOfValues);
         IAlertBuilder WithAlert(IAlert n);
         
         //Terminal Methods
-
+         
         /// <summary>
         /// The build function, produces a notification with the current items
         /// </summary>
@@ -43,7 +46,7 @@ namespace FluentAlerts
         private readonly IAlertFactory _notificationFactory;
         private AlertStyle _style;
         private readonly IList<IAlertItem> _items;
-        private Exception _inner = null;
+        private Exception _inner;
 
         public AlertBuilder(IAlertFactory iaf)
         {
@@ -92,6 +95,36 @@ namespace FluentAlerts
             AddGroup(GroupStyle.Seperator, string.Empty);
             return this;
         }
+        
+        public IAlertBuilder With(string text)
+        {
+            return With(TextStyle.Normal, text);
+        }
+
+        public IAlertBuilder With(string format, params object[] args)
+        {
+            return With(TextStyle.Normal, format, args);
+        }
+
+        public IAlertBuilder WithEmphasized(string text)
+        {
+            return With(TextStyle.Emphasized, text);
+        }
+
+        public IAlertBuilder WithEmphasized(string format, params object[] args)
+        {
+            return With(TextStyle.Emphasized, format, args);
+        }
+
+        public IAlertBuilder WithHeader(string text)
+        {
+            return With(TextStyle.Header, text);
+        }
+
+        public IAlertBuilder WithHeader(string format, params object[] args)
+        {
+            return With(TextStyle.Header, format, args);
+        }
 
         public IAlertBuilder WithUrl(string text, string url)
         {
@@ -104,64 +137,30 @@ namespace FluentAlerts
             AddGroup(GroupStyle.Value, value);
             return this;
         }
-
+        
         public IAlertBuilder WithValues(IEnumerable<object> values)
         {
-            if (values != null)
-            {
-                foreach (var v in values)
-                {
-                    WithValue(v);
-                }
-            }
+            foreach (var value in values)
+                WithValue(value);
+            return this;
+        }
+
+        public IAlertBuilder WithRow(params object[] cells)
+        {
+            AddGroup(GroupStyle.Row, cells);
+            return this;
+        }
+
+        public IAlertBuilder WithRows(IEnumerable<object[]> rows)
+        {
+            foreach (var row in rows)
+                WithRow(row);
             return this;
         }
 
         public IAlertBuilder WithAlert(IAlert n)
         {
-            Add_items(n);
-            return this;
-        }
-
-        public IAlertBuilder WithTextBlock(TextStyle style, string text)
-        {
-            AddText(text, style);
-            return this;
-        }
-
-        public IAlertBuilder WithTextBlock(TextStyle style, string format, params object[] args)
-        {
-            return WithTextBlock(style, string.Format(format, args));
-        }
-
-        public IAlertBuilder WithTextBlock(string text)
-        {
-            return WithTextBlock(TextStyle.Normal, text);
-        }
-
-        public IAlertBuilder WithTextBlock(string format, params object[] args)
-        {
-            return WithTextBlock(TextStyle.Normal, format, args);
-        }
-
-        public IAlertBuilder WithRow(params object[] items)
-        {
-            return WithRow(RowStyle.Normal, items);
-        }
-
-        public IAlertBuilder WithRow(RowStyle style, params object[] items)
-        {
-            AddGroup(style.ToGroupStyle(), items);
-            return this;
-        }
-        public IAlertBuilder WithSpanningRow(object item)
-        {
-            return WithSpanningRow(RowStyle.Highlight, item);
-        }
-
-        public IAlertBuilder WithSpanningRow(RowStyle style, object item)
-        {
-            AddGroup(style.ToGroupStyle(), new[] { item });
+            AddAlertItems(n);
             return this;
         }
         
@@ -178,6 +177,17 @@ namespace FluentAlerts
         public void ThrowAs<TException>(Func<IAlert, Exception, TException> constructor) where TException : AlertException
         {
             throw constructor(ToAlert(), _inner);
+        }
+        
+        private IAlertBuilder With(TextStyle style, string format, params object[] args)
+        {
+            return With(style, string.Format(format, args));
+        }
+
+        private IAlertBuilder With(TextStyle style, string text)
+        {
+            AddText(text, style);
+            return this;
         }
 
         //TODO: Is this needed for fluent build, is so change name to WithStyle otherwise remove and use property
@@ -197,11 +207,11 @@ namespace FluentAlerts
         {
             if (n != null)
             {
-                Add_items(n);
+                AddAlertItems(n);
             }
         }
 
-        private void Add_items(IEnumerable<IAlertItem> items)
+        private void AddAlertItems(IEnumerable<IAlertItem> items)
         {
             if (items == null) return;
             foreach (var item in items) {
@@ -234,8 +244,7 @@ namespace FluentAlerts
                 AddNotificationItem(new AlertTextBlock(text){Style = TextStyle.Normal});
             }
         }
-
-
+        
         /// <summary>
         /// Title is defined in a document as a text block of style title in the first item position
         /// </summary>

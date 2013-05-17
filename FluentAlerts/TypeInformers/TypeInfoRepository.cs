@@ -4,17 +4,22 @@ using System.Linq;
 
 namespace FluentAlerts.TypeInfoSelectors
 {
-    public class TypeInfoDictionary
+    public interface ITypeInfoRepository
+    {
+        TypeInfo Find(Type forType);
+    }
+
+    public class TypeInfoRepository: ITypeInfoRepository 
     {
         private readonly IDictionary<Type,TypeInfo> _typeInfosByType = new Dictionary<Type, TypeInfo>();
         private readonly ITypeInfoSelector[] _selectors;
 
-        public TypeInfoDictionary(params ITypeInfoSelector[] selectors)
+        public TypeInfoRepository(params ITypeInfoSelector[] selectors)
         { 
             _selectors = selectors;
         }
 
-        public TypeInfo GetTypeInfo(Type forType)
+        public TypeInfo Find(Type forType)
         {
             //If selected type infos are not in dictionary, create and add it
             if (!_typeInfosByType.ContainsKey(forType))

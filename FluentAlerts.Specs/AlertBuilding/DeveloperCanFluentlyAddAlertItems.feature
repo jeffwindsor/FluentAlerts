@@ -36,9 +36,8 @@ Scenario Outline: Can add a styled text
 Examples:
 	| text_style |
 	| Normal     |
-	| Bold       |
+	| Emphasized |
 	| Header     |
-	| Footer     |
 
 Scenario Outline: Can add a format based styled text
 	Given I have an alert builder
@@ -48,9 +47,8 @@ Scenario Outline: Can add a format based styled text
 Examples:
 	| text_style |
 	| Normal     |
-	| Bold       |
+	| Emphasized |
 	| Header     |
-	| Footer     |
 
 Scenario: Can add a seperator
 	Given I have an alert builder
@@ -88,12 +86,12 @@ Scenario: Can add rows
 	 And I build the alert
 	Then the alert should contain that Normal row as the last item
 
-Scenario Outline: Can add styled rows
-	Given I have an alert builder
-	When I add a <row_style> row
-	 And I build the alert
-	Then the alert should contain that <row_style> row as the last item
-Examples:
-	| row_style |
-	| Normal    |
-	| Highlight |
+#Scenario Outline: Can add styled rows
+#	Given I have an alert builder
+#	When I add a <row_style> row
+#	 And I build the alert
+#	Then the alert should contain that <row_style> row as the last item
+#Examples:
+#	| row_style |
+#	| Normal    |
+#	| Highlight |

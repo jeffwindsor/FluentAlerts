@@ -1,4 +1,6 @@
-﻿namespace FluentAlerts.Serializers
+﻿using System;
+
+namespace FluentAlerts.Serializers
 {
     public interface ISerializerTemplate<TResult>
     {
@@ -9,6 +11,7 @@
 
         TResult GetGroupHeader(GroupStyle style);
         TResult GetValueHeader(GroupStyle style, int index, int indexMax);
+
         TResult GetValueFooter(GroupStyle style, int index, int indexMax);
         TResult GetGroupFooter(GroupStyle style);
 

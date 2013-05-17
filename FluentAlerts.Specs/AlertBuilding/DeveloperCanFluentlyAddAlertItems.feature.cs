@@ -148,9 +148,8 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Can add a styled text")]
         [NUnit.Framework.TestCaseAttribute("Normal", null)]
-        [NUnit.Framework.TestCaseAttribute("Bold", null)]
+        [NUnit.Framework.TestCaseAttribute("Emphasized", null)]
         [NUnit.Framework.TestCaseAttribute("Header", null)]
-        [NUnit.Framework.TestCaseAttribute("Footer", null)]
         public virtual void CanAddAStyledText(string text_Style, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add a styled text", exampleTags);
@@ -171,21 +170,20 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Can add a format based styled text")]
         [NUnit.Framework.TestCaseAttribute("Normal", null)]
-        [NUnit.Framework.TestCaseAttribute("Bold", null)]
+        [NUnit.Framework.TestCaseAttribute("Emphasized", null)]
         [NUnit.Framework.TestCaseAttribute("Header", null)]
-        [NUnit.Framework.TestCaseAttribute("Footer", null)]
         public virtual void CanAddAFormatBasedStyledText(string text_Style, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add a format based styled text", exampleTags);
-#line 43
+#line 42
 this.ScenarioSetup(scenarioInfo);
-#line 44
+#line 43
  testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 45
+#line 44
  testRunner.When(string.Format("I add {0} text", text_Style), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 46
+#line 45
   testRunner.And("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 47
+#line 46
  testRunner.Then(string.Format("the alert should contain {0} text as the last item", text_Style), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -196,15 +194,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanAddASeperator()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add a seperator", ((string[])(null)));
-#line 55
+#line 53
 this.ScenarioSetup(scenarioInfo);
-#line 56
+#line 54
  testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 57
+#line 55
  testRunner.When("I add a seperator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 58
+#line 56
   testRunner.And("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 59
+#line 57
  testRunner.Then("the alert should contain a seperator as the last item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -215,15 +213,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanAddAUrl()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add a url", ((string[])(null)));
-#line 61
+#line 59
 this.ScenarioSetup(scenarioInfo);
-#line 62
+#line 60
  testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 63
+#line 61
  testRunner.When("I add a url", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 64
+#line 62
   testRunner.And("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 65
+#line 63
  testRunner.Then("the alert should contain a url as the last item with the url and text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -234,15 +232,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanAddAnObject()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add an object", ((string[])(null)));
-#line 67
+#line 65
 this.ScenarioSetup(scenarioInfo);
-#line 68
+#line 66
  testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 69
+#line 67
  testRunner.When("I add an object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 70
+#line 68
   testRunner.And("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 71
+#line 69
  testRunner.Then("the alert should contain that object as the last item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -253,15 +251,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanAddAListOfObjects()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add a list of objects", ((string[])(null)));
-#line 73
+#line 71
 this.ScenarioSetup(scenarioInfo);
-#line 74
+#line 72
  testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 75
+#line 73
  testRunner.When("I add a list of object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 76
+#line 74
   testRunner.And("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 77
+#line 75
  testRunner.Then("the alert should contain each object in order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -272,15 +270,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanAddAnAlert()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add an alert", ((string[])(null)));
-#line 79
+#line 77
 this.ScenarioSetup(scenarioInfo);
-#line 80
+#line 78
  testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 81
+#line 79
  testRunner.When("I add another alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 82
+#line 80
   testRunner.And("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 83
+#line 81
  testRunner.Then("the alert should contain all the other alert\'s items", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -291,37 +289,16 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanAddRows()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add rows", ((string[])(null)));
+#line 83
+this.ScenarioSetup(scenarioInfo);
+#line 84
+ testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 85
-this.ScenarioSetup(scenarioInfo);
-#line 86
- testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 87
  testRunner.When("I add a row", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 88
+#line 86
   testRunner.And("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 89
+#line 87
  testRunner.Then("the alert should contain that Normal row as the last item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can add styled rows")]
-        [NUnit.Framework.TestCaseAttribute("Normal", null)]
-        [NUnit.Framework.TestCaseAttribute("Highlight", null)]
-        public virtual void CanAddStyledRows(string row_Style, string[] exampleTags)
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add styled rows", exampleTags);
-#line 91
-this.ScenarioSetup(scenarioInfo);
-#line 92
- testRunner.Given("I have an alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 93
- testRunner.When(string.Format("I add a {0} row", row_Style), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 94
-  testRunner.And("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 95
- testRunner.Then(string.Format("the alert should contain that {0} row as the last item", row_Style), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

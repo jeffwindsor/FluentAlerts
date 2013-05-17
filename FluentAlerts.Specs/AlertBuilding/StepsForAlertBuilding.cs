@@ -63,7 +63,7 @@ namespace FluentAlerts.Specs
         public void WhenIAddATitle()
         {
             _text = "Change Title";
-            _builder.WithTextBlock( _text);
+            _builder.WithTitleOf(_text);
         }
 
         [When(@"I add a format based title")]
@@ -73,7 +73,7 @@ namespace FluentAlerts.Specs
             var one = "one";
             var format = "{0} {1}";
             _text = string.Format(format, zero, one);
-            _builder.WithTextBlock(_text);
+            _builder.WithTitleOf(format, zero, one);
         }
 
         [When(@"I add another alert")]
@@ -86,10 +86,22 @@ namespace FluentAlerts.Specs
             _builder.WithAlert(_otherAlert);
         }
 
-        [When(@"I add (.*) text")]
-        public void WhenIAddStyledText(TextStyle style)
+        [When(@"I add Emphasized text")]
+        public void WhenIAddEmpahsizedText()
         {
-            _builder.WithTextBlock(style, _text);
+            _builder.WithEmphasized( _text);
+        }
+
+        [When(@"I add Normal text")]
+        public void WhenIAddText()
+        {
+            _builder.With( _text);
+        }
+
+        [When(@"I add Header text")]
+        public void WhenIAddHeaderText()
+        {
+            _builder.WithHeader( _text);
         }
 
         [When(@"I add a row")]
@@ -107,9 +119,9 @@ namespace FluentAlerts.Specs
         [Then(@"the alert should contain that (.*) row as the last item")]
         public void ThenTheAlertShouldContainThatRowAsTheLastItem(RowStyle style)
         {
-            var item = AssertLastItemIsGroupOfStyle(style.ToGroupStyle());
+            var item = AssertLastItemIsGroupOfStyle(GroupStyle.Row);
             for (var i = 0; i < _values.Length; ++i)
-            {
+            { 
                 item.Values[i].Should().Be(_values[i]);
             }
         }
@@ -118,7 +130,8 @@ namespace FluentAlerts.Specs
         public void ThenTheAlertShouldContainTextAsThLastAlertItem(TextStyle style)
         {
             var item = AssertLastItemIsTypeAndConvertTo<AlertTextBlock>();
-            item.ToString().Should().Be(_text);
+            item.ToString().Should().Be(_text); 
+            item.Style = style;
         }
         
         [Then(@"the alert should be empty")]
