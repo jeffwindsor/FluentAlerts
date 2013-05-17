@@ -8,7 +8,7 @@ namespace FluentAlerts
         /// Create an alert from a style and list of alert items (in order)
         /// </summary>
         /// <returns></returns>
-        IAlert Create(AlertStyle style, IList<IAlertItem> items);
+        IAlert Create(IList<IAlertItem> items);
     }
     
     /// <summary>
@@ -18,9 +18,9 @@ namespace FluentAlerts
     /// <typeparam name="T"></typeparam>
     public class AlertFactory<T> : IAlertFactory where T : IAlert, new()
     {
-        public IAlert Create(AlertStyle style, IList<IAlertItem> items)
+        public IAlert Create(IList<IAlertItem> items)
 	    {
-		    var result = new T { Style = style };
+		    var result = new T();
 		    if (items != null) 
             {
 			    foreach (var item in items) 

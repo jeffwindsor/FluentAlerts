@@ -5,14 +5,11 @@ namespace FluentAlerts
 {
     public interface IAlert: IList<IAlertItem>, IAlertItem
     {
-        AlertStyle Style { get; set; }
         string Title { get; }
     }
 
     internal class Alert : List<IAlertItem>, IAlert 
     {
-        public AlertStyle Style { get; set; }
-        
         public string Title
         {
             get

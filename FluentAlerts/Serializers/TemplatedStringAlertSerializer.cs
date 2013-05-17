@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using FluentAlerts.Serializers.Formatters;
+using FluentAlerts.Formatters;
+using FluentAlerts.Serializers.Templates;
 using FluentAlerts.Transformers;
 
 namespace FluentAlerts.Serializers
@@ -9,22 +10,20 @@ namespace FluentAlerts.Serializers
     {
         //String Accumulator
         private readonly StringBuilder _acc = new StringBuilder();
-        //Templates by Style
-        private readonly IDictionary<AlertStyle, ISerializerTemplate<string>> _templates;
+        private readonly ISerializerTemplate<string> _template;
         
-        public TemplatedStringAlertSerializer(
-            ITransformer transformer,
-            ITransformStrategy transformStrategy,
-            IFormatter<string> formatter,
-            IDictionary<AlertStyle, ISerializerTemplate<string>> templates)
+        public TemplatedStringAlertSerializer(ITransformer transformer,
+                    ITransformStrategy transformStrategy,
+                    IFormatter<string> formatter,
+                    ISerializerTemplate<string> template)
             :base(transformer,transformStrategy,formatter)
         {
-            _templates = templates;
+            _template = template;
         }
 
-        protected virtual ISerializerTemplate<string> GetTemplate(AlertStyle style)
+        protected virtual ISerializerTemplate<string> GetTemplate()
         {
-            return _templates[style];
+            return _template;
         }
 
         protected override void Add(string text)
@@ -37,54 +36,53 @@ namespace FluentAlerts.Serializers
             return _acc.ToString();
         }
 
-        protected override void BeginSerialization(AlertStyle style)
+        protected override void BeginSerialization()
         {
-           Add(GetTemplate(style).GetSerializationHeader());
+           Add(_template.GetSerializationHeader());
         }
 
-        protected override void EndSerialization(AlertStyle style)
+        protected override void EndSerialization()
         {
-           Add(GetTemplate(style).GetSerializationFooter());
+           Add(_template.GetSerializationFooter());
         }
 
-        protected override void BeginAlert(AlertStyle style)
+        protected override void BeginAlert()
         {
-           Add(GetTemplate(style).GetAlertHeader());
+           Add(_template.GetAlertHeader());
         }
 
-        protected override void EndAlert(AlertStyle style)
+        protected override void EndAlert()
         {
-           Add(GetTemplate(style).GetAlertFooter());
+           Add(_template.GetAlertFooter());
         }
 
-        protected override void Add(AlertTextBlock textBlock, AlertStyle style)
+        protected override void Add(AlertTextBlock textBlock )
         {
-           Add(GetTemplate(style).GetTextBlock(textBlock.Text.ToString(), textBlock.Style));
+           Add(_template.GetTextBlock(textBlock.Text.ToString(), textBlock.Style));
         }
 
-        protected override void Add(AlertGroup g, AlertStyle alertStyle)
+        protected override void Add(AlertGroup g)
         {
-            var template = GetTemplate(alertStyle);
             var groupStyle = g.Style;
             var maxValueIndex = g.Values.Length - 1;
 
             //Open group
-           Add(template.GetGroupHeader(groupStyle));
+           Add(_template.GetGroupHeader(groupStyle));
             for (var i = 0; i <= maxValueIndex; i++)
             {
                 //Open Value
-               Add(template.GetValueHeader(groupStyle, i, maxValueIndex));
+               Add(_template.GetValueHeader(groupStyle, i, maxValueIndex));
 
                 //Add Value
                 var value = g.Values[i];
-                AddValue(value, alertStyle);
+                AddValue(value);
 
                 //CloseValue
-               Add(template.GetValueFooter(groupStyle, i, maxValueIndex));
+               Add(_template.GetValueFooter(groupStyle, i, maxValueIndex));
                 
             }
             //Close Group
-           Add(template.GetGroupFooter(groupStyle));
+           Add(_template.GetGroupFooter(groupStyle));
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace FluentAlerts.TypeInfoSelectors
+namespace FluentAlerts.TypeInformers
 {
 
     //default 

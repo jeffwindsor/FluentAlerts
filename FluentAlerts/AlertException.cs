@@ -30,10 +30,7 @@ namespace FluentAlerts
         }
 
         public IAlert Alert { get; set; }
-
-        //TODO: Map to pre-serialization, and serilization? for ease of transformations
-
-
+        
         private static IAlert GetAlertWithTitle(string message)
         {
             return Alerts.Create(message).ToAlert();

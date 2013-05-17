@@ -137,7 +137,7 @@ namespace FluentAlerts.Specs
         [Then(@"the alert should be empty")]
         public void ThenTheAlertShouldBeEmpty()
         {
-            _alert.Count.Should().Be(0, "Notification is not empty");
+            _alert.Count.Should().Be(0, "Alert is not empty");
         }
 
         [Then(@"the alert should be a list of alert items")]

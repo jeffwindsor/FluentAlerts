@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using FluentAlerts.TypeInfoSelectors;
+using FluentAlerts.TypeInformers;
 
 namespace FluentAlerts.Transformers
 {
@@ -79,36 +79,3 @@ namespace FluentAlerts.Transformers
         }
     }
 }
-
-
-//'    Public Shared Function CreateForObjectByReflection(Of T)(ByVal source As T, Optional ByVal title As String = Nothing) As NotificationTable
-//'        'Use object Name if title not given
-//'        If String.IsNullOrEmpty(title) Then title = source.GetType.Name
-
-//'        'Create a Table
-//'        Dim result = NotificationTable.Create(title)
-//'        result.AddRowsForObjectByReflection(source)
-//'        Return result
-//'    End Function
-//'    Public Sub AddRowsForObjectByReflection(Of T)(ByVal source As T)
-//'        'Get Object Information
-//'        Dim sourceType = source.GetType()
-//'        Dim pis As New List(Of System.Reflection.PropertyInfo)(sourceType.GetProperties())
-//'        pis.Sort(Function(x, y) x.Name.CompareTo(y.Name))
-
-//'        'Build Messag Builder for Object
-//'        For Each pi In pis
-
-//'            If pi.PropertyType.IsValueType _
-//'            OrElse pi.PropertyType Is GetType(System.String) Then
-//'                'Properties
-//'                Dim value As Object = Nothing
-//'                Try
-//'                    value = pi.GetValue(source, Nothing)
-//'                Catch ex As Exception
-//'                    value = "Reflection Failed to Obtain Value"
-//'                End Try
-//'                Me.AddRow(pi.Name, value)
-//'            End If
-//'        Next
-//'    End Sub

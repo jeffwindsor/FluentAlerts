@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FluentAlerts.TypeInfoSelectors
+namespace FluentAlerts.TypeInformers
 {
     public interface ITypeInfoRepository
     {

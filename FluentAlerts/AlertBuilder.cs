@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace FluentAlerts
 {
-    //TODO : With footer of ??
     public interface IAlertBuilder
     {
         //Fluent Methods
@@ -34,7 +32,7 @@ namespace FluentAlerts
         //Terminal Methods
          
         /// <summary>
-        /// The build function, produces a notification with the current items
+        /// The build function, produces a alert with the current items
         /// </summary>
         IAlert ToAlert();
         void Throw();
@@ -43,14 +41,13 @@ namespace FluentAlerts
 
     public class AlertBuilder : IAlertBuilder
     {
-        private readonly IAlertFactory _notificationFactory;
-        private AlertStyle _style;
+        private readonly IAlertFactory _alertFactory;
         private readonly IList<IAlertItem> _items;
         private Exception _inner;
 
         public AlertBuilder(IAlertFactory iaf)
         {
-            _notificationFactory = iaf;
+            _alertFactory = iaf;
             _items = new List<IAlertItem>();
         }
 
@@ -166,7 +163,7 @@ namespace FluentAlerts
         
         public IAlert ToAlert()
         {
-            return _notificationFactory.Create(_style, _items);
+            return _alertFactory.Create(_items);
         }
 
         public void Throw()
@@ -190,58 +187,32 @@ namespace FluentAlerts
             return this;
         }
 
-        //TODO: Is this needed for fluent build, is so change name to WithStyle otherwise remove and use property
-        private void SetStyle(AlertStyle style)
-        {
-            _style = style;
-        }
-
-        private void AppendNotifications(IEnumerable<IAlert> ns)
-        {
-            if (ns == null) return;
-            foreach (var n in ns) {
-                AppendNotification(n);
-            }
-        }
-        private void AppendNotification(IAlert n)
-        {
-            if (n != null)
-            {
-                AddAlertItems(n);
-            }
-        }
-
         private void AddAlertItems(IEnumerable<IAlertItem> items)
         {
             if (items == null) return;
             foreach (var item in items) {
-                AddNotificationItem(item);
+                AddAlertItem(item);
             }
         }
-        private void AddNotificationItem(IAlertItem item)
+
+        private void AddAlertItem(IAlertItem item)
         {
             if (item != null)
             {
                 _items.Add(item);
             }
         }
- 
-        //TODO : any advatage to making INotification.AddValue generic, maybe for type incerception inserializers?
-        private void AddValue(object item)
-        {
-            AddGroup(GroupStyle.Value, new object[] { item });
-        }
 
         private void AddGroup(GroupStyle style, params object[] items)
         {
-            AddNotificationItem(new AlertGroup{Style = style,Values = items});
+            AddAlertItem(new AlertGroup{Style = style,Values = items});
         }
 
         private void AddText(string text, TextStyle style = TextStyle.Normal)
         {
             if (!string.IsNullOrEmpty(text))
             {
-                AddNotificationItem(new AlertTextBlock(text){Style = TextStyle.Normal});
+                AddAlertItem(new AlertTextBlock(text){Style = style});
             }
         }
         

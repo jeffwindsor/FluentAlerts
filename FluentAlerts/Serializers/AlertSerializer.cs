@@ -1,5 +1,5 @@
-﻿ using FluentAlerts.Serializers.Formatters;
-using FluentAlerts.Transformers;
+﻿ using FluentAlerts.Formatters;
+ using FluentAlerts.Transformers;
 
 namespace FluentAlerts.Serializers
 {
@@ -31,9 +31,9 @@ namespace FluentAlerts.Serializers
 
         public TResult Serialize(IAlert alert)
         {
-            BeginSerialization(alert.Style);
+            BeginSerialization();
             Add(alert);
-            EndSerialization(alert.Style);
+            EndSerialization();
             return GetResult();
         }
 
@@ -45,7 +45,7 @@ namespace FluentAlerts.Serializers
             if (alert == null) return;
             foreach (var item in alert)
             {
-                Add(item, alert.Style);
+                Add(item);
             }
         }
 
@@ -53,16 +53,16 @@ namespace FluentAlerts.Serializers
         /// Routes the item to its correct type.
         /// MultiMethods Alternative
         /// </summary>
-        protected virtual void Add(IAlertItem item, AlertStyle style)
+        protected virtual void Add(IAlertItem item)
         {
             if (item == null) return;
 
             if (item is IAlert)              { Add((IAlert)item);}
-            else if (item is AlertGroup)     { Add((AlertGroup)item, style);}
-            else if (item is AlertTextBlock) { Add((AlertTextBlock)item, style);}
+            else if (item is AlertGroup)     { Add((AlertGroup)item);}
+            else if (item is AlertTextBlock) { Add((AlertTextBlock)item);}
         }
 
-        protected virtual void AddValue(object value, AlertStyle style)
+        protected virtual void AddValue(object value)
         {
             //Route value by type
             if (value is IAlert)
@@ -73,7 +73,7 @@ namespace FluentAlerts.Serializers
             else if (value is IAlertItem)
             {
                 //Embedded Alert Item in Group, send to base for routing
-                Add((IAlertItem)value, style);
+                Add((IAlertItem)value);
             }
             else
             {
@@ -90,12 +90,12 @@ namespace FluentAlerts.Serializers
             }
         }
         protected abstract void Add(TResult value);
-        protected abstract void BeginSerialization(AlertStyle style);
-        protected abstract void BeginAlert(AlertStyle style);
-        protected abstract void Add(AlertGroup g, AlertStyle style);
-        protected abstract void Add(AlertTextBlock textBlock, AlertStyle style);
-        protected abstract void EndAlert(AlertStyle style);
-        protected abstract void EndSerialization(AlertStyle style);
+        protected abstract void BeginSerialization();
+        protected abstract void BeginAlert();
+        protected abstract void Add(AlertGroup g);
+        protected abstract void Add(AlertTextBlock textBlock);
+        protected abstract void EndAlert();
+        protected abstract void EndSerialization();
         protected abstract TResult GetResult();
     }
 }

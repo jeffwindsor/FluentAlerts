@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace FluentAlerts.Serializers
+﻿namespace FluentAlerts.Serializers.Templates
 {
-    public interface ISerializerTemplate<TResult>
+    public interface ISerializerTemplate<out TResult>
     {
         TResult GetSerializationHeader();
         TResult GetAlertHeader();

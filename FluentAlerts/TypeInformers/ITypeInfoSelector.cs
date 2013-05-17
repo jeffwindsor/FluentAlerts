@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace FluentAlerts.TypeInfoSelectors
+namespace FluentAlerts.TypeInformers
 {
     public interface ITypeInfoSelector
     {
