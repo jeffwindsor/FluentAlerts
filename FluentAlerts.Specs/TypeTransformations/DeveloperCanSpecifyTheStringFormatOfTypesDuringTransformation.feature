@@ -3,6 +3,8 @@
 	As a developer
 	I want to be able to specify the string format of any type during transformation
 
+#Type type, IEnumerable<string> objectMemberPath) appear in a great deal of rule inputs, make an encapsulating class for expansion?
+
 #formatting occurs at transformation, no types but string is left, all of which are formatted
 Scenario: Default formatter uses type name as title
 

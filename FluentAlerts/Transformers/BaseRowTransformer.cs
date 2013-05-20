@@ -1,23 +1,21 @@
 ﻿using System.Collections.Generic;
+using FluentAlerts.Transformers.Formatters;
 using FluentAlerts.Transformers.Strategies;
-using FluentAlerts.Transformers.TypeFormatters;
 using FluentAlerts.Transformers.TypeInformers;
 
 namespace FluentAlerts.Transformers
 {
-    public abstract class BaseRowTransformer: BaseTransformer 
+    public abstract class BaseRowTransformer: BaseTransformer<string> 
     {
         protected BaseRowTransformer(ITransformStrategy strategy,
             ITypeInformer informer, 
-            ITypeFormatter<string> formatter):base(strategy,informer,formatter){}
+            IObjectFormatter<string> formatter):base(strategy,informer,formatter){}
 
-        public override IAlert Transform(object o, IEnumerable<string> objectMemberPath)
+        protected override IAlert Transform(object o, IEnumerable<string> objectMemberPath)
         {
-            //Establish object's type
-            var type = o.GetType();
-
+            //TODO: use formatter to get name 
             //Create Alert with a property and fields section containing name-values pairs  
-            return Alerts.Create(type.Name)
+            return Alerts.Create( o.GetType().Name)
                 .WithHeader("Properties")
                 .WithRows(GetPropertyRowValues(o, objectMemberPath))
                 .WithHeader("Fields")

@@ -70,7 +70,7 @@ namespace FluentAlerts.Specs.TypeTransformations
         public virtual void DefaultFormatterUsesTypeNameAsTitle()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default formatter uses type name as title", ((string[])(null)));
-#line 7
+#line 9
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
@@ -81,7 +81,7 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void DefaultFormatterUsesToStringOnAllTypes()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default formatter uses to string on all types", ((string[])(null)));
-#line 9
+#line 11
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
@@ -92,7 +92,7 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanSpecifyStringFormatTransformationByType()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify string format transformation by type", ((string[])(null)));
-#line 14
+#line 16
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
@@ -103,7 +103,7 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanSpecifyStringFormatTransformationByTypePath()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify string format transformation by type path", ((string[])(null)));
-#line 17
+#line 19
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();

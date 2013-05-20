@@ -11,9 +11,9 @@ namespace FluentAlerts.Transformers.Strategies
         public DefaultTransformStrategy()
         {
             //Transform UserDefinedStructs or Classes do not recurse preoprties andd fields
-            TransformationRequiredRules.Add((type, objectMemberPath) => type.IsClassOrUserDefinedStruct() && objectMemberPath.Count() == 1);
+            TransformationRequiredRules.Add((o, objectMemberPath) => o.GetType().IsClassOrUserDefinedStruct() && objectMemberPath.Count() == 1);
             //Transform any exception at any depth
-            TransformationRequiredRules.Add((type, objectMemberPath) => type.IsAssignableFrom(typeof(Exception)));
+            TransformationRequiredRules.Add((o, objectMemberPath) => o.GetType().IsAssignableFrom(typeof(Exception)));
         }
     }
 }

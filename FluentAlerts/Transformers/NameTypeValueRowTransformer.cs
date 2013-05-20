@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FluentAlerts.Transformers.Formatters;
 using FluentAlerts.Transformers.Strategies;
-using FluentAlerts.Transformers.TypeFormatters;
 using FluentAlerts.Transformers.TypeInformers;
 
 namespace FluentAlerts.Transformers
@@ -10,7 +10,7 @@ namespace FluentAlerts.Transformers
     {
         public NameTypeValueRowTransformer(ITransformStrategy strategy,
             ITypeInformer informer, 
-            ITypeFormatter<string> formatter):base(strategy,informer,formatter){}
+            IObjectFormatter<string> formatter):base(strategy,informer,formatter){}
         
         protected override IEnumerable<object[]> GetPropertyRowValues(object o, IEnumerable<string> objectMemberPath)
         {

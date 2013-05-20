@@ -1,6 +1,6 @@
 ﻿using FluentAlerts.Transformers;
- using FluentAlerts.Transformers.Strategies;
- using FluentAlerts.Transformers.TypeFormatters;
+using FluentAlerts.Transformers.Formatters;
+using FluentAlerts.Transformers.Strategies;
 
 namespace FluentAlerts.Serializers
 {
@@ -14,20 +14,10 @@ namespace FluentAlerts.Serializers
 
     public abstract class AlertSerializer<TResult> : IAlertSerializer<TResult>
     {
-        //Allows for the transformation of objects to an alert
-        private readonly ITransformer _transformer;
-        //Determines if a value is transformed or formated
-        private readonly ITransformStrategy _transformStrategy;
-        //Allows for the formatting of objects to strings
-        private readonly ITypeFormatter<TResult> _typeFormatter;
-
-        protected AlertSerializer(ITransformer transformer,
-            ITransformStrategy transformStrategy,
-            ITypeFormatter<TResult> typeFormatter)
+        private readonly ITransformer<TResult> _transformer;
+        protected AlertSerializer(ITransformer<TResult> transformer)
         {
             _transformer = transformer;
-            _transformStrategy = transformStrategy;
-            _typeFormatter = typeFormatter;
         }
 
         public TResult Serialize(IAlert alert)
@@ -100,15 +90,15 @@ namespace FluentAlerts.Serializers
                 }
                 else
                 {
-                    if (_transformStrategy.IsTransformRequired(value,0))
+                    if (_transformer.IsTransformRequired(value))
                     {
                         //If object qualifies, transform object into an alert, and add 
-                        Add(_transformer.Transform(value, _transformStrategy, 0));
+                        Add(_transformer.Transform(value));
                     }
                     else 
                     {
                         //otherwise add formatted value
-                        Add(_typeFormatter.Format(value));
+                        Add(_transformer.Format(value));
                     }
                 }
             }
