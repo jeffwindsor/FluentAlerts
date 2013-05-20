@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace FluentAlerts.Specs.TypeTransformations
+namespace FluentAlerts.Specs.AlertTransformers
 {
     using TechTalk.SpecFlow;
     
@@ -69,19 +69,30 @@ namespace FluentAlerts.Specs.TypeTransformations
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Default transformer uses type name as title")]
+        public virtual void DefaultTransformerUsesTypeNameAsTitle()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default transformer uses type name as title", ((string[])(null)));
+#line 10
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Default transformer limits depth to zero for all non exception classes")]
         public virtual void DefaultTransformerLimitsDepthToZeroForAllNonExceptionClasses()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default transformer limits depth to zero for all non exception classes", ((string[])(null)));
-#line 10
-this.ScenarioSetup(scenarioInfo);
-#line 11
- testRunner.Given("I have a object graph of depth 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 12
-   testRunner.And("I have a HeirarchialNameValueRowTransformer with a DefaultTypeInformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 13
-  testRunner.When("I tranform the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have a object graph of depth 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 14
+   testRunner.And("I have a HeirarchialNameValueRowTransformer with a DefaultTypeInformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 15
+  testRunner.When("I tranform the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
   testRunner.Then("the transformer does not create any sub alerts", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -92,7 +103,7 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void DefaultTransformerDoesNotLimitDepthForAllExceptionClasses()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default transformer does not limit depth for all exception classes", ((string[])(null)));
-#line 16
+#line 18
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
@@ -105,11 +116,11 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify transformation depth of an object to base properties", new string[] {
                         "UnitTest"});
-#line 19
-this.ScenarioSetup(scenarioInfo);
-#line 20
- testRunner.Given("I have a object graph of depth 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 21
+this.ScenarioSetup(scenarioInfo);
+#line 22
+ testRunner.Given("I have a object graph of depth 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 23
    testRunner.And("I have a HeirarchialNameValueRowTransformer with a DefaultTypeInformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -120,11 +131,11 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanSpecifyTransformationDepthOfAType()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify transformation depth of a type", ((string[])(null)));
-#line 23
-this.ScenarioSetup(scenarioInfo);
-#line 24
- testRunner.Given("I have a object graph of depth 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 25
+this.ScenarioSetup(scenarioInfo);
+#line 26
+ testRunner.Given("I have a object graph of depth 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 27
       testRunner.And("I have a HeirarchialNameValueRowTransformer with a DefaultTypeInformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -135,9 +146,9 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanSpecifyTransformationDepthOfATypeBeUnlimited()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify transformation depth of a type be unlimited", ((string[])(null)));
-#line 28
+#line 30
 this.ScenarioSetup(scenarioInfo);
-#line 29
+#line 31
  testRunner.Given("I have a object graph of <n> depth", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
@@ -148,7 +159,7 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void DefaultsToSelectingAllPropertiesAndFieldsButNoMethods()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Defaults to selecting all properties and fields but no methods", ((string[])(null)));
-#line 32
+#line 34
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
@@ -161,9 +172,9 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can limit type selections", new string[] {
                         "Extensibility"});
-#line 36
+#line 38
 this.ScenarioSetup(scenarioInfo);
-#line 37
+#line 39
  testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
@@ -176,9 +187,9 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add to type selections", new string[] {
                         "Extensibility"});
-#line 40
+#line 42
 this.ScenarioSetup(scenarioInfo);
-#line 41
+#line 43
  testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
@@ -191,9 +202,9 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can limit global selections", new string[] {
                         "Extensibility"});
-#line 44
+#line 46
 this.ScenarioSetup(scenarioInfo);
-#line 45
+#line 47
  testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
@@ -206,9 +217,9 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add to global selections", new string[] {
                         "Extensibility"});
-#line 48
+#line 50
 this.ScenarioSetup(scenarioInfo);
-#line 49
+#line 51
  testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();

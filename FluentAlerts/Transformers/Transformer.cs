@@ -12,9 +12,7 @@ namespace FluentAlerts.Transformers
     //Allows for the transformation of objects to an alert
     public interface ITransformer<out TResult>
     {
-        //bool IsTransformRequired(object o);
         object Transform(object o);
-        //TResult Format(object o);
     }
 
     public abstract class BaseTransformer<TResult> : ITransformer<TResult>
@@ -39,6 +37,16 @@ namespace FluentAlerts.Transformers
             return _strategy.IsTransformRequired(o, EMPTY_PATH)
                        ? (object) Transform(o, EMPTY_PATH)
                        : (object) _formatter.Format(o, EMPTY_PATH);
+        }
+
+        protected TResult GetFormmatted(object o)
+        {
+            return _formatter.Format(o, EMPTY_PATH);
+        }
+
+        protected TResult FormatAsTitle(object o)
+        {
+            return _formatter.FormatAsTitle(o, EMPTY_PATH);
         }
 
         protected abstract IAlert Transform(object o, IEnumerable<string> objectMemberPath);

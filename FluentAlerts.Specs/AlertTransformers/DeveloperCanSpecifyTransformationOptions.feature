@@ -7,6 +7,8 @@ Feature: Developer Can Specify Transformations Options
 	#depth
 	#path
 
+Scenario: Default transformer uses type name as title
+
 Scenario: Default transformer limits depth to zero for all non exception classes
 	Given I have a object graph of depth 5
 	  And I have a HeirarchialNameValueRowTransformer with a DefaultTypeInformer

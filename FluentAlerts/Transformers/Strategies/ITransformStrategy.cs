@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace FluentAlerts.Transformers.Strategies
 {
-    //TODO: change depth to object path, and allow the rule to do the counting?  then how to specify the floor? each rules decides?
     public interface ITransformStrategy
     {
         bool IsTransformRequired(object o, IEnumerable<string> objectMemberPath);

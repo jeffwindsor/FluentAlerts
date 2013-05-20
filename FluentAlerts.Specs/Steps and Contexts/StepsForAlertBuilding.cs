@@ -4,66 +4,65 @@ using TechTalk.SpecFlow;
 using FluentAssertions;
 using System.Collections.Generic;
 
-namespace FluentAlerts.Specs.AlertBuilding
+namespace FluentAlerts.Specs
 {
     [Binding]
     public class StepsForAlertBuilding
     {
-        private IAlertBuilder _builder;
-        private IAlert _alert;
-        private string _text = "Test Text String";
-        private const string _url = "Test Url String";
-        private readonly object[] _values = new object[] {"one",12,DateTime.UtcNow};
-        private IAlert _otherAlert;
+        private AlertContext _context;
+        public StepsForAlertBuilding(AlertContext context)
+        {
+            _context = context;
+        }
 
         [Given(@"I have an alert builder")]
         public void GivenIHaveAnAlertBuilder()
         {
-            _builder = Alerts.Create();
+            _context.Builder = Alerts.Create();
         }
 
         [Given(@"I have an alert builder and a title")]
         public void GivenIHaveAnAlertBuilderAndATitle()
         {
-            _builder = Alerts.Create(_text);
+            _context.Builder = Alerts.Create(_context.TestText);
         }
 
 
         [When(@"I build the alert")]
         public void WhenICreateAnAlert()
         {
-            _alert = _builder.ToAlert();
+            _context.Alert = _context.Builder.ToAlert();
         }
         
         [When(@"I add a seperator")]
         public void WhenIAddASeperator()
         {
-            _builder.WithSeperator();
+            _context.Builder.WithSeperator();
         }
 
         [When(@"I add a url")]
         public void WhenIAddAUrl()
         {
-            _builder.WithUrl(_text, _url);
+            _context.Builder.WithUrl(_context.TestText, _context.TestUrl);
         }
 
         [When(@"I add an object")]
         public void WhenIAddAnObject()
         {
-            _builder.WithValue(_values[0]);
+            _context.Builder.WithValue(_context.TestValues[0]);
         }
 
         [When(@"I add a list of object")]
         public void WhenIAddAListOfObject()
         {
-            _builder.WithValues(_values);
+            _context.Builder.WithValues(_context.TestValues);
         }
         
         [When(@"I add a title")]
         public void WhenIAddATitle()
         {
-            _text = "Change Title";
-            _builder.WithTitleOf(_text);
+            _context.TestText = "Change Title";
+            _context.Builder.WithTitleOf(_context.TestText);
         }
 
         [When(@"I add a format based title")]
@@ -72,48 +71,48 @@ namespace FluentAlerts.Specs.AlertBuilding
             var zero = "zero";
             var one = "one";
             var format = "{0} {1}";
-            _text = string.Format(format, zero, one);
-            _builder.WithTitleOf(format, zero, one);
+            _context.TestText = string.Format(format, zero, one);
+            _context.Builder.WithTitleOf(format, zero, one);
         }
 
         [When(@"I add another alert")]
         public void WhenIAddAnotherAlert()
         {
-            _otherAlert = Alerts.Create("Other Title")
+            _context.OtherAlert = Alerts.Create("Other Title")
                 .WithUrl("Other Url", "Http://otherUrl.com")
                 .ToAlert();
 
-            _builder.WithAlert(_otherAlert);
+            _context.Builder.WithAlert(_context.OtherAlert);
         }
 
         [When(@"I add Emphasized text")]
         public void WhenIAddEmpahsizedText()
         {
-            _builder.WithEmphasized( _text);
+            _context.Builder.WithEmphasized( _context.TestText);
         }
 
         [When(@"I add Normal text")]
         public void WhenIAddText()
         {
-            _builder.With( _text);
+            _context.Builder.With( _context.TestText);
         }
 
         [When(@"I add Header text")]
         public void WhenIAddHeaderText()
         {
-            _builder.WithHeader( _text);
+            _context.Builder.WithHeader( _context.TestText);
         }
 
         [When(@"I add a Normal row")]
         public void WhenIAddANormalRow()
         {
-            _builder.WithRow(_values);
+            _context.Builder.WithRow(_context.TestValues);
         }
 
         [When(@"I add a Emphasized row")]
         public void WhenIAddAEmphasizedRow()
         {
-            _builder.WithEmphasizedRow(_values);
+            _context.Builder.WithEmphasizedRow(_context.TestValues);
         }
         
         [Then(@"the alert should contain that Normal row as the last item")]
@@ -131,9 +130,9 @@ namespace FluentAlerts.Specs.AlertBuilding
         public void ThenTheAlertShouldContainThatGroupStyleRowAsTheLastItem(GroupStyle style)
         {
             var item = AssertLastItemIsGroupOfStyle(style);
-            for (var i = 0; i < _values.Length; ++i)
+            for (var i = 0; i < _context.TestValues.Length; ++i)
             {
-                item.Values[i].Should().Be(_values[i]);
+                item.Values[i].Should().Be(_context.TestValues[i]);
             }
         }
 
@@ -143,27 +142,27 @@ namespace FluentAlerts.Specs.AlertBuilding
         public void ThenTheAlertShouldContainTextAsThLastAlertItem(TextStyle style)
         {
             var item = AssertLastItemIsTypeAndConvertTo<AlertTextBlock>();
-            item.ToString().Should().Be(_text); 
+            item.ToString().Should().Be(_context.TestText); 
             item.Style = style;
         }
         
         [Then(@"the alert should be empty")]
         public void ThenTheAlertShouldBeEmpty()
         {
-            _alert.Count.Should().Be(0, "Alert is not empty");
+            _context.Alert.Count.Should().Be(0, "Alert is not empty");
         }
 
         [Then(@"the alert should be a list of alert items")]
         public void ThenTheAlertShouldBeAListOfAlertItems()
         {
-            _alert.Should().BeAssignableTo<IEnumerable<IAlertItem>>();
+            _context.Alert.Should().BeAssignableTo<IEnumerable<IAlertItem>>();
         }
 
         [Then(@"the alert should contain title as the first item")]
         public void ThenTheAlertShouldContainTitleAsTheFirstAlertItem()
         {
-            var item = AssertItemIsTypeAndConvertTo<AlertTextBlock>(_alert.First()); 
-            item.ToString().Should().Be(_text);
+            var item = AssertItemIsTypeAndConvertTo<AlertTextBlock>(_context.Alert.First()); 
+            item.ToString().Should().Be(_context.TestText);
         }
         
         [Then(@"the alert should contain a seperator as the last item")]
@@ -176,8 +175,8 @@ namespace FluentAlerts.Specs.AlertBuilding
         public void ThenTheAlertShouldContainAUrlAsTheLastAlertWithTheUrlAndText()
         {
             var item = AssertLastItemIsGroupOfStyle(GroupStyle.Url);
-            item.Values.First().Should().Be(_text, "Url Text");
-            item.Values.Last().Should().Be(_url, "Url");
+            item.Values.First().Should().Be(_context.TestText, "Url Text");
+            item.Values.Last().Should().Be(_context.TestUrl, "Url");
         }
          
         [Then(@"the alert should contain that object as the last item")]
@@ -185,33 +184,33 @@ namespace FluentAlerts.Specs.AlertBuilding
         {
             var item = AssertLastItemIsGroupOfStyle(GroupStyle.Value);
             item.Values.Count().Should().Be(1);
-            item.Values[0].Should().Be(_values[0]);
+            item.Values[0].Should().Be(_context.TestValues[0]);
         }
         
         [Then(@"the alert should contain each object in order")]
         public void ThenTheAlertShouldContainEachObjectInOrder()
         {
-            var delta = _alert.Count - _values.Length;
-            for (var i = 0; i < _values.Length; ++i)
+            var delta = _context.Alert.Count - _context.TestValues.Length;
+            for (var i = 0; i < _context.TestValues.Length; ++i)
             {
-                var value = AssertGroupIs(_alert[i + delta], GroupStyle.Value);
-                value.Values[0].Should().Be(_values[i]);
+                var value = AssertGroupIs(_context.Alert[i + delta], GroupStyle.Value);
+                value.Values[0].Should().Be(_context.TestValues[i]);
             }
         }
 
         [Then(@"the alert should contain all the other alert's items")]
         public void ThenTheAlertShouldContainTheOtherAlertsItems()
         {
-            var delta = _alert.Count - _otherAlert.Count;
-            for (var i = 0; i < _otherAlert.Count; ++i)
+            var delta = _context.Alert.Count - _context.OtherAlert.Count;
+            for (var i = 0; i < _context.OtherAlert.Count; ++i)
             {
-                _alert[i + delta].Should().Be(_otherAlert[i]);
+                _context.Alert[i + delta].Should().Be(_context.OtherAlert[i]);
             }
         }
         
         private AlertGroup AssertLastItemIsGroupOfStyle(GroupStyle style)
         {
-            return AssertGroupIs(_alert.Last(), style);
+            return AssertGroupIs(_context.Alert.Last(), style);
         }
         
         private static AlertGroup AssertGroupIs(IAlertItem source, GroupStyle style) 
@@ -223,7 +222,7 @@ namespace FluentAlerts.Specs.AlertBuilding
         
         private T AssertLastItemIsTypeAndConvertTo<T>() where T : IAlertItem
         {
-            return AssertItemIsTypeAndConvertTo<T>(_alert.Last());
+            return AssertItemIsTypeAndConvertTo<T>(_context.Alert.Last());
         }
 
         private static T AssertItemIsTypeAndConvertTo<T>(IAlertItem source) where T : IAlertItem

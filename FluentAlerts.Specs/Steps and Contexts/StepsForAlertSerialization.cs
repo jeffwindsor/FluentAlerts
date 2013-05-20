@@ -1,6 +1,6 @@
 ﻿using TechTalk.SpecFlow;
 
-namespace FluentAlerts.Specs.AlertSerialization
+namespace FluentAlerts.Specs
 {
     [Binding]
     public class StepsForAlertSerialization
