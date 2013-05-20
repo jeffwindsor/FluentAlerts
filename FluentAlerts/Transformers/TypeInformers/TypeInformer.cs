@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace FluentAlerts.Transformers.TypeInformers
 {
-    public interface ITypeInfomer
+    public interface ITypeInformer
     {
         TypeInfo Find(Type forType);
     }
 
-    public abstract class TypeInformer: ITypeInfomer
+    public abstract class BaseTypeInformer: ITypeInformer
     {
         protected delegate void InfoSelectionRule(TypeInfo info, Type source);
         private readonly IDictionary<Type,TypeInfo> _typeInfosByType = new Dictionary<Type, TypeInfo>();

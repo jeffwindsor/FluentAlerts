@@ -4,7 +4,7 @@ using TechTalk.SpecFlow;
 using FluentAssertions;
 using System.Collections.Generic;
 
-namespace FluentAlerts.Specs
+namespace FluentAlerts.Specs.AlertBuilding
 {
     [Binding]
     public class StepsForAlertBuilding

@@ -2,7 +2,7 @@
 
 namespace FluentAlerts.Transformers.TypeInformers
 {
-    public class DefaultTypeInformer : TypeInformer 
+    public class DefaultTypeInformer : BaseTypeInformer 
     {
         public DefaultTypeInformer()
         {

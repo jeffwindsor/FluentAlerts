@@ -1,4 +1,4 @@
-﻿Feature: A developer can serialize an alert into multiple formats
+﻿Feature: DeveloperCanSpecifySerializationTemplates
 
 #bracketed formatted : html, text, json, xml
 #open closed - inject serializer into ToSerializadString(). 

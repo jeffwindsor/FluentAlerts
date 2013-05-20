@@ -1,8 +1,8 @@
 ﻿using System.Text;
-using FluentAlerts.Formatters;
 using FluentAlerts.Serializers.Templates;
 using FluentAlerts.Transformers;
 using FluentAlerts.Transformers.Strategies;
+using FluentAlerts.Transformers.TypeFormatters;
 
 namespace FluentAlerts.Serializers
 {
@@ -14,9 +14,9 @@ namespace FluentAlerts.Serializers
         
         public TemplatedStringAlertSerializer(ITransformer transformer,
                     ITransformStrategy transformStrategy,
-                    IFormatter<string> formatter,
+                    ITypeFormatter<string> typeFormatter,
                     ISerializerTemplate<string> template)
-            :base(transformer,transformStrategy,formatter)
+            :base(transformer,transformStrategy,typeFormatter)
         {
             _template = template;
         }

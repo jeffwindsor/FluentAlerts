@@ -1,6 +1,6 @@
-﻿ using FluentAlerts.Formatters;
- using FluentAlerts.Transformers;
+﻿using FluentAlerts.Transformers;
  using FluentAlerts.Transformers.Strategies;
+ using FluentAlerts.Transformers.TypeFormatters;
 
 namespace FluentAlerts.Serializers
 {
@@ -19,15 +19,15 @@ namespace FluentAlerts.Serializers
         //Determines if a value is transformed or formated
         private readonly ITransformStrategy _transformStrategy;
         //Allows for the formatting of objects to strings
-        private readonly IFormatter<TResult> _formatter;
+        private readonly ITypeFormatter<TResult> _typeFormatter;
 
         protected AlertSerializer(ITransformer transformer,
             ITransformStrategy transformStrategy,
-            IFormatter<TResult> formatter)
+            ITypeFormatter<TResult> typeFormatter)
         {
             _transformer = transformer;
             _transformStrategy = transformStrategy;
-            _formatter = formatter;
+            _typeFormatter = typeFormatter;
         }
 
         public TResult Serialize(IAlert alert)
@@ -108,7 +108,7 @@ namespace FluentAlerts.Serializers
                     else 
                     {
                         //otherwise add formatted value
-                        Add(_formatter.Format(value));
+                        Add(_typeFormatter.Format(value));
                     }
                 }
             }

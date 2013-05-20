@@ -2,7 +2,7 @@
 using TechTalk.SpecFlow;
 using FluentAssertions;
 
-namespace FluentAlerts.Specs
+namespace FluentAlerts.Specs.AlertExceptions
 {
     [Binding]
     public class StepsForAlertsExceptions

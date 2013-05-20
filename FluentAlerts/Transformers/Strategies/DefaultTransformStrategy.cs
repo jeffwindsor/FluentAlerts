@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace FluentAlerts.Transformers.Strategies
 {
@@ -9,10 +10,10 @@ namespace FluentAlerts.Transformers.Strategies
     {
         public DefaultTransformStrategy()
         {
-            //Transform UserDefinedStructs or Classes at depth zero only
-            Rules.Add((type, depth) => type.IsClassOrUserDefinedStruct() && depth == 0);
+            //Transform UserDefinedStructs or Classes do not recurse preoprties andd fields
+            TransformationRequiredRules.Add((type, objectMemberPath) => type.IsClassOrUserDefinedStruct() && objectMemberPath.Count() == 1);
             //Transform any exception at any depth
-            Rules.Add((type, depth) => type.IsAssignableFrom(typeof(Exception)));
+            TransformationRequiredRules.Add((type, objectMemberPath) => type.IsAssignableFrom(typeof(Exception)));
         }
     }
 }

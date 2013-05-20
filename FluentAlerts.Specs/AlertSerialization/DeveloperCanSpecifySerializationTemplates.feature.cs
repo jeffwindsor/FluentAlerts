@@ -19,20 +19,20 @@ namespace FluentAlerts.Specs.AlertSerialization
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("A developer can serialize an alert into multiple formats")]
-    public partial class ADeveloperCanSerializeAnAlertIntoMultipleFormatsFeature
+    [NUnit.Framework.DescriptionAttribute("DeveloperCanSpecifySerializationTemplates")]
+    public partial class DeveloperCanSpecifySerializationTemplatesFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "DeveloperCanSpecifySerializationFormats.feature"
+#line 1 "DeveloperCanSpecifySerializationTemplates.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "A developer can serialize an alert into multiple formats", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanSpecifySerializationTemplates", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

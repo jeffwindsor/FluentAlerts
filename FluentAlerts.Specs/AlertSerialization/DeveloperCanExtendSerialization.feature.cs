@@ -19,22 +19,20 @@ namespace FluentAlerts.Specs.AlertSerialization
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("DeveloperCanSpecifyDepthOfObjectGraphSerializationByType")]
-    [NUnit.Framework.CategoryAttribute("Serialization")]
-    public partial class DeveloperCanSpecifyDepthOfObjectGraphSerializationByTypeFeature
+    [NUnit.Framework.DescriptionAttribute("DeveloperCanExtendSerialization")]
+    public partial class DeveloperCanExtendSerializationFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "DeveloperCanSpecifyDepthOfObjectGraphSerializationByType.feature"
+#line 1 "DeveloperCanExtendSerialization.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanSpecifyDepthOfObjectGraphSerializationByType", "", ProgrammingLanguage.CSharp, new string[] {
-                        "Serialization"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanExtendSerialization", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -64,32 +62,6 @@ namespace FluentAlerts.Specs.AlertSerialization
         public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can specify serialization go no deeper than type member chain")]
-        public virtual void CanSpecifySerializationGoNoDeeperThanTypeMemberChain()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify serialization go no deeper than type member chain", ((string[])(null)));
-#line 6
-this.ScenarioSetup(scenarioInfo);
-#line 7
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can specify serialization go no deeper than type")]
-        public virtual void CanSpecifySerializationGoNoDeeperThanType()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify serialization go no deeper than type", ((string[])(null)));
-#line 11
-this.ScenarioSetup(scenarioInfo);
-#line 12
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            this.ScenarioCleanup();
         }
     }
 }
