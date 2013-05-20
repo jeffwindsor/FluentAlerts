@@ -31,7 +31,7 @@ namespace FluentAlerts.Serializers
         /// <summary>
         /// Append all the items in the note using the notes style
         /// </summary>
-        protected virtual void Add(IAlert alert)
+        private void Add(IAlert alert)
         {
             if (alert == null) return;
             foreach (var item in alert)
@@ -44,7 +44,7 @@ namespace FluentAlerts.Serializers
         /// Routes the item to its correct type.
         /// MultiMethods Alternative
         /// </summary>
-        protected virtual void Add(IAlertItem item)
+        private void Add(IAlertItem item)
         {
             if (item == null) return;
 
@@ -71,39 +71,39 @@ namespace FluentAlerts.Serializers
             }
         }
 
-        protected virtual void AddValue(object value)
+        //MultiMethod on embedded objects
+        protected void AddValue(object value)
         {
             //Route value by type
-            var item = value as IAlert;
-            if (item != null)
-            { 
-                //Embedded Alert in Group, send to base for routing
-                Add(item);
-            }
-            else
+            //Embedded Alert in Group, re-route as specific type
+            var alert = value as IAlert;
+            if (alert != null)
             {
-                var alertItem = value as IAlertItem;
-                if (alertItem != null)
-                {
-                    //Embedded Alert Item in Group, send to base for routing
-                    Add(alertItem);
-                }
-                else
-                {
-                    if (_transformer.IsTransformRequired(value))
-                    {
-                        //If object qualifies, transform object into an alert, and add 
-                        Add(_transformer.Transform(value));
-                    }
-                    else 
-                    {
-                        //otherwise add formatted value
-                        Add(_transformer.Format(value));
-                    }
-                }
+                Add(alert);
+                return;
             }
+
+            //Embedded Alert Item in Group, re-route as specific type
+            var alertItem = value as IAlertItem;
+            if (alertItem != null)
+            {
+                Add(alertItem);
+                return;
+            }
+
+            //Embedded TResult, add for serialization
+            if (IsResultType(value))
+            {
+                Add((TResult) value);
+                return;
+            }
+
+            //Embedded Object not in TResult Form and not a base alert item
+            //Transform the object and route through add value so it may be re-routed more specifically
+            AddValue(_transformer.Transform(value));
         }
 
+        protected abstract bool IsResultType(object value);
         protected abstract void Add(TResult value);
         protected abstract void BeginSerialization();
         protected abstract void BeginAlert();

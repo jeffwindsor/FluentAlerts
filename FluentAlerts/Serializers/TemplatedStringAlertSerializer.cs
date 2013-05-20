@@ -7,7 +7,7 @@ using FluentAlerts.Transformers.Strategies;
 namespace FluentAlerts.Serializers
 {
     public class TemplatedStringAlertSerializer : AlertSerializer<string>
-    {
+        {
         //String Accumulator
         private readonly StringBuilder _acc = new StringBuilder();
         private readonly ISerializerTemplate<string> _template;
@@ -17,6 +17,11 @@ namespace FluentAlerts.Serializers
             :base(transformer)
         {
             _template = template;
+        }
+
+        protected override bool IsResultType(object value)
+        {
+            return (value as string) != null;
         }
 
         protected override void Add(string text)
