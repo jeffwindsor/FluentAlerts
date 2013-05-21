@@ -73,7 +73,7 @@ namespace FluentAlerts.Serializers
 
                 //Add Value
                 var value = g.Values[i];
-                AddValue(value);
+                RouteGroupValue(value);
 
                 //CloseValue
                Add(_template.GetValueFooter(groupStyle, i, maxValueIndex));

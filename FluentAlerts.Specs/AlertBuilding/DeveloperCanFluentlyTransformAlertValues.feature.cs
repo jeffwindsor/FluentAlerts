@@ -65,27 +65,41 @@ namespace FluentAlerts.Specs.AlertBuilding
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can fluently transform alert values to primitives")]
-        public virtual void CanFluentlyTransformAlertValuesToPrimitives()
+        [NUnit.Framework.DescriptionAttribute("Can fluently transform and fomrat alert values to strings")]
+        public virtual void CanFluentlyTransformAndFomratAlertValuesToStrings()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can fluently transform alert values to primitives", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can fluently transform and fomrat alert values to strings", ((string[])(null)));
 #line 3
 this.ScenarioSetup(scenarioInfo);
 #line 4
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 5
+ testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 6
+  testRunner.And("I transform the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 7
+ testRunner.Then("there should not be any element that is not a grpah class or result type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can fluently transform and format alert values to strings")]
-        public virtual void CanFluentlyTransformAndFormatAlertValuesToStrings()
+        [NUnit.Framework.DescriptionAttribute("Can fluently transform and format alert values to strings using a custom transfor" +
+            "mer")]
+        public virtual void CanFluentlyTransformAndFormatAlertValuesToStringsUsingACustomTransformer()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can fluently transform and format alert values to strings", ((string[])(null)));
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can fluently transform and format alert values to strings using a custom transfor" +
+                    "mer", ((string[])(null)));
+#line 9
 this.ScenarioSetup(scenarioInfo);
-#line 7
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 10
+ testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 11
+ testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 12
+  testRunner.And("I transform the alert using a custom transformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+ testRunner.Then("there should not be any element that is not a grpah class or result type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

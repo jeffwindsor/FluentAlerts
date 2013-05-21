@@ -41,9 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlertException.cs" />
+    <Compile Include="AlertItemCollection.cs" />
     <Compile Include="Alerts.cs" />
     <Compile Include="AlertFactory.cs" />
     <Compile Include="AlertBuilder.cs" />
+    <Compile Include="ExtensionsToIAlert.cs" />
     <Compile Include="GroupStyle.cs" />
     <Compile Include="TextStyle.cs" />
     <Compile Include="ExtensionsToExceptions.cs" />

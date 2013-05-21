@@ -22,6 +22,11 @@ namespace FluentAlerts.Transformers
                 .ToAlert();
         }
 
+        protected override bool IsResultType(object value)
+        {
+            return (value as string) != null;
+        }
+
         protected abstract IEnumerable<object[]> GetPropertyRowValues(object o, IEnumerable<string> objectMemberPath);
         protected abstract IEnumerable<object[]> GetFieldRowValues(object o, IEnumerable<string> objectMemberPath);
     }

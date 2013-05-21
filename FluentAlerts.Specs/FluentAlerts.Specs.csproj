@@ -69,7 +69,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanFluentlyThrowAlertsAsExceptions.feature</DependentUpon>
     </Compile>
-    <Compile Include="AlertTransformers\DeveloperCanSpecifyTheTypeMembersToTransform.feature.cs">
+    <Compile Include="AlertTransformation\DeveloperCanSpecifyTheTypeMembersToTransform.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyTheTypeMembersToTransform.feature</DependentUpon>
@@ -88,15 +88,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifySerializationTemplates.feature</DependentUpon>
     </Compile>
-    <Compile Include="AlertTransformers\DeveloperCanSpecifyTheFormatOfObjects.feature.cs">
+    <Compile Include="AlertTransformation\DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanSpecifyTheFormatOfObjects.feature</DependentUpon>
+      <DependentUpon>DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature</DependentUpon>
     </Compile>
-    <Compile Include="AlertTransformers\DeveloperCanSpecifyTransformationOptions.feature.cs">
+    <Compile Include="AlertTransformation\DeveloperCanSpecifyWhichTypesAreTransformed.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanSpecifyTransformationOptions.feature</DependentUpon>
+      <DependentUpon>DeveloperCanSpecifyWhichTypesAreTransformed.feature</DependentUpon>
     </Compile>
     <Compile Include="AlertSerialization\DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature.cs">
       <AutoGen>True</AutoGen>
@@ -133,19 +133,19 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifySerializationTemplates.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertTransformers\DeveloperCanSpecifyTheFormatOfObjects.feature">
+    <None Include="AlertTransformation\DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanSpecifyTheFormatOfObjects.feature.cs</LastGenOutput>
+      <LastGenOutput>DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertTransformers\DeveloperCanSpecifyTransformationOptions.feature">
+    <None Include="AlertTransformation\DeveloperCanSpecifyWhichTypesAreTransformed.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanSpecifyTransformationOptions.feature.cs</LastGenOutput>
+      <LastGenOutput>DeveloperCanSpecifyWhichTypesAreTransformed.feature.cs</LastGenOutput>
     </None>
     <None Include="AlertSerialization\DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertTransformers\DeveloperCanSpecifyTheTypeMembersToTransform.feature">
+    <None Include="AlertTransformation\DeveloperCanSpecifyTheTypeMembersToTransform.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifyTheTypeMembersToTransform.feature.cs</LastGenOutput>
     </None>

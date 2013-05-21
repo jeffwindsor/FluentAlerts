@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace FluentAlerts.Specs.AlertSerialization
+namespace FluentAlerts.Specs.AlertTransformation
 {
     using TechTalk.SpecFlow;
     
@@ -19,20 +19,23 @@ namespace FluentAlerts.Specs.AlertSerialization
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("DeveloperCanSpecifySerializationTemplates")]
-    public partial class DeveloperCanSpecifySerializationTemplatesFeature
+    [NUnit.Framework.DescriptionAttribute("DeveloperCanSpecifyWhichTypesAreTransformed")]
+    [NUnit.Framework.CategoryAttribute("Transformation")]
+    public partial class DeveloperCanSpecifyWhichTypesAreTransformedFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "DeveloperCanSpecifySerializationTemplates.feature"
+#line 1 "DeveloperCanSpecifyWhichTypesAreTransformed.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanSpecifySerializationTemplates", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanSpecifyWhichTypesAreTransformed", "In order to have full control over the alert output\r\nAs a developer\r\nI want to be" +
+                    " able to specify what types are transformed", ProgrammingLanguage.CSharp, new string[] {
+                        "Transformation"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -62,6 +65,25 @@ namespace FluentAlerts.Specs.AlertSerialization
         public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Default transformer uses type name as title")]
+        public virtual void DefaultTransformerUsesTypeNameAsTitle()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default transformer uses type name as title", ((string[])(null)));
+#line 7
+this.ScenarioSetup(scenarioInfo);
+#line 8
+ testRunner.Given("I have a default transformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 9
+  testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 10
+ testRunner.When("I transofrm the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 11
+ testRunner.Then("I the alert title equals the object\'s type name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
         }
     }
 }

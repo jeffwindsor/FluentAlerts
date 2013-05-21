@@ -12,6 +12,7 @@ namespace FluentAlerts.Transformers
     //Allows for the transformation of objects to an alert
     public interface ITransformer<out TResult>
     {
+        IAlert Transform(IAlert alert);
         object Transform(object o);
     }
 
@@ -33,11 +34,37 @@ namespace FluentAlerts.Transformers
 
         public object Transform(object o)
         {
-            //Transform to IAlert or Format object based on strategy, return as an object so serilaizer can re-route
-            return _strategy.IsTransformRequired(o, EMPTY_PATH)
-                       ? (object) Transform(o, EMPTY_PATH)
-                       : (object) _formatter.Format(o, EMPTY_PATH);
+            //Make sure all internal alerts are fully transformed
+            var alert = o as IAlert;
+            if (alert != null)
+                return Transform(alert);
+
+            //Optimization, no need to transform or format result types 
+             if (IsResultType(o))
+                return o;
+
+            //If the strategy requires it, transform the object to an IAlert
+            if ( _strategy.IsTransformRequired(o, EMPTY_PATH))
+                return Transform(o, EMPTY_PATH);
+            
+            //Default: Return formatted object
+            return _formatter.Format(o, EMPTY_PATH);
         }
+
+        //Recurse IAlert and tansform all group values
+        public IAlert Transform(IAlert alert)
+        {
+            foreach (var g in alert.OfType<AlertGroup>())
+            {
+                for (var i = 0; i < g.Values.Length; ++i)
+                {
+                    g.Values[i] = Transform(g.Values[i]);
+                }
+            }
+            return alert;
+        }
+
+        protected abstract bool IsResultType(object value);
 
         protected TResult GetFormmatted(object o)
         {

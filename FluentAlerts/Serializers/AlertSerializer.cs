@@ -71,11 +71,9 @@ namespace FluentAlerts.Serializers
             }
         }
 
-        //MultiMethod on embedded objects
-        protected void AddValue(object value)
+        protected void RouteGroupValue(object value)
         {
-            //Route value by type
-            //Embedded Alert in Group, re-route as specific type
+            //No multimethods, so route by type
             var alert = value as IAlert;
             if (alert != null)
             {
@@ -83,24 +81,14 @@ namespace FluentAlerts.Serializers
                 return;
             }
 
-            //Embedded Alert Item in Group, re-route as specific type
-            var alertItem = value as IAlertItem;
-            if (alertItem != null)
-            {
-                Add(alertItem);
-                return;
-            }
-
-            //Embedded TResult, add for serialization
             if (IsResultType(value))
             {
                 Add((TResult) value);
                 return;
             }
 
-            //Embedded Object not in TResult Form and not a base alert item
-            //Transform the object and route through add value so it may be re-routed more specifically
-            AddValue(_transformer.Transform(value));
+            //Transform the object and re-route 
+            RouteGroupValue(_transformer.Transform(value));
         }
 
         protected abstract bool IsResultType(object value);

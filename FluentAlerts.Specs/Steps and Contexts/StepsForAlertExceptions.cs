@@ -31,7 +31,7 @@ namespace FluentAlerts.Specs
         [When(@"I wrap it in an alert")]
         public void WhenIWrapItInAnAlert()
         {
-            _context.Builder = _originalException.WrapInAlert().WithTitleOf(_context.TestText);
+            _context.Builder = _originalException.ToAlert().WithTitleOf(_context.TestText);
         }
 
         [When(@"I throw the alert")]
@@ -40,13 +40,28 @@ namespace FluentAlerts.Specs
             try
             {
                 _context.Alert = _context.Builder.ToAlert();  //for comparison later
-                _context.Builder.Throw();
+                _context.Alert.Throw();
             }
             catch (AlertException ex)
             {
                 _context.CaughtException = ex;
             }
         }
+
+        [When(@"I throw the alert with the inner expectpion")]
+        public void WhenIThrowTheAlertWithTheInnerExpectpion()
+        {
+            try
+            {
+                _context.Alert = _context.Builder.ToAlert();  //for comparison later
+                _context.Alert.Throw(_originalException);
+            }
+            catch (AlertException ex)
+            {
+                _context.CaughtException = ex;
+            }
+        }
+
 
         /// <summary>
         /// Throw an alert inside an exception that inherits AlertException and exposes
@@ -58,13 +73,28 @@ namespace FluentAlerts.Specs
             try
             {
                 _context.Alert = _context.Builder.ToAlert();  //for comparison later
-                _context.Builder.ThrowAs((alert, inner) => new SpecsAlertException(alert, inner));
+                _context.Alert.ThrowAs((alert) => new SpecsAlertException(alert));
             }
             catch (AlertException ex)
             {
                 _context.CaughtException = ex;
             }
         }
+
+        [When(@"I throw the alert as some dervied alert exception with the inner exception")]
+        public void WhenIThrowTheAlertAsSomeDerviedAlertExceptionWithTheInnerException()
+        {
+            try
+            {
+                _context.Alert = _context.Builder.ToAlert();  //for comparison later
+                _context.Alert.ThrowAs((alert) => new SpecsAlertException(alert, _originalException));
+            }
+            catch (AlertException ex)
+            {
+                _context.CaughtException = ex;
+            }
+        }
+
         
         [When(@"I create an alert exception with the builder")]
         public void WhenICreateAnAlertExceptionWithTheBuilder()

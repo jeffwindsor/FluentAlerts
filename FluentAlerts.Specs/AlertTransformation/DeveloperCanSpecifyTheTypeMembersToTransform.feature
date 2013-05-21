@@ -1,8 +1,9 @@
-﻿Feature: DeveloperCanSpecifyTypeMemberToTransform
+﻿@Transformation
+Feature: DeveloperCanSpecifyTypeMemberToTransform
 	In order to have full control over the alert output
 	As a developer
-	I want to be able to specify the type members to transform
-
+	I want to be able to specify the properties and fields which will be transformed
+	
 Scenario: Defaults to selecting all properties and fields
 	Given I have a default type informer
 	 And I have a NestedTestClass object
@@ -35,13 +36,13 @@ Examples:
 Scenario Outline: Can limit transformation of type fields
 	Given I have a default type informer
 	 And I have a NestedTestClass object
-	 And I limit the informer to <type> properties  
+	 And I limit the informer to <type> fields  
 	When I get the object's type info
 	Then only the objects <type> fields are listed in the type info
 Examples:
-	| type       | path                       |
-	| DateTime   | NestedTestClass.Child.Date |
-	| NumberEnum | NestedTestClass.Number     |
+	| type       | 
+	| DateTime   | 
+	| NumberEnum |
 
 Scenario Outline: Can limit transformation of fields by path
 	Given I have a default type informer

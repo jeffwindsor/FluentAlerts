@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAlerts.Transformers;
 
 namespace FluentAlerts
 {
+    //TODO: Improve this so that it can be expanded
     public interface IAlertBuilder
     {
         //Fluent Methods
@@ -36,27 +38,17 @@ namespace FluentAlerts
         /// The build function, produces a alert with the current items
         /// </summary>
         IAlert ToAlert();
-        void Throw();
-        void ThrowAs<TException>(Func<IAlert, Exception, TException> constructor) where TException : AlertException;
     }
 
     public class AlertBuilder : IAlertBuilder
     {
         private readonly IAlertFactory _alertFactory;
-        private readonly IList<IAlertItem> _items;
-        private Exception _inner;
+        private readonly AlertItemCollection _items;
 
-        public AlertBuilder(IAlertFactory iaf)
+        public AlertBuilder(IAlertFactory iaf, AlertItemCollection items)
         {
             _alertFactory = iaf;
-            _items = new List<IAlertItem>();
-        }
-
-        //NOTE: special case still debating form
-        internal IAlertBuilder WithInnerException(Exception ex)
-        {
-            _inner = ex;
-            return this;
+            _items = items;
         }
 
         /// <summary>
@@ -67,7 +59,7 @@ namespace FluentAlerts
         {
             if (!string.IsNullOrWhiteSpace(text))
             {
-                GetCreateTitle().Text.Append(text);
+                _items.GetCreateTitle().Text.Append(text);
             }
         }
 
@@ -75,7 +67,7 @@ namespace FluentAlerts
         {
             if (!string.IsNullOrWhiteSpace(text))
             {
-                var title = GetCreateTitle().Text;
+                var title = _items.GetCreateTitle().Text;
                 //Clear and Append Text
                 title.Length = 0;
                 title.Append(text);
@@ -90,7 +82,7 @@ namespace FluentAlerts
 
         public IAlertBuilder WithSeperator()
         {
-            AddGroup(GroupStyle.Seperator, string.Empty);
+            _items.AddGroup(GroupStyle.Seperator, string.Empty);
             return this;
         }
         
@@ -126,13 +118,13 @@ namespace FluentAlerts
 
         public IAlertBuilder WithUrl(string text, string url)
         {
-            AddGroup(GroupStyle.Url, text, url);
+            _items.AddGroup(GroupStyle.Url, text, url);
             return this;
         }
 
         public IAlertBuilder WithValue(object value)
         {
-            AddGroup(GroupStyle.Value, value);
+            _items.AddGroup(GroupStyle.Value, value);
             return this;
         }
         
@@ -145,13 +137,13 @@ namespace FluentAlerts
 
         public IAlertBuilder WithRow(params object[] cells)
         {
-            AddGroup(GroupStyle.Row, cells);
+            _items.AddGroup(GroupStyle.Row, cells);
             return this;
         }
 
         public IAlertBuilder WithEmphasizedRow(params object[] cells)
         {
-            AddGroup(GroupStyle.EmphasizedRow, cells);
+            _items.AddGroup(GroupStyle.EmphasizedRow, cells);
             return this;
         }
 
@@ -164,7 +156,7 @@ namespace FluentAlerts
 
         public IAlertBuilder WithAlert(IAlert n)
         {
-            AddAlertItems(n);
+            _items.AddAlertItems(n);
             return this;
         }
         
@@ -172,17 +164,8 @@ namespace FluentAlerts
         {
             return _alertFactory.Create(_items);
         }
-
-        public void Throw()
-        {
-            throw new AlertException(ToAlert(), _inner);
-        }
-
-        public void ThrowAs<TException>(Func<IAlert, Exception, TException> constructor) where TException : AlertException
-        {
-            throw constructor(ToAlert(), _inner);
-        }
-        
+       
+  
         private IAlertBuilder With(TextStyle style, string format, params object[] args)
         {
             return With(style, string.Format(format, args));
@@ -190,78 +173,8 @@ namespace FluentAlerts
 
         private IAlertBuilder With(TextStyle style, string text)
         {
-            AddText(text, style);
+            _items.AddText(text, style);
             return this;
         }
-
-        private void AddAlertItems(IEnumerable<IAlertItem> items)
-        {
-            if (items == null) return;
-            foreach (var item in items) {
-                AddAlertItem(item);
-            }
-        }
-
-        private void AddAlertItem(IAlertItem item)
-        {
-            if (item != null)
-            {
-                _items.Add(item);
-            }
-        }
-
-        private void AddGroup(GroupStyle style, params object[] items)
-        {
-            AddAlertItem(new AlertGroup{Style = style,Values = items});
-        }
-
-        private void AddText(string text, TextStyle style = TextStyle.Normal)
-        {
-            if (!string.IsNullOrEmpty(text))
-            {
-                AddAlertItem(new AlertTextBlock(text){Style = style});
-            }
-        }
-        
-        /// <summary>
-        /// Title is defined in a document as a text block of style title in the first item position
-        /// </summary>
-        /// <returns>Current or new inserted Title</returns>
-        private AlertTextBlock GetCreateTitle()
-        {
-            if (HasTitle())
-            {
-                return _items[0] as AlertTextBlock;
-            }
-            return CreateTitle();
-        }
-
-        private bool HasTitle()
-        {
-            return (_items.Any() && IsTitle(_items[0]));
-        }
-
-        private AlertTextBlock CreateTitle()
-        {
-            //Othewise insert
-            var result = new AlertTextBlock { Style = TextStyle.Header };
-            _items.Insert(0, result);
-            return result;
-        }
-
-        /// <summary>
-        /// Return true if object is a text block with a style of Title
-        /// </summary>
-        private static bool IsTitle(object o)
-        {
-            var block = o as AlertTextBlock;
-            if (block != null)
-            {
-                return block.Style == TextStyle.Header;
-            }
-            return false;
-        }
-
     }
-
 }

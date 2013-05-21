@@ -1,4 +1,5 @@
-﻿Feature: DeveloperCanSpecifyTheFormatOfObjects
+﻿@Transformation
+Feature: DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation
 	In order to have full control over the alert output
 	As a developer
 	I want to be able to specify the format of any object during transformation

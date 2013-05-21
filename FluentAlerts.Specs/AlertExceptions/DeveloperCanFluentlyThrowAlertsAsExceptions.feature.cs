@@ -68,10 +68,10 @@ namespace FluentAlerts.Specs.AlertExceptions
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Throw an exception with an internal alert (alert exception)")]
-        public virtual void ThrowAnExceptionWithAnInternalAlertAlertException()
+        [NUnit.Framework.DescriptionAttribute("Can throw an alert exception with an internal alert")]
+        public virtual void CanThrowAnAlertExceptionWithAnInternalAlert()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Throw an exception with an internal alert (alert exception)", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can throw an alert exception with an internal alert", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -89,18 +89,18 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Wrap a caught exception and throw an alert exception")]
-        public virtual void WrapACaughtExceptionAndThrowAnAlertException()
+        [NUnit.Framework.DescriptionAttribute("Can throw an alert exception with an internal alert and inner exception")]
+        public virtual void CanThrowAnAlertExceptionWithAnInternalAlertAndInnerException()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Wrap a caught exception and throw an alert exception", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can throw an alert exception with an internal alert and inner exception", ((string[])(null)));
 #line 14
 this.ScenarioSetup(scenarioInfo);
 #line 15
- testRunner.Given("I have an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 16
-  testRunner.When("I wrap it in an alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 17
-  testRunner.And("I throw the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I throw the alert with the inner expectpion", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 18
   testRunner.Then("the exception is an alert exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 19
@@ -114,117 +114,19 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Throw an exception with an internal alert using an exception derived from the bas" +
-            "e alert excpetion (derived alert exception)")]
-        [NUnit.Framework.CategoryAttribute("Extensibility")]
-        public virtual void ThrowAnExceptionWithAnInternalAlertUsingAnExceptionDerivedFromTheBaseAlertExcpetionDerivedAlertException()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Throw an exception with an internal alert using an exception derived from the bas" +
-                    "e alert excpetion (derived alert exception)", new string[] {
-                        "Extensibility"});
-#line 24
-this.ScenarioSetup(scenarioInfo);
-#line 25
- testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 26
-  testRunner.When("I throw the alert as some dervied alert exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 27
-  testRunner.Then("the exception is of the derived alert exception type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 28
-   testRunner.And("the exception contains the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 29
-   testRunner.And("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Wrap a caught exception and throw a derived alert exception")]
-        [NUnit.Framework.CategoryAttribute("Extensibility")]
-        public virtual void WrapACaughtExceptionAndThrowADerivedAlertException()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Wrap a caught exception and throw a derived alert exception", new string[] {
-                        "Extensibility"});
-#line 32
-this.ScenarioSetup(scenarioInfo);
-#line 33
- testRunner.Given("I have an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 34
-  testRunner.When("I wrap it in an alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 35
-   testRunner.And("I throw the alert as some dervied alert exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 36
-  testRunner.Then("the exception is of the derived alert exception type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 37
-   testRunner.And("the exception contains the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 38
-   testRunner.And("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 39
-   testRunner.And("the original exception is now the inner exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can create an alert exception from a current builder")]
-        [NUnit.Framework.CategoryAttribute("EaseOfUse")]
-        public virtual void CanCreateAnAlertExceptionFromACurrentBuilder()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert exception from a current builder", new string[] {
-                        "EaseOfUse"});
-#line 42
-this.ScenarioSetup(scenarioInfo);
-#line 43
- testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 44
-  testRunner.When("I create an alert exception with the builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 45
-  testRunner.Then("the exception contains the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 46
-   testRunner.And("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can create an alert exception from a current builder and other exception")]
-        [NUnit.Framework.CategoryAttribute("EaseOfUse")]
-        public virtual void CanCreateAnAlertExceptionFromACurrentBuilderAndOtherException()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert exception from a current builder and other exception", new string[] {
-                        "EaseOfUse"});
-#line 49
-this.ScenarioSetup(scenarioInfo);
-#line 50
- testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 51
-   testRunner.And("I have an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 52
-  testRunner.When("I create an alert exception with a builder and other exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 53
-  testRunner.Then("the exception contains the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 54
-   testRunner.And("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 55
-   testRunner.And("the original exception is now the inner exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Can create an alert exception from simple text")]
         [NUnit.Framework.CategoryAttribute("EaseOfUse")]
         public virtual void CanCreateAnAlertExceptionFromSimpleText()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert exception from simple text", new string[] {
                         "EaseOfUse"});
-#line 58
+#line 24
 this.ScenarioSetup(scenarioInfo);
-#line 59
+#line 25
  testRunner.When("I create an alert exception with the text message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 60
+#line 26
  testRunner.Then("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 61
+#line 27
   testRunner.And("exception message is the simple text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -237,18 +139,114 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert exception from simple text and other exception", new string[] {
                         "EaseOfUse"});
-#line 64
+#line 30
 this.ScenarioSetup(scenarioInfo);
-#line 65
+#line 31
    testRunner.Given("I have an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 66
+#line 32
  testRunner.When("I create an alert exception with text message and the inner exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 67
+#line 33
  testRunner.Then("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 68
+#line 34
   testRunner.And("exception message is the simple text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 69
+#line 35
   testRunner.And("the original exception is now the inner exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Can throw a dervided alert exception with an internal alert and inner exception")]
+        [NUnit.Framework.CategoryAttribute("Extensibility")]
+        public virtual void CanThrowADervidedAlertExceptionWithAnInternalAlertAndInnerException()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can throw a dervided alert exception with an internal alert and inner exception", new string[] {
+                        "Extensibility"});
+#line 38
+this.ScenarioSetup(scenarioInfo);
+#line 39
+ testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 40
+  testRunner.When("I throw the alert as some dervied alert exception with the inner exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 41
+  testRunner.Then("the exception is of the derived alert exception type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 42
+   testRunner.And("the exception contains the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 43
+   testRunner.And("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 44
+   testRunner.And("the original exception is now the inner exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Can throw a dervided alert exception with an internal alert")]
+        [NUnit.Framework.CategoryAttribute("Extensibility")]
+        public virtual void CanThrowADervidedAlertExceptionWithAnInternalAlert()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can throw a dervided alert exception with an internal alert", new string[] {
+                        "Extensibility"});
+#line 47
+this.ScenarioSetup(scenarioInfo);
+#line 48
+ testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 49
+   testRunner.And("I have an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 50
+  testRunner.When("I throw the alert as some dervied alert exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 51
+  testRunner.Then("the exception is of the derived alert exception type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 52
+   testRunner.And("the exception contains the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 53
+   testRunner.And("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Can create an alert exception from a current builder")]
+        [NUnit.Framework.CategoryAttribute("EaseOfUse")]
+        public virtual void CanCreateAnAlertExceptionFromACurrentBuilder()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert exception from a current builder", new string[] {
+                        "EaseOfUse"});
+#line 56
+this.ScenarioSetup(scenarioInfo);
+#line 57
+ testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 58
+  testRunner.When("I create an alert exception with the builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 59
+  testRunner.Then("the exception contains the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 60
+   testRunner.And("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Can create an alert exception from a current builder and other exception")]
+        [NUnit.Framework.CategoryAttribute("EaseOfUse")]
+        public virtual void CanCreateAnAlertExceptionFromACurrentBuilderAndOtherException()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert exception from a current builder and other exception", new string[] {
+                        "EaseOfUse"});
+#line 63
+this.ScenarioSetup(scenarioInfo);
+#line 64
+ testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 65
+   testRunner.And("I have an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 66
+  testRunner.When("I create an alert exception with a builder and other exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 67
+  testRunner.Then("the exception contains the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 68
+   testRunner.And("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 69
+   testRunner.And("the original exception is now the inner exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
