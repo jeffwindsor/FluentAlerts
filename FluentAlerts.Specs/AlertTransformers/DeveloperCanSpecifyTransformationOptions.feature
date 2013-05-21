@@ -29,10 +29,7 @@ Scenario: Can specify transformation depth of a type
 #exception scenario
 Scenario: Can specify transformation depth of a type be unlimited
 	Given I have a object graph of <n> depth
-	
-	
-Scenario: Defaults to selecting all properties and fields but no methods
-#declared and runtime types?
+		
 
 @Extensibility
 Scenario: Can limit type selections

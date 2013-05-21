@@ -52,6 +52,8 @@
     <Compile Include="IAlertItem.cs" />
     <Compile Include="Alert.cs" />
     <Compile Include="Transformers\BaseRowTransformer.cs" />
+    <Compile Include="Transformers\ExtensionsToIEnumerableOfString.cs" />
+    <Compile Include="Transformers\MemberPath.cs" />
     <Compile Include="Transformers\NameTypeValueRowTransformer.cs" />
     <Compile Include="Transformers\Transformer.cs" />
     <Compile Include="Transformers\Formatters\FluentAlertFormattingException.cs" />
@@ -66,9 +68,9 @@
     <Compile Include="Transformers\Strategies\ITransformStrategy.cs" />
     <Compile Include="Serializers\TemplatedStringAlertSerializer.cs" />
     <Compile Include="ExtensionsToType.cs" />
-    <Compile Include="Transformers\TypeInformers\DefaultTypeInformer.cs" />
+    <Compile Include="Transformers\TypeInformers\DefaultTypeInfoSelector.cs" />
     <Compile Include="Transformers\TypeInformers\TypeInfo.cs" />
-    <Compile Include="Transformers\TypeInformers\TypeInformer.cs" />
+    <Compile Include="Transformers\TypeInformers\TypeInfoSelector.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

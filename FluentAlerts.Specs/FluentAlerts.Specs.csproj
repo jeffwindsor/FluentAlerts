@@ -69,7 +69,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanFluentlyThrowAlertsAsExceptions.feature</DependentUpon>
     </Compile>
+    <Compile Include="AlertTransformers\DeveloperCanSpecifyTheTypeMembersToTransform.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeveloperCanSpecifyTheTypeMembersToTransform.feature</DependentUpon>
+    </Compile>
     <Compile Include="Steps and Contexts\AlertContext.cs" />
+    <Compile Include="Steps and Contexts\StepsForObjectTransformation.cs" />
     <Compile Include="Steps and Contexts\StepsForObjectFormatting.cs" />
     <Compile Include="Steps and Contexts\StepsForAlertExceptions.cs" />
     <Compile Include="AlertSerialization\DeveloperCanExtendSerialization.feature.cs">
@@ -138,6 +144,10 @@
     <None Include="AlertSerialization\DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AlertTransformers\DeveloperCanSpecifyTheTypeMembersToTransform.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DeveloperCanSpecifyTheTypeMembersToTransform.feature.cs</LastGenOutput>
     </None>
     <None Include="App.config">
       <SubType>Designer</SubType>

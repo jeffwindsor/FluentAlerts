@@ -246,6 +246,80 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Can insert formatting rules")]
+        [NUnit.Framework.TestCaseAttribute("String", null)]
+        [NUnit.Framework.TestCaseAttribute("DateTime", null)]
+        [NUnit.Framework.TestCaseAttribute("Integer", null)]
+        [NUnit.Framework.TestCaseAttribute("Long", null)]
+        [NUnit.Framework.TestCaseAttribute("Float", null)]
+        [NUnit.Framework.TestCaseAttribute("Double", null)]
+        [NUnit.Framework.TestCaseAttribute("NumberEnum", null)]
+        [NUnit.Framework.TestCaseAttribute("NestedTestClass", null)]
+        [NUnit.Framework.TestCaseAttribute("NestedTestStruct", null)]
+        public virtual void CanInsertFormattingRules(string type, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can insert formatting rules", exampleTags);
+#line 119
+this.ScenarioSetup(scenarioInfo);
+#line 120
+ testRunner.Given("I have the default formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 121
+  testRunner.And(string.Format("I have a {0} object", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 122
+  testRunner.And(string.Format("I insert a specific format for the {0} at the beginning", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 123
+  testRunner.And(string.Format("I insert a different format for {0} in between", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 124
+ testRunner.When("I format the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 125
+ testRunner.Then(string.Format("the result is equal to {0} to format", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("If object has no applicable formatting rules a formatting exception will be throw" +
+            "n")]
+        public virtual void IfObjectHasNoApplicableFormattingRulesAFormattingExceptionWillBeThrown()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("If object has no applicable formatting rules a formatting exception will be throw" +
+                    "n", ((string[])(null)));
+#line 138
+this.ScenarioSetup(scenarioInfo);
+#line 139
+ testRunner.Given("I have an empty formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 140
+  testRunner.And("I have a DateTime object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 141
+ testRunner.When("I format the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 142
+ testRunner.Then("I expect a FluentAlertFormattingException to be thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("If object has no applicable title formatting rules a formatting exception will be" +
+            " thrown")]
+        public virtual void IfObjectHasNoApplicableTitleFormattingRulesAFormattingExceptionWillBeThrown()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("If object has no applicable title formatting rules a formatting exception will be" +
+                    " thrown", ((string[])(null)));
+#line 144
+this.ScenarioSetup(scenarioInfo);
+#line 145
+ testRunner.Given("I have an empty formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 146
+  testRunner.And("I have a DateTime object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 147
+ testRunner.When("I format the object as a title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 148
+ testRunner.Then("I expect a FluentAlertFormattingException to be thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

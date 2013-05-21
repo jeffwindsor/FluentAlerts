@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentAlerts.Transformers.Formatters;
 
 namespace FluentAlerts.Specs
 {
     public static class Mother
     {
-        public static string GetFormat(object o)
-        {
-            return string.Format("Extra {0} Extra", o);
-        }
-
         public static NestedTestClass GetNestedTestClass(int nestingDepth)
         {
             return new NestedTestClass()
                 {
                     TestDate = DateTime.Now,
-                    Number = (NumberEnum) nestingDepth,
+                    TestNumber = (NumberEnum) nestingDepth,
+                    Date = DateTime.Now,
+                    Number = (NumberEnum)nestingDepth,
                     Child = (nestingDepth < 1)
                                 ? null
                                 : GetNestedTestClass(nestingDepth - 1),
@@ -86,7 +82,9 @@ namespace FluentAlerts.Specs
     public class NestedTestClass
     {
         public DateTime TestDate { get; set; }
-        public NumberEnum Number { get; set; }
+        public NumberEnum TestNumber;
+        public DateTime Date;
+        public NumberEnum Number;
         public NestedTestClass Child { get; set; }
         public IEnumerable<NestedTestClass> Children { get; set; } 
     }
@@ -94,7 +92,7 @@ namespace FluentAlerts.Specs
     public struct NestedTestStruct
     {
         public DateTime TestDate { get; set; }
-        public NumberEnum Number { get; set; }
+        public NumberEnum Number;
         public IEnumerable<NestedTestStruct> Children { get; set; }
     }
 

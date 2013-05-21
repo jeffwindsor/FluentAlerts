@@ -113,5 +113,36 @@ Examples:
 	| Float            |
 	| Double           |
 	| NumberEnum       |
+	| NestedTestClass  | 
+	| NestedTestStruct | 
+
+Scenario Outline: Can insert formatting rules
+	Given I have the default formatter
+	 And I have a <type> object
+	 And I insert a specific format for the <type> at the beginning
+	 And I insert a different format for <type> in between
+	When I format the object
+	Then the result is equal to <type> to format
+Examples:
+	| type             |
+	| String           |
+	| DateTime         |
+	| Integer          |
+	| Long             |
+	| Float            |
+	| Double           |
+	| NumberEnum       |
 	| NestedTestClass  |
 	| NestedTestStruct | 
+
+Scenario: If object has no applicable formatting rules a formatting exception will be thrown
+	Given I have an empty formatter
+	 And I have a DateTime object
+	When I format the object
+	Then I expect a FluentAlertFormattingException to be thrown
+
+Scenario: If object has no applicable title formatting rules a formatting exception will be thrown
+	Given I have an empty formatter
+	 And I have a DateTime object
+	When I format the object as a title
+	Then I expect a FluentAlertFormattingException to be thrown

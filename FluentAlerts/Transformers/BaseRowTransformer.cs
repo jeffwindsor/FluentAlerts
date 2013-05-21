@@ -8,8 +8,8 @@ namespace FluentAlerts.Transformers
     public abstract class BaseRowTransformer: BaseTransformer<string> 
     {
         protected BaseRowTransformer(ITransformStrategy strategy,
-            ITypeInformer informer, 
-            IObjectFormatter<string> formatter):base(strategy,informer,formatter){}
+            ITypeInfoSelector selector, 
+            IObjectFormatter<string> formatter):base(strategy,selector,formatter){}
 
         protected override IAlert Transform(object o, IEnumerable<string> objectMemberPath)
         {
@@ -26,3 +26,4 @@ namespace FluentAlerts.Transformers
         protected abstract IEnumerable<object[]> GetFieldRowValues(object o, IEnumerable<string> objectMemberPath);
     }
 }
+ 

@@ -19,14 +19,14 @@ namespace FluentAlerts.Transformers
     {
         private readonly string[] EMPTY_PATH = new string[] {};
 
-        private readonly ITypeInformer _informer;
+        private readonly ITypeInfoSelector _selector;
         private readonly ITransformStrategy _strategy;
         private readonly IObjectFormatter<TResult> _formatter;
 
-        protected BaseTransformer(ITransformStrategy strategy, ITypeInformer informer,
+        protected BaseTransformer(ITransformStrategy strategy, ITypeInfoSelector selector,
                                   IObjectFormatter<TResult> formatter)
         {
-            _informer = informer;
+            _selector = selector;
             _strategy = strategy;
             _formatter = formatter;
         }
@@ -51,10 +51,9 @@ namespace FluentAlerts.Transformers
 
         protected abstract IAlert Transform(object o, IEnumerable<string> objectMemberPath);
 
-        protected IEnumerable<InfoValue<PropertyInfo>> GetPropertyInfoValues(object o,
-                                                                             IEnumerable<string> objectMemberPath)
+        protected IEnumerable<InfoValue<PropertyInfo>> GetPropertyInfoValues(object o, IEnumerable<string> objectMemberPath)
         {
-            var typeInfo = _informer.Find(o.GetType());
+            var typeInfo = _selector.Find(o,objectMemberPath);
             return from info in typeInfo.PropertyInfos
                    select new InfoValue<PropertyInfo>()
                        {
@@ -65,7 +64,7 @@ namespace FluentAlerts.Transformers
 
         protected IEnumerable<InfoValue<FieldInfo>> GetFieldInfoValues(object o, IEnumerable<string> objectMemberPath)
         {
-            var typeInfo = _informer.Find(o.GetType());
+            var typeInfo = _selector.Find(o, objectMemberPath);
             return from info in typeInfo.FieldInfos
                    select new InfoValue<FieldInfo>()
                        {

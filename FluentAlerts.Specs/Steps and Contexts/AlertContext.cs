@@ -12,7 +12,8 @@ namespace FluentAlerts.Specs
         public IAlertBuilder Builder;
         public IAlert Alert;
         public IAlert OtherAlert;
-        
+
+        public Exception CaughtException;
     }
 }
  

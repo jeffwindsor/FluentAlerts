@@ -7,7 +7,6 @@ namespace FluentAlerts.Specs
     [Binding] 
     public class StepsForAlertsExceptions
     {
-        private AlertException _caughtException;
         private Exception _originalException;
 
         private AlertContext _context;
@@ -45,7 +44,7 @@ namespace FluentAlerts.Specs
             }
             catch (AlertException ex)
             {
-                _caughtException = ex;
+                _context.CaughtException = ex;
             }
         }
 
@@ -63,7 +62,7 @@ namespace FluentAlerts.Specs
             }
             catch (AlertException ex)
             {
-                _caughtException = ex;
+                _context.CaughtException = ex;
             }
         }
         
@@ -71,62 +70,63 @@ namespace FluentAlerts.Specs
         public void WhenICreateAnAlertExceptionWithTheBuilder()
         {
             _context.Alert = _context.Builder.ToAlert();  //for comparison later
-            _caughtException = new AlertException(_context.Builder);
+            _context.CaughtException = new AlertException(_context.Builder);
         }
 
         [When(@"I create an alert exception with a builder and other exception")]
         public void WhenICreateAnAlertExceptionWithABuilderAndOtherException()
         {
             _context.Alert = _context.Builder.ToAlert();  //for comparison later
-            _caughtException = new AlertException(_context.Builder,_originalException);
+            _context.CaughtException = new AlertException(_context.Builder,_originalException);
         }
 
         [When(@"I create an alert exception with the text message")]
         public void WhenICreateAnAlertExceptionWithTheTextMessage()
         {
-            _caughtException = new AlertException(_context.TestText);
+            _context.CaughtException = new AlertException(_context.TestText);
         }
 
         [When(@"I create an alert exception with text message and the inner exception")]
         public void WhenICreateAnAlertExceptionWithTextMessageAndTheInnerException()
         {
-            _caughtException = new AlertException(_context.TestText,_originalException);
+            _context.CaughtException = new AlertException(_context.TestText,_originalException);
         }
 
         [Then(@"the exception is an alert exception")]
         public void ThenTheExceptionIsAnAlertException()
         {
-            _caughtException.Should().BeOfType<AlertException>();
+            _context.CaughtException.Should().BeOfType<AlertException>();
         }
 
         [Then(@"the exception contains the alert")]
         public void ThenTheExceptionContainsTheAlert()
         {
-            _context.Alert.Should().BeEquivalentTo(_caughtException.Alert);
+
+            _context.Alert.Should().BeEquivalentTo(((AlertException)_context.CaughtException).Alert);
         }
 
         [Then(@"the exception's message is the alerts title")]
         public void ThenTheExceptionsMessageIsTheAlertsTitle()
         {
-            _caughtException.Alert.Title.Should().Be(_context.TestText);
+            ((AlertException)_context.CaughtException).Alert.Title.Should().Be(_context.TestText);
         }
         
         [Then(@"the exception is of the derived alert exception type")]
         public void ThenTheExceptionIsOfTheDerivedAlertExceptionType()
         {
-            _caughtException.Should().BeOfType<SpecsAlertException>();
+            _context.CaughtException.Should().BeOfType<SpecsAlertException>();
         }
 
         [Then(@"the original exception is now the inner exception")]
         public void ThenTheOriginalExceptionIsNowTheInnerException()
         {
-            _caughtException.InnerException.Should().Be(_originalException);
+            _context.CaughtException.InnerException.Should().Be(_originalException);
         }
        
         [Then(@"exception message is the simple text")]
         public void ThenExceptionMessageIsTheTextMessage()
         {
-            _caughtException.Message.Should().Be(_context.TestText);
+            _context.CaughtException.Message.Should().Be(_context.TestText);
         }
         
         //Simulates an external exception derived from the alert exception

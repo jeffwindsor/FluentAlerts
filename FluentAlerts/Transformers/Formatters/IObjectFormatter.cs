@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace FluentAlerts.Transformers.Formatters
 {
+    //TODO: Default Formatter for Collactions should be type and count
     public interface IObjectFormatter<out TResult>
     {
         TResult FormatAsTitle(object o, IEnumerable<string> objectMemberPath);
@@ -25,7 +26,7 @@ namespace FluentAlerts.Transformers.Formatters
             return FormatUsingRules(o, objectMemberPath, FormatAsTitleRules);
         }
 
-        private static TResult FormatUsingRules(object o, IEnumerable<string> objectMemberPath, RulesCollection rules)
+        private static TResult FormatUsingRules(object o, IEnumerable<string> objectMemberPath, ICollection<FormatterRule<TResult>> rules)
         {
             var applicableRules = rules.Where(rule => rule.Apply(o, objectMemberPath));
             if (!applicableRules.Any())
