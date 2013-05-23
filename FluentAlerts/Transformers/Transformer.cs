@@ -100,12 +100,14 @@ namespace FluentAlerts.Transformers
                        };
         }
 
-        private object GetValue(Func<string> name, Func<object> value, IEnumerable<string> objectMemberPath)
+        private object GetValue(Func<string> getName, Func<object> getValue, IEnumerable<string> objectMemberPath)
         {
             try
             {
                 //Check Tranform strategy and transform if required
-                var valueMemberPath = CreateCopyWithAppendedElement(objectMemberPath, name());
+                var name = getName();
+                var value = getValue();
+                var valueMemberPath = CreateCopyWithAppendedElement(objectMemberPath, name);
                 if (_strategy.IsTransformRequired(value, valueMemberPath))
                     return Transform(value, valueMemberPath);
 

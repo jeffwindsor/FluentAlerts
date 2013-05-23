@@ -15,6 +15,10 @@ namespace FluentAlerts.Specs
         private TypeInfo _typeInfo;
         private MemberPath _memberPath;
         private BaseTypeInfoSelector _selector;
+        private ITransformer<string> _transformer;
+        private object _transformedObject;
+        private IAlert _transformedAlert;
+
         private readonly AlertContext _context;
         public StepsForObjectTransformation(AlertContext context)
         {
@@ -164,6 +168,18 @@ namespace FluentAlerts.Specs
                 info.FieldInfos = info.FieldInfos.Where(pi =>
                     path.Concat(new[] { pi.Name }).SequenceEqual(_memberPath)));
         }
+        
+        [Given(@"I have a default transformer")]
+        public void GivenIHaveADefaultTransformer()
+        {
+            _transformer = Alerts.Transformers.CreateDefault();
+        }
+        
+        [Given(@"I have a name type value pair transformer")]
+        public void GivenIHaveANameTypeValuePairTransformer()
+        {
+            _transformer = Alerts.Transformers.CreateNameTypeValue();
+        }
 
 
         [When(@"I get the object's type info")]
@@ -175,7 +191,7 @@ namespace FluentAlerts.Specs
         [When(@"I transform the alert")]
         public void WhenITransformTheAlert()
         {
-            _context.Alert = _context.Alert.Transform();
+            _transformedAlert = _context.Alert.Transform();
         }
 
         [When(@"I transform the alert using a custom transformer")]
@@ -183,8 +199,28 @@ namespace FluentAlerts.Specs
         {
             _context.Alert = _context.Alert.Transform(Alerts.Transformers.CreateDefault());
         }
+        
+        [When(@"I transform the object")]
+        public void WhenITransformTheObject()
+        {
+            _transformedObject = _transformer.Transform(_context.TestValue);
+        }
 
 
+
+        [Then(@"the result should be an IAlert")]
+        public void ThenTheResultShouldBeAnIAlert()
+        {
+            _transformedObject.Should().BeAssignableTo<IAlert>();
+            _transformedAlert=_transformedObject  as IAlert;
+        }
+
+        [Then(@"the alert title equals the object's type name")]
+        public void ThenTheAlertTitleEqualsTheObjectSTypeName()
+        {
+            _transformedAlert.Title.Should().Be(_context.TestValue.GetType().Name);
+        }
+        
         [Then(@"there should not be any element that is not a grpah class or result type")]
         public void ThenThereShouldNotBeAnyElementThatIsNotAGrpahClassOrResultType()
         {
@@ -242,6 +278,115 @@ namespace FluentAlerts.Specs
                            where fi.FieldType.Name == expectedTypeName
                            select fi;
             _typeInfo.FieldInfos.Should().BeEquivalentTo(expected);
+        }
+
+        [Then(@"the alert has a group for each of objects properties with name value pairs")]
+        public void ThenTheAlertHasAGroupForEachOfObjectsPropertiesWithNameValuePairs()
+        {
+            var expected = from pi in _context.TestValue.GetType().GetProperties()
+                           select new {Name = pi.Name, Value = pi.GetValue(_context.TestValue, null)};
+
+            var actual = from a in _transformedAlert
+                         where a is AlertGroup
+                         select a as AlertGroup;
+
+            var merge = from e in expected
+                        join a in actual on e.Name equals a.Values[0].ToString()
+                        select new { e.Name, Expected = e.Value, Actual = a.Values[1] };
+
+
+            actual.Count(a => a.Values.Length == 2).Should().Be(actual.Count(), "each property should have a name value pair group");
+            expected.Count().Should().Be(merge.Count(), "properties groups");
+            merge.Count(r => r.Expected.ToString() == r.Actual.ToString()).Should().Be(merge.Count(), "each property transformed value should be its to string");
+        }
+
+        [Then(@"the alert has a group for each of objects fields with name value pairs")]
+        public void ThenTheAlertHasAGroupForEachOfObjectsFieldsWithNameValuePairs()
+        {
+            var expected = from pi in _context.TestValue.GetType().GetFields()
+                           select new { Name = pi.Name, Value = pi.GetValue(_context.TestValue) };
+
+            var actual = from a in _transformedAlert
+                         where a is AlertGroup
+                         select a as AlertGroup;
+
+            var merge = from e in expected
+                        join a in actual on e.Name equals a.Values[0].ToString()
+                        select new { e.Name, Expected = e.Value, Actual = a.Values[1] };
+
+            actual.Count(a => a.Values.Length == 2).Should().Be(actual.Count(), "each field should have a name value pair group");
+            expected.Count().Should().Be(merge.Count(), "field groups");
+            merge.Count(r => r.Expected.ToString() == r.Actual.ToString()).Should().Be(merge.Count(), "each field transformed value should be its to string");
+    
+        }
+
+        [Then(@"all the (.*) are the same")]
+        public void ThenAllTheAreTheSame(string type)
+        {
+            switch (type)
+            {
+                case "IAlert":
+                    _context.Alert.Should().BeEquivalentTo(_transformedAlert);
+                    break;
+                case "IAlertItem":
+                    _context.Alert.AllItems().ShouldBeEquivalentTo(_transformedAlert.AllItems());
+                    break;
+                case "Result":
+                    var expecteds = from i in _context.Alert.AllValues()
+                                   where i is string
+                                   select i as string;
+                    var actuals = from i in _transformedAlert.AllValues()
+                                 where i is string
+                                 select i as string;
+                    var merge = from e in expecteds
+                                join a in actuals on e equals a
+                                select a;
+                    merge.Count().Should().Be(expecteds.Count());
+                    break;
+                default :
+                    throw new ArgumentException("Type unknown","type");
+            }
+        }
+        
+        [Then(@"the alert has a group for each of objects properties with name type value pairs")]
+        public void ThenTheAlertHasAGroupForEachOfObjectsPropertiesWithNameTypeValuePairs()
+        {
+            var expected = from pi in _context.TestValue.GetType().GetProperties()
+                           select new { Name = pi.Name, Value = pi.GetValue(_context.TestValue, null) };
+
+            var actual = from a in _transformedAlert
+                         where a is AlertGroup
+                         select a as AlertGroup;
+
+            var merge = from e in expected
+                        join a in actual on e.Name equals a.Values[0].ToString()
+                        select new { e.Name, Expected = e.Value, Actual = a.Values[2], ExpectedType = e.Value.GetType(), ActualType = a.Values[1] };
+
+
+            actual.Count(a => a.Values.Length == 3).Should().Be(actual.Count(), "each property should have a name value pair group");
+            expected.Count().Should().Be(merge.Count(), "properties groups");
+            merge.Count(r => r.Expected.ToString() == r.Actual.ToString()).Should().Be(merge.Count(), "each property transformed value should be its to string");
+            merge.Count(r => r.ExpectedType.Name.ToString() == r.ActualType.ToString()).Should().Be(merge.Count(r=> !r.ExpectedType.IsGenericType ), "each property transformed type should be its to string");
+        }
+
+        [Then(@"the alert has a group for each of objects fields with name type value pairs")]
+        public void ThenTheAlertHasAGroupForEachOfObjectsFieldsWithNameTypeValuePairs()
+        {
+            var expected = from pi in _context.TestValue.GetType().GetFields()
+                           select new { Name = pi.Name, Value = pi.GetValue(_context.TestValue) };
+
+            var actual = from a in _transformedAlert
+                         where a is AlertGroup
+                         select a as AlertGroup;
+
+            var merge = from e in expected
+                        join a in actual on e.Name equals a.Values[0].ToString()
+                        select new { e.Name, Expected = e.Value, Actual = a.Values[2], ExpectedType = e.Value.GetType(), ActualType = a.Values[1] };
+
+            actual.Count(a => a.Values.Length == 3).Should().Be(actual.Count(), "each field should have a name value pair group");
+            expected.Count().Should().Be(merge.Count(), "field groups");
+            merge.Count(r => r.Expected.ToString() == r.Actual.ToString()).Should().Be(merge.Count(), "each field transformed value should be its to string");
+            merge.Count(r => r.ExpectedType.Name.ToString() == r.ActualType.ToString()).Should().Be(merge.Count(r => !r.ExpectedType.IsGenericType), "each field transformed type should be its to string");
         }
 
 

@@ -242,13 +242,13 @@ namespace FluentAlerts.Specs
                 ? "Null"  
                 : _context.TestValue.ToString());
         }
-
+        
         [Then(@"the result is equal to (.*) types name")]
         public void ThenTheResultIsEqualToTypesName(string type)
         {
             _formatResponse.Should().Be(type == "Null"
                 ? "Null"
-                : _context.TestValue.GetType().ToString());
+                : _context.TestValue.GetType().Name);
         }
 
         [Then(@"the result is equal to (.*) to format")]

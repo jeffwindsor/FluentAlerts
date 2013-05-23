@@ -12,7 +12,7 @@
 
             //Base rule: all objects return title of type tostring()
             FormatAsTitleRules.Add((o, path) => true,
-                      (o, path) => (o == null) ? "Null" : o.GetType().ToString());
+                      (o, path) => (o == null) ? "Null" : o.GetType().Name);
         }
 
     }

@@ -38,6 +38,13 @@ namespace FluentAlerts
                                                    new DefaultTypeInfoSelector(),
                                                    new DefaultFormatter());
             }
+
+            public static ITransformer<string> CreateNameTypeValue()
+            {
+                return new NameTypeValueRowTransformer(new DefaultTransformStrategy(),
+                                                   new DefaultTypeInfoSelector(),
+                                                   new DefaultFormatter());
+            }
         }
     }
 }
