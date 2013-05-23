@@ -15,7 +15,6 @@ namespace FluentAlerts.Transformers.Formatters
         public readonly RulesCollection FormatRules = new RulesCollection {Title="Object Format Rules"};
         public readonly RulesCollection FormatAsTitleRules = new RulesCollection { Title = "Object Format Title Rules" };
         
-        #region IObjectFormatter
         public TResult Format(object o, IEnumerable<string> objectMemberPath)
         {
             return FormatUsingRules(o, objectMemberPath, FormatRules);
@@ -26,16 +25,15 @@ namespace FluentAlerts.Transformers.Formatters
             return FormatUsingRules(o, objectMemberPath, FormatAsTitleRules);
         }
 
-        private static TResult FormatUsingRules(object o, IEnumerable<string> objectMemberPath, ICollection<FormatterRule<TResult>> rules)
+        private static TResult FormatUsingRules(object o, IEnumerable<string> objectMemberPath, IEnumerable<FormatterRule<TResult>> rules)
         {
             var applicableRules = rules.Where(rule => rule.Apply(o, objectMemberPath));
             if (!applicableRules.Any())
-                throw new FluentAlertFormattingException<TResult>("No Applicable Rules Found", o, objectMemberPath, rules);
+                throw new FluentAlertFormattingException<TResult>("No Applicable Rules Found", o, objectMemberPath);
 
             return applicableRules.First().Format(o, objectMemberPath);
         }
-        #endregion
-
+        
         #region Inner Classses
         public class RulesCollection : List<FormatterRule<TResult>>
         {

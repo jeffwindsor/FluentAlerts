@@ -4,6 +4,9 @@ Feature: DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation
 	As a developer
 	I want to be able to specify the format of any object during transformation
 
+Scenario: Can config default formatter
+	Given inconclusive 
+
 Scenario Outline: Default formatter uses the objects to string on all types
 	Given I have a <type> object
 	 And I have the default formatter

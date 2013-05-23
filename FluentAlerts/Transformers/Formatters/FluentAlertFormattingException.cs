@@ -5,31 +5,29 @@ namespace FluentAlerts.Transformers.Formatters
 {
     public class FluentAlertFormattingException<TResult>: ApplicationException
     {
-        public FluentAlertFormattingException(object o, IEnumerable<string> objectMemberPath, ICollection<FormatterRule<TResult>> rules)
+        public FluentAlertFormattingException(object o, IEnumerable<string> objectMemberPath)
         {
-            SetValues(o, objectMemberPath, rules);
+            SetValues(o, objectMemberPath);
         }
-        public FluentAlertFormattingException(string message, object o, IEnumerable<string> objectMemberPath, ICollection<FormatterRule<TResult>> rules)
+        public FluentAlertFormattingException(string message, object o, IEnumerable<string> objectMemberPath)
             :base(message)
         {
-            SetValues(o, objectMemberPath, rules);
+            SetValues(o, objectMemberPath);
         }
-        public FluentAlertFormattingException(string message, object o, IEnumerable<string> objectMemberPath, ICollection<FormatterRule<TResult>> rules, Exception inner)
+        public FluentAlertFormattingException(string message, object o, IEnumerable<string> objectMemberPath, Exception inner)
             : base(message, inner)
         {
-            SetValues(o, objectMemberPath, rules);
+            SetValues(o, objectMemberPath);
         }
 
-        private void SetValues(object o, IEnumerable<string> objectMemberPath, ICollection<FormatterRule<TResult>> rules)
+        private void SetValues(object o, IEnumerable<string> objectMemberPath)
         {
             FormatObject = o;
             FormatObjectMemberPath = objectMemberPath;
-            FormatterRules = rules;
         }
 
 
         public object FormatObject { get; private set; }
         public IEnumerable<string> FormatObjectMemberPath { get; private set; }
-        public ICollection<FormatterRule<TResult>> FormatterRules { get; private set; }
     }
 }

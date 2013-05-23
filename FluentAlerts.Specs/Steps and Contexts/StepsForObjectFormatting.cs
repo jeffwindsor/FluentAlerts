@@ -13,6 +13,7 @@ namespace FluentAlerts.Specs
         private BaseObjectFormatter<string> _formatter;
         private Func<object, string> SPEC_FORMAT = (o) => GetFormat(o);
         private Func<object, string> ALT_SPEC_FORMAT = (o) => GetAltFormat(o);
+        private string[] NO_PATH = new string[] {};
 
         private AlertContext _context;
         public StepsForObjectFormatting(AlertContext context)
@@ -64,13 +65,13 @@ namespace FluentAlerts.Specs
         [Given(@"I have the default formatter")]
         public void GivenIHaveTheDefaultFormatter()
         {
-            _formatter = new DefaultFormatter();
+            _formatter = new DefaultToStringFormatter();
         }
 
         [Given(@"I have an empty formatter")]
         public void GivenIHaveAnEmptyformatter()
         {
-            _formatter = new DefaultFormatter();
+            _formatter = new DefaultToStringFormatter();
             _formatter.FormatAsTitleRules.Clear();
             _formatter.FormatRules.Clear();
         }
@@ -196,7 +197,7 @@ namespace FluentAlerts.Specs
         {
             try
             {
-                _formatResponse = ((IObjectFormatter<string>)_formatter).Format(_context.TestValue, new string[] { });
+                _formatResponse = ((IObjectFormatter<string>)_formatter).Format(_context.TestValue, NO_PATH);
             }
             catch (Exception ex)
             {
@@ -263,7 +264,10 @@ namespace FluentAlerts.Specs
         public void ThenIExpectAFluentAlertFormattingExceptionToBeThrown()
         {
             _context.CaughtException.Should().BeOfType<FluentAlertFormattingException<string>>();
-            //TODO: test inner values
+
+            var ex = _context.CaughtException as FluentAlertFormattingException<string>;
+            ex.FormatObject.Should().Be(_context.TestValue);
+            ex.FormatObjectMemberPath.Should().BeEquivalentTo(NO_PATH);
         }
 
 

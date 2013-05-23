@@ -78,15 +78,10 @@
     <Compile Include="Steps and Contexts\StepsForObjectTransformation.cs" />
     <Compile Include="Steps and Contexts\StepsForObjectFormatting.cs" />
     <Compile Include="Steps and Contexts\StepsForAlertExceptions.cs" />
-    <Compile Include="AlertSerialization\DeveloperCanExtendSerialization.feature.cs">
+    <Compile Include="AlertRendering\DeveloperCanSpecifyRenderTemplates.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanExtendSerialization.feature</DependentUpon>
-    </Compile>
-    <Compile Include="AlertSerialization\DeveloperCanSpecifySerializationTemplates.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanSpecifySerializationTemplates.feature</DependentUpon>
+      <DependentUpon>DeveloperCanSpecifyRenderTemplates.feature</DependentUpon>
     </Compile>
     <Compile Include="AlertTransformation\DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature.cs">
       <AutoGen>True</AutoGen>
@@ -98,7 +93,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyWhichTypesAreTransformed.feature</DependentUpon>
     </Compile>
-    <Compile Include="AlertSerialization\DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature.cs">
+    <Compile Include="AlertRendering\DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature</DependentUpon>
@@ -125,13 +120,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanFluentlyThrowAlertsAsExceptions.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertSerialization\DeveloperCanExtendSerialization.feature">
+    <None Include="AlertRendering\DeveloperCanSpecifyRenderTemplates.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanExtendSerialization.feature.cs</LastGenOutput>
-    </None>
-    <None Include="AlertSerialization\DeveloperCanSpecifySerializationTemplates.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanSpecifySerializationTemplates.feature.cs</LastGenOutput>
+      <LastGenOutput>DeveloperCanSpecifyRenderTemplates.feature.cs</LastGenOutput>
     </None>
     <None Include="AlertTransformation\DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -141,7 +132,7 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifyWhichTypesAreTransformed.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertSerialization\DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature">
+    <None Include="AlertRendering\DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature.cs</LastGenOutput>
     </None>

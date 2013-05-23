@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FluentAlerts.Transformers;
+using FluentAlerts.Transformers.Formatters;
 using FluentAlerts.Transformers.TypeInformers;
 using FluentAssertions;
 using TechTalk.SpecFlow;
@@ -352,7 +353,7 @@ namespace FluentAlerts.Specs
         public void ThenTheAlertHasAGroupForEachOfObjectsPropertiesWithNameTypeValuePairs()
         {
             var expected = from pi in _context.TestValue.GetType().GetProperties()
-                           select new { Name = pi.Name, Value = pi.GetValue(_context.TestValue, null) };
+                           select new {pi, Name = pi.Name, Value = pi.GetValue(_context.TestValue, null) };
 
             var actual = from a in _transformedAlert
                          where a is AlertGroup
@@ -360,20 +361,27 @@ namespace FluentAlerts.Specs
 
             var merge = from e in expected
                         join a in actual on e.Name equals a.Values[0].ToString()
-                        select new { e.Name, Expected = e.Value, Actual = a.Values[2], ExpectedType = e.Value.GetType(), ActualType = a.Values[1] };
+                        select new
+                            {
+                                e.Name,
+                                Expected = e.Value,
+                                Actual = a.Values[2],
+                                ExpectedType = DefaultToStringFormatter.PrettyTypeName(e.pi.PropertyType),
+                                ActualType = a.Values[1].ToString()
+                            };
 
 
             actual.Count(a => a.Values.Length == 3).Should().Be(actual.Count(), "each property should have a name value pair group");
             expected.Count().Should().Be(merge.Count(), "properties groups");
             merge.Count(r => r.Expected.ToString() == r.Actual.ToString()).Should().Be(merge.Count(), "each property transformed value should be its to string");
-            merge.Count(r => r.ExpectedType.Name.ToString() == r.ActualType.ToString()).Should().Be(merge.Count(r=> !r.ExpectedType.IsGenericType ), "each property transformed type should be its to string");
+            merge.Count(r => r.ExpectedType == r.ActualType).Should().Be(merge.Count(), "each property transformed type should be its to string");
         }
 
         [Then(@"the alert has a group for each of objects fields with name type value pairs")]
         public void ThenTheAlertHasAGroupForEachOfObjectsFieldsWithNameTypeValuePairs()
         {
             var expected = from pi in _context.TestValue.GetType().GetFields()
-                           select new { Name = pi.Name, Value = pi.GetValue(_context.TestValue) };
+                           select new {pi, Name = pi.Name, Value = pi.GetValue(_context.TestValue) };
 
             var actual = from a in _transformedAlert
                          where a is AlertGroup
@@ -381,12 +389,19 @@ namespace FluentAlerts.Specs
 
             var merge = from e in expected
                         join a in actual on e.Name equals a.Values[0].ToString()
-                        select new { e.Name, Expected = e.Value, Actual = a.Values[2], ExpectedType = e.Value.GetType(), ActualType = a.Values[1] };
+                        select new
+                            {
+                                e.Name,
+                                Expected = e.Value,
+                                Actual = a.Values[2],
+                                ExpectedType = DefaultToStringFormatter.PrettyTypeName(e.pi.FieldType),
+                                ActualType = a.Values[1].ToString()
+                            };
 
             actual.Count(a => a.Values.Length == 3).Should().Be(actual.Count(), "each field should have a name value pair group");
             expected.Count().Should().Be(merge.Count(), "field groups");
             merge.Count(r => r.Expected.ToString() == r.Actual.ToString()).Should().Be(merge.Count(), "each field transformed value should be its to string");
-            merge.Count(r => r.ExpectedType.Name.ToString() == r.ActualType.ToString()).Should().Be(merge.Count(r => !r.ExpectedType.IsGenericType), "each field transformed type should be its to string");
+            merge.Count(r => r.ExpectedType == r.ActualType).Should().Be(merge.Count(), "each field transformed type should be its to string");
         }
 
 

@@ -4,6 +4,9 @@ Feature: DeveloperCanSpecifyTypeMemberToTransform
 	As a developer
 	I want to be able to specify the properties and fields which will be transformed
 	
+Scenario: Can config default type informer
+	Given inconclusive 
+
 Scenario: Defaults to selecting all properties and fields
 	Given I have a default type informer
 	 And I have a NestedTestClass object

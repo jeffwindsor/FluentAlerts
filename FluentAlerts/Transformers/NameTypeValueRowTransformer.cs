@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿ using System.Collections.Generic;
 using System.Linq;
 using FluentAlerts.Transformers.Formatters;
 using FluentAlerts.Transformers.Strategies;
@@ -16,14 +16,24 @@ namespace FluentAlerts.Transformers
         {
             return from t in GetPropertyInfoValues(o, objectMemberPath)
                    orderby t.Info.Name
-                   select new[] { t.Info.Name, t.Info.PropertyType.Name, t.Value };
+                   select new[]
+                       {
+                           t.Info.Name,
+                           DefaultToStringFormatter.PrettyTypeName(t.Info.PropertyType),
+                           t.Value
+                       };
         }
 
         protected override IEnumerable<object[]> GetFieldRowValues(object o, IEnumerable<string> objectMemberPath)
         {
             return from t in GetFieldInfoValues(o, objectMemberPath)
                    orderby t.Info.Name
-                   select new[] { t.Info.Name,t.Info.FieldType.Name, t.Value };
+                   select new[]
+                       {
+                           t.Info.Name,
+                           DefaultToStringFormatter.PrettyTypeName(t.Info.FieldType),
+                           t.Value
+                       };
         }
     }
 }
