@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAlerts.Transformers;
+﻿using System.Collections.Generic;
 
 namespace FluentAlerts
 {
-    //TODO: Improve this so that it can be expanded
     public interface IAlertBuilder
     {
         //Fluent Methods
@@ -108,12 +104,12 @@ namespace FluentAlerts
 
         public IAlertBuilder WithHeader(string text)
         {
-            return With(TextStyle.Header, text);
+            return With(TextStyle.Title, text);
         }
 
         public IAlertBuilder WithHeader(string format, params object[] args)
         {
-            return With(TextStyle.Header, format, args);
+            return With(TextStyle.Title, format, args);
         }
 
         public IAlertBuilder WithUrl(string text, string url)

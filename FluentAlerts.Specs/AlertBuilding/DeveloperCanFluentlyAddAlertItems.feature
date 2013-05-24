@@ -1,5 +1,5 @@
 ﻿@Alerts @FluentInterface 
-Feature: A developer can fluently add alert times
+Feature: DeveloperCanFluentlyAddAlertItems
 	In order to document the current system state
 	As a developer
 	I want to be able to add items to an alert
@@ -37,7 +37,7 @@ Examples:
 	| text_style |
 	| Normal     |
 	| Emphasized |
-	| Header     |
+	| Title      |
 
 Scenario Outline: Can add a format based styled text
 	Given I have an alert builder
@@ -48,7 +48,7 @@ Examples:
 	| text_style |
 	| Normal     |
 	| Emphasized |
-	| Header     |
+	| Title      |
 
 Scenario: Can add a seperator
 	Given I have an alert builder

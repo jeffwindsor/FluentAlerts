@@ -73,7 +73,7 @@ namespace FluentAlerts.Specs
             try
             {
                 _context.Alert = _context.Builder.ToAlert();  //for comparison later
-                _context.Alert.ThrowAs((alert) => new SpecsAlertException(alert));
+                _context.Alert.Throw((alert) => new SpecsAlertException(alert));
             }
             catch (AlertException ex)
             {
@@ -87,7 +87,7 @@ namespace FluentAlerts.Specs
             try
             {
                 _context.Alert = _context.Builder.ToAlert();  //for comparison later
-                _context.Alert.ThrowAs((alert) => new SpecsAlertException(alert, _originalException));
+                _context.Alert.Throw((alert) => new SpecsAlertException(alert, _originalException));
             }
             catch (AlertException ex)
             {

@@ -58,7 +58,7 @@ namespace FluentAlerts
         private AlertTextBlock CreateTitle()
         {
             //Othewise insert
-            var result = new AlertTextBlock { Style = TextStyle.Header };
+            var result = new AlertTextBlock { Style = TextStyle.Title };
             this.Insert(0, result);
             return result;
         }
@@ -71,7 +71,7 @@ namespace FluentAlerts
             var block = o as AlertTextBlock;
             if (block != null)
             {
-                return block.Style == TextStyle.Header;
+                return block.Style == TextStyle.Title;
             }
             return false;
         }

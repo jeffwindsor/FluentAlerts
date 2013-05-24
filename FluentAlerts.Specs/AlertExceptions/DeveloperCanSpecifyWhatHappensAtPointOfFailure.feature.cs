@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace FluentAlerts.Specs.AlertRendering
+namespace FluentAlerts.Specs.AlertExceptions
 {
     using TechTalk.SpecFlow;
     
@@ -19,21 +19,21 @@ namespace FluentAlerts.Specs.AlertRendering
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("DeveloperCanSpecifyWhatHappensOnSerializationIssues")]
+    [NUnit.Framework.DescriptionAttribute("DeveloperCanSpecifyWhatHappensAtPointOfFailure")]
     [NUnit.Framework.CategoryAttribute("Serialization")]
-    public partial class DeveloperCanSpecifyWhatHappensOnSerializationIssuesFeature
+    public partial class DeveloperCanSpecifyWhatHappensAtPointOfFailureFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature"
+#line 1 "DeveloperCanSpecifyWhatHappensAtPointOfFailure.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanSpecifyWhatHappensOnSerializationIssues", "", ProgrammingLanguage.CSharp, new string[] {
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanSpecifyWhatHappensAtPointOfFailure", "", ProgrammingLanguage.CSharp, new string[] {
                         "Serialization"});
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -67,13 +67,39 @@ namespace FluentAlerts.Specs.AlertRendering
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Render Template File not found")]
+        public virtual void RenderTemplateFileNotFound()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Render Template File not found", ((string[])(null)));
+#line 4
+this.ScenarioSetup(scenarioInfo);
+#line 5
+ testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Render Template File not valid")]
+        public virtual void RenderTemplateFileNotValid()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Render Template File not valid", ((string[])(null)));
+#line 7
+this.ScenarioSetup(scenarioInfo);
+#line 8
+ testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Cyclic references")]
         public virtual void CyclicReferences()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cyclic references", ((string[])(null)));
-#line 4
+#line 10
 this.ScenarioSetup(scenarioInfo);
-#line 5
+#line 11
  testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
@@ -84,9 +110,9 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ObtainValueFailure()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Obtain value failure", ((string[])(null)));
-#line 7
+#line 13
 this.ScenarioSetup(scenarioInfo);
-#line 8
+#line 14
  testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
@@ -97,9 +123,9 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void NoInfoForType()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No info for type", ((string[])(null)));
-#line 10
+#line 16
 this.ScenarioSetup(scenarioInfo);
-#line 11
+#line 17
  testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
@@ -110,9 +136,9 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void NullValue()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Null value", ((string[])(null)));
-#line 13
+#line 19
 this.ScenarioSetup(scenarioInfo);
-#line 14
+#line 20
  testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();

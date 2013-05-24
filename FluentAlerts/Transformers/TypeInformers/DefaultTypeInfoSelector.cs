@@ -4,7 +4,6 @@ namespace FluentAlerts.Transformers.TypeInformers
 {
     public class DefaultTypeInfoSelector : BaseTypeInfoSelector 
     {
-        //TODO constructor injection may not be obvious.
         public DefaultTypeInfoSelector()
         {
             //All public readable properties

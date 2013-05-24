@@ -74,6 +74,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyTheTypeMembersToTransform.feature</DependentUpon>
     </Compile>
+    <Compile Include="ManualActions.cs" />
     <Compile Include="Steps and Contexts\AlertContext.cs" />
     <Compile Include="Steps and Contexts\StepsForObjectTransformation.cs" />
     <Compile Include="Steps and Contexts\StepsForObjectFormatting.cs" />
@@ -93,10 +94,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyWhichTypesAreTransformed.feature</DependentUpon>
     </Compile>
-    <Compile Include="AlertRendering\DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature.cs">
+    <Compile Include="AlertExceptions\DeveloperCanSpecifyWhatHappensAtPointOfFailure.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature</DependentUpon>
+      <DependentUpon>DeveloperCanSpecifyWhatHappensAtPointOfFailure.feature</DependentUpon>
     </Compile>
     <Compile Include="Steps and Contexts\StepsForAlertSerialization.cs" />
     <Compile Include="Mother.cs" />
@@ -132,9 +133,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifyWhichTypesAreTransformed.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertRendering\DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature">
+    <None Include="AlertExceptions\DeveloperCanSpecifyWhatHappensAtPointOfFailure.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanSpecifyWhatHappensOnSerializationIssues.feature.cs</LastGenOutput>
+      <LastGenOutput>DeveloperCanSpecifyWhatHappensAtPointOfFailure.feature.cs</LastGenOutput>
     </None>
     <None Include="AlertTransformation\DeveloperCanSpecifyTheTypeMembersToTransform.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

@@ -12,9 +12,9 @@ namespace FluentAlerts.Renderers
     public class AlertRenderer : IAlertRenderer
     {
         private readonly StringBuilder _acc = new StringBuilder();
-        private readonly IRenderTemplate _template;
+        private readonly ITemplateRender _template;
         private readonly ITransformer<string> _transformer;
-        public AlertRenderer(ITransformer<string> transformer, IRenderTemplate template)
+        public AlertRenderer(ITransformer<string> transformer, ITemplateRender template)
         {
             _transformer = transformer;
             _template = template;

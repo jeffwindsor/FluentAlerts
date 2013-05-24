@@ -19,10 +19,10 @@ namespace FluentAlerts.Specs.AlertBuilding
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("A developer can fluently add alert times")]
+    [NUnit.Framework.DescriptionAttribute("DeveloperCanFluentlyAddAlertItems")]
     [NUnit.Framework.CategoryAttribute("Alerts")]
     [NUnit.Framework.CategoryAttribute("FluentInterface")]
-    public partial class ADeveloperCanFluentlyAddAlertTimesFeature
+    public partial class DeveloperCanFluentlyAddAlertItemsFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -34,7 +34,7 @@ namespace FluentAlerts.Specs.AlertBuilding
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "A developer can fluently add alert times", "In order to document the current system state\r\nAs a developer\r\nI want to be able " +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanFluentlyAddAlertItems", "In order to document the current system state\r\nAs a developer\r\nI want to be able " +
                     "to add items to an alert", ProgrammingLanguage.CSharp, new string[] {
                         "Alerts",
                         "FluentInterface"});
@@ -149,7 +149,7 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Can add a styled text")]
         [NUnit.Framework.TestCaseAttribute("Normal", null)]
         [NUnit.Framework.TestCaseAttribute("Emphasized", null)]
-        [NUnit.Framework.TestCaseAttribute("Header", null)]
+        [NUnit.Framework.TestCaseAttribute("Title", null)]
         public virtual void CanAddAStyledText(string text_Style, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add a styled text", exampleTags);
@@ -171,7 +171,7 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Can add a format based styled text")]
         [NUnit.Framework.TestCaseAttribute("Normal", null)]
         [NUnit.Framework.TestCaseAttribute("Emphasized", null)]
-        [NUnit.Framework.TestCaseAttribute("Header", null)]
+        [NUnit.Framework.TestCaseAttribute("Title", null)]
         public virtual void CanAddAFormatBasedStyledText(string text_Style, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add a format based styled text", exampleTags);

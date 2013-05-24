@@ -31,7 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,11 +49,16 @@
     <Compile Include="Alerts.cs" />
     <Compile Include="AlertFactory.cs" />
     <Compile Include="AlertBuilder.cs" />
-    <Compile Include="ExtensionsToIAlert.cs" />
+    <Compile Include="AppSettings.cs" />
+    <Compile Include="Extensions\ExtensionsToDateTime.cs" />
+    <Compile Include="Extensions\ExtensionsToIAlert.cs" />
+    <Compile Include="FileExporter.cs" />
     <Compile Include="GroupStyle.cs" />
-    <Compile Include="Renderers\HtmlCssRenderTemplace.cs" />
+    <Compile Include="Renderers\TemplateDictionary.cs" />
+    <Compile Include="Renderers\TemplateKeys.cs" />
+    <Compile Include="Renderers\TemplateParameters.cs" />
     <Compile Include="TextStyle.cs" />
-    <Compile Include="ExtensionsToExceptions.cs" />
+    <Compile Include="Extensions\ExtensionsToExceptions.cs" />
     <Compile Include="AlertGroup.cs" />
     <Compile Include="AlertTextBlock.cs" />
     <Compile Include="IAlertItem.cs" />
@@ -67,15 +76,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\AlertRenderer.cs" />
     <Compile Include="Transformers\Formatters\ObjectFormatter.cs" />
-    <Compile Include="Renderers\IRenderTemplate.cs" />
+    <Compile Include="Renderers\ITemplateRender.cs" />
     <Compile Include="Transformers\NameValueRowTransformer.cs" />
     <Compile Include="Transformers\Strategies\ITransformStrategy.cs" />
-    <Compile Include="ExtensionsToType.cs" />
+    <Compile Include="Extensions\ExtensionsToType.cs" />
     <Compile Include="Transformers\TypeInformers\DefaultTypeInfoSelector.cs" />
     <Compile Include="Transformers\TypeInformers\TypeInfo.cs" />
     <Compile Include="Transformers\TypeInformers\TypeInfoSelector.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

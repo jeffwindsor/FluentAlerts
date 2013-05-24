@@ -1,6 +1,12 @@
 ﻿@Serialization
-Feature: DeveloperCanSpecifyWhatHappensOnSerializationIssues
+Feature: DeveloperCanSpecifyWhatHappensAtPointOfFailure
 
+Scenario: Render Template File not found
+	Given inconclusive 
+
+Scenario: Render Template File not valid
+	Given inconclusive 
+	
 Scenario: Cyclic references
 	Given inconclusive 
 
