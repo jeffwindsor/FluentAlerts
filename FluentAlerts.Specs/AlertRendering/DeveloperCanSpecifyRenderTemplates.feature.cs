@@ -19,8 +19,8 @@ namespace FluentAlerts.Specs.AlertRendering
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("DeveloperCanSpecifySerializationTemplates")]
-    public partial class DeveloperCanSpecifySerializationTemplatesFeature
+    [NUnit.Framework.DescriptionAttribute("DeveloperCanSpecifyRenderTemplates")]
+    public partial class DeveloperCanSpecifyRenderTemplatesFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -32,7 +32,7 @@ namespace FluentAlerts.Specs.AlertRendering
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanSpecifySerializationTemplates", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanSpecifyRenderTemplates", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -65,92 +65,155 @@ namespace FluentAlerts.Specs.AlertRendering
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can render alert as plain HTML")]
-        public virtual void CanRenderAlertAsPlainHTML()
+        [NUnit.Framework.DescriptionAttribute("Can render alert with file based templates")]
+        [NUnit.Framework.TestCaseAttribute("Custom", null)]
+        [NUnit.Framework.TestCaseAttribute("HtmlWithEmbeddedStyles", null)]
+        [NUnit.Framework.TestCaseAttribute("HtmlWithCss", null)]
+        [NUnit.Framework.TestCaseAttribute("Json", null)]
+        [NUnit.Framework.TestCaseAttribute("Text", null)]
+        public virtual void CanRenderAlertWithFileBasedTemplates(string type, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can render alert as plain HTML", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can render alert with file based templates", exampleTags);
 #line 3
 this.ScenarioSetup(scenarioInfo);
 #line 4
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can render alert as HTML with CSS")]
-        public virtual void CanRenderAlertAsHTMLWithCSS()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can render alert as HTML with CSS", ((string[])(null)));
+ testRunner.Given("I have a built alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 5
+  testRunner.And(string.Format("I have a {0} template render", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 6
-this.ScenarioSetup(scenarioInfo);
+ testRunner.When("I render the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 7
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Then(string.Format("the rendered text has the {0} formatting", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can render alert as JSON")]
-        public virtual void CanRenderAlertAsJSON()
+        [NUnit.Framework.DescriptionAttribute("Can export default templates to file")]
+        public virtual void CanExportDefaultTemplatesToFile()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can render alert as JSON", ((string[])(null)));
-#line 9
-this.ScenarioSetup(scenarioInfo);
-#line 10
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can render alert as plain text")]
-        public virtual void CanRenderAlertAsPlainText()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can render alert as plain text", ((string[])(null)));
-#line 12
-this.ScenarioSetup(scenarioInfo);
-#line 13
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can render alert with custom file based template")]
-        public virtual void CanRenderAlertWithCustomFileBasedTemplate()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can render alert with custom file based template", ((string[])(null)));
-#line 15
-this.ScenarioSetup(scenarioInfo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can export default templates to file", ((string[])(null)));
 #line 16
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Default renderer is plain HTML")]
-        public virtual void DefaultRendererIsPlainHTML()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default renderer is plain HTML", ((string[])(null)));
+this.ScenarioSetup(scenarioInfo);
+#line 17
+ testRunner.When("I export the templates to a file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 18
-this.ScenarioSetup(scenarioInfo);
-#line 19
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Then("the deafult templates are in file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can config default renderer")]
-        public virtual void CanConfigDefaultRenderer()
+        [NUnit.Framework.DescriptionAttribute("System wil cerate a backup of the current file when exporting")]
+        public virtual void SystemWilCerateABackupOfTheCurrentFileWhenExporting()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can config default renderer", ((string[])(null)));
-#line 21
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("System wil cerate a backup of the current file when exporting", ((string[])(null)));
+#line 20
 this.ScenarioSetup(scenarioInfo);
+#line 21
+ testRunner.Given("I set the templates location in the config", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 22
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.And("I have a file at that location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
+ testRunner.When("I export the templates to a file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 24
+ testRunner.Then("the deafult templates are in file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Can set the location of the template file in the config")]
+        [NUnit.Framework.CategoryAttribute("Extensibility")]
+        [NUnit.Framework.TestCaseAttribute("TestTemplate1", null)]
+        [NUnit.Framework.TestCaseAttribute("TestTemplate2", null)]
+        public virtual void CanSetTheLocationOfTheTemplateFileInTheConfig(string key, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "Extensibility"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can set the location of the template file in the config", @__tags);
+#line 27
+this.ScenarioSetup(scenarioInfo);
+#line 28
+ testRunner.Given("I set the templates location in the config", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 29
+   testRunner.And("I have a file at that location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 30
+ testRunner.When("I create a Template Dictionary", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 31
+ testRunner.Then(string.Format("the template dictionary contains {0} template", key), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Default rendering templates are used when no template file is present")]
+        [NUnit.Framework.CategoryAttribute("EaseOfUase")]
+        [NUnit.Framework.TestCaseAttribute("HtmlWithEmbeddedStylesTableTemplate", null)]
+        [NUnit.Framework.TestCaseAttribute("HtmlWithEmbeddedStylesDocumentTemplate", null)]
+        [NUnit.Framework.TestCaseAttribute("HtmlWithCssTableTemplate", null)]
+        [NUnit.Framework.TestCaseAttribute("HtmlWithCssDocumentTemplate", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonTemplate", null)]
+        [NUnit.Framework.TestCaseAttribute("TextTemplate", null)]
+        public virtual void DefaultRenderingTemplatesAreUsedWhenNoTemplateFileIsPresent(string key, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "EaseOfUase"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default rendering templates are used when no template file is present", @__tags);
+#line 38
+this.ScenarioSetup(scenarioInfo);
+#line 39
+ testRunner.When("I create a Template Dictionary", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 40
+ testRunner.Then(string.Format("the template dictionary contains {0} template", key), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Can set the default template in the config")]
+        [NUnit.Framework.CategoryAttribute("Extensibility")]
+        public virtual void CanSetTheDefaultTemplateInTheConfig()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can set the default template in the config", new string[] {
+                        "Extensibility"});
+#line 51
+this.ScenarioSetup(scenarioInfo);
+#line 52
+ testRunner.Given("I set the default template in the config", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 53
+ testRunner.When("I create a default render", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 54
+ testRunner.Then("the render uses the template in the config", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Default rendering template is plain HTML when not specified in the config")]
+        [NUnit.Framework.CategoryAttribute("EaseOfUase")]
+        public virtual void DefaultRenderingTemplateIsPlainHTMLWhenNotSpecifiedInTheConfig()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default rendering template is plain HTML when not specified in the config", new string[] {
+                        "EaseOfUase"});
+#line 57
+this.ScenarioSetup(scenarioInfo);
+#line 58
+ testRunner.Given("I have a built alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 59
+ testRunner.When("I create a default render", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 60
+  testRunner.And("I render the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 61
+ testRunner.Then("the rendered text has the plain HTML formatting", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

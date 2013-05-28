@@ -64,7 +64,7 @@
     <Compile Include="IAlertItem.cs" />
     <Compile Include="Alert.cs" />
     <Compile Include="Transformers\BaseRowTransformer.cs" />
-    <Compile Include="Transformers\ExtensionsToIEnumerableOfString.cs" />
+    <Compile Include="Extensions\ExtensionsToIEnumerableOfString.cs" />
     <Compile Include="Transformers\Formatters\DefaultToObjectFormatter.cs" />
     <Compile Include="Transformers\MemberPath.cs" />
     <Compile Include="Transformers\NameTypeValueRowTransformer.cs" />

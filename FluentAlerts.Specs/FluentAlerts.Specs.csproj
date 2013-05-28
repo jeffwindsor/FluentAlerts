@@ -75,6 +75,7 @@
       <DependentUpon>DeveloperCanSpecifyTheTypeMembersToTransform.feature</DependentUpon>
     </Compile>
     <Compile Include="ManualActions.cs" />
+    <Compile Include="Steps and Contexts\StepsForRendering.cs" />
     <Compile Include="Steps and Contexts\AlertContext.cs" />
     <Compile Include="Steps and Contexts\StepsForObjectTransformation.cs" />
     <Compile Include="Steps and Contexts\StepsForObjectFormatting.cs" />
@@ -99,7 +100,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyWhatHappensAtPointOfFailure.feature</DependentUpon>
     </Compile>
-    <Compile Include="Steps and Contexts\StepsForAlertSerialization.cs" />
     <Compile Include="Mother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps and Contexts\StepsForAlertBuilding.cs" />

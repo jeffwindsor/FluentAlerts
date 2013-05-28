@@ -26,10 +26,25 @@ namespace FluentAlerts.Specs
         {
             _context.Builder = Alerts.Create(_context.TestText);
         }
+        
+        [Given(@"I have an filled alert builder")]
+        public void GivenIHaveAFilledAlertBuilder()
+        {
+            _context.Builder = Alerts.Create()
+                .WithTitleOf(_context.TestText)
+                .WithSeperator()
+                .With("Some other text");
+        }
 
+        [Given(@"I have a built alert")]
+        public void GivenIHaveABuiltAlert()
+        {
+            GivenIHaveAFilledAlertBuilder();
+            WhenIBuildAnAlert();
+        }
 
         [When(@"I build the alert")]
-        public void WhenICreateAnAlert()
+        public void WhenIBuildAnAlert()
         {
             _context.Alert = _context.Builder.ToAlert();
         }
@@ -97,10 +112,10 @@ namespace FluentAlerts.Specs
             _context.Builder.With( _context.TestText);
         }
 
-        [When(@"I add Header text")]
-        public void WhenIAddHeaderText()
+        [When(@"I add Header_One text")]
+        public void WhenIAddHeader_OneText()
         {
-            _context.Builder.WithHeader( _context.TestText);
+            _context.Builder.WithHeaderOne( _context.TestText);
         }
 
         [When(@"I add a Normal row")]
@@ -164,6 +179,14 @@ namespace FluentAlerts.Specs
             var item = AssertItemIsTypeAndConvertTo<AlertTextBlock>(_context.Alert.First()); 
             item.ToString().Should().Be(_context.TestText);
         }
+
+        [When(@"I append to the title")]
+        public void WhenIAppendToTheTitle()
+        {
+            _context.Builder.AppendTitleWith("extra");
+            _context.TestText += "extra";
+        }
+
         
         [Then(@"the alert should contain a seperator as the last item")]
         public void ThenTheAlertShouldContainASeperatorAsTheLastAlert()

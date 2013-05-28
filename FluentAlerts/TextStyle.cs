@@ -4,6 +4,6 @@
     {
         Normal,
         Emphasized,
-        Title
+        Header_One
     }
 }

@@ -18,8 +18,8 @@ namespace FluentAlerts
         IAlertBuilder With(string format, params object[] args);
         IAlertBuilder WithEmphasized(string text);
         IAlertBuilder WithEmphasized(string format, params object[] args);
-        IAlertBuilder WithHeader(string text);
-        IAlertBuilder WithHeader(string format, params object[] args);
+        IAlertBuilder WithHeaderOne(string text);
+        IAlertBuilder WithHeaderOne(string format, params object[] args);
         IAlertBuilder WithUrl(string text, string url);
         IAlertBuilder WithValue(object value);
         IAlertBuilder WithValues(IEnumerable<object> values);
@@ -102,14 +102,14 @@ namespace FluentAlerts
             return With(TextStyle.Emphasized, format, args);
         }
 
-        public IAlertBuilder WithHeader(string text)
+        public IAlertBuilder WithHeaderOne(string text)
         {
-            return With(TextStyle.Title, text);
+            return With(TextStyle.Header_One, text);
         }
 
-        public IAlertBuilder WithHeader(string format, params object[] args)
+        public IAlertBuilder WithHeaderOne(string format, params object[] args)
         {
-            return With(TextStyle.Title, format, args);
+            return With(TextStyle.Header_One, format, args);
         }
 
         public IAlertBuilder WithUrl(string text, string url)

@@ -16,6 +16,14 @@ Scenario: Can add a format based title
 	 And I build the alert
 	Then the alert should contain title as the first item
 
+Scenario: Can append to the title
+	Given I have an alert builder
+	When I add a title
+	 And I add a seperator
+	 And I append to the title
+	 And I build the alert
+	Then the alert should contain title as the first item
+
 Scenario: Can add text
 	Given I have an alert builder
 	When I add Normal text
@@ -37,7 +45,7 @@ Examples:
 	| text_style |
 	| Normal     |
 	| Emphasized |
-	| Title      |
+	| Header_One |
 
 Scenario Outline: Can add a format based styled text
 	Given I have an alert builder
@@ -48,7 +56,7 @@ Examples:
 	| text_style |
 	| Normal     |
 	| Emphasized |
-	| Title      |
+	| Header_One |
 
 Scenario: Can add a seperator
 	Given I have an alert builder

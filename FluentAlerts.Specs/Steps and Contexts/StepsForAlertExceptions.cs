@@ -15,12 +15,6 @@ namespace FluentAlerts.Specs
             _context = context;
         }
 
-        [Given(@"I have an filled alert builder")]
-        public void GivenIHaveAnAlertBuilder()
-        {
-            _context.Builder = Alerts.Create().WithTitleOf(_context.TestText);
-        }
-
         [Given(@"I have an exception")]
         public void GivenIHaveAnException()
         {

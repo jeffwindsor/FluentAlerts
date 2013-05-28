@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using FluentAlerts.Transformers;
 
-namespace FluentAlerts.Transformers
+namespace FluentAlerts
 {
     public static class ExtensionsToIEnumerableOfString
     {
