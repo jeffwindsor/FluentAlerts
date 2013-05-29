@@ -6,7 +6,7 @@ namespace FluentAlerts
     {
         public static IAlertBuilder ToAlert<TException>(this TException ex) where TException : Exception
         {
-            return Alerts.Create(ex);
+            return Factory.Alerts.Create(ex);
         }
     }
 }

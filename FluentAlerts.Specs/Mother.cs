@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAlerts.Settings;
 
 namespace FluentAlerts.Specs
 {
-    public static class Mother
+    internal static class Mother
     {
         public static NestedTestClass GetNestedTestClass(int nestingDepth)
         {
@@ -68,7 +69,23 @@ namespace FluentAlerts.Specs
 
     }
 
-    public enum NumberEnum
+    internal class TestAppSettings : IAppSettings
+    {
+        public string DefaultTemplateName { get; set; }
+        public string TemplateFileName { get; set; }
+
+        string IAppSettings.DefaultTemplateName()
+        {
+            return DefaultTemplateName;
+        }
+
+        string IAppSettings.TemplateFileName()
+        {
+            return TemplateFileName;
+        }
+    }
+
+    internal enum NumberEnum
     {
         One,
         Two,
@@ -79,7 +96,7 @@ namespace FluentAlerts.Specs
         Seven
     }
 
-    public class NestedTestClass
+    internal class NestedTestClass
     {
         public DateTime TestDate { get; set; }
         public NumberEnum TestNumber;
@@ -89,7 +106,7 @@ namespace FluentAlerts.Specs
         public IEnumerable<NestedTestClass> Children { get; set; } 
     }
 
-    public struct NestedTestStruct
+    internal struct NestedTestStruct
     {
         public DateTime TestDate { get; set; }
         public NumberEnum Number;

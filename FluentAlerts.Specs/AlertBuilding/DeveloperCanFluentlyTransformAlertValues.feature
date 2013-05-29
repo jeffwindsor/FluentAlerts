@@ -1,4 +1,5 @@
-﻿Feature: DeveloperCanFluentlyTransformAlertValues
+﻿@Alerts
+Feature: DeveloperCanFluentlyTransformAlertValues
 
 Scenario: Can fluently transform and fomrat alert values to strings
 	Given I have an filled alert builder

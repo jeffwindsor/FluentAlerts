@@ -20,6 +20,7 @@ namespace FluentAlerts.Specs.AlertBuilding
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("DeveloperCanFluentlyTransformAlertValues")]
+    [NUnit.Framework.CategoryAttribute("Alerts")]
     public partial class DeveloperCanFluentlyTransformAlertValuesFeature
     {
         
@@ -32,7 +33,8 @@ namespace FluentAlerts.Specs.AlertBuilding
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanFluentlyTransformAlertValues", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeveloperCanFluentlyTransformAlertValues", "", ProgrammingLanguage.CSharp, new string[] {
+                        "Alerts"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -69,15 +71,15 @@ namespace FluentAlerts.Specs.AlertBuilding
         public virtual void CanFluentlyTransformAndFomratAlertValuesToStrings()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can fluently transform and fomrat alert values to strings", ((string[])(null)));
-#line 3
-this.ScenarioSetup(scenarioInfo);
 #line 4
- testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 5
- testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
-  testRunner.And("I transform the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 7
+  testRunner.And("I transform the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 8
  testRunner.Then("there should not be any element that is not a grpah class or result type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -90,15 +92,15 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can fluently transform and format alert values to strings using a custom transfor" +
                     "mer", ((string[])(null)));
-#line 9
-this.ScenarioSetup(scenarioInfo);
 #line 10
- testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 11
- testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 12
-  testRunner.And("I transform the alert using a custom transformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 13
+  testRunner.And("I transform the alert using a custom transformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 14
  testRunner.Then("there should not be any element that is not a grpah class or result type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

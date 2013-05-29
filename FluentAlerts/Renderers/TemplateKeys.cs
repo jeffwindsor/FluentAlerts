@@ -1,60 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
 
-namespace FluentAlerts.Renderers
-{
-    public enum TemplateKeys
-    {
-        //BODY
-        SerializationHeader,
-        SerializationFooter,
+//namespace FluentAlerts.Renderers
+//{
+//    public enum TemplateKeys
+//    {
+//        //BODY
+//        SerializationHeader,
+//        SerializationFooter,
 
-        //Sections 
-        AlertHeader,
-        AlertFooter,
+//        //Sections 
+//        AlertHeader,
+//        AlertFooter,
 
-        //TEXT - NORMAL => ROW + SPANNING VALUE
-        TextNormalHeader,
-        TextNormalFooter,
+//        //TEXT - NORMAL => ROW + SPANNING VALUE
+//        TextNormalHeader,
+//        TextNormalFooter,
 
-        //TEXT - TITLE
-        TextTitleHeader,
-        TextTitleFooter,
+//        //TEXT - TITLE
+//        TextTitleHeader,
+//        TextTitleFooter,
 
-        //TEXT - EMPAHSIZED => ROW + EMPHASIZED VALUE
-        TextEmphasizedHeader,
-        TextEmphasizedFooter,
+//        //TEXT - EMPAHSIZED => ROW + EMPHASIZED VALUE
+//        TextEmphasizedHeader,
+//        TextEmphasizedFooter,
 
-        //ROW 
-        GroupHeader,
-        GroupFooter,
+//        //ROW 
+//        GroupHeader,
+//        GroupFooter,
 
-        //VALUE NORMAL
-        ValueNormalHeader,
-        ValueNormalValue,
-        ValueNormalFooter,
+//        //VALUE NORMAL
+//        ValueNormalHeader,
+//        ValueNormalValue,
+//        ValueNormalFooter,
 
-        //EMPHASIZED VALUE
-        ValueEmphasizedHeader,
-        ValueEmphasizedValue,
-        ValueEmphasizedFooter,
+//        //EMPHASIZED VALUE
+//        ValueEmphasizedHeader,
+//        ValueEmphasizedValue,
+//        ValueEmphasizedFooter,
 
-        //SPANNING VALUE
-        ValueSpanningHeader,
-        ValueSpanningValue,
-        ValueSpanningFooter,
+//        //SPANNING VALUE
+//        ValueSpanningHeader,
+//        ValueSpanningValue,
+//        ValueSpanningFooter,
 
-        //URL 
-        UrlHeader,
-        UrlValue,
-        UrlFooter,
+//        //URL 
+//        UrlHeader,
+//        UrlValue,
+//        UrlFooter,
 
-        //SEPERATOR
-        SeperatorHeader,
-        SeperatorValue,
-        SeperatorFooter,
-    }
+//        //SEPERATOR
+//        SeperatorHeader,
+//        SeperatorValue,
+//        SeperatorFooter,
+//    }
 
-}
+//}

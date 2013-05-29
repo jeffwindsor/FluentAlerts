@@ -68,34 +68,21 @@ namespace FluentAlerts.Specs.AlertTransformation
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can config default type informer")]
-        public virtual void CanConfigDefaultTypeInformer()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can config default type informer", ((string[])(null)));
-#line 7
-this.ScenarioSetup(scenarioInfo);
-#line 8
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Defaults to selecting all properties and fields")]
         public virtual void DefaultsToSelectingAllPropertiesAndFields()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Defaults to selecting all properties and fields", ((string[])(null)));
-#line 10
+#line 7
 this.ScenarioSetup(scenarioInfo);
-#line 11
+#line 8
  testRunner.Given("I have a default type informer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 12
+#line 9
   testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
+#line 10
  testRunner.When("I get the object\'s type info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
+#line 11
  testRunner.Then("all the objects properties are listed in the type info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 15
+#line 12
   testRunner.And("all the objects fields are listed in the type info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -108,41 +95,18 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanLimitTransformationOfTypeProperties(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can limit transformation of type properties", exampleTags);
+#line 14
+this.ScenarioSetup(scenarioInfo);
+#line 15
+ testRunner.Given("I have a default type informer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 16
+  testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
-this.ScenarioSetup(scenarioInfo);
-#line 18
- testRunner.Given("I have a default type informer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 19
-  testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 20
   testRunner.And(string.Format("I limit the informer to {0} properties", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 21
+#line 18
  testRunner.When("I get the object\'s type info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 22
+#line 19
  testRunner.Then(string.Format("only the objects {0} properties are listed in the type info", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can limit transformation of properties by path")]
-        [NUnit.Framework.TestCaseAttribute("DateTime", "NestedTestClass.Child.TestDate", null)]
-        [NUnit.Framework.TestCaseAttribute("NumberEnum", "NestedTestClass.TestNumber", null)]
-        public virtual void CanLimitTransformationOfPropertiesByPath(string type, string path, string[] exampleTags)
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can limit transformation of properties by path", exampleTags);
-#line 28
-this.ScenarioSetup(scenarioInfo);
-#line 29
- testRunner.Given("I have a default type informer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 30
-  testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 31
-  testRunner.And(string.Format("I limit the informer to {0} properties at {1}", type, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 32
- testRunner.When("I get the object\'s type info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 33
- testRunner.Then(string.Format("only the objects {0} properties at {1} are listed in the type info", type, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -154,41 +118,18 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanLimitTransformationOfTypeFields(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can limit transformation of type fields", exampleTags);
-#line 39
+#line 25
 this.ScenarioSetup(scenarioInfo);
-#line 40
+#line 26
  testRunner.Given("I have a default type informer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 41
+#line 27
   testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 42
+#line 28
   testRunner.And(string.Format("I limit the informer to {0} fields", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 43
+#line 29
  testRunner.When("I get the object\'s type info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 44
+#line 30
  testRunner.Then(string.Format("only the objects {0} fields are listed in the type info", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can limit transformation of fields by path")]
-        [NUnit.Framework.TestCaseAttribute("DateTime", "NestedTestClass.Child.Date", null)]
-        [NUnit.Framework.TestCaseAttribute("NumberEnum", "NestedTestClass.Number", null)]
-        public virtual void CanLimitTransformationOfFieldsByPath(string type, string path, string[] exampleTags)
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can limit transformation of fields by path", exampleTags);
-#line 50
-this.ScenarioSetup(scenarioInfo);
-#line 51
- testRunner.Given("I have a default type informer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 52
-  testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 53
-  testRunner.And(string.Format("I limit the informer to {0} properties at {1}", type, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 54
- testRunner.When("I get the object\'s type info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 55
- testRunner.Then(string.Format("only the objects {0} fields at {1} are listed in the type info", type, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

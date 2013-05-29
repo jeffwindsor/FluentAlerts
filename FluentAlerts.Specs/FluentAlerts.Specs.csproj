@@ -74,16 +74,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyTheTypeMembersToTransform.feature</DependentUpon>
     </Compile>
+    <Compile Include="FutureFeatures.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FutureFeatures.feature</DependentUpon>
+    </Compile>
     <Compile Include="ManualActions.cs" />
     <Compile Include="Steps and Contexts\StepsForRendering.cs" />
     <Compile Include="Steps and Contexts\AlertContext.cs" />
     <Compile Include="Steps and Contexts\StepsForObjectTransformation.cs" />
     <Compile Include="Steps and Contexts\StepsForObjectFormatting.cs" />
     <Compile Include="Steps and Contexts\StepsForAlertExceptions.cs" />
-    <Compile Include="AlertRendering\DeveloperCanSpecifyRenderTemplates.feature.cs">
+    <Compile Include="AlertRendering\DeveloperCanRenderAlerts.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanSpecifyRenderTemplates.feature</DependentUpon>
+      <DependentUpon>DeveloperCanRenderAlerts.feature</DependentUpon>
     </Compile>
     <Compile Include="AlertTransformation\DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature.cs">
       <AutoGen>True</AutoGen>
@@ -94,11 +99,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyWhichTypesAreTransformed.feature</DependentUpon>
-    </Compile>
-    <Compile Include="AlertExceptions\DeveloperCanSpecifyWhatHappensAtPointOfFailure.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DeveloperCanSpecifyWhatHappensAtPointOfFailure.feature</DependentUpon>
     </Compile>
     <Compile Include="Mother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,9 +121,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanFluentlyThrowAlertsAsExceptions.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertRendering\DeveloperCanSpecifyRenderTemplates.feature">
+    <None Include="AlertRendering\DeveloperCanRenderAlerts.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanSpecifyRenderTemplates.feature.cs</LastGenOutput>
+      <LastGenOutput>DeveloperCanRenderAlerts.feature.cs</LastGenOutput>
     </None>
     <None Include="AlertTransformation\DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -133,10 +133,6 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifyWhichTypesAreTransformed.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertExceptions\DeveloperCanSpecifyWhatHappensAtPointOfFailure.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DeveloperCanSpecifyWhatHappensAtPointOfFailure.feature.cs</LastGenOutput>
-    </None>
     <None Include="AlertTransformation\DeveloperCanSpecifyTheTypeMembersToTransform.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifyTheTypeMembersToTransform.feature.cs</LastGenOutput>
@@ -144,9 +140,18 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="DefaultTemplates.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="FutureFeatures.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FutureFeatures.feature.cs</LastGenOutput>
+    </None>
+    <None Include="TestTemplates.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FluentAlerts\FluentAlerts.csproj">
       <Project>{5006EC6A-3CCD-4D9D-9C02-47BBDE187BA6}</Project>

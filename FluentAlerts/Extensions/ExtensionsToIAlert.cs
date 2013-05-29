@@ -9,7 +9,7 @@ namespace FluentAlerts
     {
         public static IAlert Transform(this IAlert alert)
         {
-            return Transform(alert, Alerts.Transformers.CreateDefault());
+            return Transform(alert, Factory.Transformers.Create());
         }
 
         public static IAlert Transform<TResult>(this IAlert alert, ITransformer<TResult> transformer)

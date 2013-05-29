@@ -1,4 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using FluentAlerts.Renderers;
+using FluentAlerts.Settings;
+using FluentAssertions;
 using TechTalk.SpecFlow;
 
 namespace FluentAlerts.Specs
@@ -6,94 +11,197 @@ namespace FluentAlerts.Specs
     [Binding]
     public class RenderSteps
     {
+        private const string DefaultTemplateName = "HtmlWithEmbeddedCssTableTemplate";
+        private const string DefaultTemplateFilePath = "DefaultTemplates.json";
+        private const string TestTemplateFilePath = "TestTemplates.json";
+        private const string TestTemplateName = "TestTemplate";
+        private TestAppSettings _testAppSettings;
+        private IAppSettings _appsettings;
+        private TemplateDictionary _templateDictionary;
+        private TemplateDictionary _otherTemplateDictionary;
+        private Template _template;
+        private Template _otherTemplate;
+        private ITemplateRender _templateRender;
+        private IAlertRenderer _render;
+        private string _renderResult;
+
         private AlertContext _context;
         public RenderSteps(AlertContext context)
         {
             _context = context;
         }
-        
-        [Given(@"I have a Custom template render")]
-        public void GivenIHaveACustomTemplateRender()
+
+        [Given(@"I have custom app settings")]
+        private void GivenIHaveCustomAppSettings()
         {
-            ScenarioContext.Current.Pending();
+            _testAppSettings = new TestAppSettings()
+                {
+                    DefaultTemplateName = TestTemplateName,
+                    TemplateFileName = TestTemplateFilePath
+                };
+            _appsettings = _testAppSettings;
+        }
+
+        [Given(@"I set the default template name to (.*)")]
+        public void GivenISetTheDefaultTemplateNameTo(string name)
+        {
+            GivenIHaveCustomAppSettings();
+            _testAppSettings.DefaultTemplateName = name;
+        }
+
+        [Given(@"I set the default template file location to (.*)")]
+        public void GivenISetTheDefaultTemplateFileLocationTo(string fileName)
+        {
+            GivenIHaveCustomAppSettings();
+            _testAppSettings.TemplateFileName = fileName;
+        }
+
+        [Given(@"I have a template file at (.*)")]
+        public void GivenIHaveATemplateFileAt(string fileName)
+        {
+            System.IO.File.Copy(TestTemplateFilePath, fileName, true);
         }
         
-        [Given(@"I set the templates location in the config")]
-        public void GivenISetTheTemplatesLocationInTheConfig()
+        [Given(@"I have the default app settings")]
+        public void GivenIHaveADefaultAppSettings()
         {
-            ScenarioContext.Current.Pending();
+            _appsettings = new AppSettings();
+        }
+
+        [When(@"I get the template choices from the default file")]
+        [Given(@"I have the template choices from the default file")]
+        public void GivenIHaveATemplateDictionary()
+        {
+            _templateDictionary = new TemplateDictionary(_appsettings.TemplateFileName());
+        }
+
+        [Given(@"I have a (.*) template")]
+        public void GivenIHaveANamedTemplate(string templateName)
+        {
+            _template = _templateDictionary.GetTemplate(templateName);
+        }
+
+        [Given(@"I have a template render")]
+        public void GivenIHaveATemplateRender()
+        {
+            _templateRender = new TemplateRenderer(_template);
+        }
+
+        [Given(@"I have an alert render")]
+        public void GivenIHaveAnAlertRender()
+        {
+            _render = new AlertRenderer(_context.Transformer, _templateRender);
+        }
+
+        [Given(@"I have a (.*) alert render")]
+        public void GivenIHaveATemplateNameAlertRender(string templateName)
+        {
+            //Combine all steps to produce a complete render
+            GivenIHaveADefaultAppSettings();
+            GivenIHaveATemplateDictionary();
+
+            if (templateName == "default")
+                templateName = _appsettings.DefaultTemplateName();
+            GivenIHaveANamedTemplate(templateName);
+
+            GivenIHaveATemplateRender();
+            GivenIHaveAnAlertRender();
         }
         
-        [Given(@"I have a file at that location")]
-        public void GivenIHaveAFileAtThatLocation()
-        {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Given(@"I set the default template in the config")]
-        public void GivenISetTheDefaultTemplateInTheConfig()
-        {
-            ScenarioContext.Current.Pending();
-        }
         
         [When(@"I render the alert")]
         public void WhenIRenderTheAlert()
         {
-            ScenarioContext.Current.Pending();
+            _renderResult = _render.RenderAlert(_context.Alert);
         }
-        
-        [When(@"I export the templates to a file")]
-        public void WhenIExportTheTemplatesToAFile()
+
+        [When(@"I create a new template dictionary from (.*)")]
+        public void WhenICreateANewTemplateDictionaryFrom(string fileName)
+        {
+            if (fileName == "Default")
+                fileName = DefaultTemplateFilePath;
+
+            _otherTemplateDictionary = new TemplateDictionary(fileName);
+        }
+
+        [When(@"I export the templates to (.*)")]
+        public void WhenIExportTheTemplatesTo(string fileName)
+        {
+            _templateDictionary.Export(fileName);
+        }
+
+        [When(@"I get the default template")]
+        public void WhenIHaveADefaultTemplate()
+        {
+            _template = _templateDictionary.GetTemplate(_appsettings.DefaultTemplateName());
+        }
+
+        [When(@"I get the (.*) as the other template")]
+        public void WhenIGetTheOtherNamedTemplate(string templateName)
+        {
+            _otherTemplate = _templateDictionary.GetTemplate(templateName);
+        }
+
+
+        [Then(@"the rendered text has the default formatting")]
+        public void ThenTheRenderedTextHasTheDefaultFormatting()
         {
             ScenarioContext.Current.Pending();
         }
-        
-        [When(@"I create a Template Dictionary")]
-        public void WhenICreateATemplateDictionary()
+  
+        [Then(@"the templates are equivilant")]
+        public void ThenTheTemplatesAreEquivilant()
         {
-            ScenarioContext.Current.Pending();
+            _template.ShouldBeEquivalentTo(_otherTemplate);
         }
-        
-        [When(@"I create a default render")]
-        public void WhenICreateADefaultRender()
+    
+        [Then(@"the template dictionaries are equivilant")]
+        public void ThenTheTemplateDictionariesAreEquivilant()
         {
-            ScenarioContext.Current.Pending();
+            _templateDictionary.Keys.ShouldBeEquivalentTo(_otherTemplateDictionary.Keys);
+            foreach (var key in _templateDictionary.Keys) 
+            {
+                _templateDictionary.GetTemplate(key).ShouldBeEquivalentTo(_otherTemplateDictionary.GetTemplate(key));
+            }
         }
-        
-        [Then(@"the rendered text has the Custom formatting")]
-        public void ThenTheRenderedTextHasTheCustomFormatting()
+
+        [Then(@"a backup of the original (.*) is written to the same directory")]
+        public void ThenABackupOfTheOriginalIsWrittenToTheSameDirectory(string fileName)
         {
-            ScenarioContext.Current.Pending();
+            var searchPattern =GetSearchPattern(fileName);
+            var f = from fi in Directory.GetFiles(Directory.GetCurrentDirectory() ,searchPattern)
+                    orderby fi descending
+                    select fi;
+
+            var o = File.ReadAllText(TestTemplateFilePath); 
+            var n = File.ReadAllText(f.First());
+            o.Should().Be(n);
         }
-        
-        [Then(@"the deafult templates are in file")]
-        public void ThenTheDeafultTemplatesAreInFile()
+
+        [Then(@"clean up file (.*)")]
+        public void ThenCleanUpFile(string fileName)
         {
-            ScenarioContext.Current.Pending();
+            var searchPattern = GetSearchPattern(fileName);
+            foreach (var fn in Directory.GetFiles(Directory.GetCurrentDirectory(), searchPattern))
+            {
+                File.Delete(fn);
+            }
         }
-        
-        [Then(@"the template dictionary contains TestTemplate(.*) template")]
-        public void ThenTheTemplateDictionaryContainsTestTemplateTemplate(int p0)
+
+        [Then(@"the settings default template name is the Html with Embedded Css template")]
+        public void ThenTheSettingsDefaultTemplateNameIsTheDefault()
         {
-            ScenarioContext.Current.Pending();
+            _appsettings.DefaultTemplateName().Should().Be(DefaultTemplateName);
         }
-        
-        [Then(@"the template dictionary contains HtmlWithEmbeddedStylesTableTemplate template")]
-        public void ThenTheTemplateDictionaryContainsHtmlWithEmbeddedStylesTableTemplateTemplate()
+
+
+        private static string GetSearchPattern(string fileName)
         {
-            ScenarioContext.Current.Pending();
+            var path = Path.GetDirectoryName(fileName);
+            return string.Format("{0}*{1}",
+                                 Path.GetFileNameWithoutExtension(fileName),
+                                 Path.GetExtension(fileName));
         }
-        
-        [Then(@"the render uses the template in the config")]
-        public void ThenTheRenderUsesTheTemplateInTheConfig()
-        {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Then(@"the rendered text has the plain HTML formatting")]
-        public void ThenTheRenderedTextHasThePlainHTMLFormatting()
-        {
-            ScenarioContext.Current.Pending();
-        }
+
     }
 }

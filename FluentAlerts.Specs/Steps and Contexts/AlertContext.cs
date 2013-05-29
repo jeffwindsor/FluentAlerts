@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAlerts.Transformers;
 
 namespace FluentAlerts.Specs
 {
@@ -12,6 +13,7 @@ namespace FluentAlerts.Specs
         public IAlertBuilder Builder;
         public IAlert Alert;
         public IAlert OtherAlert;
+        public ITransformer<string> Transformer;
 
         public Exception CaughtException;
     }

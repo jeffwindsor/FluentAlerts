@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAlerts.Renderers;
+using FluentAlerts.Settings;
 using FluentAlerts.Transformers;
 using FluentAlerts.Transformers.Formatters;
 using FluentAlerts.Transformers.Strategies;
@@ -14,7 +15,7 @@ namespace FluentAlerts
     //UNDONE: Alerts & IoC, plus maybe even allow configuration of defaults via config file
     //UNDONE: Improve Fluent design so it can be expanded
     //UNDONE: Filesystem watcher for imported files to deal with change in file, so we can cache the loads
-
+    //UNDONE : Using Trace for now
     //** NOWS **
     //TODO: rename url to uri
     //TODO: allow transformation without formatting? for above? nto sure that helps? 
@@ -36,33 +37,34 @@ namespace FluentAlerts
     /// <summary>
     /// Static Factory for non IoC implementations
     /// </summary>
-    public static class Alerts
+    public static class Factory
     {
-        private static readonly TemplateDictionary _templateDictionary = new TemplateDictionary();
+        public static class Alerts
+        {
+            public static IAlertBuilder Create()
+            {
+                return CreateAlertBuilder();
+            }
 
-        public static IAlertBuilder Create()
-        {
-            return CreateAlertBuilder();
-        }
+            public static IAlertBuilder Create(string title)
+            {
+                return Create().WithTitleOf(title);
+            }
 
-        public static IAlertBuilder Create(string title)
-        {
-           return Create().WithTitleOf(title);
-        }
-         
-        public static IAlertBuilder Create(Exception ex)
-        {
-            return CreateAlertBuilder().WithValue(ex);
-        }
-
-        private static AlertBuilder CreateAlertBuilder()
-        {
-            return new AlertBuilder(new AlertFactory<Alert>(), new AlertItemCollection());
+            public static IAlertBuilder Create(Exception ex)
+            {
+                return CreateAlertBuilder().WithValue(ex);
+            }
+            
+            private static AlertBuilder CreateAlertBuilder()
+            {
+                return new AlertBuilder(new AlertFactory<Alert>(), new AlertItemCollection());
+            }
         }
 
         public static class Transformers
         {
-            public static ITransformer<string> CreateDefault()
+            public static ITransformer<string> Create()
             {
                 return new NameValueRowTransformer(new DefaultTransformStrategy(),
                                                    new DefaultTypeInfoSelector(),
@@ -77,29 +79,21 @@ namespace FluentAlerts
             }
         }
 
-        public static class Renders
-        {
-            public static IAlertRenderer CreateDefault()
-            {
-                return CreateDefault(new TemplateRenderer(_templateDictionary.GetDefaultTemplate()));
-            }
 
-            public static IAlertRenderer CreateDefault(ITemplateRender template)
-            {
-                return new AlertRenderer(Alerts.Transformers.CreateDefault(), template);
-            }
-        }
+
 
         internal static class Issues
         {
             //UNDONE: Render Template File not found - make rule based or configable
             public static Template HandleRenderTemplateNotFound(string templateName)
             {
+                var appSettings = new AppSettings();
+
                 //Throw Exception
                 Alerts.Create("Render Template Not Found")
                     .WithRow("Template Name", templateName)
-                    .WithRow("Default Template Name", AppSettings.DefaultTemplateName())
-                    .WithRow("Templates File", AppSettings.TemplateFileName())
+                    .WithRow("Default Template Name", appSettings.DefaultTemplateName())
+                    .WithRow("Templates File", appSettings.TemplateFileName())
                     .Throw();
 
                 //???? empty for compiler happiness

@@ -14,7 +14,7 @@ namespace FluentAlerts.Transformers
         protected override IAlert Transform(object o, IEnumerable<string> objectMemberPath)
         {
             //Create Alert with a property and fields section containing name-values pairs  
-            return Alerts.Create(FormatAsTitle(o))
+            return Factory.Alerts.Create(FormatAsTitle(o))
                 .WithHeaderOne("Properties")
                 .WithRows(GetPropertyRowValues(o, objectMemberPath))
                 .WithHeaderOne("Fields")

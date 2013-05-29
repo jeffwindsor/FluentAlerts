@@ -21,9 +21,11 @@ namespace FluentAlerts
         {
             if (!System.IO.File.Exists(filePath)) return;
 
-            var backUpFileName = string.Format("{0}\\{1}_UTC{2}.{3}",
-                                               Path.GetDirectoryName(filePath),
-                                                Path.GetFileName(filePath),
+            var dir = Path.GetDirectoryName(filePath);
+            var backUpFileName = string.Format("{0}{1}{2}_UTC{3}{4}",
+                                               dir,
+                                               (string.IsNullOrWhiteSpace(dir))?string.Empty:"\\",
+                                               Path.GetFileNameWithoutExtension(filePath),
                                                DateTime.UtcNow.ToIsoFormat(),
                                                Path.GetExtension(filePath));
 

@@ -4,9 +4,6 @@ Feature: DeveloperCanSpecifyWhichTypesAreTransformed
 	As a developer
 	I want to be able to specify what types are transformed
 
-Scenario: Can config default transformer
-	Given inconclusive 
-
 Scenario: Default transformer creates a default alert from an object
 	Given I have a default transformer
 	 And I have a NestedTestClass object

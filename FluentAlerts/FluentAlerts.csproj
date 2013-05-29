@@ -49,7 +49,7 @@
     <Compile Include="Alerts.cs" />
     <Compile Include="AlertFactory.cs" />
     <Compile Include="AlertBuilder.cs" />
-    <Compile Include="AppSettings.cs" />
+    <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Extensions\ExtensionsToDateTime.cs" />
     <Compile Include="Extensions\ExtensionsToIAlert.cs" />
     <Compile Include="FileExporter.cs" />
@@ -85,6 +85,9 @@
     <Compile Include="Transformers\TypeInformers\TypeInfoSelector.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Templates.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

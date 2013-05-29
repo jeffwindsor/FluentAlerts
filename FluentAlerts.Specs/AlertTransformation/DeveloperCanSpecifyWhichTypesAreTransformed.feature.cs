@@ -68,38 +68,25 @@ namespace FluentAlerts.Specs.AlertTransformation
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can config default transformer")]
-        public virtual void CanConfigDefaultTransformer()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can config default transformer", ((string[])(null)));
-#line 7
-this.ScenarioSetup(scenarioInfo);
-#line 8
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Default transformer creates a default alert from an object")]
         public virtual void DefaultTransformerCreatesADefaultAlertFromAnObject()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default transformer creates a default alert from an object", ((string[])(null)));
-#line 10
+#line 7
 this.ScenarioSetup(scenarioInfo);
-#line 11
+#line 8
  testRunner.Given("I have a default transformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 12
+#line 9
   testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
+#line 10
  testRunner.When("I transform the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
+#line 11
  testRunner.Then("the result should be an IAlert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 15
+#line 12
   testRunner.And("the alert title equals the object\'s type name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 16
+#line 13
   testRunner.And("the alert has a group for each of objects properties with name value pairs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 17
+#line 14
   testRunner.And("the alert has a group for each of objects fields with name value pairs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -113,15 +100,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void TransformerWillNotAlterIAlertIAlertItemsOrResultTypes(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Transformer will not alter IAlert, IAlertItems or Result types", exampleTags);
-#line 19
+#line 16
 this.ScenarioSetup(scenarioInfo);
-#line 20
+#line 17
  testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 21
+#line 18
  testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 22
+#line 19
   testRunner.And("I transform the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 23
+#line 20
  testRunner.Then(string.Format("all the {0} are the same", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -132,21 +119,21 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void NameTypeValueTransformerCreatesADefaultAlertFromAnObject()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Name Type Value transformer creates a default alert from an object", ((string[])(null)));
-#line 30
+#line 27
 this.ScenarioSetup(scenarioInfo);
-#line 31
+#line 28
  testRunner.Given("I have a name type value pair transformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 32
+#line 29
   testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 33
+#line 30
  testRunner.When("I transform the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 34
+#line 31
  testRunner.Then("the result should be an IAlert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 35
+#line 32
   testRunner.And("the alert title equals the object\'s type name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 36
+#line 33
   testRunner.And("the alert has a group for each of objects properties with name type value pairs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 37
+#line 34
   testRunner.And("the alert has a group for each of objects fields with name type value pairs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

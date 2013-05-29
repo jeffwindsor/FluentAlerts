@@ -68,19 +68,6 @@ namespace FluentAlerts.Specs.AlertTransformation
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can config default formatter")]
-        public virtual void CanConfigDefaultFormatter()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can config default formatter", ((string[])(null)));
-#line 7
-this.ScenarioSetup(scenarioInfo);
-#line 8
- testRunner.Given("inconclusive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Default formatter uses the objects to string on all types")]
         [NUnit.Framework.TestCaseAttribute("Null", null)]
         [NUnit.Framework.TestCaseAttribute("String", null)]
@@ -95,15 +82,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void DefaultFormatterUsesTheObjectsToStringOnAllTypes(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default formatter uses the objects to string on all types", exampleTags);
-#line 10
+#line 7
 this.ScenarioSetup(scenarioInfo);
-#line 11
+#line 8
  testRunner.Given(string.Format("I have a {0} object", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 12
+#line 9
   testRunner.And("I have the default formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
+#line 10
  testRunner.When("I format the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
+#line 11
  testRunner.Then(string.Format("the result is equal to {0} to string", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -124,15 +111,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void DefaultFormatterUsesTheObjectsToStringAsATitleOnAllTypes(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default formatter uses the objects to string as a title on all types", exampleTags);
-#line 28
+#line 25
 this.ScenarioSetup(scenarioInfo);
-#line 29
+#line 26
  testRunner.Given(string.Format("I have a {0} object", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 30
+#line 27
   testRunner.And("I have the default formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 31
+#line 28
  testRunner.When("I format the object as a title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 32
+#line 29
  testRunner.Then(string.Format("the result is equal to {0} types name", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -153,17 +140,17 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanSpecifyStringFormatByType(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify string format by type", exampleTags);
-#line 46
+#line 43
 this.ScenarioSetup(scenarioInfo);
-#line 47
+#line 44
  testRunner.Given(string.Format("I have a {0} object", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 48
+#line 45
   testRunner.And("I have the default formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 49
+#line 46
   testRunner.And(string.Format("I insert a format for the {0} at the beginning", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 50
+#line 47
  testRunner.When("I format the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 51
+#line 48
  testRunner.Then(string.Format("the result is equal to {0} to format", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -184,17 +171,17 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void WARNINGCanHideStringFormatBehindMoreGeneralRule(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("WARNING Can hide string format behind more general rule", exampleTags);
-#line 65
+#line 62
 this.ScenarioSetup(scenarioInfo);
-#line 66
+#line 63
  testRunner.Given(string.Format("I have a {0} object", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 67
+#line 64
   testRunner.And("I have the default formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 68
+#line 65
   testRunner.And(string.Format("I add a format for the {0}", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 69
+#line 66
  testRunner.When("I format the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 70
+#line 67
  testRunner.Then(string.Format("the result is equal to {0} to string", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -215,17 +202,17 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanSpecifyStringFormatByPath(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify string format by path", exampleTags);
-#line 85
+#line 82
 this.ScenarioSetup(scenarioInfo);
-#line 86
+#line 83
  testRunner.Given(string.Format("I have a {0} object", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 87
+#line 84
   testRunner.And("I have a formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 88
+#line 85
   testRunner.And(string.Format("I specify a format for the {0} at A.B.C", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 89
+#line 86
  testRunner.When("I format the object at A.B.C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 90
+#line 87
  testRunner.Then(string.Format("the result is equal to {0} to format", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -246,17 +233,17 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SpecifingStringFormatByPathDoesNotFormatTypeAtOtherPaths(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Specifing string format by path does not format type at other paths", exampleTags);
-#line 104
+#line 101
 this.ScenarioSetup(scenarioInfo);
-#line 105
+#line 102
  testRunner.Given(string.Format("I have a {0} object", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 106
+#line 103
   testRunner.And("I have a formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 107
+#line 104
   testRunner.And(string.Format("I specify a format for the {0} at A.B.C", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 108
+#line 105
  testRunner.When("I format the object at A.B.D", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 109
+#line 106
  testRunner.Then(string.Format("the result is equal to {0} to string", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -276,19 +263,19 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanInsertFormattingRules(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can insert formatting rules", exampleTags);
-#line 123
+#line 120
 this.ScenarioSetup(scenarioInfo);
-#line 124
+#line 121
  testRunner.Given("I have the default formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 125
+#line 122
   testRunner.And(string.Format("I have a {0} object", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 126
+#line 123
   testRunner.And(string.Format("I insert a specific format for the {0} at the beginning", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 127
+#line 124
   testRunner.And(string.Format("I insert a different format for {0} in between", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 128
+#line 125
  testRunner.When("I format the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 129
+#line 126
  testRunner.Then(string.Format("the result is equal to {0} to format", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -301,15 +288,15 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("If object has no applicable formatting rules a formatting exception will be throw" +
                     "n", ((string[])(null)));
-#line 142
+#line 139
 this.ScenarioSetup(scenarioInfo);
-#line 143
+#line 140
  testRunner.Given("I have an empty formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 144
+#line 141
   testRunner.And("I have a DateTime object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 145
+#line 142
  testRunner.When("I format the object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 146
+#line 143
  testRunner.Then("I expect a FluentAlertFormattingException to be thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -322,15 +309,15 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("If object has no applicable title formatting rules a formatting exception will be" +
                     " thrown", ((string[])(null)));
-#line 148
+#line 145
 this.ScenarioSetup(scenarioInfo);
-#line 149
+#line 146
  testRunner.Given("I have an empty formatter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 150
+#line 147
   testRunner.And("I have a DateTime object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 151
+#line 148
  testRunner.When("I format the object as a title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 152
+#line 149
  testRunner.Then("I expect a FluentAlertFormattingException to be thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

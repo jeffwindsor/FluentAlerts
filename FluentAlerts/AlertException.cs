@@ -33,7 +33,7 @@ namespace FluentAlerts
         
         private static IAlert GetAlertWithTitle(string message)
         {
-            return Alerts.Create(message).ToAlert();
+            return Factory.Alerts.Create(message).ToAlert();
         }
     }
 }

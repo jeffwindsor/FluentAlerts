@@ -16,7 +16,6 @@ namespace FluentAlerts.Specs
         private TypeInfo _typeInfo;
         private MemberPath _memberPath;
         private BaseTypeInfoSelector _selector;
-        private ITransformer<string> _transformer;
         private object _transformedObject;
         private IAlert _transformedAlert;
 
@@ -96,9 +95,19 @@ namespace FluentAlerts.Specs
         {
             _memberPath = new MemberPath(targetPathString);
             //current path plus property name = target path 
-            _selector.Rules.Add((info, obj, path) => 
-                info.PropertyInfos = info.PropertyInfos.Where(pi =>
-                    path.Concat(new[] { pi.Name }).SequenceEqual(_memberPath)));
+            _selector.Rules.Add((info, obj, path) =>
+                {
+                    //only for objects of type
+                    if (obj.GetType().Name == typeString)
+                    {
+                        //Current path + property name = the target path
+                        info.PropertyInfos = from pi in info.PropertyInfos
+                                             where path.Concat(new[] {pi.Name})
+                                                       .SequenceEqual(_memberPath)
+                                             select pi;
+
+                    }
+                });
         }
 
         [Given(@"I limit the informer to (.*) fields")]
@@ -173,13 +182,13 @@ namespace FluentAlerts.Specs
         [Given(@"I have a default transformer")]
         public void GivenIHaveADefaultTransformer()
         {
-            _transformer = Alerts.Transformers.CreateDefault();
+            _context.Transformer = Factory.Transformers.Create();
         }
         
         [Given(@"I have a name type value pair transformer")]
         public void GivenIHaveANameTypeValuePairTransformer()
         {
-            _transformer = Alerts.Transformers.CreateNameTypeValue();
+            _context.Transformer = Factory.Transformers.CreateNameTypeValue();
         }
 
 
@@ -198,13 +207,13 @@ namespace FluentAlerts.Specs
         [When(@"I transform the alert using a custom transformer")]
         public void WhenITransformTheAlertUsingACustomTransformer()
         {
-            _context.Alert = _context.Alert.Transform(Alerts.Transformers.CreateDefault());
+            _context.Alert = _context.Alert.Transform(Factory.Transformers.Create());
         }
         
         [When(@"I transform the object")]
         public void WhenITransformTheObject()
         {
-            _transformedObject = _transformer.Transform(_context.TestValue);
+            _transformedObject = _context.Transformer.Transform(_context.TestValue);
         }
 
 
@@ -254,14 +263,14 @@ namespace FluentAlerts.Specs
             _typeInfo.PropertyInfos.Should().BeEquivalentTo(expected);
         }
 
-        [Then(@"only the objects (.*) properties at (.*) are listed in the type info")]
-        public void ThenOnlyTheObjectsPropertiesAtAreListedInTheTypeInfo(string expectedTypeName, string expectedPath)
-        {
-            var expected = from pi in _context.TestValue.GetType().GetProperties()
-                           where pi.PropertyType.Name == expectedTypeName
-                           select pi;
-            _typeInfo.PropertyInfos.Should().BeEquivalentTo(expected);
-        }
+        //[Then(@"only the objects (.*) properties at (.*) are listed in the type info")]
+        //public void ThenOnlyTheObjectsPropertiesAtAreListedInTheTypeInfo(string expectedTypeName, string expectedPath)
+        //{
+        //    var expected = from pi in _context.TestValue.GetType().GetProperties()
+        //                   where pi.PropertyType.Name == expectedTypeName
+        //                   select pi;
+        //    _typeInfo.PropertyInfos.Should().BeEquivalentTo(expected);
+        //}
 
         [Then(@"only the objects (.*) fields are listed in the type info")]
         public void ThenOnlyTheObjectsFieldsAreListedInTheTypeInfo(string expectedTypeName)
@@ -272,14 +281,14 @@ namespace FluentAlerts.Specs
             _typeInfo.FieldInfos.Should().BeEquivalentTo(expected);
         }
 
-        [Then(@"only the objects (.*) fields at (.*) are listed in the type info")]
-        public void ThenOnlyTheObjectsFieldsAtAreListedInTheTypeInfo(string expectedTypeName, string expectedPath)
-        {
-            var expected = from fi in _context.TestValue.GetType().GetFields()
-                           where fi.FieldType.Name == expectedTypeName
-                           select fi;
-            _typeInfo.FieldInfos.Should().BeEquivalentTo(expected);
-        }
+        //[Then(@"only the objects (.*) fields at (.*) are listed in the type info")]
+        //public void ThenOnlyTheObjectsFieldsAtAreListedInTheTypeInfo(string expectedTypeName, string expectedPath)
+        //{
+        //    var expected = from fi in _context.TestValue.GetType().GetFields()
+        //                   where fi.FieldType.Name == expectedTypeName
+        //                   select fi;
+        //    _typeInfo.FieldInfos.Should().BeEquivalentTo(expected);
+        //}
 
         [Then(@"the alert has a group for each of objects properties with name value pairs")]
         public void ThenTheAlertHasAGroupForEachOfObjectsPropertiesWithNameValuePairs()
