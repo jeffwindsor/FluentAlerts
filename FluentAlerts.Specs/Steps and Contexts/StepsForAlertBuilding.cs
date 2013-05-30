@@ -36,12 +36,46 @@ namespace FluentAlerts.Specs
                 .With("Some other text");
         }
 
+        [Given(@"I have a full test alert builder")]
+        public void GivenIHaveAFullTestAlertBuilder()
+        {
+            _context.Builder = Factory.Alerts.Create()
+                .WithTitleOf("Alert Title")
+                .WithSeperator()
+                .WithHeaderOne("Header One Text Block")
+                .WithEmphasized("Emphasized Text Block")
+                .With("Normal Text Block")
+                .WithSeperator()
+                .WithEmphasizedRow("Emphasized Row")
+                .WithEmphasizedRow("Emphasized Row",1)
+                .WithEmphasizedRow("Emphasized Row", 1,2)
+                .WithRow("Row")
+                .WithRow("Row",1)
+                .WithRow("Row",1,2,3)
+                .WithSeperator()
+                .WithUrl("Test Url Text", "http://www.google.com")
+                .WithSeperator()
+                .WithValue(Mother.GetNestedTestClass(3))
+                .WithSeperator()
+                .WithValue(Mother.GetNestedTestStruct(3))
+                .WithSeperator()
+                .WithValue(Mother.GetNestedException(3));
+        }
+
         [Given(@"I have a built alert")]
         public void GivenIHaveABuiltAlert()
         {
             GivenIHaveAFilledAlertBuilder();
             WhenIBuildAnAlert();
         }
+
+        [Given(@"I have a full test alert")]
+        public void GivenIHaveAFullTestAlert()
+        {
+            GivenIHaveAFullTestAlertBuilder();
+            WhenIBuildAnAlert();
+        }
+
 
         [When(@"I build the alert")]
         public void WhenIBuildAnAlert()

@@ -74,7 +74,7 @@ namespace FluentAlerts.Specs.AlertRendering
 #line 4
 this.ScenarioSetup(scenarioInfo);
 #line 5
- testRunner.Given("I have a built alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have a full test alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
   testRunner.And("I have a default alert render", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 7

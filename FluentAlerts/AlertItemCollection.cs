@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FluentAlerts
 {
@@ -20,7 +18,7 @@ namespace FluentAlerts
         {
             if (item != null)
             {
-                this.Add(item);
+                Add(item);
             }
         }
 
@@ -59,7 +57,7 @@ namespace FluentAlerts
         {
             //Othewise insert
             var result = new AlertTextBlock { Style = TextStyle.Header_One };
-            this.Insert(0, result);
+            Insert(0, result);
             return result;
         }
 

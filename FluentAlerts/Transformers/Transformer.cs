@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using FluentAlerts.Transformers.Formatters;
 using FluentAlerts.Transformers.Strategies;
 using FluentAlerts.Transformers.TypeInformers;
@@ -82,7 +81,7 @@ namespace FluentAlerts.Transformers
         {
             var typeInfo = _selector.Find(o,objectMemberPath);
             return from info in typeInfo.PropertyInfos
-                   select new InfoValue<PropertyInfo>()
+                   select new InfoValue<PropertyInfo>
                        {
                            Info = info,
                            Value = GetValue(() => info.Name, () => info.GetValue(o, null), objectMemberPath)
@@ -93,7 +92,7 @@ namespace FluentAlerts.Transformers
         {
             var typeInfo = _selector.Find(o, objectMemberPath);
             return from info in typeInfo.FieldInfos
-                   select new InfoValue<FieldInfo>()
+                   select new InfoValue<FieldInfo>
                        {
                            Info = info,
                            Value = GetValue(() => info.Name, () => info.GetValue(o), objectMemberPath)

@@ -2,7 +2,7 @@
 Feature: DeveloperCanRenderAlerts
 
 Scenario: Can render an alert
-	Given I have a built alert
+	Given I have a full test alert
 	 And I have a default alert render
 	When I render the alert
 	Then the rendered text has the default formatting

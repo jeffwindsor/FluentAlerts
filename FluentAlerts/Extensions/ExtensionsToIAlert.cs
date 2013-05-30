@@ -19,12 +19,12 @@ namespace FluentAlerts
 
         public static void Throw(this IAlert alert, bool transformBeforeThrowing = false)
         {
-            ThrowTransform(alert, (a) => new AlertException(a), transformBeforeThrowing);
+            ThrowTransform(alert, a => new AlertException(a), transformBeforeThrowing);
         }
 
         public static void Throw(this IAlert alert, Exception inner, bool transformBeforeThrowing = false)
         {
-            ThrowTransform(alert, (a) => new AlertException(a, inner), transformBeforeThrowing);
+            ThrowTransform(alert, a => new AlertException(a, inner), transformBeforeThrowing);
         }
 
         public static void Throw<TAlertException>(this IAlert alert, 
@@ -41,7 +41,7 @@ namespace FluentAlerts
             bool transformBeforeThrowing = false)
             where TAlertException : AlertException
         {
-            ThrowTransform(alert, (a) => constructor(a, inner), transformBeforeThrowing); 
+            ThrowTransform(alert, a => constructor(a, inner), transformBeforeThrowing); 
         }
 
         private static void ThrowTransform<TAlertException>(IAlert alert, 

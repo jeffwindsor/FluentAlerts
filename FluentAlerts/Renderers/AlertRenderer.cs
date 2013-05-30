@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using FluentAlerts.Transformers;
 
@@ -12,9 +13,9 @@ namespace FluentAlerts.Renderers
     public class AlertRenderer : IAlertRenderer
     {
         private readonly StringBuilder _acc = new StringBuilder();
-        private readonly ITemplateRender _template;
+        private readonly TemplateRender _template;
         private readonly ITransformer<string> _transformer;
-        public AlertRenderer(ITransformer<string> transformer, ITemplateRender template)
+        public AlertRenderer(ITransformer<string> transformer, TemplateRender template)
         {
             _transformer = transformer;
             _template = template;
@@ -43,50 +44,51 @@ namespace FluentAlerts.Renderers
             Append(_template.GetAlertHeader());
 
             //Route each item in Alert by type
+            var alertWidth = GetWidth(alert);
             foreach (var item in alert)
             {
-                Route(item);
+                Route(item, alertWidth);
             }
             
             //Alert End
             Append(_template.GetAlertFooter());
         }
-        
-        private void Render(AlertGroup g)
+
+        private void Render(AlertGroup g,int alertWidth)
         {
             var groupStyle = g.Style;
-            var maxValueIndex = g.Values.Length - 1;
+            var groupLength = g.Values.Length;
 
             //Group Begin
-            Append(_template.GetGroupHeader(groupStyle));
-            for (var i = 0; i <= maxValueIndex; i++)
+            Append(_template.GetGroupHeader(groupStyle, alertWidth));
+            for (var index = 0; index < groupLength; index++)
             {
                 //Value Begin
-                Append(_template.GetValueHeader(groupStyle, i, maxValueIndex));
+                Append(_template.GetValueHeader(groupStyle, index, groupLength, alertWidth));
 
                 //Add Value
-                var value = g.Values[i];
+                var value = g.Values[index];
                 Route(value);
 
                 //Value End
-                Append(_template.GetValueFooter(groupStyle, i, maxValueIndex));
+                Append(_template.GetValueFooter(groupStyle, index, groupLength, alertWidth));
 
             }
             //Group End
-            Append(_template.GetGroupFooter(groupStyle));
+            Append(_template.GetGroupFooter(groupStyle, alertWidth));
         }
 
-        private void Render(AlertTextBlock textBlock)
+        private void Render(AlertTextBlock textBlock, int alertWidth)
         {
             //Text Block Begin
-            Append(_template.GetTextBlockHeader(textBlock.Style));
+            Append(_template.GetTextBlockHeader(textBlock.Style, alertWidth));
             //Append Text Block Text
             Append(textBlock.ToString());
             //Text Block End
-            Append(_template.GetTextBlockFooter(textBlock.Style));
+            Append(_template.GetTextBlockFooter(textBlock.Style, alertWidth));
         }
 
-        private void Route(IAlertItem item)
+        private void Route(IAlertItem item, int alertWidth)
         {
             //Embedded Alerts
             var itemAsAlert = item as IAlert;
@@ -100,7 +102,7 @@ namespace FluentAlerts.Renderers
             var itemAsTextBlock = item as AlertTextBlock;
             if (itemAsTextBlock != null)
             {
-                Render(itemAsTextBlock);
+                Render(itemAsTextBlock, alertWidth);
                 return;
             }
 
@@ -108,7 +110,7 @@ namespace FluentAlerts.Renderers
             var itemAsGroup = item as AlertGroup;
             if (itemAsGroup != null)
             {
-                Render(itemAsGroup);
+                Render(itemAsGroup, alertWidth);
                 return;
             }
 
@@ -140,5 +142,16 @@ namespace FluentAlerts.Renderers
         {
             _acc.Append(text);
         }
+
+        private static int GetWidth(IAlert alert)
+        {
+            // return max length of group values
+            var widths = from item in alert
+                         where item is AlertGroup
+                         select (item as AlertGroup).Values.Length;
+
+            return Math.Max(1, widths.Max());
+        }
+
     }
 }

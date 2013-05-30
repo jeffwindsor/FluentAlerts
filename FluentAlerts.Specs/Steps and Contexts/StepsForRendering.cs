@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using FluentAlerts.Renderers;
@@ -21,7 +22,7 @@ namespace FluentAlerts.Specs
         private TemplateDictionary _otherTemplateDictionary;
         private Template _template;
         private Template _otherTemplate;
-        private ITemplateRender _templateRender;
+        private TemplateRender _templateRender;
         private IAlertRenderer _render;
         private string _renderResult;
 
@@ -90,11 +91,12 @@ namespace FluentAlerts.Specs
         [Given(@"I have an alert render")]
         public void GivenIHaveAnAlertRender()
         {
+            _context.Transformer = Factory.Transformers.Create();
             _render = new AlertRenderer(_context.Transformer, _templateRender);
         }
 
         [Given(@"I have a (.*) alert render")]
-        public void GivenIHaveATemplateNameAlertRender(string templateName)
+         public void GivenIHaveATemplateNameAlertRender(string templateName)
         {
             //Combine all steps to produce a complete render
             GivenIHaveADefaultAppSettings();
@@ -146,7 +148,8 @@ namespace FluentAlerts.Specs
         [Then(@"the rendered text has the default formatting")]
         public void ThenTheRenderedTextHasTheDefaultFormatting()
         {
-            ScenarioContext.Current.Pending();
+            File.WriteAllText("render_output.html", _renderResult);
+            //ScenarioContext.Current.Pending();
         }
   
         [Then(@"the templates are equivilant")]

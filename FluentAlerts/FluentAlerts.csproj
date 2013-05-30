@@ -55,8 +55,8 @@
     <Compile Include="FileExporter.cs" />
     <Compile Include="GroupStyle.cs" />
     <Compile Include="Renderers\TemplateDictionary.cs" />
-    <Compile Include="Renderers\TemplateKeys.cs" />
-    <Compile Include="Renderers\TemplateParameters.cs" />
+    <Compile Include="Renderers\TemplateItem.cs" />
+    <Compile Include="Renderers\TemplateValueParameter.cs" />
     <Compile Include="TextStyle.cs" />
     <Compile Include="Extensions\ExtensionsToExceptions.cs" />
     <Compile Include="AlertGroup.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\AlertRenderer.cs" />
     <Compile Include="Transformers\Formatters\ObjectFormatter.cs" />
-    <Compile Include="Renderers\ITemplateRender.cs" />
+    <Compile Include="Renderers\TemplateRender.cs" />
     <Compile Include="Transformers\NameValueRowTransformer.cs" />
     <Compile Include="Transformers\Strategies\ITransformStrategy.cs" />
     <Compile Include="Extensions\ExtensionsToType.cs" />

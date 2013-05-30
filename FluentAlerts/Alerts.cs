@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using FluentAlerts.Renderers;
 using FluentAlerts.Settings;
 using FluentAlerts.Transformers;
