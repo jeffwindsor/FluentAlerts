@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FluentAlerts.Renderers
 {
-    public interface TemplateRender
+    public interface ITemplateRender
     {
         string GetSerializationHeader();
         string GetSerializationFooter();
@@ -12,36 +12,19 @@ namespace FluentAlerts.Renderers
         string GetAlertHeader();
         string GetAlertFooter();
 
-        string GetTextBlockHeader(TextStyle style, int alertWidth);
-        string GetTextBlockFooter(TextStyle style, int alertWidth);
+        string GetItemHeader(ItemStyle style, int alertWidth);
+        string GetItemFooter(ItemStyle style, int alertWidth);
 
-        string GetGroupHeader(GroupStyle style, int alertWidth);
-        string GetGroupFooter(GroupStyle style, int alertWidth);
-
-        string GetValueHeader(GroupStyle style, int index, int groupLength, int alertWidth);
-        string GetValueFooter(GroupStyle style, int index, int groupLength, int alertWidth);
+        string GetValueHeader(ItemStyle style, int index, int groupLength, int alertWidth);
+        string GetValueFooter(ItemStyle style, int index, int groupLength, int alertWidth);
     }
 
-    public class TemplateRenderer : TemplateRender
+    public class TemplateRenderer : ITemplateRender
     {
-        private int _currentAlertWidth;
-        private int _currentGroupWidth;
-
-        private Template _template;
+        private readonly Template _template;
         public TemplateRenderer(Template template)
         {
             _template = template;
-        }
-
-        private class Substitution
-        {
-            public Substitution(TemplateValueParameter parameter, string value)
-            {
-                Parameter = parameter.ToString();
-                Value = value;
-            }
-            public string Parameter { get; private set; }
-            public string Value { get; private set; }
         }
 
         private string GetValue(TemplateItem item)
@@ -79,53 +62,21 @@ namespace FluentAlerts.Renderers
         {
             return GetValue(TemplateItem.AlertFooter);
         }
-
-        public string GetTextBlockHeader(TextStyle style, int alertWidth)
-        {
-            var subs = new [] {new Substitution(TemplateValueParameter.Colspan, alertWidth.ToString())};
-            var item = TemplateItem.TextNormalHeader;
-            switch (style)
-            {
-                case TextStyle.Emphasized:
-                    item = TemplateItem.TextEmphasizedHeader;
-                    break;
-                case TextStyle.Header_One:
-                    item = TemplateItem.TextTitleHeader;
-                    break;
-            }
-            return GetValue(item, subs);
-        }
-
-        public string GetTextBlockFooter(TextStyle style, int alertWidth)
-        {
-            var subs = new[] {new Substitution(TemplateValueParameter.Colspan, alertWidth.ToString())};
-            var item = TemplateItem.TextNormalFooter;
-            switch (style)
-            {
-                case TextStyle.Emphasized:
-                    item = TemplateItem.TextEmphasizedFooter;
-                    break;
-                case TextStyle.Header_One:
-                    item = TemplateItem.TextTitleFooter;
-                    break;
-            }
-            return GetValue(item, subs);
-        }
-
-        public string GetGroupHeader(GroupStyle style, int alertWidth)
+     
+        public string GetItemHeader(ItemStyle style, int alertWidth)
         {
             var subs = new[] {new Substitution(TemplateValueParameter.Colspan, alertWidth.ToString())};
             return GetValue(TemplateItem.GroupHeader, subs);
         }
 
-        public string GetGroupFooter(GroupStyle style, int alertWidth)
+        public string GetItemFooter(ItemStyle style, int alertWidth)
         {
             var subs = new[] {new Substitution(TemplateValueParameter.Colspan, alertWidth.ToString())};
             return GetValue(TemplateItem.GroupFooter, subs);
         }
 
         //i begins at 1 and goes to length
-        public string GetValueHeader(GroupStyle style, int index, int groupLength, int alertWidth)
+        public string GetValueHeader(ItemStyle style, int index, int groupLength, int alertWidth)
         {
             var spanning = index == groupLength && groupLength < alertWidth;
             var item = spanning
@@ -134,17 +85,26 @@ namespace FluentAlerts.Renderers
 
             switch (style)
             {
-                case GroupStyle.EmphasizedRow:
+                case ItemStyle.NormalText:
+                    item = TemplateItem.TextNormalHeader;
+                    break;
+                case ItemStyle.EmphasizedText:
+                    item = TemplateItem.TextEmphasizedHeader;
+                    break;
+                case ItemStyle.HeaderOneText:
+                    item = TemplateItem.TextTitleHeader;
+                    break;
+                case ItemStyle.EmphasizedRow:
                     item = spanning
                                ? TemplateItem.ValueEmphasizedSpanningHeader
                                : TemplateItem.ValueEmphasizedHeader;
                     break;
                     
-                case GroupStyle.Seperator:
+                case ItemStyle.Seperator:
                     item = TemplateItem.SeperatorHeader;
                     break;
 
-                case GroupStyle.Url:
+                case ItemStyle.Url:
                     item = TemplateItem.UrlHeader;
                     break;
 
@@ -154,7 +114,7 @@ namespace FluentAlerts.Renderers
             return GetValue(item, subs);
         }
 
-        public string GetValueFooter(GroupStyle style, int index, int groupLength, int alertWidth)
+        public string GetValueFooter(ItemStyle style, int index, int groupLength, int alertWidth)
         {
             var spanning = index == groupLength && groupLength < alertWidth;
             var item = spanning
@@ -163,17 +123,27 @@ namespace FluentAlerts.Renderers
 
             switch (style)
             {
-                case GroupStyle.EmphasizedRow:
+                case ItemStyle.NormalText:
+                    item = TemplateItem.TextNormalFooter;
+                    break;
+                case ItemStyle.EmphasizedText:
+                    item = TemplateItem.TextEmphasizedFooter;
+                    break;
+                case ItemStyle.HeaderOneText:
+                    item = TemplateItem.TextTitleFooter;
+                    break;
+
+                case ItemStyle.EmphasizedRow:
                     item = spanning
                                ? TemplateItem.ValueEmphasizedSpanningFooter
                                : TemplateItem.ValueEmphasizedFooter;
                     break;
 
-                case GroupStyle.Seperator:
+                case ItemStyle.Seperator:
                     item = TemplateItem.SeperatorFooter;
                     break;
 
-                case GroupStyle.Url:
+                case ItemStyle.Url:
                     item = TemplateItem.UrlFooter;
                     break;
 
@@ -181,6 +151,17 @@ namespace FluentAlerts.Renderers
             //Make the last value a spanning region if group width < alert width
             var subs = new[] { new Substitution(TemplateValueParameter.Colspan, (alertWidth - groupLength).ToString()) };
             return GetValue(item, subs);
+        }
+        
+        private class Substitution
+        {
+            public Substitution(TemplateValueParameter parameter, string value)
+            {
+                Parameter = "{" + parameter + "}";
+                Value = value;
+            }
+            public string Parameter { get; private set; }
+            public string Value { get; private set; }
         }
     }
 }

@@ -72,7 +72,7 @@ namespace FluentAlerts
                         stack.Push(item);
 
                 //Add group values
-                var alertGroup = alertItem as AlertGroup;
+                var alertGroup = alertItem as AlertItem;
                 if(alertGroup != null)
                     foreach(var item in alertGroup.Values.Where(v => v is IAlertItem))
                         stack.Push(item as IAlertItem);
@@ -83,8 +83,8 @@ namespace FluentAlerts
         public static IEnumerable<object> AllValues(this IAlert alert)
         {
             return from item in alert.AllItems()
-                   where item is AlertGroup
-                   from value in (item as AlertGroup).Values
+                   where item is AlertItem
+                   from value in (item as AlertItem).Values
                    where !(value is IAlert)
                    select value;
         }

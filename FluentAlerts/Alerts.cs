@@ -47,7 +47,7 @@ namespace FluentAlerts
 
             public static IAlertBuilder Create(string title)
             {
-                return Create().WithTitleOf(title);
+                return Create().WithHeaderOne(title);
             }
 
             public static IAlertBuilder Create(Exception ex)
@@ -57,7 +57,7 @@ namespace FluentAlerts
             
             private static AlertBuilder CreateAlertBuilder()
             {
-                return new AlertBuilder(new AlertFactory<Alert>(), new AlertItemCollection());
+                return new AlertBuilder(new AlertFactory<AlertList>(), new AlertItemCollection());
             }
         }
 

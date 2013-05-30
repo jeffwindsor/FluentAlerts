@@ -3,31 +3,38 @@ Feature: DeveloperCanRenderAlerts
 
 Scenario: Can render an alert
 	Given I have a full test alert
-	 And I have a default alert render
+	 And I have custom app settings
+	 And I set the default template file location to Templates.json
+	 And I have the template choices from the default file
+	 And I have a OutlookEmailCompliantTemplate template
+	 And I have a template render
+	 And I have an alert render
 	When I render the alert
 	Then the rendered text has the default formatting
 
 @Extensibility
 Scenario: Can specify the template used to render alerts
-	Given I set the default template name to TestTemplate
+	Given I have custom app settings
+	 And I set the default template name to TestTemplate
 	 And I have the template choices from the default file
 	When I get the default template
 	 And I get the TestTemplate as the other template
 	Then the templates are equivilant
 
-@EaseOfUse
-Scenario: Html with Embedded Css template is used when no default template name is specified
-	Given I have the default app settings
-	Then the settings default template name is the Html with Embedded Css template 
-
 @Extensibility
-Scenario: Can specify the templates source file used to create template choices
-	Given I set the default template file location to custom_templates.json
+Scenario: Can specify the templates source file used for template choices
+	Given I have custom app settings
+	 And I set the default template file location to custom_templates.json
 	 And I have a template file at custom_templates.json
 	When I get the template choices from the default file
 	 And I create a new template dictionary from custom_templates.json
 	Then the template dictionaries are equivilant
 	 And clean up file custom_templates.json
+
+@EaseOfUse
+Scenario: Html with Embedded Css template is used when no default template name is specified
+	Given I have the default app settings
+	Then the settings default template name is the Html with Embedded Css template 
 
 @EaseOfUse
 Scenario: Default rendering templates are used when no template file is present

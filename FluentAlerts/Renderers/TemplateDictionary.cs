@@ -33,7 +33,7 @@ namespace FluentAlerts.Renderers
 
         public Template GetTemplate(string templateName)
         {
-            return _inner.ContainsKey(templateName)
+             return _inner.ContainsKey(templateName)
                        ? _inner[templateName]
                        : Factory.Issues.HandleRenderTemplateNotFound(templateName);
         }

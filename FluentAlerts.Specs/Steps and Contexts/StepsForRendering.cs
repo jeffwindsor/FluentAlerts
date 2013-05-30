@@ -22,7 +22,7 @@ namespace FluentAlerts.Specs
         private TemplateDictionary _otherTemplateDictionary;
         private Template _template;
         private Template _otherTemplate;
-        private TemplateRender _templateRender;
+        private ITemplateRender _templateRender;
         private IAlertRenderer _render;
         private string _renderResult;
 
@@ -46,21 +46,19 @@ namespace FluentAlerts.Specs
         [Given(@"I set the default template name to (.*)")]
         public void GivenISetTheDefaultTemplateNameTo(string name)
         {
-            GivenIHaveCustomAppSettings();
             _testAppSettings.DefaultTemplateName = name;
         }
 
         [Given(@"I set the default template file location to (.*)")]
         public void GivenISetTheDefaultTemplateFileLocationTo(string fileName)
         {
-            GivenIHaveCustomAppSettings();
             _testAppSettings.TemplateFileName = fileName;
         }
 
         [Given(@"I have a template file at (.*)")]
         public void GivenIHaveATemplateFileAt(string fileName)
         {
-            System.IO.File.Copy(TestTemplateFilePath, fileName, true);
+            File.Copy(TestTemplateFilePath, fileName, true);
         }
         
         [Given(@"I have the default app settings")]
@@ -95,20 +93,21 @@ namespace FluentAlerts.Specs
             _render = new AlertRenderer(_context.Transformer, _templateRender);
         }
 
-        [Given(@"I have a (.*) alert render")]
-         public void GivenIHaveATemplateNameAlertRender(string templateName)
-        {
-            //Combine all steps to produce a complete render
-            GivenIHaveADefaultAppSettings();
-            GivenIHaveATemplateDictionary();
+        //[Given(@"I have a (.*) alert render")]
+        // public void GivenIHaveATemplateNameAlertRender(string templateName)
+        //{
+        //    //Combine all steps to produce a complete render
+        //    GivenIHaveCustomAppSettings();
+        //    GivenIHaveATemplateDictionary();
 
-            if (templateName == "default")
-                templateName = _appsettings.DefaultTemplateName();
-            GivenIHaveANamedTemplate(templateName);
+        //    if (templateName == "default")
+        //        templateName = _appsettings.DefaultTemplateName();
+             
+        //    GivenIHaveANamedTemplate(templateName);
 
-            GivenIHaveATemplateRender();
-            GivenIHaveAnAlertRender();
-        }
+        //    GivenIHaveATemplateRender();
+        //    GivenIHaveAnAlertRender();
+        //}
         
         
         [When(@"I render the alert")]

@@ -10,9 +10,6 @@ namespace FluentAlerts
         /// Appends text to first item if it is a text block, otherwise it inserts a text block at
         /// the first position
         /// </summary>
-        void AppendTitleWith(string text);
-        IAlertBuilder WithTitleOf(string text);
-        IAlertBuilder WithTitleOf(string format, params object[] args);
         IAlertBuilder WithSeperator();
         IAlertBuilder With(string text);
         IAlertBuilder With(string format, params object[] args);
@@ -39,46 +36,15 @@ namespace FluentAlerts
     public class AlertBuilder : IAlertBuilder
     {
         private readonly IAlertFactory _alertFactory;
-        private readonly AlertItemCollection _items;
+        private readonly AlertList _items = new AlertList();
 
-        public AlertBuilder(IAlertFactory iaf, AlertItemCollection items)
+        public AlertBuilder(IAlertFactory iaf)
         {
             _alertFactory = iaf;
-            _items = items;
         }
-
-        /// <summary>
-        /// Appends text to first item if it is a text block, otherwise it inserts a text block at
-        /// the first position
-        /// </summary>
-        public void AppendTitleWith(string text)
-        {
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                _items.GetCreateTitle().Text.Append(text);
-            }
-        }
-
-        public IAlertBuilder WithTitleOf(string text)
-        {
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                var title = _items.GetCreateTitle().Text;
-                //Clear and Append Text
-                title.Length = 0;
-                title.Append(text);
-            }
-            return this;
-        }
-
-        public IAlertBuilder WithTitleOf(string format, params object[] args)
-        {
-            return WithTitleOf(string.Format(format, args));
-        }
-
         public IAlertBuilder WithSeperator()
         {
-            _items.AddGroup(GroupStyle.Seperator, string.Empty);
+            _items.Add(new SeperatorItem());
             return this;
         }
         
@@ -104,23 +70,34 @@ namespace FluentAlerts
 
         public IAlertBuilder WithHeaderOne(string text)
         {
-            return With(TextStyle.Header_One, text);
+            return With(TextStyle.HeaderOne, text);
         }
 
         public IAlertBuilder WithHeaderOne(string format, params object[] args)
         {
-            return With(TextStyle.Header_One, format, args);
+            return With(TextStyle.HeaderOne, format, args);
+        }
+
+        private IAlertBuilder With(TextStyle style, string format, params object[] args)
+        {
+            return With(style, string.Format(format, args));
+        }
+
+        private IAlertBuilder With(TextStyle style, string text) 
+        {
+            _items.Add(new TextItem(style, text));
+            return this;
         }
 
         public IAlertBuilder WithUrl(string text, string url)
         {
-            _items.AddGroup(GroupStyle.Url, text, url);
+            _items.Add(new UrlItem(text, url));
             return this;
         }
 
         public IAlertBuilder WithValue(object value)
         {
-            _items.AddGroup(GroupStyle.Value, value);
+            _items.Add(new ValueItem(value));
             return this;
         }
         
@@ -133,13 +110,13 @@ namespace FluentAlerts
 
         public IAlertBuilder WithRow(params object[] cells)
         {
-            _items.AddGroup(GroupStyle.Row, cells);
+            _items.Add(new ArrayItem(ArrayStyle.Normal, cells));
             return this;
         }
 
         public IAlertBuilder WithEmphasizedRow(params object[] cells)
         {
-            _items.AddGroup(GroupStyle.EmphasizedRow, cells);
+            _items.Add(new ArrayItem(ArrayStyle.Emphasized, cells));
             return this;
         }
 
@@ -152,7 +129,7 @@ namespace FluentAlerts
 
         public IAlertBuilder WithAlert(IAlert n)
         {
-            _items.AddAlertItems(n);
+            _items.Add(n);
             return this;
         }
         
@@ -160,17 +137,6 @@ namespace FluentAlerts
         {
             return _alertFactory.Create(_items);
         }
-       
-  
-        private IAlertBuilder With(TextStyle style, string format, params object[] args)
-        {
-            return With(style, string.Format(format, args));
-        }
-
-        private IAlertBuilder With(TextStyle style, string text)
-        {
-            _items.AddText(text, style);
-            return this;
-        }
+        
     }
 }

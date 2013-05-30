@@ -297,8 +297,8 @@ namespace FluentAlerts.Specs
                            select new {Name = pi.Name, Value = pi.GetValue(_context.TestValue, null)};
 
             var actual = from a in _transformedAlert
-                         where a is AlertGroup
-                         select a as AlertGroup;
+                         where a is AlertItem
+                         select a as AlertItem;
 
             var merge = from e in expected
                         join a in actual on e.Name equals a.Values[0].ToString()
@@ -317,8 +317,8 @@ namespace FluentAlerts.Specs
                            select new { Name = pi.Name, Value = pi.GetValue(_context.TestValue) };
 
             var actual = from a in _transformedAlert
-                         where a is AlertGroup
-                         select a as AlertGroup;
+                         where a is AlertItem
+                         select a as AlertItem;
 
             var merge = from e in expected
                         join a in actual on e.Name equals a.Values[0].ToString()
@@ -365,8 +365,8 @@ namespace FluentAlerts.Specs
                            select new {pi, Name = pi.Name, Value = pi.GetValue(_context.TestValue, null) };
 
             var actual = from a in _transformedAlert
-                         where a is AlertGroup
-                         select a as AlertGroup;
+                         where a is AlertItem
+                         select a as AlertItem;
 
             var merge = from e in expected
                         join a in actual on e.Name equals a.Values[0].ToString()
@@ -393,8 +393,8 @@ namespace FluentAlerts.Specs
                            select new {pi, Name = pi.Name, Value = pi.GetValue(_context.TestValue) };
 
             var actual = from a in _transformedAlert
-                         where a is AlertGroup
-                         select a as AlertGroup;
+                         where a is AlertItem
+                         select a as AlertItem;
 
             var merge = from e in expected
                         join a in actual on e.Name equals a.Values[0].ToString()

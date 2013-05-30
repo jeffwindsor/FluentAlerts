@@ -45,24 +45,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlertException.cs" />
-    <Compile Include="AlertItemCollection.cs" />
     <Compile Include="Alerts.cs" />
     <Compile Include="AlertFactory.cs" />
     <Compile Include="AlertBuilder.cs" />
+    <Compile Include="Extensions\ExtensionsToEnums.cs" />
     <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Extensions\ExtensionsToDateTime.cs" />
     <Compile Include="Extensions\ExtensionsToIAlert.cs" />
     <Compile Include="FileExporter.cs" />
-    <Compile Include="GroupStyle.cs" />
+    <Compile Include="ItemStyle.cs" />
     <Compile Include="Renderers\TemplateDictionary.cs" />
     <Compile Include="Renderers\TemplateItem.cs" />
     <Compile Include="Renderers\TemplateValueParameter.cs" />
     <Compile Include="TextStyle.cs" />
     <Compile Include="Extensions\ExtensionsToExceptions.cs" />
-    <Compile Include="AlertGroup.cs" />
+    <Compile Include="AlertItem.cs" />
     <Compile Include="AlertTextBlock.cs" />
-    <Compile Include="IAlertItem.cs" />
-    <Compile Include="Alert.cs" />
+    <Compile Include="AlertList.cs" />
     <Compile Include="Transformers\BaseRowTransformer.cs" />
     <Compile Include="Extensions\ExtensionsToIEnumerableOfString.cs" />
     <Compile Include="Transformers\Formatters\DefaultToObjectFormatter.cs" />

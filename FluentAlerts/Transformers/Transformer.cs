@@ -53,7 +53,7 @@ namespace FluentAlerts.Transformers
         //Recurse IAlert and tansform all group values
         public IAlert Transform(IAlert alert)
         {
-            foreach (var g in alert.OfType<AlertGroup>())
+            foreach (var g in alert.OfType<AlertItem>())
             {
                 for (var i = 0; i < g.Values.Length; ++i)
                 {

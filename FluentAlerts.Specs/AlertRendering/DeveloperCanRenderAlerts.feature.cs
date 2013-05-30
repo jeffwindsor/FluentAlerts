@@ -76,10 +76,20 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
  testRunner.Given("I have a full test alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
-  testRunner.And("I have a default alert render", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have custom app settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 7
- testRunner.When("I render the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("I set the default template file location to Templates.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 8
+  testRunner.And("I have the template choices from the default file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 9
+  testRunner.And("I have a OutlookEmailCompliantTemplate template", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 10
+  testRunner.And("I have a template render", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 11
+  testRunner.And("I have an alert render", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 12
+ testRunner.When("I render the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 13
  testRunner.Then("the rendered text has the default formatting", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -92,18 +102,47 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify the template used to render alerts", new string[] {
                         "Extensibility"});
-#line 11
-this.ScenarioSetup(scenarioInfo);
-#line 12
- testRunner.Given("I set the default template name to TestTemplate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 13
-  testRunner.And("I have the template choices from the default file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
- testRunner.When("I get the default template", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 15
-  testRunner.And("I get the TestTemplate as the other template", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
+this.ScenarioSetup(scenarioInfo);
+#line 17
+ testRunner.Given("I have custom app settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 18
+  testRunner.And("I set the default template name to TestTemplate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 19
+  testRunner.And("I have the template choices from the default file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 20
+ testRunner.When("I get the default template", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 21
+  testRunner.And("I get the TestTemplate as the other template", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 22
  testRunner.Then("the templates are equivilant", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Can specify the templates source file used for template choices")]
+        [NUnit.Framework.CategoryAttribute("Extensibility")]
+        public virtual void CanSpecifyTheTemplatesSourceFileUsedForTemplateChoices()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify the templates source file used for template choices", new string[] {
+                        "Extensibility"});
+#line 25
+this.ScenarioSetup(scenarioInfo);
+#line 26
+ testRunner.Given("I have custom app settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 27
+  testRunner.And("I set the default template file location to custom_templates.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 28
+  testRunner.And("I have a template file at custom_templates.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 29
+ testRunner.When("I get the template choices from the default file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 30
+  testRunner.And("I create a new template dictionary from custom_templates.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 31
+ testRunner.Then("the template dictionaries are equivilant", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 32
+  testRunner.And("clean up file custom_templates.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -117,37 +156,12 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Html with Embedded Css template is used when no default template name is specifie" +
                     "d", new string[] {
                         "EaseOfUse"});
-#line 19
+#line 35
 this.ScenarioSetup(scenarioInfo);
-#line 20
+#line 36
  testRunner.Given("I have the default app settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 21
+#line 37
  testRunner.Then("the settings default template name is the Html with Embedded Css template", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can specify the templates source file used to create template choices")]
-        [NUnit.Framework.CategoryAttribute("Extensibility")]
-        public virtual void CanSpecifyTheTemplatesSourceFileUsedToCreateTemplateChoices()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can specify the templates source file used to create template choices", new string[] {
-                        "Extensibility"});
-#line 24
-this.ScenarioSetup(scenarioInfo);
-#line 25
- testRunner.Given("I set the default template file location to custom_templates.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 26
-  testRunner.And("I have a template file at custom_templates.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 27
- testRunner.When("I get the template choices from the default file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 28
-  testRunner.And("I create a new template dictionary from custom_templates.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 29
- testRunner.Then("the template dictionaries are equivilant", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 30
-  testRunner.And("clean up file custom_templates.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -159,15 +173,15 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default rendering templates are used when no template file is present", new string[] {
                         "EaseOfUse"});
-#line 33
+#line 40
 this.ScenarioSetup(scenarioInfo);
-#line 34
+#line 41
  testRunner.Given("I have the default app settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 35
+#line 42
  testRunner.When("I get the template choices from the default file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 36
+#line 43
   testRunner.And("I create a new template dictionary from Default", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 37
+#line 44
  testRunner.Then("the template dictionaries are equivilant", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -180,19 +194,19 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can export and import templates to and from files", new string[] {
                         "Extensibility"});
-#line 40
+#line 47
 this.ScenarioSetup(scenarioInfo);
-#line 41
+#line 48
  testRunner.Given("I have the default app settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 42
+#line 49
   testRunner.And("I have the template choices from the default file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 43
+#line 50
  testRunner.When("I export the templates to export.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 44
+#line 51
   testRunner.And("I create a new template dictionary from export.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 45
+#line 52
  testRunner.Then("the template dictionaries are equivilant", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 46
+#line 53
   testRunner.And("clean up file export.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -207,19 +221,19 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("System will create a backup of the current file when exporting", new string[] {
                         "Extensibility",
                         "EaseOfUse"});
-#line 49
+#line 56
 this.ScenarioSetup(scenarioInfo);
-#line 50
+#line 57
  testRunner.Given("I have custom app settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 51
+#line 58
   testRunner.And("I have the template choices from the default file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 52
+#line 59
   testRunner.And("I have a template file at back_test.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 53
+#line 60
  testRunner.When("I export the templates to back_test.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 54
+#line 61
  testRunner.Then("a backup of the original back_test.json is written to the same directory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 55
+#line 62
   testRunner.And("clean up file back_test.json", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
