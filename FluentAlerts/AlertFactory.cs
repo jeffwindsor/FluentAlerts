@@ -15,7 +15,7 @@ namespace FluentAlerts
     /// Generic based alert factory for any IAlert implmenting concrete class
     /// that has a parameterless constructor
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">Concrete Alert Implementation</typeparam>
     public class AlertFactory<T> : IAlertFactory where T : IAlert, new()
     {
         public IAlert Create(IList<IAlertItem> items)

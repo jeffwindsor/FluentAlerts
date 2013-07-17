@@ -145,9 +145,9 @@ namespace FluentAlerts.Specs
         {
             _context.Builder.With( _context.TestText);
         }
-
-        [When(@"I add Header_One text")]
-        public void WhenIAddHeader_OneText()
+         
+        [When(@"I add HeaderOne text")]
+        public void WhenIAddHeaderOneText()
         {
             _context.Builder.WithHeaderOne( _context.TestText);
         }
@@ -184,16 +184,15 @@ namespace FluentAlerts.Specs
                 item.Values[i].Should().Be(_context.TestValues[i]);
             }
         }
+        
 
-
-
-        //[Then(@"the alert should contain (.*) text as the last item")]
-        //public void ThenTheAlertShouldContainTextAsThLastAlertItem(TextStyle style)
-        //{
-        //    var item = AssertLastItemIsTypeAndConvertTo<AlertTextBlock>();
-        //    item.ToString().Should().Be(_context.TestText); 
-        //    item.Style = style;
-        //}
+        [Then(@"the alert should contain (.*) text as the last item")]
+        public void ThenTheAlertShouldContainTextAsThLastAlertItem(TextStyle style)
+        {
+            var item = AssertLastItemIsTypeAndConvertTo<TextItem>();
+            item.Style = style;
+            item.Text.Should().Be(_context.TestText);
+        }
         
         [Then(@"the alert should be empty")]
         public void ThenTheAlertShouldBeEmpty()
@@ -259,11 +258,8 @@ namespace FluentAlerts.Specs
         [Then(@"the alert should contain all the other alert's items")]
         public void ThenTheAlertShouldContainTheOtherAlertsItems()
         {
-            var delta = _context.Alert.Count - _context.OtherAlert.Count;
-            for (var i = 0; i < _context.OtherAlert.Count; ++i)
-            {
-                _context.Alert[i + delta].Should().Be(_context.OtherAlert[i]);
-            }
+            //Check for match
+            _context.Alert.Count(i => i == _context.OtherAlert).Should().Be(1);
         }
         
         private AlertItem AssertLastItemIsGroupOfStyle(ItemStyle style)

@@ -303,9 +303,7 @@ namespace FluentAlerts.Specs
             var merge = from e in expected
                         join a in actual on e.Name equals a.Values[0].ToString()
                         select new { e.Name, Expected = e.Value, Actual = a.Values[1] };
-
-
-            actual.Count(a => a.Values.Length == 2).Should().Be(actual.Count(), "each property should have a name value pair group");
+            
             expected.Count().Should().Be(merge.Count(), "properties groups");
             merge.Count(r => r.Expected.ToString() == r.Actual.ToString()).Should().Be(merge.Count(), "each property transformed value should be its to string");
         }
@@ -324,7 +322,6 @@ namespace FluentAlerts.Specs
                         join a in actual on e.Name equals a.Values[0].ToString()
                         select new { e.Name, Expected = e.Value, Actual = a.Values[1] };
 
-            actual.Count(a => a.Values.Length == 2).Should().Be(actual.Count(), "each field should have a name value pair group");
             expected.Count().Should().Be(merge.Count(), "field groups");
             merge.Count(r => r.Expected.ToString() == r.Actual.ToString()).Should().Be(merge.Count(), "each field transformed value should be its to string");
     
@@ -378,9 +375,7 @@ namespace FluentAlerts.Specs
                                 ExpectedType = DefaultToStringFormatter.PrettyTypeName(e.pi.PropertyType),
                                 ActualType = a.Values[1].ToString()
                             };
-
-
-            actual.Count(a => a.Values.Length == 3).Should().Be(actual.Count(), "each property should have a name value pair group");
+            
             expected.Count().Should().Be(merge.Count(), "properties groups");
             merge.Count(r => r.Expected.ToString() == r.Actual.ToString()).Should().Be(merge.Count(), "each property transformed value should be its to string");
             merge.Count(r => r.ExpectedType == r.ActualType).Should().Be(merge.Count(), "each property transformed type should be its to string");
@@ -407,7 +402,6 @@ namespace FluentAlerts.Specs
                                 ActualType = a.Values[1].ToString()
                             };
 
-            actual.Count(a => a.Values.Length == 3).Should().Be(actual.Count(), "each field should have a name value pair group");
             expected.Count().Should().Be(merge.Count(), "field groups");
             merge.Count(r => r.Expected.ToString() == r.Actual.ToString()).Should().Be(merge.Count(), "each field transformed value should be its to string");
             merge.Count(r => r.ExpectedType == r.ActualType).Should().Be(merge.Count(), "each field transformed type should be its to string");

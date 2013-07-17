@@ -38,9 +38,9 @@ namespace FluentAlerts
             switch (style)
             {
                 case ArrayStyle.Emphasized:
-                    return ItemStyle.EmphasizedText;
+                    return ItemStyle.EmphasizedRow;
                 case ArrayStyle.Normal:
-                    return ItemStyle.NormalText;
+                    return ItemStyle.NormalRow;
                 default:
                     throw new ArgumentException("Text Style not recognized", "style");
             }

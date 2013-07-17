@@ -22,7 +22,7 @@ namespace FluentAlerts.Settings
 
         public string TemplateFileName()
         {
-            return TryGetConfigurationValue(ConfigKey.TemplateFileName, "Templates.json");
+            return TryGetConfigurationValue(ConfigKey.TemplateFileName, "DefaultTemplates.json");
         }
 
         private static string TryGetConfigurationValue(ConfigKey key, string defaultValue)

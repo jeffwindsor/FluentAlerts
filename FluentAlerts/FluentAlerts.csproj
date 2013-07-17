@@ -60,7 +60,6 @@
     <Compile Include="TextStyle.cs" />
     <Compile Include="Extensions\ExtensionsToExceptions.cs" />
     <Compile Include="AlertItem.cs" />
-    <Compile Include="AlertTextBlock.cs" />
     <Compile Include="AlertList.cs" />
     <Compile Include="Transformers\BaseRowTransformer.cs" />
     <Compile Include="Extensions\ExtensionsToIEnumerableOfString.cs" />

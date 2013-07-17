@@ -4,8 +4,6 @@ namespace FluentAlerts
 {
     public interface IAlertBuilder
     {
-        //Fluent Methods
-
         /// <summary>
         /// Appends text to first item if it is a text block, otherwise it inserts a text block at
         /// the first position
@@ -24,12 +22,10 @@ namespace FluentAlerts
         IAlertBuilder WithEmphasizedRow(params object[] values);
         IAlertBuilder WithRows(IEnumerable <object[]> listOfValues);
         IAlertBuilder WithAlert(IAlert n);
-        
-        //Terminal Methods
-         
+  
         /// <summary>
         /// The build function, produces a alert with the current items
-        /// </summary>
+        /// </summary> 
         IAlert ToAlert();
     }
 
