@@ -1,25 +1,10 @@
-﻿using System;
-
-namespace FluentAlerts
+﻿namespace FluentAlerts
 {
-    public enum ArrayStyle
-    {
-        Emphasized,
-        Normal
-    }
-    
-    public enum TextStyle
-    {
-        HeaderOne,
-        Emphasized,
-        Normal
-    }
-
     public interface IAlertItem { }
     public abstract class AlertItem: IAlertItem 
     {
-        protected ItemStyle ItemStyle { get; set; }
-        protected object[] Values { get; set; }
+        internal ItemStyle ItemStyle { get; set; }
+        internal object[] Values { get; set; }
     }
 
     public class ValueItem : AlertItem
@@ -31,6 +16,11 @@ namespace FluentAlerts
         }
     }
 
+    public enum ArrayStyle
+    {
+        Emphasized,
+        Normal
+    }
     public class ArrayItem : AlertItem
     {
         public ArrayItem(ArrayStyle style, object[] values)
@@ -55,6 +45,12 @@ namespace FluentAlerts
         }
     }
 
+    public enum TextStyle
+    {
+        HeaderOne,
+        Emphasized,
+        Normal
+    }
     public class TextItem : AlertItem
     {
         public TextItem(TextStyle style, string text)
@@ -84,7 +80,7 @@ namespace FluentAlerts
             Values = new object[] {url, text};
         }
 
-        public string Url
+        public string Url 
         {
             get { return (string)Values[0]; }
             set { Values[0] = value; }

@@ -43,9 +43,10 @@ namespace FluentAlerts.Transformers
                 return o;
 
             //If the strategy requires it, transform the object to an IAlert
+            //TODO: Check this transofrms objects below itself...
             if ( _strategy.IsTransformRequired(o, EMPTY_PATH))
                 return Transform(o, EMPTY_PATH);
-            
+             
             //Default: Return formatted object
             return _formatter.Format(o, EMPTY_PATH);
         }

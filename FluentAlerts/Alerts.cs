@@ -57,7 +57,7 @@ namespace FluentAlerts
             
             private static AlertBuilder CreateAlertBuilder()
             {
-                return new AlertBuilder(new AlertFactory<AlertList>(), new AlertItemCollection());
+                return new AlertBuilder(new AlertFactory<AlertList>());
             }
         }
 
@@ -77,8 +77,6 @@ namespace FluentAlerts
                                                    new DefaultToStringFormatter());
             }
         }
-
-
 
 
         internal static class Issues
