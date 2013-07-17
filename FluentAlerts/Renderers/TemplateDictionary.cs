@@ -11,9 +11,13 @@ namespace FluentAlerts.Renderers
     internal class TemplateDictionary
     {
         private readonly Dictionary<string, Template> _inner;
-        private readonly IEnumerable<string> _keys; 
-        public TemplateDictionary(string fileName = "")
+        private readonly IEnumerable<string> _keys;
+        private readonly ITemplateIssueHandler _issueHandler;
+        
+        public TemplateDictionary(ITemplateIssueHandler issueHandler, string fileName = "")
         {
+            _issueHandler = issueHandler;
+
             //Load or Default
             if (!string.IsNullOrWhiteSpace(fileName) && File.Exists(fileName))
             {
@@ -35,7 +39,7 @@ namespace FluentAlerts.Renderers
         {
              return _inner.ContainsKey(templateName)
                        ? _inner[templateName]
-                       : Factory.Issues.HandleRenderTemplateNotFound(templateName);
+                       : _issueHandler.TemplateNotFound(templateName);
         }
 
         public string Export(string fileName)

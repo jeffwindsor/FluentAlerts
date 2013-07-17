@@ -67,41 +67,26 @@ namespace FluentAlerts.Specs.AlertBuilding
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can fluently transform and fomrat alert values to strings")]
-        public virtual void CanFluentlyTransformAndFomratAlertValuesToStrings()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can fluently transform and fomrat alert values to strings", ((string[])(null)));
-#line 4
-this.ScenarioSetup(scenarioInfo);
-#line 5
- testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 6
- testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 7
-  testRunner.And("I transform the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 8
- testRunner.Then("there should not be any element that is not a grpah class or result type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Can fluently transform and format alert values to strings using a custom transfor" +
             "mer")]
+        [NUnit.Framework.CategoryAttribute("EaseOfUse")]
         public virtual void CanFluentlyTransformAndFormatAlertValuesToStringsUsingACustomTransformer()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can fluently transform and format alert values to strings using a custom transfor" +
-                    "mer", ((string[])(null)));
-#line 10
+                    "mer", new string[] {
+                        "EaseOfUse"});
+#line 5
 this.ScenarioSetup(scenarioInfo);
-#line 11
+#line 6
  testRunner.Given("I have an filled alert builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 12
+#line 7
+   testRunner.And("I have a default transformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 8
  testRunner.When("I build the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 13
-  testRunner.And("I transform the alert using a custom transformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
- testRunner.Then("there should not be any element that is not a grpah class or result type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 9
+  testRunner.And("I transform the alert using a transformer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 10
+ testRunner.Then("there should not be any element that is not a graph class or result type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

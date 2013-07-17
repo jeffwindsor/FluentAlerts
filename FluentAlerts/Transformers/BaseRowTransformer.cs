@@ -5,16 +5,22 @@ using FluentAlerts.Transformers.TypeInformers;
 
 namespace FluentAlerts.Transformers
 {
-    public abstract class BaseRowTransformer: BaseTransformer<string> 
+    public abstract class BaseRowTransformer: BaseTransformer<string>
     {
+        private readonly IAlertBuilderFactory _alertBuilderFactory;
         protected BaseRowTransformer(ITransformStrategy strategy,
-            ITypeInfoSelector selector, 
-            IObjectFormatter<string> formatter):base(strategy,selector,formatter){}
+                                     ITypeInfoSelector selector,
+                                     IObjectFormatter<string> formatter,
+                                     IAlertBuilderFactory alertBuilderFactory)
+            : base(strategy, selector, formatter)
+        {
+            _alertBuilderFactory = alertBuilderFactory;
+        }
 
         protected override IAlert Transform(object o, IEnumerable<string> objectMemberPath)
         {
             //Create Alert with a property and fields section containing name-values pairs  
-            return Factory.Alerts.Create(FormatAsTitle(o))
+            return _alertBuilderFactory.Create(FormatAsTitle(o))
                 .WithHeaderOne("Properties")
                 .WithRows(GetPropertyRowValues(o, objectMemberPath))
                 .WithHeaderOne("Fields")

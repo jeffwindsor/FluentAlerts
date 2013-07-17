@@ -114,48 +114,6 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can create an alert exception from simple text")]
-        [NUnit.Framework.CategoryAttribute("EaseOfUse")]
-        public virtual void CanCreateAnAlertExceptionFromSimpleText()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert exception from simple text", new string[] {
-                        "EaseOfUse"});
-#line 24
-this.ScenarioSetup(scenarioInfo);
-#line 25
- testRunner.When("I create an alert exception with the text message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 26
- testRunner.Then("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 27
-  testRunner.And("exception message is the simple text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Can create an alert exception from simple text and other exception")]
-        [NUnit.Framework.CategoryAttribute("EaseOfUse")]
-        public virtual void CanCreateAnAlertExceptionFromSimpleTextAndOtherException()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can create an alert exception from simple text and other exception", new string[] {
-                        "EaseOfUse"});
-#line 30
-this.ScenarioSetup(scenarioInfo);
-#line 31
-   testRunner.Given("I have an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 32
- testRunner.When("I create an alert exception with text message and the inner exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 33
- testRunner.Then("the exception\'s message is the alerts title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 34
-  testRunner.And("exception message is the simple text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 35
-  testRunner.And("the original exception is now the inner exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Can throw a dervided alert exception with an internal alert and inner exception")]
         [NUnit.Framework.CategoryAttribute("Extensibility")]
         public virtual void CanThrowADervidedAlertExceptionWithAnInternalAlertAndInnerException()

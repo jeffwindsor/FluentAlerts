@@ -20,19 +20,19 @@ Scenario: Can throw an alert exception with an internal alert and inner exceptio
 	  And the exception's message is the alerts title
 	  And the original exception is now the inner exception
 	  	  
-@EaseOfUse
-Scenario: Can create an alert exception from simple text
-	When I create an alert exception with the text message
-	Then the exception's message is the alerts title
-	 And exception message is the simple text
-
-@EaseOfUse
-Scenario: Can create an alert exception from simple text and other exception
-   Given I have an exception
-	When I create an alert exception with text message and the inner exception
-	Then the exception's message is the alerts title
-	 And exception message is the simple text
-	 And the original exception is now the inner exception
+#@EaseOfUse
+#Scenario: Can create an alert exception from simple text
+#	When I create an alert exception with the text message
+#	Then the exception's message is the alerts title
+#	 And exception message is the simple text
+#
+#@EaseOfUse
+#Scenario: Can create an alert exception from simple text and other exception
+#   Given I have an exception
+#	When I create an alert exception with text message and the inner exception
+#	Then the exception's message is the alerts title
+#	 And exception message is the simple text
+#	 And the original exception is now the inner exception
 
 @Extensibility
 Scenario: Can throw a dervided alert exception with an internal alert and inner exception

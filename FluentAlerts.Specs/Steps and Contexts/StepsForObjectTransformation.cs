@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using FluentAlerts.Transformers;
 using FluentAlerts.Transformers.Formatters;
+using FluentAlerts.Transformers.Strategies;
 using FluentAlerts.Transformers.TypeInformers;
 using FluentAssertions;
 using TechTalk.SpecFlow;
@@ -18,7 +19,7 @@ namespace FluentAlerts.Specs
         private BaseTypeInfoSelector _selector;
         private object _transformedObject;
         private IAlert _transformedAlert;
-
+ 
         private readonly AlertContext _context;
         public StepsForObjectTransformation(AlertContext context)
         {
@@ -182,13 +183,21 @@ namespace FluentAlerts.Specs
         [Given(@"I have a default transformer")]
         public void GivenIHaveADefaultTransformer()
         {
-            _context.Transformer = Factory.Transformers.Create();
+            //Fakeing IoC
+            _context.Transformer = new NameValueRowTransformer(new DefaultTransformStrategy(),
+                                                               new DefaultTypeInfoSelector(),
+                                                               new DefaultToStringFormatter(),
+                                                               _context.AlertBuilderFactory);
         }
         
         [Given(@"I have a name type value pair transformer")]
         public void GivenIHaveANameTypeValuePairTransformer()
         {
-            _context.Transformer = Factory.Transformers.CreateNameTypeValue();
+            //Fakeing IoC
+            _context.Transformer = new NameTypeValueRowTransformer(new DefaultTransformStrategy(),
+                                                                   new DefaultTypeInfoSelector(),
+                                                                   new DefaultToStringFormatter(),
+                                                                   _context.AlertBuilderFactory);
         }
 
 
@@ -198,16 +207,10 @@ namespace FluentAlerts.Specs
             _typeInfo = _selector.Find(_context.TestValue, _memberPath);
         }
 
-        [When(@"I transform the alert")]
-        public void WhenITransformTheAlert()
+        [When(@"I transform the alert using a transformer")]
+        public void WhenITransformTheAlertUsingATransformer()
         {
-            _transformedAlert = _context.Alert.Transform();
-        }
-
-        [When(@"I transform the alert using a custom transformer")]
-        public void WhenITransformTheAlertUsingACustomTransformer()
-        {
-            _context.Alert = _context.Alert.Transform(Factory.Transformers.Create());
+            _context.Alert = _context.Alert.Transform(_context.Transformer);
         }
         
         [When(@"I transform the object")]
@@ -231,7 +234,7 @@ namespace FluentAlerts.Specs
             _transformedAlert.Title.Should().Be(_context.TestValue.GetType().Name);
         }
         
-        [Then(@"there should not be any element that is not a grpah class or result type")]
+        [Then(@"there should not be any element that is not a graph class or result type")]
         public void ThenThereShouldNotBeAnyElementThatIsNotAGrpahClassOrResultType()
         {
             var nonTransformedValues = from value in _context.Alert.AllValues()

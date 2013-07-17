@@ -8,9 +8,9 @@ namespace FluentAlerts
         string Title { get; }
     }
 
-    internal class AlertList : List<IAlertItem>, IAlert 
+    internal class AlertList : List<IAlertItem>, IAlert
     {
-        public IEnumerable<T> GetAlertItems<T>() where T: AlertItem
+        public IEnumerable<T> GetAlertItems<T>() where T : AlertItem
         {
             return this.Where(i => i is T).Cast<T>();
         }
@@ -19,10 +19,9 @@ namespace FluentAlerts
         {
             get
             {
-                var item = GetAlertItems<TextItem>().FirstOrDefault(i => i.Style==TextStyle.HeaderOne);
-                return (item == null) ? string.Empty : item.Text; 
+                var item = GetAlertItems<TextItem>().FirstOrDefault(i => i.Style == TextStyle.HeaderOne);
+                return (item == null) ? string.Empty : item.Text;
             }
         }
-
     }
 }

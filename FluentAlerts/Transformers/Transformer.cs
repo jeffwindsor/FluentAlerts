@@ -56,7 +56,7 @@ namespace FluentAlerts.Transformers
         {
             foreach (var g in alert.OfType<AlertItem>())
             {
-                for (var i = 0; i < g.Values.Length; ++i)
+                for (var i = 0; i < g.Values.Count; ++i)
                 {
                     g.Values[i] = Transform(g.Values[i]);
                 }

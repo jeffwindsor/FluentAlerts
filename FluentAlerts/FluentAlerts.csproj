@@ -44,11 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlertBuilderFactory.cs" />
     <Compile Include="AlertException.cs" />
     <Compile Include="Alerts.cs" />
     <Compile Include="AlertFactory.cs" />
     <Compile Include="AlertBuilder.cs" />
     <Compile Include="Extensions\ExtensionsToEnums.cs" />
+    <Compile Include="Extensions\ExtensionsToIAlertBuilder.cs" />
+    <Compile Include="Renderers\TemplateIssueHandler.cs" />
+    <Compile Include="Transformers\TransformerFactory.cs" />
     <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Extensions\ExtensionsToDateTime.cs" />
     <Compile Include="Extensions\ExtensionsToIAlert.cs" />
@@ -58,7 +62,6 @@
     <Compile Include="Renderers\TemplateItem.cs" />
     <Compile Include="Renderers\TemplateValueParameter.cs" />
     <Compile Include="TextStyle.cs" />
-    <Compile Include="Extensions\ExtensionsToExceptions.cs" />
     <Compile Include="AlertItem.cs" />
     <Compile Include="AlertList.cs" />
     <Compile Include="Transformers\BaseRowTransformer.cs" />
@@ -88,6 +91,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

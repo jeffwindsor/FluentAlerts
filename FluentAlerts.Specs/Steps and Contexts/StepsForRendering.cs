@@ -25,6 +25,7 @@ namespace FluentAlerts.Specs
         private ITemplateRender _templateRender;
         private IAlertRenderer _render;
         private string _renderResult;
+        private ITemplateIssueHandler _templateIssueHandler;
 
         private AlertContext _context;
         public RenderSteps(AlertContext context)
@@ -67,11 +68,17 @@ namespace FluentAlerts.Specs
             _appsettings = new AppSettings();
         }
 
+        [Given(@"I have a template issue handler")]
+        public void GivenIHaveATemplateIssueHandler()
+        {
+            _templateIssueHandler = new TemplateIssueHandler(_appsettings, _context.AlertBuilderFactory);
+        }
+
         [When(@"I get the template choices from the default file")]
         [Given(@"I have the template choices from the default file")]
         public void GivenIHaveATemplateDictionary()
         {
-            _templateDictionary = new TemplateDictionary(_appsettings.TemplateFileName());
+            _templateDictionary = new TemplateDictionary(_templateIssueHandler, _appsettings.TemplateFileName());
         }
 
         [Given(@"I have a (.*) template")]
@@ -89,7 +96,6 @@ namespace FluentAlerts.Specs
         [Given(@"I have an alert render")]
         public void GivenIHaveAnAlertRender()
         {
-            _context.Transformer = Factory.Transformers.Create();
             _render = new AlertRenderer(_context.Transformer, _templateRender);
         }
 
@@ -122,7 +128,7 @@ namespace FluentAlerts.Specs
             if (fileName == "Default")
                 fileName = DefaultTemplateFilePath;
 
-            _otherTemplateDictionary = new TemplateDictionary(fileName);
+            _otherTemplateDictionary = new TemplateDictionary(_templateIssueHandler,fileName);
         }
 
         [When(@"I export the templates to (.*)")]

@@ -3,6 +3,7 @@ using System.IO;
 
 namespace FluentAlerts
 {
+    //HACK: Statics
     internal static class FileExporter
     {
         public static string Export(string filePath, string json)

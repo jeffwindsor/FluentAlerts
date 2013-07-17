@@ -1,10 +1,12 @@
-﻿namespace FluentAlerts
+﻿using System.Collections.Generic;
+
+namespace FluentAlerts
 {
     public interface IAlertItem { }
     public abstract class AlertItem: IAlertItem 
     {
         internal ItemStyle ItemStyle { get; set; }
-        internal object[] Values { get; set; }
+        internal IList<object> Values { get; set; }
     }
 
     public class ValueItem : AlertItem
@@ -23,7 +25,7 @@
     }
     public class ArrayItem : AlertItem
     {
-        public ArrayItem(ArrayStyle style, object[] values)
+        public ArrayItem(ArrayStyle style, IList<object> values)
         {
             Style = style;
             Values = values;
@@ -57,7 +59,7 @@
         {
             Style = style;
             Values = new object[] {text};
-        }
+        } 
 
         public string Text {
             get { return (string) Values[0]; }

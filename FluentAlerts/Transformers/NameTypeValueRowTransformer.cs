@@ -9,9 +9,13 @@ namespace FluentAlerts.Transformers
     public class NameTypeValueRowTransformer : BaseRowTransformer 
     {
         public NameTypeValueRowTransformer(ITransformStrategy strategy,
-            ITypeInfoSelector selector, 
-            IObjectFormatter<string> formatter):base(strategy,selector,formatter){}
-        
+                                           ITypeInfoSelector selector,
+                                           IObjectFormatter<string> formatter,
+                                           IAlertBuilderFactory alertBuilderFactory)
+            : base(strategy, selector, formatter, alertBuilderFactory)
+        {
+        }
+
         protected override IEnumerable<object[]> GetPropertyRowValues(object o, IEnumerable<string> objectMemberPath)
         {
             return from t in GetPropertyInfoValues(o, objectMemberPath)

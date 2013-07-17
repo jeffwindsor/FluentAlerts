@@ -18,19 +18,19 @@ namespace FluentAlerts.Specs
         [Given(@"I have an alert builder")]
         public void GivenIHaveAnAlertBuilder()
         {
-            _context.Builder = Factory.Alerts.Create();
+            _context.Builder = _context.AlertBuilderFactory.Create();
         }
 
         [Given(@"I have an alert builder and a title")]
         public void GivenIHaveAnAlertBuilderAndATitle()
         {
-            _context.Builder = Factory.Alerts.Create(_context.TestText);
+            _context.Builder = _context.AlertBuilderFactory.Create(_context.TestText);
         }
         
         [Given(@"I have an filled alert builder")]
         public void GivenIHaveAFilledAlertBuilder()
         {
-            _context.Builder = Factory.Alerts.Create()
+            _context.Builder = _context.AlertBuilderFactory.Create()
                 .WithHeaderOne(_context.TestText)
                 .WithSeperator()
                 .With("Some other text");
@@ -39,7 +39,7 @@ namespace FluentAlerts.Specs
         [Given(@"I have a full test alert builder")]
         public void GivenIHaveAFullTestAlertBuilder()
         {
-            _context.Builder = Factory.Alerts.Create()
+            _context.Builder = _context.AlertBuilderFactory.Create()
                 .WithHeaderOne("Alert Title")
                 .WithSeperator()
                 .WithHeaderOne("Header One Text Block")
@@ -127,7 +127,7 @@ namespace FluentAlerts.Specs
         [When(@"I add another alert")]
         public void WhenIAddAnotherAlert()
         {
-            _context.OtherAlert = Factory.Alerts.Create("Other Title")
+            _context.OtherAlert = _context.AlertBuilderFactory.Create("Other Title")
                 .WithUrl("Other Url", "Http://otherUrl.com")
                 .ToAlert();
 

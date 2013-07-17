@@ -57,7 +57,7 @@ namespace FluentAlerts.Renderers
         private void Render(AlertItem g,int alertWidth)
         {
             var groupStyle = g.ItemStyle;
-            var groupLength = g.Values.Length;
+            var groupLength = g.Values.Count;
 
             //Group Begin
             Append(_template.GetItemHeader(groupStyle, alertWidth));
@@ -130,7 +130,7 @@ namespace FluentAlerts.Renderers
             // return max length of group values
             var widths = from item in alert
                          where item is AlertItem
-                         select (item as AlertItem).Values.Length;
+                         select (item as AlertItem).Values.Count;
 
             return Math.Max(1, widths.Max());
         }

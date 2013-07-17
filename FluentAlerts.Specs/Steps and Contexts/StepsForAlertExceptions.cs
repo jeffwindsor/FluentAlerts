@@ -25,7 +25,8 @@ namespace FluentAlerts.Specs
         [When(@"I wrap it in an alert")]
         public void WhenIWrapItInAnAlert()
         {
-            _context.Builder = _originalException.ToAlert().WithHeaderOne(_context.TestText);
+            _context.Builder = _context.AlertBuilderFactory.Create(_originalException); 
+            //_originalException.ToAlert().WithHeaderOne(_context.TestText);
         }
 
         [When(@"I throw the alert")]
@@ -34,7 +35,7 @@ namespace FluentAlerts.Specs
             try
             {
                 _context.Alert = _context.Builder.ToAlert();  //for comparison later
-                _context.Alert.Throw();
+                throw new AlertException(_context.Alert);
             }
             catch (AlertException ex)
             {
@@ -48,7 +49,7 @@ namespace FluentAlerts.Specs
             try
             {
                 _context.Alert = _context.Builder.ToAlert();  //for comparison later
-                _context.Alert.Throw(_originalException);
+                throw new AlertException(_context.Alert, _originalException);
             }
             catch (AlertException ex)
             {
@@ -67,7 +68,7 @@ namespace FluentAlerts.Specs
             try
             {
                 _context.Alert = _context.Builder.ToAlert();  //for comparison later
-                _context.Alert.Throw((alert) => new SpecsAlertException(alert));
+                throw new SpecsAlertException(_context.Alert);
             }
             catch (AlertException ex)
             {
@@ -81,7 +82,7 @@ namespace FluentAlerts.Specs
             try
             {
                 _context.Alert = _context.Builder.ToAlert();  //for comparison later
-                _context.Alert.Throw((alert) => new SpecsAlertException(alert, _originalException));
+                throw new SpecsAlertException(_context.Alert, _originalException);
             }
             catch (AlertException ex)
             {
@@ -104,17 +105,17 @@ namespace FluentAlerts.Specs
             _context.CaughtException = new AlertException(_context.Builder,_originalException);
         }
 
-        [When(@"I create an alert exception with the text message")]
-        public void WhenICreateAnAlertExceptionWithTheTextMessage()
-        {
-            _context.CaughtException = new AlertException(_context.TestText);
-        }
+        //[When(@"I create an alert exception with the text message")]
+        //public void WhenICreateAnAlertExceptionWithTheTextMessage()
+        //{
+        //    _context.CaughtException = new AlertException(_context.TestText);
+        //} 
 
-        [When(@"I create an alert exception with text message and the inner exception")]
-        public void WhenICreateAnAlertExceptionWithTextMessageAndTheInnerException()
-        {
-            _context.CaughtException = new AlertException(_context.TestText,_originalException);
-        }
+        //[When(@"I create an alert exception with text message and the inner exception")]
+        //public void WhenICreateAnAlertExceptionWithTextMessageAndTheInnerException()
+        //{
+        //    _context.CaughtException = new AlertException(_context.TestText,_originalException);
+        //}
 
         [Then(@"the exception is an alert exception")]
         public void ThenTheExceptionIsAnAlertException()

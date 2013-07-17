@@ -4,22 +4,9 @@ namespace FluentAlerts
 {
     public class AlertException: ApplicationException 
     {
-        public AlertException(string message)
-            : base(message)
-        {
-            Alert = GetAlertWithTitle(message);
-        }
-        public AlertException(string message, Exception inner) 
-            : base(message, inner)
-        {
-            Alert = GetAlertWithTitle(message);
-        }
+        public AlertException(IAlertBuilder builder) : this(builder.ToAlert()) { }
+        public AlertException(IAlertBuilder builder, Exception inner) : this(builder.ToAlert(), inner) { }
         
-        public AlertException(IAlertBuilder builder) 
-            : this(builder.ToAlert()) { }
-        public AlertException(IAlertBuilder builder, Exception inner) 
-            : this(builder.ToAlert(), inner) { }
-
         public AlertException(IAlert alert) :base(alert.Title)
         {
             Alert = alert;
@@ -29,11 +16,6 @@ namespace FluentAlerts
             Alert = alert;
         }
 
-        public IAlert Alert { get; set; }
-        
-        private static IAlert GetAlertWithTitle(string message)
-        {
-            return Factory.Alerts.Create(message).ToAlert();
-        }
+        public IAlert Alert { get; private set; }
     }
 }
