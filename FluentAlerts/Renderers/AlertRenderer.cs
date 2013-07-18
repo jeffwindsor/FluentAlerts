@@ -5,20 +5,15 @@ using FluentAlerts.Transformers;
 
 namespace FluentAlerts.Renderers
 {
-    public interface IAlertRenderer
-    {
-        string RenderAlert(IAlert alert);
-    }
-
     public class AlertRenderer : IAlertRenderer
     {
         private readonly StringBuilder _acc = new StringBuilder();
-        private readonly ITemplateRender _template;
+        private readonly IAlertTemplateRender _alertTemplate;
         private readonly ITransformer<string> _transformer;
-        public AlertRenderer(ITransformer<string> transformer, ITemplateRender template)
+        public AlertRenderer(ITransformer<string> transformer, IAlertTemplateRender alertTemplate)
         {
             _transformer = transformer;
-            _template = template;
+            _alertTemplate = alertTemplate;
         }
 
         public string RenderAlert(IAlert alert)
@@ -26,13 +21,13 @@ namespace FluentAlerts.Renderers
             if (alert == null) return string.Empty;
 
             //Begin Serialization
-            Append(_template.GetSerializationHeader());
+            Append(_alertTemplate.GetSerializationHeader());
             
             //Render Internals
             Render(alert);
 
             //End Serialization
-            Append(_template.GetSerializationFooter());
+            Append(_alertTemplate.GetSerializationFooter());
 
             //Return result
             return _acc.ToString(); 
@@ -41,7 +36,7 @@ namespace FluentAlerts.Renderers
         private void Render(IAlert alert) 
         {
             //Alert Begin
-            Append(_template.GetAlertHeader());
+            Append(_alertTemplate.GetAlertHeader());
 
             //Route each item in Alert by type
             var alertWidth = GetWidth(alert);
@@ -51,7 +46,7 @@ namespace FluentAlerts.Renderers
             }
             
             //Alert End
-            Append(_template.GetAlertFooter());
+            Append(_alertTemplate.GetAlertFooter());
         }
 
         private void Render(AlertItem g,int alertWidth)
@@ -60,22 +55,22 @@ namespace FluentAlerts.Renderers
             var groupLength = g.Values.Count;
 
             //Group Begin
-            Append(_template.GetItemHeader(groupStyle, alertWidth));
+            Append(_alertTemplate.GetItemHeader(groupStyle, alertWidth));
             for (var index = 0; index < groupLength; index++)
             {
                 //Value Begin
-                Append(_template.GetValueHeader(groupStyle, index, groupLength, alertWidth));
+                Append(_alertTemplate.GetValueHeader(groupStyle, index, groupLength, alertWidth));
 
                 //Add Value
                 var value = g.Values[index];
                 Route(value);
 
                 //Value End
-                Append(_template.GetValueFooter(groupStyle, index, groupLength, alertWidth));
+                Append(_alertTemplate.GetValueFooter(groupStyle, index, groupLength, alertWidth));
 
             }
             //Group End
-            Append(_template.GetItemFooter(groupStyle, alertWidth));
+            Append(_alertTemplate.GetItemFooter(groupStyle, alertWidth));
         }
 
         private void Route(IAlertItem item, int alertWidth)

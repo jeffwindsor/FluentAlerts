@@ -88,11 +88,6 @@ namespace FluentAlerts.Specs
         {
             return MemberPathSeperator;
         }
-
-        string IFluentAlertSettings.DefaultTemplateDictionary()
-        {
-            throw new NotImplementedException();
-        }
     }
 
     internal enum NumberEnum

@@ -1,23 +1,18 @@
 ﻿namespace FluentAlerts.Renderers
 {
-    public interface ITemplateIssueHandler
-    {
-        Template TemplateNotFound(string templateName);
-    }
-
-    public class TemplateIssueHandler : ITemplateIssueHandler
+    public class AlertRenderAlertRenderTemplateIssueHandler : IAlertRenderTemplateDictionaryIssueHandler
     {
         private readonly IAlertBuilderFactory _alertBuilderFactory;
         private readonly IFluentAlertSettings _fluentAlertSettings;
 
-        public TemplateIssueHandler(IFluentAlertSettings fluentAlertSettings, IAlertBuilderFactory alertBuilderFactory)
+        public AlertRenderAlertRenderTemplateIssueHandler(IFluentAlertSettings fluentAlertSettings, IAlertBuilderFactory alertBuilderFactory)
         {
             _fluentAlertSettings = fluentAlertSettings;
             _alertBuilderFactory = alertBuilderFactory;
         }
 
         //UNDONE: Render Template File not found - make rule based or configable
-        public Template TemplateNotFound(string templateName)
+        public AlertRenderTemplate TemplateNotFound(string templateName)
         {
             //Throw Exception
             var alert = _alertBuilderFactory.Create("Render Template Not Found")

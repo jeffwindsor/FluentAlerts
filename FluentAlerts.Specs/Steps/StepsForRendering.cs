@@ -16,14 +16,14 @@ namespace FluentAlerts.Specs
         private const char TestMemberPathSeperator = ':';
         
         private IFluentAlertSettings _appsettings;
-        private TemplateDictionary _templateDictionary;
-        private TemplateDictionary _otherTemplateDictionary;
-        private Template _template;
-        private Template _otherTemplate;
-        private ITemplateRender _templateRender;
+        private AlertRenderTemplateDictionary _templateDictionary;
+        private AlertRenderTemplateDictionary _otherTemplateDictionary;
+        private AlertRenderTemplate _alertRenderTemplate;
+        private AlertRenderTemplate _otherAlertRenderTemplate;
+        private IAlertTemplateRender _alertTemplateRender;
         private IAlertRenderer _render;
         private string _renderResult;
-        private ITemplateIssueHandler _templateIssueHandler;
+        private IAlertRenderTemplateDictionaryIssueHandler _alertRenderTemplateIssueHandler;
 
         private readonly AlertContext _context;
         public RenderSteps(AlertContext context)
@@ -64,38 +64,39 @@ namespace FluentAlerts.Specs
         [Given(@"I have the default app settings")]
         public void GivenIHaveADefaultAppSettings()
         {
-            _appsettings = new FluentAlertSettings();
+            _appsettings = new FluentAlertDefaultedAppConfigSettings();
         }
 
         [Given(@"I have a template issue handler")]
         public void GivenIHaveATemplateIssueHandler()
         {
-            _templateIssueHandler = new TemplateIssueHandler(_appsettings, _context.AlertBuilderFactory);
+            _alertRenderTemplateIssueHandler = new AlertRenderAlertRenderTemplateIssueHandler(_appsettings, _context.AlertBuilderFactory);
         }
 
         [When(@"I get the template choices from the default file")]
         [Given(@"I have the template choices from the default file")]
         public void GivenIHaveATemplateDictionary()
         {
-            _templateDictionary = new TemplateDictionary(_templateIssueHandler,_appsettings, _appsettings.TemplateFileName());
+            _templateDictionary = new AlertRenderTemplateDictionary(_alertRenderTemplateIssueHandler);
+            _templateDictionary.Import();
         }
 
         [Given(@"I have a (.*) template")]
         public void GivenIHaveANamedTemplate(string templateName)
         {
-            _template = _templateDictionary.GetTemplate(templateName);
+            _alertRenderTemplate = _templateDictionary.GetTemplate(templateName);
         }
 
         [Given(@"I have a template render")]
         public void GivenIHaveATemplateRender()
         {
-            _templateRender = new TemplateRenderer(_template);
+            _alertTemplateRender = new AlertRenderTemplateRenderer(_alertRenderTemplate);
         }
 
         [Given(@"I have an alert render")]
         public void GivenIHaveAnAlertRender()
         {
-            _render = new AlertRenderer(_context.Transformer, _templateRender);
+            _render = new AlertRenderer(_context.Transformer, _alertTemplateRender);
         }
 
         //[Given(@"I have a (.*) alert render")]
@@ -127,7 +128,8 @@ namespace FluentAlerts.Specs
             if (fileName == "Default")
                 fileName = DefaultTemplateFilePath;
 
-            _otherTemplateDictionary = new TemplateDictionary(_templateIssueHandler, _appsettings, fileName);
+            _otherTemplateDictionary = new AlertRenderTemplateDictionary(_alertRenderTemplateIssueHandler);
+            _otherTemplateDictionary.Import();
         }
 
         [When(@"I export the templates to (.*)")]
@@ -139,13 +141,13 @@ namespace FluentAlerts.Specs
         [When(@"I get the default template")]
         public void WhenIHaveADefaultTemplate()
         {
-            _template = _templateDictionary.GetTemplate(_appsettings.DefaultTemplateName());
+            _alertRenderTemplate = _templateDictionary.GetTemplate(_appsettings.DefaultTemplateName());
         }
 
         [When(@"I get the (.*) as the other template")]
         public void WhenIGetTheOtherNamedTemplate(string templateName)
         {
-            _otherTemplate = _templateDictionary.GetTemplate(templateName);
+            _otherAlertRenderTemplate = _templateDictionary.GetTemplate(templateName);
         }
 
 
@@ -159,7 +161,7 @@ namespace FluentAlerts.Specs
         [Then(@"the templates are equivilant")]
         public void ThenTheTemplatesAreEquivilant()
         {
-            _template.ShouldBeEquivalentTo(_otherTemplate);
+            _alertRenderTemplate.ShouldBeEquivalentTo(_otherAlertRenderTemplate);
         }
     
         [Then(@"the template dictionaries are equivilant")]

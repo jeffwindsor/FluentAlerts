@@ -4,32 +4,17 @@ using System.Text;
 
 namespace FluentAlerts.Renderers
 {
-    public interface ITemplateRender
+    public class AlertRenderTemplateRenderer : IAlertTemplateRender
     {
-        string GetSerializationHeader();
-        string GetSerializationFooter();
-
-        string GetAlertHeader();
-        string GetAlertFooter();
-
-        string GetItemHeader(ItemStyle style, int alertWidth);
-        string GetItemFooter(ItemStyle style, int alertWidth);
-
-        string GetValueHeader(ItemStyle style, int index, int groupLength, int alertWidth);
-        string GetValueFooter(ItemStyle style, int index, int groupLength, int alertWidth);
-    }
-
-    public class TemplateRenderer : ITemplateRender
-    {
-        private readonly Template _template;
-        public TemplateRenderer(Template template)
+        private readonly AlertRenderTemplate _alertRenderTemplate;
+        public AlertRenderTemplateRenderer(AlertRenderTemplate alertRenderTemplate)
         {
-            _template = template;
+            _alertRenderTemplate = alertRenderTemplate;
         }
 
         private string GetValue(TemplateItem item)
         {
-            return _template[item.ToString()];
+            return _alertRenderTemplate[item.ToString()];
         }
 
         private string GetValue(TemplateItem item, IEnumerable<Substitution> substitutions)
