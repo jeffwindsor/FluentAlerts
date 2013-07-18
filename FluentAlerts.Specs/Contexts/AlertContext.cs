@@ -10,7 +10,7 @@ namespace FluentAlerts.Specs
         public object TestValue;
         public readonly object[] TestValues = new object[] { "one", 12, DateTime.UtcNow };
 
-        public readonly IAlertBuilderFactory AlertBuilderFactory = new AlertBuilderFactory(new AlertFactory<AlertList>());
+        public readonly IAlertBuilderFactory AlertBuilderFactory = new AlertBuilderFactory(new AlertFactory<Alert>());
 
         public IAlertBuilder Builder;
         public IAlert Alert;

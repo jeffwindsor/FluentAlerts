@@ -46,12 +46,21 @@
   <ItemGroup>
     <Compile Include="AlertBuilderFactory.cs" />
     <Compile Include="AlertException.cs" />
-    <Compile Include="Alerts.cs" />
     <Compile Include="AlertFactory.cs" />
     <Compile Include="AlertBuilder.cs" />
+    <Compile Include="ArrayAlertItem.cs" />
+    <Compile Include="ArrayStyle.cs" />
     <Compile Include="Extensions\ExtensionsToEnums.cs" />
     <Compile Include="Extensions\ExtensionsToIAlertBuilder.cs" />
+    <Compile Include="IAlert.cs" />
+    <Compile Include="IAlertBuilder.cs" />
+    <Compile Include="IAlertBuilderFactory.cs" />
+    <Compile Include="IAlertFactory.cs" />
+    <Compile Include="IAlertItem.cs" />
+    <Compile Include="IFluentAlertSettings.cs" />
     <Compile Include="Renderers\TemplateIssueHandler.cs" />
+    <Compile Include="SeperatorAlertItem.cs" />
+    <Compile Include="TextAlertItem.cs" />
     <Compile Include="Transformers\TransformerFactory.cs" />
     <Compile Include="FluentAlertSettings.cs" />
     <Compile Include="Extensions\ExtensionsToDateTime.cs" />
@@ -63,7 +72,7 @@
     <Compile Include="Renderers\TemplateValueParameter.cs" />
     <Compile Include="TextStyle.cs" />
     <Compile Include="AlertItem.cs" />
-    <Compile Include="AlertList.cs" />
+    <Compile Include="Alert.cs" />
     <Compile Include="Transformers\BaseRowTransformer.cs" />
     <Compile Include="Extensions\ExtensionsToIEnumerableOfString.cs" />
     <Compile Include="Transformers\Formatters\DefaultToObjectFormatter.cs" />
@@ -84,6 +93,8 @@
     <Compile Include="Transformers\TypeInformers\DefaultTypeInfoSelector.cs" />
     <Compile Include="Transformers\TypeInformers\TypeInfo.cs" />
     <Compile Include="Transformers\TypeInformers\TypeInfoSelector.cs" />
+    <Compile Include="UrIAlertItem.cs" />
+    <Compile Include="ValueAlertItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Templates.json">

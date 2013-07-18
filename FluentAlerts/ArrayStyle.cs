@@ -1,8 +1,7 @@
 ﻿namespace FluentAlerts
 {
-    public enum TextStyle
+    public enum ArrayStyle
     {
-        HeaderOne,
         Emphasized,
         Normal
     }

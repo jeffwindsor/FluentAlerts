@@ -2,12 +2,6 @@
 
 namespace FluentAlerts
 {
-    public interface IFluentAlertSettings
-    {
-        string DefaultTemplateName();
-        string TemplateFileName();
-        char MemberPathSeperator();
-    }
     public class FluentAlertSettings : IFluentAlertSettings
     {
         private enum ConfigKey

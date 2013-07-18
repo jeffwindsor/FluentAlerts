@@ -9,11 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		IoC_Config_Notes.txt = IoC_Config_Notes.txt
 		SolutionInfo.cs = SolutionInfo.cs
+		Tasks.txt = Tasks.txt
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{6F909630-FF3F-48D8-ABAF-AF302C61BB12}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{C958F18D-07EE-4F12-8100-EADCE87288AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,9 +29,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{7AF9A1AA-EAC6-420E-807C-520CD0982741} = {C958F18D-07EE-4F12-8100-EADCE87288AD}
-		{5006EC6A-3CCD-4D9D-9C02-47BBDE187BA6} = {6F909630-FF3F-48D8-ABAF-AF302C61BB12}
 	EndGlobalSection
 EndGlobal

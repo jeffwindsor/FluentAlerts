@@ -2,13 +2,6 @@
 
 namespace FluentAlerts
 {
-    public interface IAlertBuilderFactory
-    {
-        IAlertBuilder Create();
-        IAlertBuilder Create(string title);
-        IAlertBuilder Create(Exception ex);
-    }
-
     public class AlertBuilderFactory: IAlertBuilderFactory
     {
         private readonly IAlertFactory _alertFactory;

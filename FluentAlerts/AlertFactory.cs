@@ -2,15 +2,6 @@
 
 namespace FluentAlerts
 {
-    public interface IAlertFactory
-    {
-        /// <summary>
-        /// Create an alert from a style and list of alert items (in order)
-        /// </summary>
-        /// <returns></returns>
-        IAlert Create(IList<IAlertItem> items);
-    }
-    
     /// <summary>
     /// Generic based alert factory for any IAlert implmenting concrete class
     /// that has a parameterless constructor

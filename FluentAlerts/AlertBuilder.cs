@@ -2,37 +2,10 @@
 
 namespace FluentAlerts
 {
-    public interface IAlertBuilder
-    {
-        /// <summary>
-        /// Appends text to first item if it is a text block, otherwise it inserts a text block at
-        /// the first position
-        /// </summary>
-        IAlertBuilder WithSeperator();
-        IAlertBuilder With(string text);
-        IAlertBuilder With(string format, params object[] args);
-        IAlertBuilder WithEmphasized(string text);
-        IAlertBuilder WithEmphasized(string format, params object[] args);
-        IAlertBuilder WithHeaderOne(string text);
-        IAlertBuilder WithHeaderOne(string format, params object[] args);
-        IAlertBuilder WithUrl(string text, string url);
-        IAlertBuilder WithValue(object value);
-        IAlertBuilder WithValues(IEnumerable<object> values);
-        IAlertBuilder WithRow(params object[] values);
-        IAlertBuilder WithEmphasizedRow(params object[] values);
-        IAlertBuilder WithRows(IEnumerable <object[]> listOfValues);
-        IAlertBuilder WithAlert(IAlert n);
-  
-        /// <summary>
-        /// The build function, produces a alert with the current items
-        /// </summary> 
-        IAlert ToAlert();
-    }
-
     public class AlertBuilder : IAlertBuilder
     {
         private readonly IAlertFactory _alertFactory;
-        private readonly AlertList _items = new AlertList();
+        private readonly Alert _items = new Alert();
 
         public AlertBuilder(IAlertFactory iaf)
         {
@@ -40,7 +13,7 @@ namespace FluentAlerts
         }
         public IAlertBuilder WithSeperator()
         {
-            _items.Add(new SeperatorItem());
+            _items.Add(new SeperatorAlertItem());
             return this;
         }
         
@@ -81,19 +54,19 @@ namespace FluentAlerts
 
         private IAlertBuilder With(TextStyle style, string text) 
         {
-            _items.Add(new TextItem(style, text));
+            _items.Add(new TextAlertItem(style, text));
             return this;
         }
 
         public IAlertBuilder WithUrl(string text, string url)
         {
-            _items.Add(new UrlItem(text, url));
+            _items.Add(new UrIAlertItem(text, url));
             return this;
         }
 
         public IAlertBuilder WithValue(object value)
         {
-            _items.Add(new ValueItem(value));
+            _items.Add(new ValueAlertItem(value));
             return this;
         }
         
@@ -106,13 +79,13 @@ namespace FluentAlerts
 
         public IAlertBuilder WithRow(params object[] cells)
         {
-            _items.Add(new ArrayItem(ArrayStyle.Normal, cells));
+            _items.Add(new ArrayAlertItem(ArrayStyle.Normal, cells));
             return this;
         }
 
         public IAlertBuilder WithEmphasizedRow(params object[] cells)
         {
-            _items.Add(new ArrayItem(ArrayStyle.Emphasized, cells));
+            _items.Add(new ArrayAlertItem(ArrayStyle.Emphasized, cells));
             return this;
         }
 

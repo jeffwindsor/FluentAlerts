@@ -1,14 +1,14 @@
 
- //** FUTURES **
+//** FUTURES **
 //UNDONE: Examples of steps and workflows, how tos. use request examples until something more generic is found
 //UNDONE: Examples for how to use IAlerts, tranformed or not into razor
 //UNDONE: Alerts & IoC, plus maybe even allow configuration of defaults via config file
 //UNDONE: Improve Fluent design so it can be expanded
 //UNDONE: Filesystem watcher for imported files to deal with change in file, so we can cache the loads
 //UNDONE : Using Trace for now
+
 //** NOWS **
 //TODO: ?? scope down class and method visibility, have public interfaces, this may be problematic for IoC
-//T reomve all news and statics for DI and IOC
 //TODO: rename url to uri
 //TODO: allow transformation without formatting? for above? nto sure that helps? 
 //TODO: split out interfaces into files
