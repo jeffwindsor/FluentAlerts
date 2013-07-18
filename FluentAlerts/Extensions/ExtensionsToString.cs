@@ -3,10 +3,9 @@ using System.IO;
 
 namespace FluentAlerts
 {
-    //HACK: Statics
-    internal static class FileExporter
+    internal static class StringExtensions
     {
-        public static string Export(string filePath, string json)
+        public static string ExportToFile(this string json, string filePath)
         {
             //Backup Current File
             BackUpFileIfExists(filePath);
@@ -18,20 +17,19 @@ namespace FluentAlerts
             return filePath;
         }
 
-        private static void BackUpFileIfExists(string filePath)
+        private static void BackUpFileIfExists(this string filePath)
         {
             if (!File.Exists(filePath)) return;
 
             var dir = Path.GetDirectoryName(filePath);
             var backUpFileName = string.Format("{0}{1}{2}_UTC{3}{4}",
                                                dir,
-                                               (string.IsNullOrWhiteSpace(dir))?string.Empty:"\\",
+                                               (string.IsNullOrWhiteSpace(dir)) ? string.Empty : "\\",
                                                Path.GetFileNameWithoutExtension(filePath),
                                                DateTime.UtcNow.ToIsoFormat(),
                                                Path.GetExtension(filePath));
 
             File.Copy(filePath, backUpFileName);
         }
-
     }
 }

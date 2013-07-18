@@ -77,7 +77,7 @@ namespace FluentAlerts.Specs
         [Given(@"I have the template choices from the default file")]
         public void GivenIHaveATemplateDictionary()
         {
-            _templateDictionary = new TemplateDictionary(_templateIssueHandler, _appsettings.TemplateFileName());
+            _templateDictionary = new TemplateDictionary(_templateIssueHandler,_appsettings, _appsettings.TemplateFileName());
         }
 
         [Given(@"I have a (.*) template")]
@@ -127,7 +127,7 @@ namespace FluentAlerts.Specs
             if (fileName == "Default")
                 fileName = DefaultTemplateFilePath;
 
-            _otherTemplateDictionary = new TemplateDictionary(_templateIssueHandler,fileName);
+            _otherTemplateDictionary = new TemplateDictionary(_templateIssueHandler, _appsettings, fileName);
         }
 
         [When(@"I export the templates to (.*)")]

@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace FluentAlerts.Specs
 {
     [TestFixture, Ignore]
-    public class ManualActions
+    public class SupportFunctions
     {
         //[Test] 
         //public void ExportAllTemplatesToConsole()
