@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace FluentAlerts.Transformers.Formatters
 {
@@ -7,13 +8,14 @@ namespace FluentAlerts.Transformers.Formatters
     {
         TResult FormatAsTitle(object o, IEnumerable<string> objectMemberPath);
         TResult Format(object o, IEnumerable<string> objectMemberPath);
+        TResult Format(Type type);
     }
 
-    public abstract class BaseObjectFormatter<TResult>: IObjectFormatter<TResult>
+    public abstract class BaseObjectFormatter<TResult> : IObjectFormatter<TResult>
     {
-        public readonly RulesCollection FormatRules = new RulesCollection {Title="Object Format Rules"};
-        public readonly RulesCollection FormatAsTitleRules = new RulesCollection { Title = "Object Format Title Rules" };
-        
+        public readonly RulesCollection FormatRules = new RulesCollection {Title = "Object Format Rules"};
+        public readonly RulesCollection FormatAsTitleRules = new RulesCollection {Title = "Object Format Title Rules"};
+
         public TResult Format(object o, IEnumerable<string> objectMemberPath)
         {
             return FormatUsingRules(o, objectMemberPath, FormatRules);
@@ -24,7 +26,10 @@ namespace FluentAlerts.Transformers.Formatters
             return FormatUsingRules(o, objectMemberPath, FormatAsTitleRules);
         }
 
-        private static TResult FormatUsingRules(object o, IEnumerable<string> objectMemberPath, IEnumerable<FormatterRule<TResult>> rules)
+        public abstract TResult Format(Type type);
+
+        private static TResult FormatUsingRules(object o, IEnumerable<string> objectMemberPath,
+                                                IEnumerable<FormatterRule<TResult>> rules)
         {
             var applicableRules = rules.Where(rule => rule.Apply(o, objectMemberPath));
             if (!applicableRules.Any())
@@ -32,29 +37,33 @@ namespace FluentAlerts.Transformers.Formatters
 
             return applicableRules.First().Format(o, objectMemberPath);
         }
-        
+
         #region Inner Classses
+
         public class RulesCollection : List<FormatterRule<TResult>>
         {
             public string Title { get; set; }
+
             public void Add(FormatterRule<TResult>.ApplyFormattingRule apply,
-                FormatterRule<TResult>.FormattingRule format)
+                            FormatterRule<TResult>.FormattingRule format)
             {
-                Add( new FormatterRule<TResult>(apply, format));
+                Add(new FormatterRule<TResult>(apply, format));
             }
 
             public void InsertFirst(FormatterRule<TResult>.ApplyFormattingRule apply,
-                FormatterRule<TResult>.FormattingRule format)
+                                    FormatterRule<TResult>.FormattingRule format)
             {
                 Insert(0, new FormatterRule<TResult>(apply, format));
             }
 
             public void Insert(int index, FormatterRule<TResult>.ApplyFormattingRule apply,
-                FormatterRule<TResult>.FormattingRule format)
+                               FormatterRule<TResult>.FormattingRule format)
             {
                 Insert(index, new FormatterRule<TResult>(apply, format));
             }
         }
+
         #endregion
+        
     }
 }

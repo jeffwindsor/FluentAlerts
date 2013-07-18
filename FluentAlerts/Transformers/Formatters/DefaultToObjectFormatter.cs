@@ -19,5 +19,9 @@
                       (o, path) => (o == null) ? "Null" : o.GetType().Name);
         }
 
+        public override object Format(System.Type type)
+        {
+            return type;
+        }
     }
 }

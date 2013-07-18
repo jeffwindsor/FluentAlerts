@@ -1,6 +1,4 @@
-﻿using FluentAlerts.Settings;
-
-namespace FluentAlerts.Renderers
+﻿namespace FluentAlerts.Renderers
 {
     public interface ITemplateIssueHandler
     {
@@ -10,11 +8,11 @@ namespace FluentAlerts.Renderers
     public class TemplateIssueHandler : ITemplateIssueHandler
     {
         private readonly IAlertBuilderFactory _alertBuilderFactory;
-        private readonly IAppSettings _appSettings;
+        private readonly IFluentAlertSettings _fluentAlertSettings;
 
-        public TemplateIssueHandler(IAppSettings appSettings, IAlertBuilderFactory alertBuilderFactory)
+        public TemplateIssueHandler(IFluentAlertSettings fluentAlertSettings, IAlertBuilderFactory alertBuilderFactory)
         {
-            _appSettings = appSettings;
+            _fluentAlertSettings = fluentAlertSettings;
             _alertBuilderFactory = alertBuilderFactory;
         }
 
@@ -24,8 +22,8 @@ namespace FluentAlerts.Renderers
             //Throw Exception
             var alert = _alertBuilderFactory.Create("Render Template Not Found")
                                             .WithRow("Template Name", templateName)
-                                            .WithRow("Default Template Name", _appSettings.DefaultTemplateName())
-                                            .WithRow("Templates File", _appSettings.TemplateFileName())
+                                            .WithRow("Default Template Name", _fluentAlertSettings.DefaultTemplateName())
+                                            .WithRow("Templates File", _fluentAlertSettings.TemplateFileName())
                                             .ToAlert();
 
             throw new AlertException(alert);

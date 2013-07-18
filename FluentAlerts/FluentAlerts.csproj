@@ -53,7 +53,7 @@
     <Compile Include="Extensions\ExtensionsToIAlertBuilder.cs" />
     <Compile Include="Renderers\TemplateIssueHandler.cs" />
     <Compile Include="Transformers\TransformerFactory.cs" />
-    <Compile Include="Settings\AppSettings.cs" />
+    <Compile Include="FluentAlertSettings.cs" />
     <Compile Include="Extensions\ExtensionsToDateTime.cs" />
     <Compile Include="Extensions\ExtensionsToIAlert.cs" />
     <Compile Include="FileExporter.cs" />

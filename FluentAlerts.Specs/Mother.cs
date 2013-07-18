@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentAlerts.Settings;
+using FluentAlerts;
 
 namespace FluentAlerts.Specs
 {
@@ -69,19 +69,24 @@ namespace FluentAlerts.Specs
 
     }
 
-    internal class TestAppSettings : IAppSettings
+    internal class TestFluentAlertSettings : IFluentAlertSettings
     {
         public string DefaultTemplateName { get; set; }
         public string TemplateFileName { get; set; }
-
-        string IAppSettings.DefaultTemplateName()
+        public char MemberPathSeperator { get; set; }
+        string IFluentAlertSettings.DefaultTemplateName()
         {
             return DefaultTemplateName;
         }
 
-        string IAppSettings.TemplateFileName()
+        string IFluentAlertSettings.TemplateFileName()
         {
             return TemplateFileName;
+        }
+        
+        char IFluentAlertSettings.MemberPathSeperator()
+        {
+            return MemberPathSeperator;
         }
     }
 

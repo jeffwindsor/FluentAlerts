@@ -1,11 +1,4 @@
-﻿using System;
-using FluentAlerts.Renderers;
-using FluentAlerts.Settings;
-using FluentAlerts.Transformers;
-using FluentAlerts.Transformers.Formatters;
-using FluentAlerts.Transformers.Strategies;
-using FluentAlerts.Transformers.TypeInformers;
-
+﻿
 namespace FluentAlerts
 {
    

@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace FluentAlerts.Specs
+namespace FluentAlerts.Specs.Features
 {
     using TechTalk.SpecFlow;
     
@@ -180,14 +180,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 31
 this.ScenarioSetup(scenarioInfo);
 #line 32
- testRunner.Given("I have a default type informer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have custom app settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 33
-  testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have a default type informer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 34
-  testRunner.And(string.Format("I limit the informer to {0} properties at {1}", type, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 35
- testRunner.When("I get the object\'s type info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And(string.Format("I limit the informer to {0} properties at {1}", type, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 36
+ testRunner.When("I get the object\'s type info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 37
  testRunner.Then(string.Format("only the objects {0} properties at {1} are listed in the type info", type, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -200,17 +202,19 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CanLimitTransformationOfFieldsByPath(string type, string path, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can limit transformation of fields by path", exampleTags);
-#line 42
-this.ScenarioSetup(scenarioInfo);
 #line 43
- testRunner.Given("I have a default type informer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 44
-  testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have custom app settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 45
-  testRunner.And(string.Format("I limit the informer to {0} properties at {1}", type, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have a default type informer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 46
- testRunner.When("I get the object\'s type info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("I have a NestedTestClass object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 47
+  testRunner.And(string.Format("I limit the informer to {0} properties at {1}", type, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 48
+ testRunner.When("I get the object\'s type info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 49
  testRunner.Then(string.Format("only the objects {0} fields at {1} are listed in the type info", type, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

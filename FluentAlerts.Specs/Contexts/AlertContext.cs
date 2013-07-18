@@ -16,6 +16,7 @@ namespace FluentAlerts.Specs
         public IAlert Alert;
         public IAlert OtherAlert;
         public ITransformer<string> Transformer;
+        internal TestFluentAlertSettings Settings;
 
         public Exception CaughtException;
     }

@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace FluentAlerts.Specs.AlertTransformation
+namespace FluentAlerts.Specs.Features.AlertTransformation
 {
     using TechTalk.SpecFlow;
     

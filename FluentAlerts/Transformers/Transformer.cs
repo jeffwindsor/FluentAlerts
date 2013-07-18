@@ -21,7 +21,7 @@ namespace FluentAlerts.Transformers
 
         private readonly ITypeInfoSelector _selector;
         private readonly ITransformStrategy _strategy;
-        private readonly IObjectFormatter<TResult> _formatter;
+        protected readonly IObjectFormatter<TResult> _formatter;
 
         protected BaseTransformer(ITransformStrategy strategy, ITypeInfoSelector selector,
                                   IObjectFormatter<TResult> formatter)

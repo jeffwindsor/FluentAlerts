@@ -29,6 +29,7 @@ Scenario: Null value
 	Given inconclusive 
 	
 Scenario Outline: Can limit transformation of properties by path
+	Given  I have custom app settings
 	Given I have a default type informer
 	 And I have a NestedTestClass object
 	 And I limit the informer to <type> properties at <path> 
@@ -40,6 +41,7 @@ Examples:
 	| NumberEnum | NestedTestClass.TestNumber     |
 
 Scenario Outline: Can limit transformation of fields by path
+	Given  I have custom app settings
 	Given I have a default type informer
 	 And I have a NestedTestClass object
 	 And I limit the informer to <type> properties at <path> 

@@ -28,7 +28,12 @@ namespace FluentAlerts.Transformers.Formatters
             FormatAsTitleRules.Add((o, path) => true,
                                    (o, path) => (o == null) ? "Null" : PrettyTypeName(o.GetType()));
         }
-         
+
+        public override string Format(Type type)
+        {
+            return PrettyTypeName(type);
+        }
+
         internal static string PrettyTypeName(Type type)
         {
             var genericArguments = type.GetGenericArguments();

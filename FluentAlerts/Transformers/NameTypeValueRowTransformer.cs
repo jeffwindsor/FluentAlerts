@@ -23,7 +23,7 @@ namespace FluentAlerts.Transformers
                    select new[]
                        {
                            t.Info.Name,
-                           DefaultToStringFormatter.PrettyTypeName(t.Info.PropertyType),
+                           _formatter.Format(t.Info.PropertyType),
                            t.Value
                        };
         }
@@ -35,7 +35,7 @@ namespace FluentAlerts.Transformers
                    select new[]
                        {
                            t.Info.Name,
-                           DefaultToStringFormatter.PrettyTypeName(t.Info.FieldType),
+                           _formatter.Format(t.Info.FieldType),
                            t.Value
                        };
         }

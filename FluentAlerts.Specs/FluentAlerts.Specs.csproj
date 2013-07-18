@@ -49,91 +49,91 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlertBuilding\DeveloperCanFluentlyCreateAlerts.feature.cs">
+    <Compile Include="Features\AlertBuilding\DeveloperCanFluentlyCreateAlerts.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanFluentlyCreateAlerts.feature</DependentUpon>
     </Compile>
-    <Compile Include="AlertBuilding\DeveloperCanFluentlyAddAlertItems.feature.cs">
+    <Compile Include="Features\AlertBuilding\DeveloperCanFluentlyAddAlertItems.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanFluentlyAddAlertItems.feature</DependentUpon>
     </Compile>
-    <Compile Include="AlertBuilding\DeveloperCanFluentlyTransformAlertValues.feature.cs">
+    <Compile Include="Features\AlertBuilding\DeveloperCanFluentlyTransformAlertValues.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanFluentlyTransformAlertValues.feature</DependentUpon>
     </Compile>
-    <Compile Include="AlertExceptions\DeveloperCanFluentlyThrowAlertsAsExceptions.feature.cs">
+    <Compile Include="Features\AlertExceptions\DeveloperCanFluentlyThrowAlertsAsExceptions.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanFluentlyThrowAlertsAsExceptions.feature</DependentUpon>
     </Compile>
-    <Compile Include="AlertTransformation\DeveloperCanSpecifyTheTypeMembersToTransform.feature.cs">
+    <Compile Include="Features\AlertTransformation\DeveloperCanSpecifyTheTypeMembersToTransform.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyTheTypeMembersToTransform.feature</DependentUpon>
     </Compile>
-    <Compile Include="FutureFeatures.feature.cs">
+    <Compile Include="Features\FutureFeatures.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FutureFeatures.feature</DependentUpon>
     </Compile>
-    <Compile Include="ManualActions.cs" />
-    <Compile Include="Steps and Contexts\StepsForRendering.cs" />
-    <Compile Include="Steps and Contexts\AlertContext.cs" />
-    <Compile Include="Steps and Contexts\StepsForObjectTransformation.cs" />
-    <Compile Include="Steps and Contexts\StepsForObjectFormatting.cs" />
-    <Compile Include="Steps and Contexts\StepsForAlertExceptions.cs" />
-    <Compile Include="AlertRendering\DeveloperCanRenderAlerts.feature.cs">
+    <Compile Include="Features\ManualActions.cs" />
+    <Compile Include="Steps\StepsForRendering.cs" />
+    <Compile Include="Contexts\AlertContext.cs" />
+    <Compile Include="Steps\StepsForObjectTransformation.cs" />
+    <Compile Include="Steps\StepsForObjectFormatting.cs" />
+    <Compile Include="Steps\StepsForAlertExceptions.cs" />
+    <Compile Include="Features\AlertRendering\DeveloperCanRenderAlerts.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanRenderAlerts.feature</DependentUpon>
     </Compile>
-    <Compile Include="AlertTransformation\DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature.cs">
+    <Compile Include="Features\AlertTransformation\DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature</DependentUpon>
     </Compile>
-    <Compile Include="AlertTransformation\DeveloperCanSpecifyWhichTypesAreTransformed.feature.cs">
+    <Compile Include="Features\AlertTransformation\DeveloperCanSpecifyWhichTypesAreTransformed.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyWhichTypesAreTransformed.feature</DependentUpon>
     </Compile>
     <Compile Include="Mother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps and Contexts\StepsForAlertBuilding.cs" />
+    <Compile Include="Steps\StepsForAlertBuilding.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AlertBuilding\DeveloperCanFluentlyCreateAlerts.feature">
+    <None Include="Features\AlertBuilding\DeveloperCanFluentlyCreateAlerts.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanFluentlyCreateAlerts.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertBuilding\DeveloperCanFluentlyAddAlertItems.feature">
+    <None Include="Features\AlertBuilding\DeveloperCanFluentlyAddAlertItems.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanFluentlyAddAlertItems.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertBuilding\DeveloperCanFluentlyTransformAlertValues.feature">
+    <None Include="Features\AlertBuilding\DeveloperCanFluentlyTransformAlertValues.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanFluentlyTransformAlertValues.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertExceptions\DeveloperCanFluentlyThrowAlertsAsExceptions.feature">
+    <None Include="Features\AlertExceptions\DeveloperCanFluentlyThrowAlertsAsExceptions.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanFluentlyThrowAlertsAsExceptions.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertRendering\DeveloperCanRenderAlerts.feature">
+    <None Include="Features\AlertRendering\DeveloperCanRenderAlerts.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanRenderAlerts.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertTransformation\DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature">
+    <None Include="Features\AlertTransformation\DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifyTheFormattingOfObjectsDuringTransformation.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertTransformation\DeveloperCanSpecifyWhichTypesAreTransformed.feature">
+    <None Include="Features\AlertTransformation\DeveloperCanSpecifyWhichTypesAreTransformed.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifyWhichTypesAreTransformed.feature.cs</LastGenOutput>
     </None>
-    <None Include="AlertTransformation\DeveloperCanSpecifyTheTypeMembersToTransform.feature">
+    <None Include="Features\AlertTransformation\DeveloperCanSpecifyTheTypeMembersToTransform.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DeveloperCanSpecifyTheTypeMembersToTransform.feature.cs</LastGenOutput>
     </None>
@@ -143,7 +143,7 @@
     <None Include="DefaultTemplates.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="FutureFeatures.feature">
+    <None Include="Features\FutureFeatures.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>FutureFeatures.feature.cs</LastGenOutput>
     </None>

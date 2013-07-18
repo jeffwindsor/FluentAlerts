@@ -4,16 +4,18 @@ namespace FluentAlerts.Transformers
 {
     public class MemberPath : IEnumerable<string>
     {
-        public static readonly char PathSeperator = '.';
-
         private readonly IEnumerable<string> _memberPath;
-        public MemberPath(string memberPathString)
-        {
-            _memberPath = memberPathString.Split(PathSeperator);
-        }
+        private readonly char _pathSeperator;
         
-        public MemberPath(IEnumerable<string> memberPath)
+        public MemberPath(string memberPathString, IFluentAlertSettings fluentAlertSettings)
         {
+            _pathSeperator = fluentAlertSettings.MemberPathSeperator();
+            _memberPath = memberPathString.Split(_pathSeperator);
+        }
+
+        public MemberPath(IEnumerable<string> memberPath, IFluentAlertSettings fluentAlertSettings)
+        {
+            _pathSeperator = fluentAlertSettings.MemberPathSeperator();
             _memberPath = memberPath;
         }
 
@@ -29,7 +31,7 @@ namespace FluentAlerts.Transformers
 
         public override string ToString()
         {
-            return string.Join(PathSeperator.ToString(), _memberPath);
+            return string.Join(_pathSeperator.ToString(), _memberPath);
         }
     }
 }

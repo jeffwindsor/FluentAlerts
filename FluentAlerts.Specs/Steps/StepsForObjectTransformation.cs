@@ -19,13 +19,14 @@ namespace FluentAlerts.Specs
         private BaseTypeInfoSelector _selector;
         private object _transformedObject;
         private IAlert _transformedAlert;
- 
+
         private readonly AlertContext _context;
         public StepsForObjectTransformation(AlertContext context)
         {
             _context = context;
         }
 
+        #region Given
         [Given(@"I have a default type informer")]
         public void GivenIHaveADefaultTypeInformer()
         {
@@ -94,7 +95,7 @@ namespace FluentAlerts.Specs
         [Given(@"I limit the informer to (.*) properties at (.*)")]
         public void GivenILimitTheInformerToPropertiesAt(string typeString, string targetPathString)
         {
-            _memberPath = new MemberPath(targetPathString);
+            _memberPath = new MemberPath(targetPathString, _context.Settings);
             //current path plus property name = target path 
             _selector.Rules.Add((info, obj, path) =>
                 {
@@ -173,7 +174,7 @@ namespace FluentAlerts.Specs
         [Given(@"I limit the informer to (.*) fields at (.*)")]
         public void GivenILimitTheInformerToFieldssAt(string typeString, string targetPathString)
         {
-            _memberPath = new MemberPath(targetPathString);
+            _memberPath = new MemberPath(targetPathString, _context.Settings);
             //current path plus property name = target path
             _selector.Rules.Add((info, obj, path) =>
                 info.FieldInfos = info.FieldInfos.Where(pi =>
@@ -199,8 +200,9 @@ namespace FluentAlerts.Specs
                                                                    new DefaultToStringFormatter(),
                                                                    _context.AlertBuilderFactory);
         }
+        #endregion
 
-
+        #region When
         [When(@"I get the object's type info")]
         public void WhenIGetTheObjectSTypeInfo()
         {
@@ -218,9 +220,9 @@ namespace FluentAlerts.Specs
         {
             _transformedObject = _context.Transformer.Transform(_context.TestValue);
         }
+        #endregion
 
-
-
+        #region Then
         [Then(@"the result should be an IAlert")]
         public void ThenTheResultShouldBeAnIAlert()
         {
@@ -409,7 +411,7 @@ namespace FluentAlerts.Specs
             merge.Count(r => r.Expected.ToString() == r.Actual.ToString()).Should().Be(merge.Count(), "each field transformed value should be its to string");
             merge.Count(r => r.ExpectedType == r.ActualType).Should().Be(merge.Count(), "each field transformed type should be its to string");
         }
-
+        #endregion
 
         private static IEnumerable<PropertyInfo> FilterOnType<T>(IEnumerable<PropertyInfo> source)
         {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using FluentAlerts.Renderers;
-using FluentAlerts.Settings;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 
@@ -16,8 +13,9 @@ namespace FluentAlerts.Specs
         private const string DefaultTemplateFilePath = "DefaultTemplates.json";
         private const string TestTemplateFilePath = "TestTemplates.json";
         private const string TestTemplateName = "TestTemplate";
-        private TestAppSettings _testAppSettings;
-        private IAppSettings _appsettings;
+        private const char TestMemberPathSeperator = ':';
+        
+        private IFluentAlertSettings _appsettings;
         private TemplateDictionary _templateDictionary;
         private TemplateDictionary _otherTemplateDictionary;
         private Template _template;
@@ -27,7 +25,7 @@ namespace FluentAlerts.Specs
         private string _renderResult;
         private ITemplateIssueHandler _templateIssueHandler;
 
-        private AlertContext _context;
+        private readonly AlertContext _context;
         public RenderSteps(AlertContext context)
         {
             _context = context;
@@ -36,24 +34,25 @@ namespace FluentAlerts.Specs
         [Given(@"I have custom app settings")]
         private void GivenIHaveCustomAppSettings()
         {
-            _testAppSettings = new TestAppSettings()
+            _context.Settings = new TestFluentAlertSettings()
                 {
                     DefaultTemplateName = TestTemplateName,
-                    TemplateFileName = TestTemplateFilePath
+                    TemplateFileName = TestTemplateFilePath,
+                    MemberPathSeperator = TestMemberPathSeperator
                 };
-            _appsettings = _testAppSettings;
+            _appsettings = _context.Settings;
         }
 
         [Given(@"I set the default template name to (.*)")]
         public void GivenISetTheDefaultTemplateNameTo(string name)
         {
-            _testAppSettings.DefaultTemplateName = name;
+            _context.Settings.DefaultTemplateName = name;
         }
 
         [Given(@"I set the default template file location to (.*)")]
         public void GivenISetTheDefaultTemplateFileLocationTo(string fileName)
         {
-            _testAppSettings.TemplateFileName = fileName;
+            _context.Settings.TemplateFileName = fileName;
         }
 
         [Given(@"I have a template file at (.*)")]
@@ -65,7 +64,7 @@ namespace FluentAlerts.Specs
         [Given(@"I have the default app settings")]
         public void GivenIHaveADefaultAppSettings()
         {
-            _appsettings = new AppSettings();
+            _appsettings = new FluentAlertSettings();
         }
 
         [Given(@"I have a template issue handler")]
