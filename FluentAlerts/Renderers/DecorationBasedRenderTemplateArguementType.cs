@@ -1,8 +1,9 @@
 ﻿namespace FluentAlerts.Renderers
 {
-    public enum RenderTemplateArguementType
+    public enum DecorationBasedRenderTemplateArguementType
     {
         Decorations,
+        SpanColumns,
         Url,
         UrlTitle
     }

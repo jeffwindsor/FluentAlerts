@@ -82,7 +82,7 @@ namespace FluentAlerts.Specs
         [Given(@"I have a template render")]
         public void GivenIHaveATemplateRender()
         {
-            _alertTemplateRender = new TemplateRenderer(_alertRenderTemplate);
+            _alertTemplateRender = new DecorationBasedTemplateRender(_alertRenderTemplate);
         }
 
         [Given(@"I have an alert render")]

@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlertCreation.cs" />
+    <Compile Include="ExploringAlertRendering.cs" />
+    <Compile Include="ExploringAlertTransformation.cs" />
+    <Compile Include="ExploringAlertCreation.cs" />
+    <Compile Include="ExploringAlertLayout.cs" />
     <Compile Include="Support\ObjectFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\Extensions.cs" />

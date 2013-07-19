@@ -1,7 +1,7 @@
 ﻿
 namespace FluentAlerts.Renderers
 {
-    public enum RenderTemplateItemType
+    public enum DecorationBasedRenderTemplateItemType
     {
         SerializationHeader,
         SerializationFooter,
@@ -14,10 +14,13 @@ namespace FluentAlerts.Renderers
         ValueSpanningDecoration,
         ValueNormalDecoration,
         ValueEmphasizedDecoration,
+        ValueTitleDecoration,
         ValueUrlDecoration,
+        ValueSeperatorDecoration,
+        ValueFirstColumnId,
+        ValueLastColumnId,
         UrlValue,
-        SeperatorHeader,
-        SeperatorFooter,
+        SeperatorHeader
     }
 
 }

@@ -1,22 +1,40 @@
 {
-    "SerializationHeader": "<html><body>",
-    "SerializationFooter": "</html></body>",
-    "AlertHeader": "<table border='1' cellspacing='1' cellpadding='2' width='100%'>",
+    "SerializationHeader": "<html><head>
+	<style type='text/css'>
+		table.alert-table {
+		  font-family:Arial,Sans-Serif;
+		  font-size:8pt; 
+		  }
+		td.value-title{
+		  background-color: silver;
+		  font-size:10pt;
+		  font-weight:bold;
+		  }
+		td.value-emphasized{
+		  background-color: silver;
+		  font-weight:bold;
+		  }
+		td.value-normal {
+		  background-color: whitesmoke;
+		  }
+  
+		td#first-column{
+		  background-color: gainsboro;
+		  }
+	</style></head><body>",
+    "SerializationFooter": "</body></html>",
+    "AlertHeader": "<table class='alert-table' cellspacing='1' cellpadding='2' width='100%'>",
     "AlertFooter": "</table>",
 	"AlertItemHeader": "<TR>",
     "AlertItemFooter": "</TR>",
-
     "ValueHeader": "<TD{Decorations}>",
-    "ValueFooter": "</TD>",
-	
+    "ValueFooter": "</TD>",	
 	"ValueSpanningDecoration": "colspan='{SpanColumns}'",
-	"ValueNormalDecoration": "style='bgcolor=gainsboro;font-weight:bold;'",
-    "ValueEmphasizedDecoration": "class='cell-emphasized'",
-	"ValueUrlDecoration":"style='font-weight:bold;'",
-	
-	
-	"UrlValue": "<a href='{Url}'>{UrlTitle}</a>",
-    
-    "SeperatorHeader": "<HR>",
-    "SeperatorFooter": ""
+	"ValueNormalDecoration": "class='value-normal'",
+    "ValueEmphasizedDecoration": "class='value-emphasized'",
+	"ValueTitleDecoration": "class='value-title'",
+	"ValueUrlDecoration":"class='value-url'",	
+	"ValueFirstColumnId":"id='first-column'",
+	"ValueLastColumnId":"id='last-column'",
+	"UrlValue": "<a href='{Url}'>{UrlTitle}</a>"    
 }

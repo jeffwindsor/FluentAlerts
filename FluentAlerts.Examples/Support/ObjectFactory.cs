@@ -47,7 +47,7 @@ namespace FluentAlerts.Examples
 
         private static ITemplateRender CreateDefaultAlertTemplateRender()
         {
-            return new TemplateRenderer(CreateDefaultAlertTemplate());
+            return new DecorationBasedTemplateRender(CreateDefaultAlertTemplate());
         }
         #endregion
 

@@ -17,12 +17,12 @@ namespace FluentAlerts
 
         public IAlertBuilder Create(string title)
         {
-            return Create().WithHeaderOne(title);
+            return Create().WithTitle(title);
         }
 
         public IAlertBuilder Create(Exception ex)
         {
-            return CreateAlertBuilder().WithValue(ex);
+            return CreateAlertBuilder().With(ex);
         }
 
         private  AlertBuilder CreateAlertBuilder()

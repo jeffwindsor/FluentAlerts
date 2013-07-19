@@ -5,7 +5,7 @@
         public SeperatorAlertItem()
         {
             ItemStyle = ItemStyle.Seperator;
-            Values = new object[] {};
+            Values = new object[] {""};
         }
     }
 } 

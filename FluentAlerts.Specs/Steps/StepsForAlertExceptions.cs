@@ -26,7 +26,7 @@ namespace FluentAlerts.Specs
         public void WhenIWrapItInAnAlert()
         {
             _context.Builder = _context.AlertBuilderFactory.Create(_originalException); 
-            //_originalException.ToAlert().WithHeaderOne(_context.TestText);
+            //_originalException.ToAlert().WithTitle(_context.TestText);
         }
 
         [When(@"I throw the alert")]

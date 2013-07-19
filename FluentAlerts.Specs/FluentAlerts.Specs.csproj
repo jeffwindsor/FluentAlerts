@@ -140,9 +140,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="RenderTemplateDefault.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="FutureFeatures.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>FutureFeatures.feature.cs</LastGenOutput>

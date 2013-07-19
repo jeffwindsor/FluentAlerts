@@ -72,8 +72,8 @@
     <Compile Include="Extensions\ExtensionsToIAlert.cs" />
     <Compile Include="Alerts\ItemStyle.cs" />
     <Compile Include="Renderers\RenderTemplateDictionary.cs" />
-    <Compile Include="Renderers\RenderTemplateItemType.cs" />
-    <Compile Include="Renderers\RenderTemplateArguementType.cs" />
+    <Compile Include="Renderers\DecorationBasedRenderTemplateItemType.cs" />
+    <Compile Include="Renderers\DecorationBasedRenderTemplateArguementType.cs" />
     <Compile Include="Alerts\ValueStyle.cs" />
     <Compile Include="Alerts\AlertItem.cs" />
     <Compile Include="Alerts\Alert.cs" />
@@ -90,7 +90,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\AlertRenderer.cs" />
     <Compile Include="Formatters\ObjectFormatter.cs" />
-    <Compile Include="Renderers\TemplateRender.cs" />
+    <Compile Include="Renderers\DecorationBasedTemplateRender.cs" />
     <Compile Include="Transformers\NameValueRowTransformer.cs" />
     <Compile Include="Transformers\ITransformStrategy.cs" />
     <Compile Include="Extensions\ExtensionsToType.cs" />
@@ -103,10 +103,7 @@
     <None Include="RenderTemplateHtmlTable.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="RenderTemplateHtmlWithEmbeddedCssTable.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RenderTemplateOutlookEmailCompliant .json">
+    <None Include="RenderTemplateOutlookEmailCompliantHtmlTable .json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

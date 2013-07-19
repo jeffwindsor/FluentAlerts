@@ -20,10 +20,10 @@ namespace FluentAlerts.Transformers
         {
             //Create Alert with a property and fields section containing name-values pairs  
             return _alertBuilderFactory.Create(FormatAsTitle(o))
-                .WithHeaderOne("Properties")
-                .WithRows(GetPropertyRowValues(o, objectMemberPath))
-                .WithHeaderOne("Fields")
-                .WithRows(GetFieldRowValues(o, objectMemberPath))
+                .WithTitle("Properties")
+                .With(GetPropertyRowValues(o, objectMemberPath))
+                .WithTitle("Fields")
+                .With(GetFieldRowValues(o, objectMemberPath))
                 .ToAlert();
         }
 

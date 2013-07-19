@@ -14,7 +14,7 @@
         {
             //Throw Exception
             var alert = _alertBuilderFactory.Create("Render Template Not Found")
-                                            .WithRow("Template Name", templateName)
+                                            .With("Template Name", templateName)
                                             .ToAlert();
 
             throw new AlertException(alert);

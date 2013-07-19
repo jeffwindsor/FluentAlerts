@@ -31,7 +31,7 @@ namespace FluentAlerts.Specs
         public void GivenIHaveAFilledAlertBuilder()
         {
             _context.Builder = _context.AlertBuilderFactory.Create()
-                .WithHeaderOne(_context.TestText)
+                .WithTitle(_context.TestText)
                 .WithSeperator()
                 .With("Some other text");
         }
@@ -40,26 +40,26 @@ namespace FluentAlerts.Specs
         public void GivenIHaveAFullTestAlertBuilder()
         {
             _context.Builder = _context.AlertBuilderFactory.Create()
-                .WithHeaderOne("Alert Title")
+                .WithTitle("Alert Title")
                 .WithSeperator()
-                .WithHeaderOne("Header One Text Block")
+                .WithTitle("Header One Text Block")
                 .WithEmphasized("Emphasized Text Block")
                 .With("Normal Text Block")
                 .WithSeperator()
-                .WithEmphasizedRow("Emphasized Row")
-                .WithEmphasizedRow("Emphasized Row",1)
-                .WithEmphasizedRow("Emphasized Row", 1,2)
-                .WithRow("Row")
-                .WithRow("Row",1)
-                .WithRow("Row",1,2,3)
+                .WithEmphasized("Emphasized Row")
+                .WithEmphasized("Emphasized Row",1)
+                .WithEmphasized("Emphasized Row", 1,2)
+                .With("Row")
+                .With("Row",1)
+                .With("Row",1,2,3)
                 .WithSeperator()
                 .WithUrl("Test Url Text", "http://www.google.com")
                 .WithSeperator()
-                .WithValue(ObjectFactory.GetNestedTestClass(3))
+                .With(ObjectFactory.GetNestedTestClass(3))
                 .WithSeperator()
-                .WithValue(ObjectFactory.GetNestedTestStruct(3))
+                .With(ObjectFactory.GetNestedTestStruct(3))
                 .WithSeperator()
-                .WithValue(ObjectFactory.GetNestedException(3));
+                .With(ObjectFactory.GetNestedException(3));
         }
 
         [Given(@"I have a built alert")]
@@ -98,20 +98,23 @@ namespace FluentAlerts.Specs
         [When(@"I add an object")]
         public void WhenIAddAnObject()
         {
-            _context.Builder.WithValue(_context.TestValues[0]);
+            _context.Builder.With(_context.TestValues[0]);
         }
 
-        [When(@"I add a list of object")]
-        public void WhenIAddAListOfObject()
-        {
-            _context.Builder.WithValues(_context.TestValues);
-        }
+        //[When(@"I add a list of object")]
+        //public void WhenIAddAListOfObject()
+        //{
+        //    foreach (var item in _context.TestValues)
+        //    {
+        //        _context.Builder.With(item);
+        //    }
+        //}
         
         [When(@"I add a title")]
         public void WhenIAddATitle()
         {
             _context.TestText = "Change Title";
-            _context.Builder.WithHeaderOne(_context.TestText);
+            _context.Builder.WithTitle(_context.TestText);
         }
 
         [When(@"I add a format based title")]
@@ -121,7 +124,7 @@ namespace FluentAlerts.Specs
             var one = "one";
             var format = "{0} {1}";
             _context.TestText = string.Format(format, zero, one);
-            _context.Builder.WithHeaderOne(format, zero, one);
+            _context.Builder.WithTitle(format, zero, one);
         }
 
         [When(@"I add another alert")]
@@ -149,19 +152,19 @@ namespace FluentAlerts.Specs
         [When(@"I add HeaderOne text")]
         public void WhenIAddHeaderOneText()
         {
-            _context.Builder.WithHeaderOne( _context.TestText);
+            _context.Builder.WithTitle( _context.TestText);
         }
 
         [When(@"I add a Normal row")]
         public void WhenIAddANormalRow()
         {
-            _context.Builder.WithRow(_context.TestValues);
+            _context.Builder.With(_context.TestValues);
         }
 
         [When(@"I add a Emphasized row")]
         public void WhenIAddAEmphasizedRow()
         {
-            _context.Builder.WithEmphasizedRow(_context.TestValues);
+            _context.Builder.WithEmphasized(_context.TestValues);
         }
         
         [Then(@"the alert should contain that Normal row as the last item")]
