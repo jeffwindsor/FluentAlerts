@@ -55,9 +55,9 @@ namespace FluentAlerts.Specs
                 .WithSeperator()
                 .WithUrl("Test Url Text", "http://www.google.com")
                 .WithSeperator()
-                .With(ObjectFactory.GetNestedTestClass(3))
+                .With(ObjectFactory.CreateNestedTestClass(3))
                 .WithSeperator()
-                .With(ObjectFactory.GetNestedTestStruct(3))
+                .With(ObjectFactory.CreateNestedTestStruct(3))
                 .WithSeperator()
                 .With(ObjectFactory.GetNestedException(3));
         }

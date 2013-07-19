@@ -7,7 +7,7 @@ namespace FluentAlerts.Specs
 {
     internal static class ObjectFactory
     {
-        public static NestedTestClass GetNestedTestClass(int nestingDepth)
+        public static NestedTestClass CreateNestedTestClass(int nestingDepth)
         {
             return new NestedTestClass()
                 {
@@ -17,14 +17,14 @@ namespace FluentAlerts.Specs
                     Number = (NumberEnum)nestingDepth,
                     Child = (nestingDepth < 1)
                                 ? null
-                                : GetNestedTestClass(nestingDepth - 1),
+                                : CreateNestedTestClass(nestingDepth - 1),
                     Children = (nestingDepth < 1)
                                    ? Enumerable.Empty<NestedTestClass>()
-                                   : from i in Enumerable.Range(0, 5) select GetNestedTestClass(nestingDepth - 1)
+                                   : from i in Enumerable.Range(0, 5) select CreateNestedTestClass(nestingDepth - 1)
                 };
         }
 
-        public static NestedTestStruct GetNestedTestStruct(int nestingDepth)
+        public static NestedTestStruct CreateNestedTestStruct(int nestingDepth)
         {
             return new NestedTestStruct()
                 {
@@ -32,7 +32,7 @@ namespace FluentAlerts.Specs
                     Number = (NumberEnum) nestingDepth,
                     Children = (nestingDepth < 1)
                                    ? Enumerable.Empty<NestedTestStruct>()
-                                   : from i in Enumerable.Range(0, 5) select GetNestedTestStruct(nestingDepth - 1)
+                                   : from i in Enumerable.Range(0, 5) select CreateNestedTestStruct(nestingDepth - 1)
                 };
         }
 

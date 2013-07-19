@@ -1,28 +1,25 @@
 {
-    "SerializationHeader": "<html><head>
-	<style type='text/css'>
-		table.alert-table {
+    "SerializationHeader": "<style type='text/css'>
+  		table.alert-table {
 		  font-family:Arial,Sans-Serif;
 		  font-size:8pt; 
 		  }
 		td.value-title{
-		  background-color: silver;
+		  background-color: #B8B8B8;
 		  font-size:10pt;
 		  font-weight:bold;
 		  }
 		td.value-emphasized{
-		  background-color: silver;
+		  background-color: #D8D8D8;
 		  font-weight:bold;
 		  }
 		td.value-normal {
-		  background-color: whitesmoke;
+		  background-color: #F8F8F8;
+		  }  
+		td#first-column.value-normal{
+		  background-color: #E8E8E8;
 		  }
-  
-		td#first-column{
-		  background-color: gainsboro;
-		  }
-	</style></head><body>",
-    "SerializationFooter": "</body></html>",
+	</style>",
     "AlertHeader": "<table class='alert-table' cellspacing='1' cellpadding='2' width='100%'>",
     "AlertFooter": "</table>",
 	"AlertItemHeader": "<TR>",

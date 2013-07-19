@@ -11,5 +11,9 @@ namespace FluentAlerts.Examples
             var render = ObjectFactory.CreateDefaultAlertRender();
             Trace.WriteLine(render.Render(source));
         }
+        public static void RenderToConsole(this IAlertBuilder source)
+        {
+            RenderToConsole(source.ToAlert());
+        }
     }
 }

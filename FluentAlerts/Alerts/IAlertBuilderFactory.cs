@@ -6,6 +6,6 @@ namespace FluentAlerts
     {
         IAlertBuilder Create();
         IAlertBuilder Create(string title);
-        IAlertBuilder Create(Exception ex);
+        IAlertBuilder Create(object obj);
     }
 }

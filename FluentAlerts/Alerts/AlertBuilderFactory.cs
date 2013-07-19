@@ -20,9 +20,9 @@ namespace FluentAlerts
             return Create().WithTitle(title);
         }
 
-        public IAlertBuilder Create(Exception ex)
+        public IAlertBuilder Create(object obj)
         {
-            return CreateAlertBuilder().With(ex);
+            return CreateAlertBuilder().With(obj);
         }
 
         private  AlertBuilder CreateAlertBuilder()

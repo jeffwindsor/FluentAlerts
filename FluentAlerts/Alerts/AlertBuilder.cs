@@ -19,7 +19,7 @@ namespace FluentAlerts
 
         public IAlertBuilder WithEmphasized(params object[] values)
         {
-            return WithValueList(ValueStyle.Normal, values);
+            return WithValueList(ValueStyle.Emphasized, values);
         }
 
         public IAlertBuilder WithSeperator()
@@ -38,6 +38,11 @@ namespace FluentAlerts
         {
             _items.Add(n);
             return this;
+        }
+
+        public IAlertBuilder WithAlert(IAlertBuilder n)
+        {
+            return WithAlert(n.ToAlert());
         }
 
         public IAlertBuilder WithText(string format, params object[] args)
@@ -74,7 +79,5 @@ namespace FluentAlerts
             _items.Add(new ValueAlertItem(style, text));
             return this;
         }
-       
-       
     }
 }
