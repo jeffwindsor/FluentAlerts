@@ -1,0 +1,22 @@
+{
+    "SerializationHeader": "<html><body>",
+    "SerializationFooter": "</html></body>",
+    "AlertHeader": "<table border='1' cellspacing='1' cellpadding='2' width='100%'>",
+    "AlertFooter": "</table>",
+	"AlertItemHeader": "<TR>",
+    "AlertItemFooter": "</TR>",
+
+    "ValueHeader": "<TD{Decorations}>",
+    "ValueFooter": "</TD>",
+	
+	"ValueSpanningDecoration": "colspan='{SpanColumns}'",
+	"ValueNormalDecoration": "style='bgcolor=gainsboro;font-weight:bold;'",
+    "ValueEmphasizedDecoration": "class='cell-emphasized'",
+	"ValueUrlDecoration":"style='font-weight:bold;'",
+	
+	
+	"UrlValue": "<a href='{Url}'>{UrlTitle}</a>",
+    
+    "SeperatorHeader": "<HR>",
+    "SeperatorFooter": ""
+}

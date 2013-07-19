@@ -30,10 +30,10 @@ namespace FluentAlerts.Specs
                     _context.TestValue = null;
                     break;
                 case "NestedTestClass":
-                    _context.TestValue = Mother.GetNestedTestClass(2);
+                    _context.TestValue = ObjectFactory.GetNestedTestClass(2);
                     break;
                 case "NestedTestStruct":
-                    _context.TestValue = Mother.GetNestedTestStruct(2);
+                    _context.TestValue = ObjectFactory.GetNestedTestStruct(2);
                     break;
                 case "String":
                     _context.TestValue = _context.TestText;

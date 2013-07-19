@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-namespace FluentAlerts.Transformers.Strategies
+namespace FluentAlerts.Transformers
 {
     public interface ITransformStrategy
     {

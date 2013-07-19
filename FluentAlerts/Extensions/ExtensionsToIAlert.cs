@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAlerts.Transformers;
+using FluentAlerts.Renderers;
 
 namespace FluentAlerts
 {
     public static class ExtensionsToIAlert
     {
+        public static string Render(this IAlert alert, IAlertRenderer renderer)
+        {
+            return renderer.Render(alert);
+        } 
+
         public static IAlert Transform<TResult>(this IAlert alert, ITransformer<TResult> transformer)
         {
             return transformer.Transform(alert);

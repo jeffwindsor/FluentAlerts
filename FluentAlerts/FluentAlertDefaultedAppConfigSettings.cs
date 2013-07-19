@@ -5,31 +5,21 @@ namespace FluentAlerts
 {
     public class FluentAlertDefaultedAppConfigSettings : IFluentAlertSettings
     {
-        private const string DefaultTemplateNameValue = "HtmlWithEmbeddedCssTableTemplate";
-        private const string TemplateFileNameValue = "DefaultTemplates.json";
-        private const string MemberPathSeperatorValue = ".";
-
         private enum ConfigKey
         {
             DefaultTemplateName,
-            TemplateFileName,
             MemberPathSeperator
         }
 
         public string DefaultTemplateName()
         {
-            return TryGetConfigurationValue(ConfigKey.DefaultTemplateName, DefaultTemplateNameValue);
-        }
-
-        public string TemplateFileName()
-        {
-            return TryGetConfigurationValue(ConfigKey.TemplateFileName, TemplateFileNameValue);
+            return TryGetConfigurationValue(ConfigKey.DefaultTemplateName, "HtmlWithEmbeddedCssTableTemplate");
         }
 
         public char MemberPathSeperator()
         {
             //return first character or .
-            var chars = TryGetConfigurationValue(ConfigKey.MemberPathSeperator, MemberPathSeperatorValue).ToCharArray();
+            var chars = TryGetConfigurationValue(ConfigKey.MemberPathSeperator, ".").ToCharArray();
             return chars[0];
         }
 

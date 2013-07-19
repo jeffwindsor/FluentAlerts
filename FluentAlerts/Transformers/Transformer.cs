@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FluentAlerts.Transformers.Formatters;
-using FluentAlerts.Transformers.Strategies;
 using FluentAlerts.Transformers.TypeInformers;
 
 namespace FluentAlerts.Transformers

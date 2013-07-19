@@ -1,8 +1,8 @@
 ﻿namespace FluentAlerts
 {
-    public enum TextStyle
+    public enum ValueStyle
     {
-        HeaderOne,
+        Title,
         Emphasized,
         Normal
     }

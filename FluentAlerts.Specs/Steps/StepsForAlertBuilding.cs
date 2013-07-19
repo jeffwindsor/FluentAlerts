@@ -55,11 +55,11 @@ namespace FluentAlerts.Specs
                 .WithSeperator()
                 .WithUrl("Test Url Text", "http://www.google.com")
                 .WithSeperator()
-                .WithValue(Mother.GetNestedTestClass(3))
+                .WithValue(ObjectFactory.GetNestedTestClass(3))
                 .WithSeperator()
-                .WithValue(Mother.GetNestedTestStruct(3))
+                .WithValue(ObjectFactory.GetNestedTestStruct(3))
                 .WithSeperator()
-                .WithValue(Mother.GetNestedException(3));
+                .WithValue(ObjectFactory.GetNestedException(3));
         }
 
         [Given(@"I have a built alert")]
@@ -167,13 +167,13 @@ namespace FluentAlerts.Specs
         [Then(@"the alert should contain that Normal row as the last item")]
         public void ThenTheAlertShouldContainThatNormalRowAsTheLastItem()
         {
-            ThenTheAlertShouldContainThatGroupStyleRowAsTheLastItem(ItemStyle.NormalRow);
+            ThenTheAlertShouldContainThatGroupStyleRowAsTheLastItem(ItemStyle.Normal);
         }
 
         [Then(@"the alert should contain that Emphasized row as the last item")]
         public void ThenTheAlertShouldContainThatEmphasizedRowAsTheLastItem()
         {
-            ThenTheAlertShouldContainThatGroupStyleRowAsTheLastItem(ItemStyle.EmphasizedRow);
+            ThenTheAlertShouldContainThatGroupStyleRowAsTheLastItem(ItemStyle.Emphasized);
         }
 
         public void ThenTheAlertShouldContainThatGroupStyleRowAsTheLastItem(ItemStyle style)
@@ -187,11 +187,11 @@ namespace FluentAlerts.Specs
         
 
         [Then(@"the alert should contain (.*) text as the last item")]
-        public void ThenTheAlertShouldContainTextAsThLastAlertItem(TextStyle style)
+        public void ThenTheAlertShouldContainTextAsThLastAlertItem(ValueStyle style)
         {
-            var item = AssertLastItemIsTypeAndConvertTo<TextAlertItem>();
+            var item = AssertLastItemIsTypeAndConvertTo<ValueAlertItem>();
             item.Style = style;
-            item.Text.Should().Be(_context.TestText);
+            item.Value.Should().Be(_context.TestText);
         }
         
         [Then(@"the alert should be empty")]
@@ -210,7 +210,7 @@ namespace FluentAlerts.Specs
         public void ThenTheAlertShouldContainTitleAsTheFirstAlertItem()
         {
             var item = AssertItemIsTypeAndConvertTo<AlertItem>(_context.Alert.First());
-            item.ItemStyle.Should().Be(ItemStyle.HeaderOneText);
+            item.ItemStyle.Should().Be(ItemStyle.Title);
             item.Values[0].Should().Be(_context.TestText);
         }
 
@@ -239,7 +239,7 @@ namespace FluentAlerts.Specs
         [Then(@"the alert should contain that object as the last item")]
         public void ThenTheAlertShouldContainThatObjectAsTheLastAlert()
         {
-            var item = AssertLastItemIsGroupOfStyle(ItemStyle.Value);
+            var item = AssertLastItemIsGroupOfStyle(ItemStyle.Normal);
             item.Values.Count().Should().Be(1);
             item.Values[0].Should().Be(_context.TestValues[0]);
         }
@@ -250,7 +250,7 @@ namespace FluentAlerts.Specs
             var delta = _context.Alert.Count - _context.TestValues.Length;
             for (var i = 0; i < _context.TestValues.Length; ++i)
             {
-                var value = AssertGroupIs(_context.Alert[i + delta], ItemStyle.Value);
+                var value = AssertGroupIs(_context.Alert[i + delta], ItemStyle.Normal);
                 value.Values[0].Should().Be(_context.TestValues[i]);
             }
         }

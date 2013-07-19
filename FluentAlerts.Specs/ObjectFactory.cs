@@ -5,7 +5,7 @@ using FluentAlerts;
 
 namespace FluentAlerts.Specs
 {
-    internal static class Mother
+    internal static class ObjectFactory
     {
         public static NestedTestClass GetNestedTestClass(int nestingDepth)
         {
@@ -72,16 +72,10 @@ namespace FluentAlerts.Specs
     internal class TestFluentAlertSettings : IFluentAlertSettings
     {
         public string DefaultTemplateName { get; set; }
-        public string TemplateFileName { get; set; }
         public char MemberPathSeperator { get; set; }
         string IFluentAlertSettings.DefaultTemplateName()
         {
             return DefaultTemplateName;
-        }
-
-        string IFluentAlertSettings.TemplateFileName()
-        {
-            return TemplateFileName;
         }
         
         char IFluentAlertSettings.MemberPathSeperator()

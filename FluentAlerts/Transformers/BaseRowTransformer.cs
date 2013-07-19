@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using FluentAlerts.Transformers.Formatters;
-using FluentAlerts.Transformers.Strategies;
 using FluentAlerts.Transformers.TypeInformers;
 
 namespace FluentAlerts.Transformers

@@ -6,7 +6,7 @@ namespace FluentAlerts
     /// <summary>
     /// Alert as simple list of items 
     /// </summary>
-    internal class Alert : List<IAlertItem>, IAlert
+    public class Alert : List<IAlertItem>, IAlert
     {
         public IEnumerable<T> GetAlertItems<T>() where T : AlertItem
         {
@@ -17,8 +17,8 @@ namespace FluentAlerts
         {
             get
             {
-                var item = GetAlertItems<TextAlertItem>().FirstOrDefault(i => i.Style == TextStyle.HeaderOne);
-                return (item == null) ? string.Empty : item.Text;
+                var item = GetAlertItems<ValueAlertItem>().FirstOrDefault(i => i.Style == ValueStyle.Title);
+                return (item == null) ? string.Empty : item.Value.ToString();
             }
         }
     }

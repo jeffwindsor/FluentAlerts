@@ -79,7 +79,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FutureFeatures.feature</DependentUpon>
     </Compile>
-    <Compile Include="SupportFiles\SupportFunctions.cs" />
+    <Compile Include="SupportFunctions.cs" />
     <Compile Include="Steps\StepsForRendering.cs" />
     <Compile Include="Contexts\AlertContext.cs" />
     <Compile Include="Steps\StepsForObjectTransformation.cs" />
@@ -100,7 +100,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeveloperCanSpecifyWhichTypesAreTransformed.feature</DependentUpon>
     </Compile>
-    <Compile Include="Mother.cs" />
+    <Compile Include="ObjectFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\StepsForAlertBuilding.cs" />
   </ItemGroup>
@@ -140,14 +140,14 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="SupportFiles\DefaultTemplates.json">
+    <None Include="RenderTemplateDefault.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="FutureFeatures.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>FutureFeatures.feature.cs</LastGenOutput>
     </None>
-    <None Include="SupportFiles\TestTemplates.json">
+    <None Include="RenderTemplateTest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

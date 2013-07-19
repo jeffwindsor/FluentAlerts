@@ -22,6 +22,8 @@
 //TODO: Validate
 //TODO: Validation routine so template files can be validated at any time., what to ddo about changes, allowing real time mods of files requires loda nad validate each time (slower) maybe check for file changes and load into static memeory? gets complicated but may but worth wile, check how NCalc does it for expressions, may just compare and revalidate
 
+//TODO: ToCosole ? or just a Render ? for use with logging
+
 //HACK: use of static Alerts class internally poses IOC and extendability issues...
 //HACK: Validate these: use spans or divs? 
 

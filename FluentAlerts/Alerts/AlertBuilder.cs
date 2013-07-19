@@ -19,42 +19,42 @@ namespace FluentAlerts
         
         public IAlertBuilder With(string text)
         {
-            return With(TextStyle.Normal, text);
+            return With(ValueStyle.Normal, text);
         }
 
         public IAlertBuilder With(string format, params object[] args)
         {
-            return With(TextStyle.Normal, format, args);
+            return With(ValueStyle.Normal, format, args);
         }
 
         public IAlertBuilder WithEmphasized(string text)
         {
-            return With(TextStyle.Emphasized, text);
+            return With(ValueStyle.Emphasized, text);
         }
 
         public IAlertBuilder WithEmphasized(string format, params object[] args)
         {
-            return With(TextStyle.Emphasized, format, args);
+            return With(ValueStyle.Emphasized, format, args);
         }
 
         public IAlertBuilder WithHeaderOne(string text)
         {
-            return With(TextStyle.HeaderOne, text);
+            return With(ValueStyle.Title, text);
         }
 
         public IAlertBuilder WithHeaderOne(string format, params object[] args)
         {
-            return With(TextStyle.HeaderOne, format, args);
+            return With(ValueStyle.Title, format, args);
         }
 
-        private IAlertBuilder With(TextStyle style, string format, params object[] args)
+        private IAlertBuilder With(ValueStyle style, string format, params object[] args)
         {
             return With(style, string.Format(format, args));
         }
 
-        private IAlertBuilder With(TextStyle style, string text) 
+        private IAlertBuilder With(ValueStyle style, string text) 
         {
-            _items.Add(new TextAlertItem(style, text));
+            _items.Add(new ValueAlertItem(style, text));
             return this;
         }
 
@@ -66,7 +66,7 @@ namespace FluentAlerts
 
         public IAlertBuilder WithValue(object value)
         {
-            _items.Add(new ValueAlertItem(value));
+            _items.Add(new ValueAlertItem(ValueStyle.Normal ,value));
             return this;
         }
         
@@ -79,13 +79,13 @@ namespace FluentAlerts
 
         public IAlertBuilder WithRow(params object[] cells)
         {
-            _items.Add(new ArrayAlertItem(ArrayStyle.Normal, cells));
+            _items.Add(new ValueListAlertItem(ValueStyle.Normal, cells));
             return this;
         }
 
         public IAlertBuilder WithEmphasizedRow(params object[] cells)
         {
-            _items.Add(new ArrayAlertItem(ArrayStyle.Emphasized, cells));
+            _items.Add(new ValueListAlertItem(ValueStyle.Emphasized, cells));
             return this;
         }
 

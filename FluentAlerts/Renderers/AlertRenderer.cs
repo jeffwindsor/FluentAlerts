@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentAlerts.Transformers;
@@ -8,111 +9,118 @@ namespace FluentAlerts.Renderers
     public class AlertRenderer : IAlertRenderer
     {
         private readonly StringBuilder _acc = new StringBuilder();
-        private readonly IAlertTemplateRender _alertTemplate;
+        private readonly ITemplateRender _alertTemplate;
         private readonly ITransformer<string> _transformer;
-        public AlertRenderer(ITransformer<string> transformer, IAlertTemplateRender alertTemplate)
+        public AlertRenderer(ITransformer<string> transformer, ITemplateRender alertTemplate)
         {
             _transformer = transformer;
             _alertTemplate = alertTemplate;
         }
 
-        public string RenderAlert(IAlert alert)
+        /// <summary>
+        /// Serializes the complete alert tree, any non transformed bojects
+        /// will be transformed then formatted for output
+        /// </summary>
+        public string Render(IAlert alert)
         {
             if (alert == null) return string.Empty;
 
-            //Begin Serialization
-            Append(_alertTemplate.GetSerializationHeader());
+            //Document Header
+            Append(_alertTemplate.RenderHeader());
             
             //Render Internals
-            Render(alert);
+            RenderAlert(alert);
 
-            //End Serialization
-            Append(_alertTemplate.GetSerializationFooter());
+            //Document Footer
+            Append(_alertTemplate.RenderFooter());
 
             //Return result
             return _acc.ToString(); 
         }
 
-        private void Render(IAlert alert) 
+        /// <summary>
+        /// Internal render function for alerts, original and embedded 
+        /// alerts will use this function
+        /// </summary>
+        /// <param name="alert"></param>
+        private void RenderAlert(IAlert alert) 
         {
-            //Alert Begin
-            Append(_alertTemplate.GetAlertHeader());
+            //Alert Header
+            Append(_alertTemplate.RenderAlertHeader());
 
             //Route each item in Alert by type
-            var alertWidth = GetWidth(alert);
+            var maximumValueIndex = GetMaximumValueCount(alert) - 1;
             foreach (var item in alert)
             {
-                Route(item, alertWidth);
+                //Add Alert Item
+                RouteAlertItem(item, maximumValueIndex);
             }
             
-            //Alert End
-            Append(_alertTemplate.GetAlertFooter());
+            //Alert Footer
+            Append(_alertTemplate.RenderAlertFooter());
         }
 
-        private void Render(AlertItem g,int alertWidth)
+        private void RouteAlertItem(IAlertItem item, int maximumValueIndex)
         {
-            var groupStyle = g.ItemStyle;
-            var groupLength = g.Values.Count;
-
-            //Group Begin
-            Append(_alertTemplate.GetItemHeader(groupStyle, alertWidth));
-            for (var index = 0; index < groupLength; index++)
+            //Route all embeded IAlerts back to the IAlert Render Method
+            if (item is IAlert)
             {
-                //Value Begin
-                Append(_alertTemplate.GetValueHeader(groupStyle, index, groupLength, alertWidth));
+                RenderAlert(item as IAlert);
+                return;
+            }
+
+            //Route all AlertItems to Render IAlertItem Method
+            if (item is AlertItem)
+            {
+                RenderAlertItem(item as AlertItem, maximumValueIndex);
+                return;
+            }
+
+            //Unknown type
+            throw new ArgumentException(string.Format("Alert item type [{0}] not recognized by serilazer", item.GetType().Name), "item");
+        }
+
+        private void RenderAlertItem(AlertItem g, int maximumValueIndex)
+        {
+            var itemStyle = g.ItemStyle;
+            var maximumItemsValueIndex = g.Values.Count - 1;
+
+            //Alert Item Header
+            Append(_alertTemplate.RenderAlertItemHeader(itemStyle));
+            for (var index = 0; index <= maximumItemsValueIndex; index++)
+            {
+                //Value Header
+                Append(_alertTemplate.RenderValueHeader(itemStyle, index, maximumItemsValueIndex, maximumValueIndex));
 
                 //Add Value
-                var value = g.Values[index];
-                Route(value);
+                RouteValue(g.Values[index]);
 
-                //Value End
-                Append(_alertTemplate.GetValueFooter(groupStyle, index, groupLength, alertWidth));
+                //Value Footer
+                Append(_alertTemplate.RenderValueFooter(itemStyle, index, maximumItemsValueIndex, maximumValueIndex));
 
             }
-            //Group End
-            Append(_alertTemplate.GetItemFooter(groupStyle, alertWidth));
+            //Alert Item Footer
+            Append(_alertTemplate.RenderAlertItemFooter(itemStyle));
         }
 
-        private void Route(IAlertItem item, int alertWidth)
+        private void RouteValue(object value)
         {
-            //Embedded Alerts
-            var itemAsAlert = item as IAlert;
-            if (itemAsAlert != null)
+            //Route all embeded IAlerts back to the IAlert Render Method
+            if (value is IAlert)
             {
-                Render(itemAsAlert);
+                RenderAlert(value as IAlert);
+                return;
+            }
+            
+            //Value is of output type, so append it to ouptut stream
+            if (value is string)
+            {
+                Append(value as string);
                 return;
             }
 
-            //Group Items
-            var itemAsGroup = item as AlertItem;
-            if (itemAsGroup != null)
-            {
-                Render(itemAsGroup, alertWidth);
-                return;
-            }
-
-            throw new ArgumentException("Alert item type not recognized by serilazer", "item");
-        }
-
-        private void Route(object value)
-        {
-            //No multimethods, so route by type
-            var alert = value as IAlert;
-            if (alert != null)
-            {
-                Render(alert);
-                return;
-            }
-
-            var formatted = value as string;
-            if (formatted != null)
-            {
-                Append((string)value);
-                return;
-            }
-
-            //Transform the object and re-route 
-            Route(_transformer.Transform(value));
+            //Any thing else (non-transformed objects), transform the object and re-route 
+            RouteValue(_transformer.Transform(value));
         }
  
         private void Append(string text)
@@ -120,9 +128,9 @@ namespace FluentAlerts.Renderers
             _acc.Append(text);
         }
 
-        private static int GetWidth(IAlert alert)
+        private static int GetMaximumValueCount(IEnumerable<IAlertItem> alert)
         {
-            // return max length of group values
+            // return max number of values
             var widths = from item in alert
                          where item is AlertItem
                          select (item as AlertItem).Values.Count;

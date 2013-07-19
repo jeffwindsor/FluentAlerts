@@ -18,7 +18,7 @@ namespace FluentAlerts.Specs
         [Given(@"I have an exception")]
         public void GivenIHaveAnException()
         {
-            _originalException = Mother.GetNestedException(0);
+            _originalException = ObjectFactory.GetNestedException(0);
         }
 
 

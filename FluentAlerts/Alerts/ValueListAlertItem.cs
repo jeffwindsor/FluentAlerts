@@ -2,16 +2,17 @@
 
 namespace FluentAlerts
 {
-    public class ArrayAlertItem : AlertItem
+    public class ValueListAlertItem : AlertItem
     {
-        public ArrayAlertItem(ArrayStyle style, IList<object> values)
+        public ValueListAlertItem(ValueStyle style, IList<object> values)
         {
             Style = style;
             Values = values;
         }
 
-        public ArrayStyle Style {
-            get { return ItemStyle.ToArrayStyle(); }
+        public ValueStyle Style
+        {
+            get { return ItemStyle.ToValueStyle(); }
             set { ItemStyle = value.ToItemStyle(); }
         }
     

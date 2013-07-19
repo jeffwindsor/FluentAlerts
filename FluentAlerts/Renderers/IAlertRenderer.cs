@@ -2,6 +2,6 @@
 {
     public interface IAlertRenderer
     {
-        string RenderAlert(IAlert alert);
+        string Render(IAlert alert);
     }
 }

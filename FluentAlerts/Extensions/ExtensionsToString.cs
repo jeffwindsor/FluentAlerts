@@ -22,7 +22,7 @@ namespace FluentAlerts
             if (!File.Exists(filePath)) return;
 
             var dir = Path.GetDirectoryName(filePath);
-            var backUpFileName = string.Format("{0}{1}{2}_UTC{3}{4}",
+            var backUpFileName = string.Format("{0}{1}BackupOf{2}_UTC{3}{4}",
                                                dir,
                                                (string.IsNullOrWhiteSpace(dir)) ? string.Empty : "\\",
                                                Path.GetFileNameWithoutExtension(filePath),

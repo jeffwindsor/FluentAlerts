@@ -1,9 +1,8 @@
 ﻿namespace FluentAlerts.Renderers
 {
-    public enum TemplateValueParameter
+    public enum RenderTemplateArguementType
     {
-        Value,
-        Colspan,
+        Decorations,
         Url,
         UrlTitle
     }
