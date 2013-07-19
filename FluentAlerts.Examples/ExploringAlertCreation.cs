@@ -23,7 +23,7 @@ namespace FluentAlerts.Examples
          */
         
         [Test]
-        public void A_CreateALikeAlert()
+        public void A_CreateASimpleAlert()
         {
             // Note the title in the create statement (this is optional)
             // and the layout of the rendered table in thml
@@ -98,46 +98,37 @@ namespace FluentAlerts.Examples
         [Test]
         public void E_TurnAnObjectIntoAnAlert()
         {
-            try
-            {
-                var testObject = ObjectFactory.CreateNestedTestClass(3);
-                var alert = _alerts.Create(testObject);
-                alert.RenderToConsole();
-
-            }
-            catch (Exception ex)
-            {
-                var s = ex;
-            }
+            var testObject = ObjectFactory.CreateNestedTestClass(2);
+            var alert = _alerts.Create(testObject);
+            
+            alert.RenderToConsole();
+            Assert.Fail("Formatter showing full path class name and the underlying linq types");
+            Assert.Fail("Table within table");
+            Assert.Fail("No recursion of child objects");
         }
 
         [Test]
-        public void F_EmbeddingStuffOrFunWithAlertTrees()
+        public void F_TurnAnExceptionIntoAnAlert()
         {
-            var manualAlert = _alerts.Create("This is an inner manually created alert");
-            var testObject = ObjectFactory.CreateNestedTestClass(3);
-            var objectBasedAlert = _alerts.Create(testObject);
-            var alert = _alerts.Create("Lets Play with layout to see what the render does.")
-                               .WithEmphasized("Putting the largest number of values in a section sets the number of columns, this dynamic so this can happen anywhere in the alert")
-                               .With("One", "Two", "Three", "Four", "Five")
-                               .WithEmphasized("Any other value list with fewer columns will span the last column by default")
-                               .With("One", "Two", "Three", "Four")
-                               .With("One", "Two", "Three")
-                               .With("One", "Two")
-                               .With("One")
-                               .WithEmphasized("This works on any style")
-                               .WithEmphasized("One", "Two", "Three", "Four")
-                               .WithEmphasized("One", "Two", "Three")
-                               .WithEmphasized("One", "Two")
-                               .WithEmphasized("One")
-                               .WithSeperator()
-                               .WithEmphasized("Even across seperators, make a new alert if yuo wnat different behavior")
-                               .With("One", "Two", "Three", "Four")
-                               .With("One", "Two", "Three")
-                               .With("One", "Two")
-                               .With("One");
+            var testException = ObjectFactory.CreateNestedException(3);
+            var alert = _alerts.Create(testException);
 
             alert.RenderToConsole();
+            Assert.Fail("No special Formatting rules for exceptions by default");
+        }
+
+        [Test]
+        public void G_EmbeddingStuffOrFunWithAlertTrees()
+        {
+            var testObject = ObjectFactory.CreateNestedTestClass(3);
+            var childAlert = _alerts.Create("This is the child alert")
+                                    .With(testObject);
+
+            var alert = _alerts.Create("This is the parent alert")
+                               .With("Child", childAlert);
+
+            alert.RenderToConsole();
+            Assert.Fail("Child failed to render");
         }
 
         //  Something i have been hiding from you , the ToAlert() function, which converts an

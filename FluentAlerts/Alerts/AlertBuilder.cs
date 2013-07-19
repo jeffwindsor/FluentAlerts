@@ -16,6 +16,15 @@ namespace FluentAlerts
         {
             return WithValueList(ValueStyle.Normal, values);
         }
+        
+        public IAlertBuilder With(IEnumerable<object[]> listOfValues)
+        {
+            foreach (var values in listOfValues)
+            {
+                With(values);
+            }
+            return this;
+        }
 
         public IAlertBuilder WithEmphasized(params object[] values)
         {
@@ -79,5 +88,6 @@ namespace FluentAlerts
             _items.Add(new ValueAlertItem(style, text));
             return this;
         }
+
     }
 }

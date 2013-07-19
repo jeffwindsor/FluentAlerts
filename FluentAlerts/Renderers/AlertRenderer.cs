@@ -120,7 +120,8 @@ namespace FluentAlerts.Renderers
             }
 
             //Any thing else (non-transformed objects), transform the object and re-route 
-            RouteValue(_transformer.Transform(value));
+            var transformed = _transformer.Transform(value);
+            RouteValue(transformed);
         }
  
         private void Append(string text)

@@ -87,7 +87,7 @@ namespace FluentAlerts.Transformers
                            Value = GetValue(() => info.Name, () => info.GetValue(o, null), objectMemberPath)
                        };
         }
-
+         
         protected IEnumerable<InfoValue<FieldInfo>> GetFieldInfoValues(object o, IEnumerable<string> objectMemberPath)
         {
             var typeInfo = _selector.Find(o, objectMemberPath);

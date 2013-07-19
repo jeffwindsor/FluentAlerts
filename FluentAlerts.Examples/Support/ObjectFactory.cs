@@ -54,7 +54,7 @@ namespace FluentAlerts.Examples
         #endregion
 
         #region Exceptions
-        public static Exception GetNestedException(int nestingDepth)
+        public static Exception CreateNestedException(int nestingDepth)
         {
             try
             {
@@ -92,10 +92,10 @@ namespace FluentAlerts.Examples
         {
             return new NestedTestClass()
             {
-                TestDate = DateTime.Now,
-                TestNumber = (NumberEnum)nestingDepth,
-                Date = DateTime.Now,
-                Number = (NumberEnum)nestingDepth,
+                DateProperty = DateTime.Now,
+                NumberProperty = (NumberEnum)nestingDepth,
+                DateField = DateTime.Now,
+                NumberField = (NumberEnum)nestingDepth,
                 Child = (nestingDepth < 1)
                             ? null
                             : CreateNestedTestClass(nestingDepth - 1),
@@ -130,10 +130,10 @@ namespace FluentAlerts.Examples
 
         internal class NestedTestClass
         {
-            public DateTime TestDate { get; set; }
-            public NumberEnum TestNumber;
-            public DateTime Date;
-            public NumberEnum Number;
+            public DateTime DateProperty { get; set; }
+            public NumberEnum NumberProperty;
+            public DateTime DateField;
+            public NumberEnum NumberField;
             public NestedTestClass Child { get; set; }
             public IEnumerable<NestedTestClass> Children { get; set; }
         }
