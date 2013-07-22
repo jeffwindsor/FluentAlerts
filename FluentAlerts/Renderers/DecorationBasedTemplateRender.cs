@@ -53,7 +53,7 @@ namespace FluentAlerts.Renderers
             if (requiresSpanning)
                 decorationValue.Append(GetSpanningDecoration(index, maximumValueIndex));
 
-            //ADD ID DECOARTION: FOr First And Last Column (if both use first comlun id)
+            //ADD ID DECOARTION: FOr First And Last Column (if both use first column id)
             if (index == 0)
                 decorationValue.Append(GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueFirstColumnId,
                                                              " "));
@@ -81,8 +81,12 @@ namespace FluentAlerts.Renderers
 
         public string Scrub(string text)
         {
-            //TODO: put transformable characters into template? then what to do about C# reserved characters?????
-            return text;
+            var sb = new StringBuilder(text);
+            foreach (var substitution in _alertRenderTemplate.Substitutions)
+            {
+                sb.Replace(substitution.Key, substitution.Value);
+            }
+            return sb.ToString();
         }
 
         private string GetTemplateItemByType(DecorationBasedRenderTemplateItemType type, string prefix = "",
@@ -90,8 +94,8 @@ namespace FluentAlerts.Renderers
         {
             //Find key in dictionary, return empty sting if not found
             var key = type.ToString();
-            return _alertRenderTemplate.ContainsKey(key)
-                       ? string.Format("{0}{1}{2}", prefix, _alertRenderTemplate[key], postfix)
+            return _alertRenderTemplate.Templates.ContainsKey(key)
+                       ? string.Format("{0}{1}{2}", prefix, _alertRenderTemplate.Templates[key], postfix)
                        : string.Empty;
         }
 

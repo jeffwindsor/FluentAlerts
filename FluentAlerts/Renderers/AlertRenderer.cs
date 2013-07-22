@@ -123,7 +123,7 @@ namespace FluentAlerts.Renderers
             //Value is of output type, so append it to output stream
             if (value is string)
             {
-                Append(value as string);
+                Append(_templateRenderer.Scrub(value as string));
                 return;
             }
 
@@ -134,8 +134,7 @@ namespace FluentAlerts.Renderers
  
         private void Append(string text)
         {
-            var scrubbed = _templateRenderer.Scrub(text);
-            _acc.Append(scrubbed);
+            _acc.Append(text);
         }
 
         private static int GetMaximumValueCount(IEnumerable<IAlertItem> alert)

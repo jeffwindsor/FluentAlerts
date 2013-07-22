@@ -2,5 +2,9 @@
 
 namespace FluentAlerts.Renderers
 {
-    public class RenderTemplate : Dictionary<string, string>{}
+    public class RenderTemplate
+    {
+        public Dictionary<string, string> Templates;
+        public Dictionary<string, string> Substitutions;
+    }
 }

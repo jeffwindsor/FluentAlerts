@@ -76,7 +76,6 @@ namespace FluentAlerts.Examples
             var alert = _alerts.Create(testObject);
             
             alert.RenderToConsole();
-            Assert.Fail("Formatter does not scrub for reserved chars, implement non-stubbed template render scrub function");
         }
 
         [Test]
