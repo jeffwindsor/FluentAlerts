@@ -105,6 +105,14 @@ namespace FluentAlerts.Renderers
 
         private void RouteValue(object value)
         {
+            //Route all embedded IAlertBuilders (Mistake but hard to see in traces, so covering here for free) back to the IAlert Render Method
+            if (value is IAlertBuilder)
+            {
+                var alert = (value as IAlertBuilder).ToAlert();
+                RenderAlert(alert);
+                return;
+            }
+
             //Route all embedded IAlerts back to the IAlert Render Method
             if (value is IAlert)
             {
@@ -119,7 +127,7 @@ namespace FluentAlerts.Renderers
                 return;
             }
 
-            //Any thing else (non-transformed objects), transform the object and re-route 
+            //Anything else (non-transformed objects), transform the object and re-route 
             var transformed = _transformer.Transform(value);
             RouteValue(transformed);
         }

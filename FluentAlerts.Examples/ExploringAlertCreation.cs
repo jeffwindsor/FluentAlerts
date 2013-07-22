@@ -78,7 +78,6 @@ namespace FluentAlerts.Examples
             alert.RenderToConsole();
             Assert.Fail("Formatter does not scrub for reserved chars, implement non-stubbed template render scrub function");
             Assert.Fail("Table within table, may be ok, adjust the way render sees value in value list (ie a single entity list with a non string)");
-            Assert.Fail("No recursion of child objects");
         }
 
         [Test]
@@ -88,7 +87,6 @@ namespace FluentAlerts.Examples
             var alert = _alerts.Create(testException);
 
             alert.RenderToConsole();
-            Assert.Fail("Not formatting to depth, see transformer strategies");
         }
 
         [Test]
