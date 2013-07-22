@@ -149,7 +149,7 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Can add a styled text")]
         [NUnit.Framework.TestCaseAttribute("Normal", null)]
         [NUnit.Framework.TestCaseAttribute("Emphasized", null)]
-        [NUnit.Framework.TestCaseAttribute("HeaderOne", null)]
+        [NUnit.Framework.TestCaseAttribute("Title", null)]
         public virtual void CanAddAStyledText(string text_Style, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add a styled text", exampleTags);
@@ -171,7 +171,7 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Can add a format based styled text")]
         [NUnit.Framework.TestCaseAttribute("Normal", null)]
         [NUnit.Framework.TestCaseAttribute("Emphasized", null)]
-        [NUnit.Framework.TestCaseAttribute("HeaderOne", null)]
+        [NUnit.Framework.TestCaseAttribute("TItle", null)]
         public virtual void CanAddAFormatBasedStyledText(string text_Style, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can add a format based styled text", exampleTags);

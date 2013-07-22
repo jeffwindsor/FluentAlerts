@@ -91,25 +91,27 @@ namespace FluentAlerts.Specs
             }
         }
 
-        [Given(@"I limit the informer to (.*) properties at (.*)")]
-        public void GivenILimitTheInformerToPropertiesAt(string typeString, string targetPathString)
-        {
-            _memberPath = new MemberPath(targetPathString);
-            //current path plus property name = target path 
-            _selector.Rules.Add((info, obj, path) =>
-                {
-                    //only for objects of type
-                    if (obj.GetType().Name == typeString)
-                    {
-                        //Current path + property name = the target path
-                        info.PropertyInfos = from pi in info.PropertyInfos
-                                             where path.Concat(new[] {pi.Name})
-                                                       .SequenceEqual(_memberPath)
-                                             select pi;
+        //[Given(@"I limit the informer to (.*) properties at (.*)")]
+        //public void GivenILimitTheInformerToPropertiesAt(string typeString, string targetPathString)
+        //{
+        //    _memberPath = new MemberPath(targetPathString);
+        //    //current path plus property name = target path 
+            
+        //    //rules update the type info object in FIFO order, so the last rule wins
+        //    _selector.Rules.Add((info, obj, path) =>
+        //        {
+        //            //only for objects of given type
+        //            if (obj.GetType().Name == typeString) && (path == _memberPath)
+        //            {
+        //                //Current path + property name = the target path
+        //                info.PropertyInfos = from pi in info.PropertyInfos
+        //                                     where path.Concat(new[] {pi.Name})
+        //                                               .SequenceEqual(_memberPath)
+        //                                     select pi;
 
-                    }
-                });
-        }
+        //            }
+        //        }); 
+        //}
 
         [Given(@"I limit the informer to (.*) fields")]
         public void GivenILimitTheInformerToFields(string typeString)
@@ -170,15 +172,15 @@ namespace FluentAlerts.Specs
             }
         }
 
-        [Given(@"I limit the informer to (.*) fields at (.*)")]
-        public void GivenILimitTheInformerToFieldssAt(string typeString, string targetPathString)
-        {
-            _memberPath = new MemberPath(targetPathString);
-            //current path plus property name = target path
-            _selector.Rules.Add((info, obj, path) =>
-                info.FieldInfos = info.FieldInfos.Where(pi =>
-                    path.Concat(new[] { pi.Name }).SequenceEqual(_memberPath)));
-        }
+        //[Given(@"I limit the informer to (.*) fields at (.*)")]
+        //public void GivenILimitTheInformerToFieldssAt(string typeString, string targetPathString)
+        //{
+        //    _memberPath = new MemberPath(targetPathString);
+        //    //current path plus property name = target path
+        //    _selector.Rules.Add((info, obj, path) =>
+        //        info.FieldInfos = info.FieldInfos.Where(pi =>
+        //            path.Concat(new[] { pi.Name }).SequenceEqual(_memberPath)));
+        //}
         
         [Given(@"I have a default transformer")]
         public void GivenIHaveADefaultTransformer()
@@ -248,15 +250,15 @@ namespace FluentAlerts.Specs
         public void ThenAllTheObjectsPropertiesAreListedInTheTypeInfo()
         {
             var expected = _context.TestValue.GetType().GetProperties();
-            _typeInfo.PropertyInfos.SequenceEqual(expected).Should().BeTrue();
+            _typeInfo.PropertyInfos.Should().BeEquivalentTo(expected);
         }
 
         [Then(@"all the objects fields are listed in the type info")]
         public void ThenAllTheObjectsFieldsAreListedInTheTypeInfo()
         {
             var expected = _context.TestValue.GetType().GetFields();
-            _typeInfo.FieldInfos.SequenceEqual(expected).Should().BeTrue();
-        }
+            _typeInfo.FieldInfos.Should().BeEquivalentTo(expected);
+        } 
 
         [Then(@"only the objects (.*) properties are listed in the type info")]
         public void ThenOnlyTheObjectsPropertiesAreListedInTheTypeInfo(string expectedTypeName)

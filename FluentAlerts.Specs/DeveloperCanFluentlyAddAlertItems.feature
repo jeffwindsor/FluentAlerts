@@ -46,7 +46,7 @@ Examples:
 	| text_style |
 	| Normal     |
 	| Emphasized |
-	| HeaderOne  |
+	| Title      |
 
 Scenario Outline: Can add a format based styled text
 	Given I have an alert builder
@@ -57,7 +57,7 @@ Examples:
 	| text_style |
 	| Normal     |
 	| Emphasized |
-	| HeaderOne  |
+	| TItle      |
 
 Scenario: Can add a seperator
 	Given I have an alert builder
