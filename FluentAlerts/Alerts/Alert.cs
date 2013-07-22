@@ -1,4 +1,5 @@
-﻿ using System.Collections.Generic;
+﻿ using System;
+ using System.Collections.Generic;
 using System.Linq;
 
 namespace FluentAlerts
@@ -17,8 +18,10 @@ namespace FluentAlerts
         {
             get
             {
-                var item = GetAlertItems<ValueAlertItem>().FirstOrDefault(i => i.Style == ValueStyle.Title);
-                return (item == null) ? string.Empty : item.Value.ToString();
+                var item = GetAlertItems<ValueListAlertItem>().FirstOrDefault(i => i.Style == ValueStyle.Title);
+                return (item != null && item.Values[0] != null) 
+                    ? Convert.ToString(item.Values[0])
+                    : string.Empty;
             }
         }
     }

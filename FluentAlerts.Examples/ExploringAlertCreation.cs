@@ -102,19 +102,19 @@ namespace FluentAlerts.Examples
             var alert = _alerts.Create(testObject);
             
             alert.RenderToConsole();
-            Assert.Fail("Formatter showing full path class name and the underlying linq types");
-            Assert.Fail("Table within table");
+            Assert.Fail("Formatter does not scrub for reserved chars, implement non-stubbed template render scrub function");
+            Assert.Fail("Table within table, may be ok, adjust the way render sees value in value list (ie a single entity list with a non string)");
             Assert.Fail("No recursion of child objects");
         }
 
         [Test]
         public void F_TurnAnExceptionIntoAnAlert()
         {
-            var testException = ObjectFactory.CreateNestedException(3);
+            var testException = ObjectFactory.CreateNestedException(2);
             var alert = _alerts.Create(testException);
 
             alert.RenderToConsole();
-            Assert.Fail("No special Formatting rules for exceptions by default");
+            Assert.Fail("Not formatting to depth, see transfomer strategies");
         }
 
         [Test]
@@ -128,7 +128,7 @@ namespace FluentAlerts.Examples
                                .With("Child", childAlert);
 
             alert.RenderToConsole();
-            Assert.Fail("Child failed to render");
+           // Assert.Fail("Child failed to render");
         }
 
         //  Something i have been hiding from you , the ToAlert() function, which converts an

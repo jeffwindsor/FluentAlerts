@@ -72,15 +72,9 @@ namespace FluentAlerts.Specs
     internal class TestFluentAlertSettings : IFluentAlertSettings
     {
         public string DefaultTemplateName { get; set; }
-        public char MemberPathSeperator { get; set; }
         string IFluentAlertSettings.DefaultTemplateName()
         {
             return DefaultTemplateName;
-        }
-        
-        char IFluentAlertSettings.MemberPathSeperator()
-        {
-            return MemberPathSeperator;
         }
     }
 

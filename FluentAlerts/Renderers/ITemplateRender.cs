@@ -13,5 +13,7 @@ namespace FluentAlerts.Renderers
 
         string RenderValueHeader(ItemStyle style, int index, int maximumItemsValueIndex, int maximumValueCount);
         string RenderValueFooter(ItemStyle style, int index, int maximumItemsValueIndex, int maximumValueCount);
+
+        string Scrub(string text);
     }
 }

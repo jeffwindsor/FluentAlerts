@@ -9,12 +9,12 @@ namespace FluentAlerts.Renderers
     public class AlertRenderer : IAlertRenderer
     {
         private readonly StringBuilder _acc = new StringBuilder();
-        private readonly ITemplateRender _alertTemplate;
-        private readonly ITransformer<string> _transformer;
-        public AlertRenderer(ITransformer<string> transformer, ITemplateRender alertTemplate)
+        private readonly ITemplateRender _templateRenderer;
+        private readonly ITransformer _transformer;
+        public AlertRenderer(ITransformer transformer, ITemplateRender templateRenderer)
         {
             _transformer = transformer;
-            _alertTemplate = alertTemplate;
+            _templateRenderer = templateRenderer;
         }
 
         /// <summary>
@@ -26,13 +26,13 @@ namespace FluentAlerts.Renderers
             if (alert == null) return string.Empty;
 
             //Document Header
-            Append(_alertTemplate.RenderHeader());
+            Append(_templateRenderer.RenderHeader());
             
             //Render Internals
             RenderAlert(alert);
 
             //Document Footer
-            Append(_alertTemplate.RenderFooter());
+            Append(_templateRenderer.RenderFooter());
 
             //Return result
             return _acc.ToString(); 
@@ -46,7 +46,7 @@ namespace FluentAlerts.Renderers
         private void RenderAlert(IAlert alert) 
         {
             //Alert Header
-            Append(_alertTemplate.RenderAlertHeader());
+            Append(_templateRenderer.RenderAlertHeader());
 
             //Route each item in Alert by type
             var maximumValueIndex = GetMaximumValueCount(alert) - 1;
@@ -57,7 +57,7 @@ namespace FluentAlerts.Renderers
             }
             
             //Alert Footer
-            Append(_alertTemplate.RenderAlertFooter());
+            Append(_templateRenderer.RenderAlertFooter());
         }
 
         private void RouteAlertItem(IAlertItem item, int maximumValueIndex)
@@ -86,33 +86,33 @@ namespace FluentAlerts.Renderers
             var maximumItemsValueIndex = g.Values.Count - 1;
 
             //Alert Item Header
-            Append(_alertTemplate.RenderAlertItemHeader(itemStyle));
+            Append(_templateRenderer.RenderAlertItemHeader(itemStyle));
             for (var index = 0; index <= maximumItemsValueIndex; index++)
             {
                 //Value Header
-                Append(_alertTemplate.RenderValueHeader(itemStyle, index, maximumItemsValueIndex, maximumValueIndex));
+                Append(_templateRenderer.RenderValueHeader(itemStyle, index, maximumItemsValueIndex, maximumValueIndex));
 
                 //Add Value
                 RouteValue(g.Values[index]);
 
                 //Value Footer
-                Append(_alertTemplate.RenderValueFooter(itemStyle, index, maximumItemsValueIndex, maximumValueIndex));
+                Append(_templateRenderer.RenderValueFooter(itemStyle, index, maximumItemsValueIndex, maximumValueIndex));
 
             }
             //Alert Item Footer
-            Append(_alertTemplate.RenderAlertItemFooter(itemStyle));
+            Append(_templateRenderer.RenderAlertItemFooter(itemStyle));
         }
 
         private void RouteValue(object value)
         {
-            //Route all embeded IAlerts back to the IAlert Render Method
+            //Route all embedded IAlerts back to the IAlert Render Method
             if (value is IAlert)
             {
                 RenderAlert(value as IAlert);
                 return;
             }
             
-            //Value is of output type, so append it to ouptut stream
+            //Value is of output type, so append it to output stream
             if (value is string)
             {
                 Append(value as string);
@@ -126,7 +126,8 @@ namespace FluentAlerts.Renderers
  
         private void Append(string text)
         {
-            _acc.Append(text);
+            var scrubbed = _templateRenderer.Scrub(text);
+            _acc.Append(scrubbed);
         }
 
         private static int GetMaximumValueCount(IEnumerable<IAlertItem> alert)

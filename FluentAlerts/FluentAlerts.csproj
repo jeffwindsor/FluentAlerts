@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alerts\AlertBuilderFactory.cs" />
-    <Compile Include="Alerts\AlertException.cs" />
+    <Compile Include="AlertException.cs" />
     <Compile Include="Alerts\AlertFactory.cs" />
     <Compile Include="Alerts\AlertBuilder.cs" />
     <Compile Include="Alerts\ValueListAlertItem.cs" />
@@ -58,6 +58,7 @@
     <Compile Include="Alerts\IAlertBuilderFactory.cs" />
     <Compile Include="Alerts\IAlertFactory.cs" />
     <Compile Include="Alerts\IAlertItem.cs" />
+    <Compile Include="Formatters\IValueFormatter.cs" />
     <Compile Include="IFluentAlertSettings.cs" />
     <Compile Include="Renderers\RenderTemplate.cs" />
     <Compile Include="Renderers\RenderTemplateDictionaryIssueHandler.cs" />
@@ -65,8 +66,7 @@
     <Compile Include="Renderers\IRenderTemplateDictionaryIssueHandler.cs" />
     <Compile Include="Renderers\ITemplateRender.cs" />
     <Compile Include="Alerts\SeperatorAlertItem.cs" />
-    <Compile Include="Alerts\ValueAlertItem.cs" />
-    <Compile Include="Transformers\TransformerFactory.cs" />
+    <Compile Include="Transformers\ITransformer.cs" />
     <Compile Include="FluentAlertDefaultedAppConfigSettings.cs" />
     <Compile Include="Extensions\ExtensionsToDateTime.cs" />
     <Compile Include="Extensions\ExtensionsToIAlert.cs" />
@@ -79,17 +79,16 @@
     <Compile Include="Alerts\Alert.cs" />
     <Compile Include="Transformers\BaseRowTransformer.cs" />
     <Compile Include="Extensions\ExtensionsToIEnumerableOfString.cs" />
-    <Compile Include="Formatters\DefaultToObjectFormatter.cs" />
     <Compile Include="Transformers\MemberPath.cs" />
     <Compile Include="Transformers\NameTypeValueRowTransformer.cs" />
-    <Compile Include="Transformers\Transformer.cs" />
+    <Compile Include="Transformers\BaseTransformer.cs" />
     <Compile Include="Formatters\FluentAlertFormattingException.cs" />
     <Compile Include="Formatters\FormatterRule.cs" />
-    <Compile Include="Formatters\DefaultToStringFormatter.cs" />
+    <Compile Include="Formatters\DefaultValueToStringFormatter.cs" />
     <Compile Include="Transformers\DefaultTransformStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\AlertRenderer.cs" />
-    <Compile Include="Formatters\ObjectFormatter.cs" />
+    <Compile Include="Formatters\BaseValueFormatter.cs" />
     <Compile Include="Renderers\DecorationBasedTemplateRender.cs" />
     <Compile Include="Transformers\NameValueRowTransformer.cs" />
     <Compile Include="Transformers\ITransformStrategy.cs" />

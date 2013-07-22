@@ -11,9 +11,10 @@ namespace FluentAlerts
         IAlertBuilder WithUrl(string text, string url);
         IAlertBuilder WithAlert(IAlert n);
         IAlertBuilder WithAlert(IAlertBuilder n);
-        IAlertBuilder WithText(string format, params object[] args);
-        IAlertBuilder WithEmphasizedText(string format, params object[] args);
+        IAlertBuilder Merge(IAlert n);
+        IAlertBuilder Merge(IAlertBuilder n);
         IAlertBuilder WithTitle(string  format, params object[] args);
+
         IAlert ToAlert();
     }
 }

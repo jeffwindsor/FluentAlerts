@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using FluentAlerts.Transformers.Formatters;
+using FluentAlerts.Formatters;
+using FluentAlerts.Transformers;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 
@@ -10,10 +11,9 @@ namespace FluentAlerts.Specs
     public class StepsForObjectFormatting
     {
         private string _formatResponse;
-        private BaseObjectFormatter<string> _formatter;
+        private BaseValueFormatter<string> _formatter;
         private Func<object, string> SPEC_FORMAT = (o) => GetFormat(o);
         private Func<object, string> ALT_SPEC_FORMAT = (o) => GetAltFormat(o);
-        private string[] NO_PATH = new string[] {};
 
         private AlertContext _context;
         public StepsForObjectFormatting(AlertContext context)
@@ -65,13 +65,13 @@ namespace FluentAlerts.Specs
         [Given(@"I have the default formatter")]
         public void GivenIHaveTheDefaultFormatter()
         {
-            _formatter = new DefaultToStringFormatter();
+            _formatter = new DefaultValueToStringFormatter();
         }
 
         [Given(@"I have an empty formatter")]
         public void GivenIHaveAnEmptyformatter()
         {
-            _formatter = new DefaultToStringFormatter();
+            _formatter = new DefaultValueToStringFormatter();
             _formatter.FormatAsTitleRules.Clear();
             _formatter.FormatRules.Clear();
         }
@@ -197,7 +197,7 @@ namespace FluentAlerts.Specs
         {
             try
             {
-                _formatResponse = ((IObjectFormatter<string>)_formatter).Format(_context.TestValue, NO_PATH);
+                _formatResponse = ((IValueFormatter<string>)_formatter).Format(_context.TestValue, MemberPath.Empty);
             }
             catch (Exception ex)
             {
@@ -211,7 +211,7 @@ namespace FluentAlerts.Specs
         {
             try
             {
-                var path = pathString.Split('.');
+                var path = new MemberPath(pathString);
                 _formatResponse = _formatter.Format(_context.TestValue, path);
             }
             catch (Exception ex)
@@ -225,8 +225,8 @@ namespace FluentAlerts.Specs
         {
             try
             {
-                _formatResponse = ((IObjectFormatter<string>) _formatter).FormatAsTitle(_context.TestValue,
-                                                                                        new string[] {});
+                _formatResponse = ((IValueFormatter<string>) _formatter).FormatAsTitle(_context.TestValue,
+                                                                                        MemberPath.Empty);
             } 
             catch (Exception ex)
             {
@@ -267,7 +267,7 @@ namespace FluentAlerts.Specs
 
             var ex = _context.CaughtException as FluentAlertFormattingException<string>;
             ex.FormatObject.Should().Be(_context.TestValue);
-            ex.FormatObjectMemberPath.Should().BeEquivalentTo(NO_PATH);
+            ex.FormatObjectMemberPath.Should().BeEquivalentTo(MemberPath.Empty);
         }
 
 

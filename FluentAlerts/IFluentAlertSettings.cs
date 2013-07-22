@@ -3,6 +3,5 @@
     public interface IFluentAlertSettings
     {
         string DefaultTemplateName();
-        char MemberPathSeperator();
     }
 }

@@ -1,42 +1,43 @@
 ﻿ using System.Collections.Generic;
 using System.Linq;
-using FluentAlerts.Transformers.Formatters;
- using FluentAlerts.Transformers.TypeInformers;
+ using FluentAlerts.Formatters;
+ using FluentAlerts.TypeInformers;
 
 namespace FluentAlerts.Transformers
 {
     public class NameTypeValueRowTransformer : BaseRowTransformer 
     {
-        public NameTypeValueRowTransformer(ITransformStrategy strategy,
-                                           ITypeInfoSelector selector,
-                                           IObjectFormatter<string> formatter,
+        public NameTypeValueRowTransformer(ITransformStrategy transformStrategy,
+                                           ITypeInfoSelector typeInfoSelector,
+                                           IValueFormatter<string> formatter,
                                            IAlertBuilderFactory alertBuilderFactory)
-            : base(strategy, selector, formatter, alertBuilderFactory)
+            : base(transformStrategy, typeInfoSelector, formatter, alertBuilderFactory)
         {
         }
 
-        protected override IEnumerable<object[]> GetPropertyRowValues(object o, IEnumerable<string> objectMemberPath)
+        protected override IEnumerable<object[]> GetPropertyRowValues(object o, TypeInfo typeInfo)
         {
-            return from t in GetPropertyInfoValues(o, objectMemberPath)
-                   orderby t.Info.Name
+            //Return a list of name value pairs (as object arrays)
+            return from pi in typeInfo.PropertyInfos
                    select new[]
                        {
-                           t.Info.Name,
-                           _formatter.Format(t.Info.PropertyType),
-                           t.Value
+                           pi.Name, 
+                           Formatter.Format(pi.PropertyType),
+                           typeInfo.GetValue(pi, o)
                        };
         }
 
-        protected override IEnumerable<object[]> GetFieldRowValues(object o, IEnumerable<string> objectMemberPath)
+        protected override IEnumerable<object[]> GetFieldRowValues(object o, TypeInfo typeInfo)
         {
-            return from t in GetFieldInfoValues(o, objectMemberPath)
-                   orderby t.Info.Name
+            //Return a list of name value pairs (as object arrays)
+            return from fi in typeInfo.FieldInfos
                    select new[]
                        {
-                           t.Info.Name,
-                           _formatter.Format(t.Info.FieldType),
-                           t.Value
+                           fi.Name, 
+                           Formatter.Format(fi.FieldType),
+                           typeInfo.GetValue(fi, o)
                        };
         }
+
     }
 }

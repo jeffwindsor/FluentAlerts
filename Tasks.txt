@@ -8,6 +8,7 @@
 //UNDONE : Using Trace for now
 
 //** NOWS **
+//TODO: member path - IEn ? go to array so we can index or ILIST
 //TODO: ?? scope down class and method visibility, have public interfaces, this may be problematic for IoC
 //TODO: rename url to uri
 //TODO: allow transformation without formatting? for above? nto sure that helps? 

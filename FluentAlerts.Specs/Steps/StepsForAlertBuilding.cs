@@ -192,9 +192,9 @@ namespace FluentAlerts.Specs
         [Then(@"the alert should contain (.*) text as the last item")]
         public void ThenTheAlertShouldContainTextAsThLastAlertItem(ValueStyle style)
         {
-            var item = AssertLastItemIsTypeAndConvertTo<ValueAlertItem>();
+            var item = AssertLastItemIsTypeAndConvertTo<ValueListAlertItem>();
             item.Style = style;
-            item.Value.Should().Be(_context.TestText);
+            item.Values[0].Should().Be(_context.TestText);
         }
         
         [Then(@"the alert should be empty")]

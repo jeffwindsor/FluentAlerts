@@ -5,7 +5,7 @@ namespace FluentAlerts.Transformers
 {
     public interface ITransformStrategy
     {
-        bool IsTransformRequired(object o, IEnumerable<string> objectMemberPath);
+        bool IsTransformRequired(object o, MemberPath objectMemberPath);
     }
 
     /// <summary>
@@ -16,14 +16,14 @@ namespace FluentAlerts.Transformers
         /// <summary>
         /// Returns true if the system should transform and object at a given depth
         /// </summary>
-        protected delegate bool TransformationRequiredRule(object o, IEnumerable<string> objectMemberPath);
+        protected delegate bool TransformationRequiredRule(object o, MemberPath objectMemberPath);
         
         /// <summary>
         /// List of rules, which return true if transformation is required for the given parameters
         /// </summary>
         protected readonly ICollection<TransformationRequiredRule> TransformationRequiredRules = new List<TransformationRequiredRule>();
 
-        public virtual bool IsTransformRequired(object o, IEnumerable<string> objectMemberPath)
+        public virtual bool IsTransformRequired(object o, MemberPath objectMemberPath)
         {
             return TransformationRequiredRules.Any(rule => rule(o, objectMemberPath));
         }

@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using FluentAlerts.Transformers;
 
-namespace FluentAlerts.Transformers.Formatters
+namespace FluentAlerts.Formatters
 {
     public class FluentAlertFormattingException<TResult>: ApplicationException
     {
-        public FluentAlertFormattingException(object o, IEnumerable<string> objectMemberPath)
+        public FluentAlertFormattingException(object o, MemberPath objectMemberPath)
         {
             SetValues(o, objectMemberPath);
         }
-        public FluentAlertFormattingException(string message, object o, IEnumerable<string> objectMemberPath)
+        public FluentAlertFormattingException(string message, object o, MemberPath objectMemberPath)
             :base(message)
         {
             SetValues(o, objectMemberPath);
         }
-        public FluentAlertFormattingException(string message, object o, IEnumerable<string> objectMemberPath, Exception inner)
+        public FluentAlertFormattingException(string message, object o, MemberPath objectMemberPath, Exception inner)
             : base(message, inner)
         {
             SetValues(o, objectMemberPath);
         }
 
-        private void SetValues(object o, IEnumerable<string> objectMemberPath)
+        private void SetValues(object o, MemberPath objectMemberPath)
         {
             FormatObject = o;
             FormatObjectMemberPath = objectMemberPath;
@@ -28,6 +29,6 @@ namespace FluentAlerts.Transformers.Formatters
 
 
         public object FormatObject { get; private set; }
-        public IEnumerable<string> FormatObjectMemberPath { get; private set; }
+        public MemberPath FormatObjectMemberPath { get; private set; }
     }
 }

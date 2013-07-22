@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using FluentAlerts.Formatters;
 using FluentAlerts.Transformers;
-using FluentAlerts.Transformers.Formatters;
-using FluentAlerts.Transformers.TypeInformers;
+using FluentAlerts.TypeInformers;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 
@@ -94,7 +94,7 @@ namespace FluentAlerts.Specs
         [Given(@"I limit the informer to (.*) properties at (.*)")]
         public void GivenILimitTheInformerToPropertiesAt(string typeString, string targetPathString)
         {
-            _memberPath = new MemberPath(targetPathString, _context.Settings);
+            _memberPath = new MemberPath(targetPathString);
             //current path plus property name = target path 
             _selector.Rules.Add((info, obj, path) =>
                 {
@@ -173,7 +173,7 @@ namespace FluentAlerts.Specs
         [Given(@"I limit the informer to (.*) fields at (.*)")]
         public void GivenILimitTheInformerToFieldssAt(string typeString, string targetPathString)
         {
-            _memberPath = new MemberPath(targetPathString, _context.Settings);
+            _memberPath = new MemberPath(targetPathString);
             //current path plus property name = target path
             _selector.Rules.Add((info, obj, path) =>
                 info.FieldInfos = info.FieldInfos.Where(pi =>
@@ -186,7 +186,7 @@ namespace FluentAlerts.Specs
             //Fakeing IoC
             _context.Transformer = new NameValueRowTransformer(new DefaultTransformStrategy(),
                                                                new DefaultTypeInfoSelector(),
-                                                               new DefaultToStringFormatter(),
+                                                               new DefaultValueToStringFormatter(),
                                                                _context.AlertBuilderFactory);
         }
         
@@ -196,7 +196,7 @@ namespace FluentAlerts.Specs
             //Fakeing IoC
             _context.Transformer = new NameTypeValueRowTransformer(new DefaultTransformStrategy(),
                                                                    new DefaultTypeInfoSelector(),
-                                                                   new DefaultToStringFormatter(),
+                                                                   new DefaultValueToStringFormatter(),
                                                                    _context.AlertBuilderFactory);
         }
         #endregion
@@ -376,7 +376,7 @@ namespace FluentAlerts.Specs
                                 e.Name,
                                 Expected = e.Value,
                                 Actual = a.Values[2],
-                                ExpectedType = DefaultToStringFormatter.PrettyTypeName(e.pi.PropertyType),
+                                ExpectedType = DefaultValueToStringFormatter.PrettyTypeName(e.pi.PropertyType),
                                 ActualType = a.Values[1].ToString()
                             };
             
@@ -402,7 +402,7 @@ namespace FluentAlerts.Specs
                                 e.Name,
                                 Expected = e.Value,
                                 Actual = a.Values[2],
-                                ExpectedType = DefaultToStringFormatter.PrettyTypeName(e.pi.FieldType),
+                                ExpectedType = DefaultValueToStringFormatter.PrettyTypeName(e.pi.FieldType),
                                 ActualType = a.Values[1].ToString()
                             };
 

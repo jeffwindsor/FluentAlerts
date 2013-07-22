@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FluentAlerts.Transformers;
 
-namespace FluentAlerts.Transformers.TypeInformers
+namespace FluentAlerts.TypeInformers
 {
     public interface ITypeInfoSelector
     {
-        TypeInfo Find(object o, IEnumerable<string> objectMemberPath);
+        TypeInfo Find(object o, MemberPath objectMemberPath);
     }
 
     public abstract class BaseTypeInfoSelector: ITypeInfoSelector
     {
-        public delegate void TypeInformerRule(TypeInfo info, object o, IEnumerable<string> objectMemberPath);
+        public delegate void TypeInformerRule(TypeInfo info, object o, MemberPath objectMemberPath);
         public readonly RulesCollection Rules = new RulesCollection();
 
-        public TypeInfo Find(object o, IEnumerable<string> objectMemberPath)
+        public TypeInfo Find(object o, MemberPath objectMemberPath)
         {
             //Accumulate results using Accumulator Acceptable Wrapper for rules
             return Rules.Aggregate(new TypeInfo(),

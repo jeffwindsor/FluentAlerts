@@ -1,34 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System;
+using FluentAlerts.Transformers;
 
-namespace FluentAlerts.Transformers.Formatters
+namespace FluentAlerts.Formatters
 {
-    public interface IObjectFormatter<out TResult>
-    {
-        TResult FormatAsTitle(object o, IEnumerable<string> objectMemberPath);
-        TResult Format(object o, IEnumerable<string> objectMemberPath);
-        TResult Format(Type type);
-    }
-
-    public abstract class BaseObjectFormatter<TResult> : IObjectFormatter<TResult>
+    public abstract class BaseValueFormatter<TResult> : IValueFormatter<TResult>
     {
         public readonly RulesCollection FormatRules = new RulesCollection {Title = "Object Format Rules"};
         public readonly RulesCollection FormatAsTitleRules = new RulesCollection {Title = "Object Format Title Rules"};
 
-        public TResult Format(object o, IEnumerable<string> objectMemberPath)
+        public TResult Format(object o, MemberPath objectMemberPath)
         {
             return FormatUsingRules(o, objectMemberPath, FormatRules);
         }
 
-        public TResult FormatAsTitle(object o, IEnumerable<string> objectMemberPath)
+        public TResult FormatAsTitle(object o, MemberPath objectMemberPath)
         {
             return FormatUsingRules(o, objectMemberPath, FormatAsTitleRules);
         }
 
         public abstract TResult Format(Type type);
 
-        private static TResult FormatUsingRules(object o, IEnumerable<string> objectMemberPath,
+        private static TResult FormatUsingRules(object o, MemberPath objectMemberPath,
                                                 IEnumerable<FormatterRule<TResult>> rules)
         {
             var applicableRules = rules.Where(rule => rule.Apply(o, objectMemberPath));

@@ -13,9 +13,9 @@ namespace FluentAlerts
             return renderer.Render(alert);
         } 
 
-        public static IAlert Transform<TResult>(this IAlert alert, ITransformer<TResult> transformer)
+        public static IAlert Transform(this IAlert alert, ITransformer transformer)
         {
-            return transformer.Transform(alert);
+            return (IAlert)transformer.Transform(alert);
         }
         
         public static void Throw<TAlertException>(this IAlert alert,

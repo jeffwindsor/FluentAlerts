@@ -7,6 +7,7 @@ namespace FluentAlerts.Renderers
     public class DecorationBasedTemplateRender : ITemplateRender
     {
         private readonly RenderTemplate _alertRenderTemplate;
+
         public DecorationBasedTemplateRender(RenderTemplate alertRenderTemplate)
         {
             _alertRenderTemplate = alertRenderTemplate;
@@ -16,6 +17,7 @@ namespace FluentAlerts.Renderers
         {
             return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.SerializationHeader);
         }
+
         public string RenderFooter()
         {
             return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.SerializationFooter);
@@ -25,15 +27,17 @@ namespace FluentAlerts.Renderers
         {
             return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.AlertHeader);
         }
+
         public string RenderAlertFooter()
         {
             return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.AlertFooter);
         }
-     
+
         public string RenderAlertItemHeader(ItemStyle style)
         {
             return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.AlertItemHeader);
         }
+
         public string RenderAlertItemFooter(ItemStyle style)
         {
             return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.AlertItemFooter);
@@ -47,53 +51,25 @@ namespace FluentAlerts.Renderers
 
             //ADD SPANNING DECORATION: if item's value count is less than alerts && this is the last value in the item
             if (requiresSpanning)
-            {
-                //span all remaining columns
-                var span = 1 + (maximumValueIndex - index);
-                var spanArgs = new[]
-                    {
-                        new RenderTemplateArguement(DecorationBasedRenderTemplateArguementType.SpanColumns,
-                                                    span.ToString())
-                    }; 
-                decorationValue.Append(
-                    RenderTemplateItem(DecorationBasedRenderTemplateItemType.ValueSpanningDecoration, spanArgs, " "));
-            }
+                decorationValue.Append(GetSpanningDecoration(index, maximumValueIndex));
 
-            //First Column by Id (may be bad css style)
-            if (!requiresSpanning && index == 0)
-                decorationValue.Append(GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueFirstColumnId, " "));
-            
-            //Last Column by Id (may be bad css style)
-            if (!requiresSpanning && index == maximumItemsValueIndex)
-                decorationValue.Append(GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueLastColumnId, " "));
+            //ADD ID DECOARTION: FOr First And Last Column (if both use first comlun id)
+            if (index == 0)
+                decorationValue.Append(GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueFirstColumnId,
+                                                             " "));
+            else if (maximumItemsValueIndex > 0 && index == maximumItemsValueIndex)
+                decorationValue.Append(GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueLastColumnId,
+                                                             " "));
 
-            //ADD Other DECORATION
-            switch (style)
-            {
-                case ItemStyle.Normal:
-                    decorationValue.Append(GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueNormalDecoration, " "));
-                    break;
-                case ItemStyle.Emphasized:
-                    decorationValue.Append(GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueEmphasizedDecoration, " " ));
-                    break;
-                case ItemStyle.Title:
-                    decorationValue.Append(GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueTitleDecoration, " "));
-                    break;
-                case ItemStyle.Seperator:
-                    //sub in seperator template if it exists
-                    var seperatorItem = GetTemplateItemByType(DecorationBasedRenderTemplateItemType.SeperatorHeader);
-                    if (!string.IsNullOrEmpty(seperatorItem))
-                        templateItem = seperatorItem;
-                    decorationValue.Append(GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueSeperatorDecoration, " "));
-                    break;
-                case ItemStyle.Url:
-                    decorationValue.Append(GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueUrlDecoration, " "));
-                    break;
-            }
-            
+            //ADD Style DECORATION
+            var styleDecoration = GetValueStyleDecoration(style, ref templateItem);
+
+            decorationValue.Append(styleDecoration);
+
             var args = new[]
                 {
-                    new RenderTemplateArguement(DecorationBasedRenderTemplateArguementType.Decorations, decorationValue.ToString())
+                    new RenderTemplateArguement(DecorationBasedRenderTemplateArguementType.Decorations,
+                                                decorationValue.ToString())
                 };
             return RenderTemplateItem(templateItem, args);
         }
@@ -102,8 +78,15 @@ namespace FluentAlerts.Renderers
         {
             return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueFooter);
         }
-        
-        private string GetTemplateItemByType(DecorationBasedRenderTemplateItemType type, string prefix = "", string postfix = "")
+
+        public string Scrub(string text)
+        {
+            //TODO: put transformable characters into template? then what to do about C# reserved characters?????
+            return text;
+        }
+
+        private string GetTemplateItemByType(DecorationBasedRenderTemplateItemType type, string prefix = "",
+                                             string postfix = "")
         {
             //Find key in dictionary, return empty sting if not found
             var key = type.ToString();
@@ -112,11 +95,48 @@ namespace FluentAlerts.Renderers
                        : string.Empty;
         }
 
-        private string RenderTemplateItem(DecorationBasedRenderTemplateItemType type, IEnumerable<RenderTemplateArguement> args, string prefix  = "", string postfix = "")
+        private string RenderTemplateItem(DecorationBasedRenderTemplateItemType type,
+                                          IEnumerable<RenderTemplateArguement> args, string prefix = "",
+                                          string postfix = "")
         {
             //Replace all parameters given with values
             var template = GetTemplateItemByType(type, prefix, postfix);
             return RenderTemplateItem(template, args);
+        }
+
+        private string GetSpanningDecoration(int index, int maximumValueIndex)
+        {
+            //span all remaining columns
+            var span = 1 + (maximumValueIndex - index);
+            var spanArgs = new[]
+                {
+                    new RenderTemplateArguement(DecorationBasedRenderTemplateArguementType.SpanColumns,
+                                                span.ToString())
+                };
+            return RenderTemplateItem(DecorationBasedRenderTemplateItemType.ValueSpanningDecoration, spanArgs, " ");
+        }
+
+        private string GetValueStyleDecoration(ItemStyle style, ref string templateItem)
+        {
+            switch (style)
+            {
+                case ItemStyle.Normal:
+                    return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueNormalDecoration, " ");
+                case ItemStyle.Emphasized:
+                    return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueEmphasizedDecoration, " ");
+                case ItemStyle.Title:
+                    return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueTitleDecoration, " ");
+                case ItemStyle.Seperator:
+                    // if sperator template exists, replace item template with seperator template.
+                    var seperatorItem = GetTemplateItemByType(DecorationBasedRenderTemplateItemType.SeperatorHeader);
+                    if (!string.IsNullOrEmpty(seperatorItem)) templateItem = seperatorItem;
+
+                    return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueSeperatorDecoration, " ");
+
+                case ItemStyle.Url:
+                    return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueUrlDecoration, " ");
+            }
+            return string.Empty;
         }
 
         private static string RenderTemplateItem(string template, IEnumerable<RenderTemplateArguement> args)
@@ -130,7 +150,6 @@ namespace FluentAlerts.Renderers
             return sb.ToString();
         }
 
-        
         private class RenderTemplateArguement
         {
             public RenderTemplateArguement(DecorationBasedRenderTemplateArguementType name, string value)
@@ -138,9 +157,9 @@ namespace FluentAlerts.Renderers
                 Name = "{" + name + "}";
                 Value = value;
             }
+
             public string Name { get; private set; }
             public string Value { get; private set; }
         }
-
     }
 }

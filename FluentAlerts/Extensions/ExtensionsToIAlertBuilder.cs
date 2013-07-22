@@ -7,7 +7,7 @@ namespace FluentAlerts
 {
     public static class ExtensionsToIAlertBuilder
     {
-        public static IAlert Transform<TResult>(this IAlertBuilder alertBuilder, ITransformer<TResult> transformer)
+        public static IAlert Transform(this IAlertBuilder alertBuilder, ITransformer transformer)
         {
             return alertBuilder.ToAlert().Transform(transformer);
         }

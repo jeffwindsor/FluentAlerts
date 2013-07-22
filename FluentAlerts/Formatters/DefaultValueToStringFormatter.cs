@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Linq;
 
-namespace FluentAlerts.Transformers.Formatters
+namespace FluentAlerts.Formatters
 {
-    public class DefaultToStringFormatter : BaseObjectFormatter<string>
+    public class DefaultValueToStringFormatter : BaseValueFormatter<string>
     {
-        public DefaultToStringFormatter()
+        public DefaultValueToStringFormatter()
         {
             //Base rule: all objects return pretty type name
             FormatRules.Add((o, path) => true,
@@ -20,11 +20,11 @@ namespace FluentAlerts.Transformers.Formatters
                                         return string.Format("{0} [{1}]", PrettyTypeName(o.GetType()),
                                                              ((ICollection)o).Count); 
                                     
-                                    //Otherwise value to string
-                                    return o.ToString();
+                                    //Otherwise Pretty Name
+                                    return PrettyTypeName(o.GetType());
                                 });
 
-            //Base rule: all objects return pretty type name
+            //Base Title rule: all objects return pretty type name
             FormatAsTitleRules.Add((o, path) => true,
                                    (o, path) => (o == null) ? "Null" : PrettyTypeName(o.GetType()));
         }
@@ -36,13 +36,15 @@ namespace FluentAlerts.Transformers.Formatters
 
         internal static string PrettyTypeName(Type type)
         {
-            var genericArguments = type.GetGenericArguments();
             var typeName = type.Name;
-
+            var genericArguments = type.GetGenericArguments();
             if (!type.GetGenericArguments().Any()) return typeName;
 
-            var unmangledName = typeName.Substring(0, typeName.IndexOf("`"));
-            return string.Format("{0}<{1}>", unmangledName, String.Join(",", genericArguments.Select(PrettyTypeName)));
+
+            var baseName = typeName.Substring(0, typeName.IndexOf("`"));
+            var genericNames = genericArguments.Select(PrettyTypeName);
+            var genericsNames = String.Join(",", genericNames);
+            return string.Format("{0}<{1}>", baseName, genericsNames);
         }
 
     }

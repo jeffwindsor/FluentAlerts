@@ -5,7 +5,7 @@ namespace FluentAlerts
     public class AlertBuilder : IAlertBuilder
     {
         private readonly IAlertFactory _alertFactory;
-        private readonly Alert _items = new Alert();
+        private readonly List<IAlertItem> _items = new List<IAlertItem>();
 
         public AlertBuilder(IAlertFactory iaf)
         {
@@ -14,11 +14,13 @@ namespace FluentAlerts
         
         public IAlertBuilder With(params object[] values)
         {
+            //TODO: nulls
             return WithValueList(ValueStyle.Normal, values);
         }
         
         public IAlertBuilder With(IEnumerable<object[]> listOfValues)
         {
+            //TODO: nulls
             foreach (var values in listOfValues)
             {
                 With(values);
@@ -28,6 +30,7 @@ namespace FluentAlerts
 
         public IAlertBuilder WithEmphasized(params object[] values)
         {
+            //TODO: nulls
             return WithValueList(ValueStyle.Emphasized, values);
         }
 
@@ -39,55 +42,56 @@ namespace FluentAlerts
 
         public IAlertBuilder WithUrl(string text, string url)
         {
+            //TODO: nulls
             _items.Add(new UrIAlertItem(text, url));
             return this;
         }
 
         public IAlertBuilder WithAlert(IAlert n)
         {
+            //TODO: nulls
             _items.Add(n);
             return this;
         }
 
         public IAlertBuilder WithAlert(IAlertBuilder n)
         {
+            //TODO: nulls
             return WithAlert(n.ToAlert());
         }
 
-        public IAlertBuilder WithText(string format, params object[] args)
+        public IAlertBuilder Merge(IAlert n)
         {
-            return WithValue(ValueStyle.Normal, format, args);
+            //TODO: nulls
+            _items.AddRange(n);
+            return this;
         }
 
-        public IAlertBuilder WithEmphasizedText(string format, params object[] args)
+        public IAlertBuilder Merge(IAlertBuilder n)
         {
-            return WithValue(ValueStyle.Emphasized, format, args);
+            //TODO: nulls
+            return Merge(n.ToAlert());
         }
 
         public IAlertBuilder WithTitle(string format, params object[] args)
         {
-            return WithValue(ValueStyle.Title, format, args);
+            //TODO: nulls
+            var text = string.Format(format, args);
+            return WithValueList(ValueStyle.Title, text);
         }
 
         public IAlert ToAlert()
         {
             return _alertFactory.Create(_items);
         }
-
-
-
+        
         private IAlertBuilder WithValueList(ValueStyle style, params object[] values)
         {
+            //TODO: nulls????
             _items.Add(new ValueListAlertItem(style, values));
             return this;
         }
-
-        private IAlertBuilder WithValue(ValueStyle style, string format, params object[] args)
-        {
-            var text = string.Format(format, args);
-            _items.Add(new ValueAlertItem(style, text));
-            return this;
-        }
-
+        
+       
     }
 }

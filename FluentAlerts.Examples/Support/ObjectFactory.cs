@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAlerts.Formatters;
 using FluentAlerts.Transformers;
 using FluentAlerts.Renderers;
-using FluentAlerts.Transformers.Formatters;
-using FluentAlerts.Transformers.TypeInformers;
+using FluentAlerts.TypeInformers;
 
 namespace FluentAlerts.Examples
 {
@@ -31,11 +31,11 @@ namespace FluentAlerts.Examples
             return new AlertFactory<Alert>();
         }
 
-        private static ITransformer<string> CreateDefaultAlertTransformer()
+        private static ITransformer CreateDefaultAlertTransformer()
         {
             return new NameValueRowTransformer(new DefaultTransformStrategy(),
                                                new DefaultTypeInfoSelector(),
-                                               new DefaultToStringFormatter(),
+                                               new DefaultValueToStringFormatter(),
                                                CreateDefaultAlertBuilderFactory());
         }
 
@@ -58,7 +58,7 @@ namespace FluentAlerts.Examples
         {
             try
             {
-                ThrowNestedException(nestingDepth);
+                ThrowNestedException(0,nestingDepth);
             }
             catch (Exception ex)
             {
@@ -69,19 +69,22 @@ namespace FluentAlerts.Examples
             return null;
         }
 
-        private static void ThrowNestedException(int nestingDepth)
+        private static void ThrowNestedException(int nestingDepth, int maxDepth)
         {
-            if (nestingDepth == 0)
+            //At top, throw without a catch
+            if (nestingDepth == maxDepth)
             {
-                throw new ApplicationException(string.Format("Depth {0}", nestingDepth));
+                throw new ApplicationException(string.Format("Exception Message at Depth {0}", nestingDepth));
             }
+
+            //Inside so re-curse
             try
             {
-                ThrowNestedException(nestingDepth - 1);
+                ThrowNestedException(nestingDepth + 1, maxDepth);
             }
             catch (Exception ex)
             {
-                throw new ApplicationException(string.Format("Depth {0}", nestingDepth), ex);
+                throw new ApplicationException(string.Format("Exception Message at Depth {0}", nestingDepth), ex);
             }
         }       
 

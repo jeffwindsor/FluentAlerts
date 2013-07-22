@@ -1,37 +1,30 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace FluentAlerts.Transformers
 {
-    public class MemberPath : IEnumerable<string>
+    public class MemberPath //: IEnumerable<string>
     {
-        private readonly IEnumerable<string> _memberPath;
-        private readonly char _pathSeperator;
+        private const char Seperator = '.';
+        public static readonly MemberPath Empty = new MemberPath(Enumerable.Empty<string>());
         
-        public MemberPath(string memberPathString, IFluentAlertSettings fluentAlertSettings)
-        {
-            _pathSeperator = fluentAlertSettings.MemberPathSeperator();
-            _memberPath = memberPathString.Split(_pathSeperator);
+        private readonly string[] _memberPath;
+
+        public MemberPath(string memberPath): this(memberPath.Split(Seperator)){}
+        public MemberPath(IEnumerable<string> memberPath){ _memberPath =memberPath.ToArray();}
+
+        public int Length {
+            get { return _memberPath.Length; }
         }
 
-        public MemberPath(IEnumerable<string> memberPath, IFluentAlertSettings fluentAlertSettings)
+        public MemberPath Extend(string extension)
         {
-            _pathSeperator = fluentAlertSettings.MemberPathSeperator();
-            _memberPath = memberPath;
-        }
-
-        public IEnumerator<string> GetEnumerator()
-        {
-            return _memberPath.GetEnumerator();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return _memberPath.GetEnumerator();
+            return new MemberPath(_memberPath.Concat(new[] {extension}));
         }
 
         public override string ToString()
         {
-            return string.Join(_pathSeperator.ToString(), _memberPath);
+            return string.Join(Seperator.ToString(), _memberPath);
         }
     }
 }
