@@ -77,7 +77,6 @@ namespace FluentAlerts.Examples
             
             alert.RenderToConsole();
             Assert.Fail("Formatter does not scrub for reserved chars, implement non-stubbed template render scrub function");
-            Assert.Fail("Table within table, may be ok, adjust the way render sees value in value list (ie a single entity list with a non string)");
         }
 
         [Test]
@@ -100,7 +99,6 @@ namespace FluentAlerts.Examples
                                .With("Child", childAlert);
 
             alert.RenderToConsole();
-            Assert.Fail("Child failed to render properly");
         }
 
         //  Something i have been hiding from you , the ToAlert() function, which converts an
