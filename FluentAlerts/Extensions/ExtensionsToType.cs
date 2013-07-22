@@ -5,16 +5,16 @@ namespace FluentAlerts
     internal static class TypeExtensions
     {
         /// <summary>
-        /// Return true for string, datetime and primitives
+        /// Return true for string, enum, date time and primitives
         /// </summary>
         public static bool IsFundamental(this Type type)
         {
-            return type.IsPrimitive || type == typeof(string) || type == typeof(DateTime);
+            return type.IsPrimitive || type == typeof(string) || type == typeof(DateTime) || type.IsEnum;
         }
 
-        public static bool IsClassOrUserDefinedStruct(this Type type)
+        public static bool IsFundamental(this object o)
         {
-            return !type.IsFundamental() && !type.IsEnum;
+            return o.GetType().IsFundamental();
         }
     }
 }

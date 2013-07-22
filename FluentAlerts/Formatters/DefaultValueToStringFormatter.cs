@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FluentAlerts.Formatters
@@ -13,12 +14,12 @@ namespace FluentAlerts.Formatters
                             (o, path) =>
                                 {
                                     //NULL
-                                    if(o == null) return "Null";
-                                    
-                                    //Collection Type Name with Count
-                                    if (o is ICollection)
-                                        return string.Format("{0} [{1}]", PrettyTypeName(o.GetType()),
-                                                             ((ICollection)o).Count); 
+                                    if(o == null) 
+                                        return "Null";
+
+                                    //Exceptions
+                                    if (o.IsFundamental())
+                                        return o.ToString();
                                     
                                     //Otherwise Pretty Name
                                     return PrettyTypeName(o.GetType());

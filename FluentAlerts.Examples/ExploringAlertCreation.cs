@@ -6,7 +6,7 @@ namespace FluentAlerts.Examples
     [TestFixture]
     public class ExploringAlertCreation
     {
-        //Simluate IOC or other creation methods in your code
+        //Simulate IOC or other creation methods in your code
         private readonly IAlertBuilderFactory _alerts = ObjectFactory.CreateDefaultAlertBuilderFactory();
         
         /*
@@ -68,33 +68,7 @@ namespace FluentAlerts.Examples
 
             alert.RenderToConsole();
         }
-         
-        [Test]
-        public void D_PlayingWithAutoLayout()
-        {
-            var alert = _alerts.Create("Lets Play with layout to see what the render does.")
-                               .WithEmphasized("Putting the largest number of values in a section sets the number of columns, this dynamic so this can happen anywhere in the alert")
-                               .With("One","Two","Three","Four","Five")
-                               .WithEmphasized("Any other value list with fewer columns will span the last column by default")
-                               .With("One", "Two", "Three", "Four")
-                               .With("One", "Two", "Three")
-                               .With("One", "Two")
-                               .With("One")
-                               .WithEmphasized("This works on any style")
-                               .WithEmphasized("One", "Two", "Three", "Four")
-                               .WithEmphasized("One", "Two", "Three")
-                               .WithEmphasized("One", "Two")
-                               .WithEmphasized("One")
-                               .WithSeperator()
-                               .WithEmphasized("Even across seperators, make a new alert if yuo wnat different behavior")
-                               .With("One", "Two", "Three", "Four")
-                               .With("One", "Two", "Three")
-                               .With("One", "Two")
-                               .With("One");
-
-            alert.RenderToConsole();
-        }
-
+       
         [Test]
         public void E_TurnAnObjectIntoAnAlert()
         {
@@ -110,11 +84,11 @@ namespace FluentAlerts.Examples
         [Test]
         public void F_TurnAnExceptionIntoAnAlert()
         {
-            var testException = ObjectFactory.CreateNestedException(2);
+            var testException = ObjectFactory.CreateNestedException(4);
             var alert = _alerts.Create(testException);
 
             alert.RenderToConsole();
-            Assert.Fail("Not formatting to depth, see transfomer strategies");
+            Assert.Fail("Not formatting to depth, see transformer strategies");
         }
 
         [Test]
@@ -128,7 +102,7 @@ namespace FluentAlerts.Examples
                                .With("Child", childAlert);
 
             alert.RenderToConsole();
-           // Assert.Fail("Child failed to render");
+            Assert.Fail("Child failed to render properly");
         }
 
         //  Something i have been hiding from you , the ToAlert() function, which converts an

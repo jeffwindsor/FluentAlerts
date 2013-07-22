@@ -15,7 +15,7 @@ namespace FluentAlerts.Transformers
         {
         }
 
-        protected override IEnumerable<object[]> GetPropertyRowValues(object o, TypeInfo typeInfo)
+        protected override IEnumerable<object[]> GetPropertyRowValues(object o, TypeInfo typeInfo, MemberPath objectMemberPath)
         {
             //Return a list of name value pairs (as object arrays)
             return from pi in typeInfo.PropertyInfos
@@ -23,11 +23,11 @@ namespace FluentAlerts.Transformers
                        {
                            pi.Name, 
                            Formatter.Format(pi.PropertyType),
-                           typeInfo.GetValue(pi, o)
+                           Route(typeInfo.GetValue(pi, o), objectMemberPath.Extend(pi.Name))
                        };
         }
 
-        protected override IEnumerable<object[]> GetFieldRowValues(object o, TypeInfo typeInfo)
+        protected override IEnumerable<object[]> GetFieldRowValues(object o, TypeInfo typeInfo, MemberPath objectMemberPath)
         {
             //Return a list of name value pairs (as object arrays)
             return from fi in typeInfo.FieldInfos
@@ -35,7 +35,7 @@ namespace FluentAlerts.Transformers
                        {
                            fi.Name, 
                            Formatter.Format(fi.FieldType),
-                           typeInfo.GetValue(fi, o)
+                           Route(typeInfo.GetValue(fi, o), objectMemberPath.Extend(fi.Name))
                        };
         }
 

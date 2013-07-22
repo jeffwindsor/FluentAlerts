@@ -16,7 +16,7 @@ namespace FluentAlerts.Transformers
             TransformationRequiredRules.Add((o, objectMemberPath) => o.GetType().IsSubclassOf(typeof (Exception)));
 
             //Transform UserDefinedStructs or Classes do not re-curse properties and fields
-            TransformationRequiredRules.Add((o, objectMemberPath) => o.GetType().IsClassOrUserDefinedStruct() && (objectMemberPath.Length < 2));
+            TransformationRequiredRules.Add((o, objectMemberPath) => !o.IsFundamental() && (objectMemberPath.Length < 2));
         }
     }
 }

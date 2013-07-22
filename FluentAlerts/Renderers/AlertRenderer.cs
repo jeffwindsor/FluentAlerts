@@ -133,11 +133,13 @@ namespace FluentAlerts.Renderers
         private static int GetMaximumValueCount(IEnumerable<IAlertItem> alert)
         {
             // return max number of values
-            var widths = from item in alert
+            var widths = (from item in alert
                          where item is AlertItem
-                         select (item as AlertItem).Values.Count;
+                         select (item as AlertItem).Values.Count).ToList();
 
-            return Math.Max(1, widths.Max());
+            return widths.Any()
+                       ? Math.Max(1, widths.Max())
+                       : 1;
         }
 
     }

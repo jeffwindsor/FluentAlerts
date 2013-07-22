@@ -13,19 +13,27 @@ namespace FluentAlerts.Transformers
                                        IAlertBuilderFactory alertBuilderFactory)
             : base(transformStrategy, typeInfoSelector, formatter, alertBuilderFactory)
         {}
-        
-        protected override IEnumerable<object[]> GetPropertyRowValues(object o, TypeInfo typeInfo)
+
+        protected override IEnumerable<object[]> GetPropertyRowValues(object o, TypeInfo typeInfo, MemberPath objectMemberPath)
         {
             //Return a list of name value pairs (as object arrays)
             return from pi in typeInfo.PropertyInfos
-                   select new[] {pi.Name, typeInfo.GetValue(pi, o)};
+                   select new[]
+                       {
+                           pi.Name, 
+                           Route(typeInfo.GetValue(pi, o), objectMemberPath.Extend(pi.Name))
+                       };
         }
 
-        protected override IEnumerable<object[]> GetFieldRowValues(object o, TypeInfo typeInfo)
+        protected override IEnumerable<object[]> GetFieldRowValues(object o, TypeInfo typeInfo, MemberPath objectMemberPath)
         {
             //Return a list of name value pairs (as object arrays)
-            return from pi in typeInfo.FieldInfos
-                   select new[] { pi.Name, typeInfo.GetValue(pi, o) };
+            return from fi in typeInfo.FieldInfos
+                   select new[]
+                       {
+                           fi.Name, 
+                           Route(typeInfo.GetValue(fi, o), objectMemberPath.Extend(fi.Name))
+                       };
         }
     }
 }

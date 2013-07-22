@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,113 +15,58 @@ namespace FluentAlerts.Transformers
         protected readonly ITypeInfoSelector TypeInfoSelector;
         protected readonly ITransformStrategy TransformStrategy;
         protected readonly IValueFormatter<TFormatterResult> Formatter;
-        protected readonly Type FormatResultType = typeof (TFormatterResult);
+        protected readonly Type FormatterResultType = typeof (TFormatterResult);
+        protected readonly IAlertBuilderFactory AlertBuilderFactory;
 
-
-        protected BaseTransformer(ITransformStrategy transformStrategy, ITypeInfoSelector typeInfoSelector,
-                                  IValueFormatter<TFormatterResult> formatter)
+        protected BaseTransformer(ITransformStrategy transformStrategy,
+                                  ITypeInfoSelector typeInfoSelector,
+                                  IValueFormatter<TFormatterResult> formatter,
+                                  IAlertBuilderFactory alertBuilderFactory)
         {
             TypeInfoSelector = typeInfoSelector;
             TransformStrategy = transformStrategy;
             Formatter = formatter;
+            AlertBuilderFactory = alertBuilderFactory;
         }
 
         public object Transform(object o)
         {
-            return TransformAtPath(o, MemberPath.Empty);
+            return Route(o, MemberPath.Empty);
         }
 
-        private object TransformAtPath(object o, MemberPath objectMemberPath)
+        protected object Route(object o, MemberPath objectMemberPath)
         {
-            //TODO: Use Issue Handler, or config value
-            if(o == null)
-                return "No Value";
-
-            //Optimization, no need to transform or format result types 
-            if (o.GetType() == FormatResultType) 
-                return o;
-
-            //Transform an alert's alert items, leaving the alert in place for rendering
-            if (o is IAlert)
-            {
-                foreach (var ai in (o as IAlert).OfType<AlertItem>())
-                {
-                    TransformAtPath(ai, objectMemberPath);
-                }
-                return o;
-            }
-
-            //Transform an alert item's values, leaving the alert item in place for rendering
-            if (o is AlertItem)
-            {
-                var ai = o as AlertItem;
-                for (var i = 0; i < ai.Values.Count; ++i)
-                {
-                    //Replace value with transformation of value
-                    ai.Values[i] = TransformAtPath(ai.Values[i],objectMemberPath);
-                }
-                return o;
-            }
+            //Checks
+            if(o == null) return "No Value"; //TODO: Use Issue Handler, or config value
+            if (o.GetType() == FormatterResultType)  return o;
 
             //Check any other type against transformation rules
             //  if transformation required by rules then transform object to Alert and then re-curse for sub objects
             //  otherwise just format object as output format and return
-            return TransformStrategy.IsTransformRequired(o, objectMemberPath) 
-                ? Transform(TransformToAlertAtPath(o, objectMemberPath)) 
-                : Formatter.Format(o, objectMemberPath);
+            return TransformStrategy.IsTransformRequired(o, objectMemberPath)
+                       ? Tranform(o, objectMemberPath)
+                       : Formatter.Format(o, objectMemberPath);
         }
 
-        protected abstract IAlert TransformToAlertAtPath(object o, MemberPath objectMemberPath);
+        private object Tranform(object o, MemberPath objectMemberPath)
+        {
+            //If an IEnumerable is encountered, route each item
+            if (o is IEnumerable)
+            {
+                var items = o as IEnumerable;
+                var listAlert = AlertBuilderFactory.Create();
+                foreach (var item in items)
+                {
+                    listAlert.With(Route(item, objectMemberPath));
+                }
+                return listAlert.ToAlert();
+            }
 
-        //protected IEnumerable<InfoValue<PropertyInfo>> GetPropertyInfoValues(object o, MemberPath objectMemberPath)
-        //{
-        //    var typeInfo = TypeInfoSelector.Find(o,objectMemberPath);
-        //    return from info in typeInfo.PropertyInfos
-        //           select new InfoValue<PropertyInfo>
-        //               {
-        //                   Info = info,
-        //                   Value = GetValue(() => info.Name, () => info.GetValue(o, null), objectMemberPath)
-        //               };
-        //}
-         
-        //protected IEnumerable<InfoValue<FieldInfo>> GetFieldInfoValues(object o, MemberPath objectMemberPath)
-        //{
-        //    var typeInfo = TypeInfoSelector.Find(o, objectMemberPath);
-        //    return from info in typeInfo.FieldInfos
-        //           select new InfoValue<FieldInfo>
-        //               {
-        //                   Info = info,
-        //                   Value = GetValue(() => info.Name, () => info.GetValue(o), objectMemberPath)
-        //               };
-        //}
+            return InnerTransform(o, objectMemberPath);
+        }
 
-        //private object GetValue(Func<string> getName, Func<object> getValue, MemberPath objectMemberPath)
-        //{
-        //    try
-        //    {
-        //        //Check Tranform transformStrategy and transform if required
-        //        var name = getName();
-        //        var value = getValue();
-        //        var valueMemberPath = CreateCopyWithAppendedElement(objectMemberPath, name);
-        //        return Route(value, valueMemberPath);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        //TODO: move to Issue Handler
-        //        return "No Value";
-        //    }
+        protected abstract object InnerTransform(object o, MemberPath objectMemberPath);
 
-        //}
-        
-        //private static string[] CreateCopyWithAppendedElement(IEnumerable<string> source, string appendElement)
-        //{
-        //    return (source ?? Enumerable.Empty<string>()).Concat(new[] {appendElement}).ToArray();
-        //}
 
-        //protected class InfoValue<TInfo>
-        //{
-        //    public TInfo Info;
-        //    public object Value;
-        //}
     }
 }
