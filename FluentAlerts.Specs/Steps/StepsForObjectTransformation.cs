@@ -13,9 +13,9 @@ namespace FluentAlerts.Specs
     [Binding]
     public class StepsForObjectTransformation
     {
-        private TypeInfo _typeInfo;
+        private TypeInformer _typeInfo;
         private MemberPath _memberPath;
-        private BaseTypeInfoSelector _selector;
+        private BaseTypeInformerSelector _selector;
         private object _transformedObject;
         private IAlert _transformedAlert;
 
@@ -29,7 +29,7 @@ namespace FluentAlerts.Specs
         [Given(@"I have a default type informer")]
         public void GivenIHaveADefaultTypeInformer()
         {
-            _selector = new DefaultTypeInfoSelector();
+            _selector = new DefaultTypeInformerSelector();
         }
 
         [Given(@"I limit the informer to (.*) properties")]
@@ -187,7 +187,7 @@ namespace FluentAlerts.Specs
         {
             //Fakeing IoC
             _context.Transformer = new NameValueRowTransformer(new DefaultTransformStrategy(),
-                                                               new DefaultTypeInfoSelector(),
+                                                               new DefaultTypeInformerSelector(),
                                                                new DefaultValueToStringFormatter(),
                                                                _context.AlertBuilderFactory);
         }
@@ -197,7 +197,7 @@ namespace FluentAlerts.Specs
         {
             //Fakeing IoC
             _context.Transformer = new NameTypeValueRowTransformer(new DefaultTransformStrategy(),
-                                                                   new DefaultTypeInfoSelector(),
+                                                                   new DefaultTypeInformerSelector(),
                                                                    new DefaultValueToStringFormatter(),
                                                                    _context.AlertBuilderFactory);
         }

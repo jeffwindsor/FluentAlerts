@@ -34,7 +34,7 @@ namespace FluentAlerts.Examples
         private static ITransformer CreateDefaultAlertTransformer()
         {
             return new NameValueRowTransformer(new DefaultTransformStrategy(),
-                                               new DefaultTypeInfoSelector(),
+                                               new DefaultTypeInformerSelector(),
                                                new DefaultValueToStringFormatter(),
                                                CreateDefaultAlertBuilderFactory());
         }

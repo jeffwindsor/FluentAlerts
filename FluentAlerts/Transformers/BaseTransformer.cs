@@ -12,18 +12,18 @@ namespace FluentAlerts.Transformers
 
     public abstract class BaseTransformer<TFormatterResult> : ITransformer
     {
-        protected readonly ITypeInfoSelector TypeInfoSelector;
+        protected readonly ITypeInformerSelector TypeInformerSelector;
         protected readonly ITransformStrategy TransformStrategy;
         protected readonly IValueFormatter<TFormatterResult> Formatter;
         protected readonly Type FormatterResultType = typeof (TFormatterResult);
         protected readonly IAlertBuilderFactory AlertBuilderFactory;
 
         protected BaseTransformer(ITransformStrategy transformStrategy,
-                                  ITypeInfoSelector typeInfoSelector,
+                                  ITypeInformerSelector typeInformerSelector,
                                   IValueFormatter<TFormatterResult> formatter,
                                   IAlertBuilderFactory alertBuilderFactory)
         {
-            TypeInfoSelector = typeInfoSelector;
+            TypeInformerSelector = typeInformerSelector;
             TransformStrategy = transformStrategy;
             Formatter = formatter;
             AlertBuilderFactory = alertBuilderFactory;

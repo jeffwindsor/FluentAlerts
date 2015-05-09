@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace FluentAlerts.TypeInformers
 {
-    public class DefaultTypeInfoSelector : BaseTypeInfoSelector 
+    public class DefaultTypeInformerSelector : BaseTypeInformerSelector 
     {
-        public DefaultTypeInfoSelector()
+        public DefaultTypeInformerSelector()
         {
             Rules.Add( (info, obj, path) =>
                 {

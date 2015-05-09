@@ -8,16 +8,16 @@ namespace FluentAlerts.Transformers
     public abstract class BaseRowTransformer: BaseTransformer<string>
     {
         protected BaseRowTransformer(ITransformStrategy transformStrategy,
-                                     ITypeInfoSelector typeInfoSelector,
+                                     ITypeInformerSelector typeInformerSelector,
                                      IValueFormatter<string> formatter,
                                      IAlertBuilderFactory alertBuilderFactory)
-            : base(transformStrategy, typeInfoSelector, formatter, alertBuilderFactory){}
+            : base(transformStrategy, typeInformerSelector, formatter, alertBuilderFactory){}
 
         protected override object InnerTransform(object o, MemberPath objectMemberPath)
         {
             //Create Alert with a property and fields section containing name-values pairs  
             var result = AlertBuilderFactory.Create(Formatter.FormatAsTitle(o, objectMemberPath));
-            var typeInfo = TypeInfoSelector.Find(o, objectMemberPath);
+            var typeInfo = TypeInformerSelector.Find(o, objectMemberPath);
 
             //Add property section 
             var ps = GetPropertyRowValues(o, typeInfo, objectMemberPath).ToList();
@@ -33,8 +33,8 @@ namespace FluentAlerts.Transformers
             return result.ToAlert();
         }
 
-        protected abstract IEnumerable<object[]> GetPropertyRowValues(object o, TypeInfo typeInfo, MemberPath objectMemberPath);
-        protected abstract IEnumerable<object[]> GetFieldRowValues(object o, TypeInfo typeInfo, MemberPath objectMemberPath);
+        protected abstract IEnumerable<object[]> GetPropertyRowValues(object o, TypeInformer typeInfo, MemberPath objectMemberPath);
+        protected abstract IEnumerable<object[]> GetFieldRowValues(object o, TypeInformer typeInfo, MemberPath objectMemberPath);
     }
 }
  
