@@ -1,6 +1,7 @@
 ﻿ using System;
 using System.Collections.Generic;
 using System.Text;
+ 
 
 namespace FluentAlerts.Renderers
 {
@@ -33,17 +34,17 @@ namespace FluentAlerts.Renderers
             return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.AlertFooter);
         }
 
-        public string RenderAlertItemHeader(ItemStyle style)
+        public string RenderAlertItemHeader(AlertItemStyle style)
         {
             return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.AlertItemHeader);
         }
 
-        public string RenderAlertItemFooter(ItemStyle style)
+        public string RenderAlertItemFooter(AlertItemStyle style)
         {
             return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.AlertItemFooter);
         }
 
-        public string RenderValueHeader(ItemStyle style, int index, int maximumItemsValueIndex, int maximumValueIndex)
+        public string RenderValueHeader(AlertItemStyle style, int index, int maximumItemsValueIndex, int maximumValueIndex)
         {
             var decorationValue = new StringBuilder();
             var templateItem = GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueHeader);
@@ -74,7 +75,7 @@ namespace FluentAlerts.Renderers
             return RenderTemplateItem(templateItem, args);
         }
 
-        public string RenderValueFooter(ItemStyle style, int index, int maximumItemsValueIndex, int maximumValueIndex)
+        public string RenderValueFooter(AlertItemStyle style, int index, int maximumItemsValueIndex, int maximumValueIndex)
         {
             return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueFooter);
         }
@@ -120,24 +121,24 @@ namespace FluentAlerts.Renderers
             return RenderTemplateItem(DecorationBasedRenderTemplateItemType.ValueSpanningDecoration, spanArgs, " ");
         }
 
-        private string GetValueStyleDecoration(ItemStyle style, ref string templateItem)
+        private string GetValueStyleDecoration(AlertItemStyle style, ref string templateItem)
         {
             switch (style)
             {
-                case ItemStyle.Normal:
+                case AlertItemStyle.Normal:
                     return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueNormalDecoration, " ");
-                case ItemStyle.Emphasized:
+                case AlertItemStyle.Emphasized:
                     return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueEmphasizedDecoration, " ");
-                case ItemStyle.Title:
+                case AlertItemStyle.Title:
                     return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueTitleDecoration, " ");
-                case ItemStyle.Seperator:
+                case AlertItemStyle.Seperator:
                     // if sperator template exists, replace item template with seperator template.
                     var seperatorItem = GetTemplateItemByType(DecorationBasedRenderTemplateItemType.SeperatorHeader);
                     if (!string.IsNullOrEmpty(seperatorItem)) templateItem = seperatorItem;
 
                     return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueSeperatorDecoration, " ");
 
-                case ItemStyle.Url:
+                case AlertItemStyle.Url:
                     return GetTemplateItemByType(DecorationBasedRenderTemplateItemType.ValueUrlDecoration, " ");
             }
             return string.Empty;

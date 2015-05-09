@@ -1,6 +1,6 @@
 ﻿namespace FluentAlerts
 {
-    public enum ValueStyle
+    public enum AlertItemValueStyle
     {
         Title,
         Emphasized,

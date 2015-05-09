@@ -1,6 +1,6 @@
 ﻿namespace FluentAlerts
 {
-    public enum ItemStyle
+    public enum AlertItemStyle
     {
         Url,
         Seperator,

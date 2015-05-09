@@ -49,7 +49,7 @@
     <Compile Include="ExploringAlertTransformation.cs" />
     <Compile Include="ExploringAlertCreation.cs" />
     <Compile Include="Support\BaseExample.cs" />
-    <Compile Include="Support\ObjectFactory.cs" />
+    <Compile Include="Mother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\Extensions.cs" />
   </ItemGroup>

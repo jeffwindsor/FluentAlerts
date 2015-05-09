@@ -23,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,39 +49,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alerts\AlertBuilderFactory.cs" />
-    <Compile Include="AlertException.cs" />
-    <Compile Include="Alerts\AlertFactory.cs" />
-    <Compile Include="Alerts\AlertBuilder.cs" />
-    <Compile Include="Alerts\ValueListAlertItem.cs" />
+    <Compile Include="FluentAlerts.cs" />
+    <Compile Include="FluentAlertException.cs" />
+    <Compile Include="FluentAlertsBuilder.cs" />
+    <Compile Include="AlertItemValueList.cs" />
     <Compile Include="Extensions\ExtensionsToString.cs" />
     <Compile Include="Extensions\ExtensionsToEnums.cs" />
     <Compile Include="Extensions\ExtensionsToIAlertBuilder.cs" />
     <Compile Include="Extensions\TraceExtensions.cs" />
-    <Compile Include="Alerts\IAlert.cs" />
-    <Compile Include="Alerts\IAlertBuilder.cs" />
-    <Compile Include="Alerts\IAlertBuilderFactory.cs" />
-    <Compile Include="Alerts\IAlertFactory.cs" />
-    <Compile Include="Alerts\IAlertItem.cs" />
+    <Compile Include="IAlert.cs" />
+    <Compile Include="IFluentAlertsBuilder.cs" />
+    <Compile Include="IFluentAlerts.cs" />
+    <Compile Include="IAlertItem.cs" />
     <Compile Include="Formatters\IValueFormatter.cs" />
-    <Compile Include="IFluentAlertSettings.cs" />
+    <Compile Include="IFluentAlertsSettings.cs" />
     <Compile Include="Renderers\RenderTemplate.cs" />
     <Compile Include="Renderers\RenderTemplateDictionaryIssueHandler.cs" />
     <Compile Include="Renderers\IAlertRenderer.cs" />
     <Compile Include="Renderers\IRenderTemplateDictionaryIssueHandler.cs" />
     <Compile Include="Renderers\ITemplateRender.cs" />
-    <Compile Include="Alerts\SeperatorAlertItem.cs" />
     <Compile Include="Transformers\ITransformer.cs" />
     <Compile Include="FluentAlertDefaultedAppConfigSettings.cs" />
     <Compile Include="Extensions\ExtensionsToDateTime.cs" />
     <Compile Include="Extensions\ExtensionsToIAlert.cs" />
-    <Compile Include="Alerts\ItemStyle.cs" />
+    <Compile Include="AlertItemStyle.cs" />
     <Compile Include="Renderers\RenderTemplateDictionary.cs" />
     <Compile Include="Renderers\DecorationBasedRenderTemplateItemType.cs" />
     <Compile Include="Renderers\DecorationBasedRenderTemplateArguementType.cs" />
-    <Compile Include="Alerts\ValueStyle.cs" />
-    <Compile Include="Alerts\AlertItem.cs" />
-    <Compile Include="Alerts\Alert.cs" />
+    <Compile Include="AlertItemValueStyle.cs" />
+    <Compile Include="AlertItem.cs" />
+    <Compile Include="Alert.cs" />
     <Compile Include="Transformers\BaseRowTransformer.cs" />
     <Compile Include="Extensions\ExtensionsToIEnumerableOfString.cs" />
     <Compile Include="Transformers\MemberPath.cs" />
@@ -100,7 +98,6 @@
     <Compile Include="TypeInformers\DefaultTypeInfoSelector.cs" />
     <Compile Include="TypeInformers\TypeInformer.cs" />
     <Compile Include="TypeInformers\TypeInformerSelector.cs" />
-    <Compile Include="Alerts\UrIAlertItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

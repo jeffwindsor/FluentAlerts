@@ -8,15 +8,15 @@ using FluentAlerts.TypeInformers;
 
 namespace FluentAlerts.Examples
 {
-    internal class ObjectFactory
+    internal class Mother
     {
         #region Ioc
         //SIMULATE Inversion of Control or some other construction method
         // life time is single use 
 
-        public static IAlertBuilderFactory CreateDefaultAlertBuilderFactory()
+        public static IFluentAlerts CreateDefaultAlertBuilderFactory()
         {
-            return new AlertBuilderFactory(CreateDefaultAlertFactory());
+            return new FluentAlerts();
         }
 
         public static IAlertRenderer CreateDefaultAlertRender()
@@ -25,12 +25,6 @@ namespace FluentAlerts.Examples
                 CreateDefaultAlertTemplateRender());
         }
         
-
-        private static IAlertFactory CreateDefaultAlertFactory()
-        {
-            return new AlertFactory<Alert>();
-        }
-
         private static ITransformer CreateDefaultAlertTransformer()
         {
             return new NameValueRowTransformer(new DefaultTransformStrategy(),

@@ -13,7 +13,7 @@ namespace FluentAlerts.Specs
         //private const string TestTemplateName = "TestTemplate";
         //private const char TestMemberPathSeperator = ':';
         
-        private IFluentAlertSettings _appsettings;
+        private IFluentAlertsSettings _appsettings;
         private RenderTemplateDictionary _templateDictionary;
         //private AlertRenderTemplateDictionary _otherTemplateDictionary;
         private RenderTemplate _alertRenderTemplate;
@@ -68,7 +68,7 @@ namespace FluentAlerts.Specs
         [Given(@"I import the render templates")]
         public void GivenIImportTheRenderTemplates()
         {
-            var issueHandler = new RenderTemplateDictionaryIssueHandler(_context.AlertBuilderFactory);
+            var issueHandler = new RenderTemplateDictionaryIssueHandler(_context.Alerts);
             _templateDictionary = new RenderTemplateDictionary(issueHandler);
             _templateDictionary.Import();
         } 

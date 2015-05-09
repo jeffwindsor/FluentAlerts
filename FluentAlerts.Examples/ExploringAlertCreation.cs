@@ -4,8 +4,11 @@ using NUnit.Framework;
 namespace FluentAlerts.Examples
 {
     [TestFixture]
-    public class ExploringAlertCreation : BaseExample
+    public class ExploringAlertCreation
     {
+        //Simulating IoC 
+        private readonly IFluentAlerts _alerts = Mother.CreateDefaultAlertBuilderFactory();
+
         /*
          * Lets play around with creating some alerts, change up what you like,
          * but for the best experience pull the rendered alert text from the your 
@@ -80,7 +83,7 @@ namespace FluentAlerts.Examples
             // This is driven by the Transformer and Formatter classes used
             // as well as the type info and formatter rules.
             // ** We will get into modifying each one of those later
-            var testObject = ObjectFactory.CreateNestedTestClass(2);
+            var testObject = Mother.CreateNestedTestClass(2);
             var alert = _alerts.Create(testObject);
             
             alert.RenderToConsole();
@@ -94,7 +97,7 @@ namespace FluentAlerts.Examples
             // needed an example of how to specify transformation by type, here it is.
             // Note how the properties are limited to a select list an ordered in 
             // a specific way (as apposed to alpha in the example above).
-            var testException = ObjectFactory.CreateNestedException(4);
+            var testException = Mother.CreateNestedException(4);
             var alert = _alerts.Create(testException);
 
             alert.RenderToConsole();
@@ -117,7 +120,7 @@ namespace FluentAlerts.Examples
             // Here is a simple example of how you can compose alerts and objects.
             // The builder allows you to add alerts (or alert builders) to alerts, allowing
             // you to create complex trees of composed information.
-            var innerObject = ObjectFactory.CreateNestedTestClass(3);
+            var innerObject = Mother.CreateNestedTestClass(3);
             var innerALert = _alerts.Create("This is the child alert").With(innerObject);
             var alert = _alerts.Create("This is the parent alert")
                                .With("Inner Alert", innerALert)

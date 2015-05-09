@@ -1,33 +1,35 @@
 ﻿using System;
+
+
 namespace FluentAlerts
 {
     public static class ExtensionsToEnums
     {
 
-        public static ItemStyle ToItemStyle(this ValueStyle style)
+        public static AlertItemStyle ToItemStyle(this AlertItemValueStyle style)
         {
             switch (style)
             {
-                case ValueStyle.Normal:
-                    return ItemStyle.Normal;
-                case ValueStyle.Emphasized:
-                    return ItemStyle.Emphasized;
-                case ValueStyle.Title:
-                    return ItemStyle.Title;
+                case AlertItemValueStyle.Normal:
+                    return AlertItemStyle.Normal;
+                case AlertItemValueStyle.Emphasized:
+                    return AlertItemStyle.Emphasized;
+                case AlertItemValueStyle.Title:
+                    return AlertItemStyle.Title;
                 default:
                     throw new ArgumentException("Text Style not recognized", "style");
             }
         }
-        public static ValueStyle ToValueStyle(this ItemStyle style)
+        public static AlertItemValueStyle ToValueStyle(this AlertItemStyle style)
         {
             switch (style)
             {
-                case ItemStyle.Normal:
-                    return ValueStyle.Normal;
-                case ItemStyle.Emphasized:
-                    return ValueStyle.Emphasized;
-                case ItemStyle.Title:
-                    return ValueStyle.Title;
+                case AlertItemStyle.Normal:
+                    return AlertItemValueStyle.Normal;
+                case AlertItemStyle.Emphasized:
+                    return AlertItemValueStyle.Emphasized;
+                case AlertItemStyle.Title:
+                    return AlertItemValueStyle.Title;
                 default:
                     throw new ArgumentException("Item Style not recognized", "style");
             }

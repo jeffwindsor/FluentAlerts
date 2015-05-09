@@ -16,17 +16,17 @@ namespace FluentAlerts.Transformers
         protected readonly ITransformStrategy TransformStrategy;
         protected readonly IValueFormatter<TFormatterResult> Formatter;
         protected readonly Type FormatterResultType = typeof (TFormatterResult);
-        protected readonly IAlertBuilderFactory AlertBuilderFactory;
+        protected readonly IFluentAlerts Alerts;
 
         protected BaseTransformer(ITransformStrategy transformStrategy,
                                   ITypeInformerSelector typeInformerSelector,
                                   IValueFormatter<TFormatterResult> formatter,
-                                  IAlertBuilderFactory alertBuilderFactory)
+                                  IFluentAlerts alerts)
         {
             TypeInformerSelector = typeInformerSelector;
             TransformStrategy = transformStrategy;
             Formatter = formatter;
-            AlertBuilderFactory = alertBuilderFactory;
+            Alerts = alerts;
         }
 
         public object Transform(object o)
@@ -54,7 +54,7 @@ namespace FluentAlerts.Transformers
             if (o is IEnumerable)
             {
                 var items = o as IEnumerable;
-                var listAlert = AlertBuilderFactory.Create();
+                var listAlert = Alerts.Create();
                 foreach (var item in items)
                 {
                     listAlert.With(Route(item, objectMemberPath));

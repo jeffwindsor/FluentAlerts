@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace FluentAlerts
 {
-    public class FluentAlertDefaultedAppConfigSettings : IFluentAlertSettings
+    public class FluentAlertDefaultedAppConfigSettings : IFluentAlertsSettings
     {
         private enum ConfigKey
         {

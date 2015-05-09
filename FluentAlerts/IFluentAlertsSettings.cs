@@ -1,6 +1,6 @@
 ﻿namespace FluentAlerts
 {
-    public interface IFluentAlertSettings
+    public interface IFluentAlertsSettings
     {
         string DefaultTemplateName();
     }

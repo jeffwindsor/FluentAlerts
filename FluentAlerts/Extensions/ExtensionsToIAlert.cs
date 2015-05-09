@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using FluentAlerts.Transformers;
 using FluentAlerts.Renderers;
 
@@ -20,7 +21,7 @@ namespace FluentAlerts
         
         public static void Throw<TAlertException>(this IAlert alert,
                                                   Func<IAlert, TAlertException> constructor)
-            where TAlertException : AlertException
+            where TAlertException : FluentAlertException
         {
             throw constructor(alert);
         }
@@ -28,7 +29,7 @@ namespace FluentAlerts
         public static void Throw<TAlertException>(this IAlert alert,
                                                   Func<IAlert, Exception, TAlertException> constructor,
                                                   Exception inner)
-            where TAlertException : AlertException
+            where TAlertException : FluentAlertException
         {
             throw constructor(alert, inner);
         }

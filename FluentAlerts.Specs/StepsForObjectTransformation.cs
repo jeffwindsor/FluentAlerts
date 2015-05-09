@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
 using FluentAlerts.Formatters;
 using FluentAlerts.Transformers;
 using FluentAlerts.TypeInformers;
@@ -189,7 +190,7 @@ namespace FluentAlerts.Specs
             _context.Transformer = new NameValueRowTransformer(new DefaultTransformStrategy(),
                                                                new DefaultTypeInformerSelector(),
                                                                new DefaultValueToStringFormatter(),
-                                                               _context.AlertBuilderFactory);
+                                                               _context.Alerts);
         }
         
         [Given(@"I have a name type value pair transformer")]
@@ -199,7 +200,7 @@ namespace FluentAlerts.Specs
             _context.Transformer = new NameTypeValueRowTransformer(new DefaultTransformStrategy(),
                                                                    new DefaultTypeInformerSelector(),
                                                                    new DefaultValueToStringFormatter(),
-                                                                   _context.AlertBuilderFactory);
+                                                                   _context.Alerts);
         }
         #endregion
 

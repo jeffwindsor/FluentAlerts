@@ -10,8 +10,8 @@ namespace FluentAlerts.Transformers
         public NameValueRowTransformer(ITransformStrategy transformStrategy,
                                        ITypeInformerSelector typeInformerSelector,
                                        IValueFormatter<string> formatter,
-                                       IAlertBuilderFactory alertBuilderFactory)
-            : base(transformStrategy, typeInformerSelector, formatter, alertBuilderFactory)
+                                       IFluentAlerts alerts)
+            : base(transformStrategy, typeInformerSelector, formatter, alerts)
         {}
 
         protected override IEnumerable<object[]> GetPropertyRowValues(object o, TypeInformer typeInfo, MemberPath objectMemberPath)

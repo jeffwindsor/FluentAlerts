@@ -2,22 +2,22 @@
 {
     public class RenderTemplateDictionaryIssueHandler : IRenderTemplateDictionaryIssueHandler
     {
-        private readonly IAlertBuilderFactory _alertBuilderFactory;
+        private readonly IFluentAlerts _alerts;
         
-        public RenderTemplateDictionaryIssueHandler( IAlertBuilderFactory alertBuilderFactory)
+        public RenderTemplateDictionaryIssueHandler( IFluentAlerts alerts)
         {
-            _alertBuilderFactory = alertBuilderFactory;
+            _alerts = alerts;
         }
 
         //UNDONE: Render Template File not found - make rule based or configable
         public RenderTemplate TemplateNotFound(string templateName)
         {
             //Throw Exception
-            var alert = _alertBuilderFactory.Create("Render Template Not Found")
+            var alert = _alerts.Create("Render Template Not Found")
                                             .With("Template Name", templateName)
                                             .ToAlert();
 
-            throw new AlertException(alert);
+            throw new FluentAlertException(alert);
         }
     }
 }

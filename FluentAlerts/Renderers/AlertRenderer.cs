@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using FluentAlerts.Transformers;
 
 namespace FluentAlerts.Renderers
@@ -106,9 +107,9 @@ namespace FluentAlerts.Renderers
         private void RouteValue(object value)
         {
             //Route all embedded IAlertBuilders (Mistake but hard to see in traces, so covering here for free) back to the IAlert Render Method
-            if (value is IAlertBuilder)
+            if (value is IFluentAlertsBuilder)
             {
-                var alert = (value as IAlertBuilder).ToAlert();
+                var alert = (value as IFluentAlertsBuilder).ToAlert();
                 RenderAlert(alert);
                 return;
             }

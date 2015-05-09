@@ -10,8 +10,8 @@ namespace FluentAlerts.Transformers
         public NameTypeValueRowTransformer(ITransformStrategy transformStrategy,
                                            ITypeInformerSelector typeInformerSelector,
                                            IValueFormatter<string> formatter,
-                                           IAlertBuilderFactory alertBuilderFactory)
-            : base(transformStrategy, typeInformerSelector, formatter, alertBuilderFactory)
+                                           IFluentAlerts alerts)
+            : base(transformStrategy, typeInformerSelector, formatter, alerts)
         {
         }
 

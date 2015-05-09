@@ -10,13 +10,13 @@ namespace FluentAlerts.Transformers
         protected BaseRowTransformer(ITransformStrategy transformStrategy,
                                      ITypeInformerSelector typeInformerSelector,
                                      IValueFormatter<string> formatter,
-                                     IAlertBuilderFactory alertBuilderFactory)
-            : base(transformStrategy, typeInformerSelector, formatter, alertBuilderFactory){}
+                                     IFluentAlerts alerts)
+            : base(transformStrategy, typeInformerSelector, formatter, alerts){}
 
         protected override object InnerTransform(object o, MemberPath objectMemberPath)
         {
             //Create Alert with a property and fields section containing name-values pairs  
-            var result = AlertBuilderFactory.Create(Formatter.FormatAsTitle(o, objectMemberPath));
+            var result = Alerts.Create(Formatter.FormatAsTitle(o, objectMemberPath));
             var typeInfo = TypeInformerSelector.Find(o, objectMemberPath);
 
             //Add property section 

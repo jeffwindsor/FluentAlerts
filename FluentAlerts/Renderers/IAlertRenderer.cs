@@ -1,4 +1,6 @@
-﻿namespace FluentAlerts.Renderers
+﻿
+
+namespace FluentAlerts.Renderers
 {
     public interface IAlertRenderer
     {
