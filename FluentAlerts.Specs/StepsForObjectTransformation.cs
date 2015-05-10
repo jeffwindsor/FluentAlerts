@@ -18,7 +18,7 @@ namespace FluentAlerts.Specs
         private MemberPath _memberPath;
         private BaseTypeInformerSelector _selector;
         private object _transformedObject;
-        private IAlert _transformedAlert;
+        private IFluentAlert _transformedAlert;
 
         private readonly AlertContext _context;
         public StepsForObjectTransformation(AlertContext context)
@@ -228,8 +228,8 @@ namespace FluentAlerts.Specs
         [Then(@"the result should be an IAlert")]
         public void ThenTheResultShouldBeAnIAlert()
         {
-            _transformedObject.Should().BeAssignableTo<IAlert>();
-            _transformedAlert=_transformedObject  as IAlert;
+            _transformedObject.Should().BeAssignableTo<IFluentAlert>();
+            _transformedAlert=_transformedObject  as IFluentAlert;
         }
 
         [Then(@"the alert title equals the object's type name")]

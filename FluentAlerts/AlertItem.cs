@@ -2,9 +2,10 @@
 
 namespace FluentAlerts
 {
-    public class AlertItem: IAlertItem 
+    public class AlertItem: IFluentAlertItem 
     {
-        internal AlertItemStyle ItemStyle { get; set; }
+        public string Style { get; internal set; }
+        public string 
         internal IList<object> Values { get; set; }
     }
 }

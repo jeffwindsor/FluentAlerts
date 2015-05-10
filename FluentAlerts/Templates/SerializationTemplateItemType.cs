@@ -1,7 +1,7 @@
 ﻿
-namespace FluentAlerts.Renderers
+namespace FluentAlerts.Templates
 {
-    public enum DecorationBasedRenderTemplateItemType
+    public enum SerializationTemplateItemType
     {
         SerializationHeader,
         SerializationFooter,

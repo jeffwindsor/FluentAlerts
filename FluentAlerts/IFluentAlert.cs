@@ -3,7 +3,7 @@
 
 namespace FluentAlerts
 {
-    public interface IAlert: IList<IAlertItem>, IAlertItem
+    public interface IFluentAlert: IList<IFluentAlertItem>, IFluentAlertItem
     {
         string Title { get; }
     }

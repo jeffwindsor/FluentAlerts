@@ -8,7 +8,7 @@
 	"ValueHeader": "<TD{Decorations}>",
     "ValueFooter": "</TD>",
 	"SeperatorHeader": "<HR>",
-	"ValueSpanningDecoration": "colspan='{SpanColumns}'",
+	"ValueHeaderDecorationForSpanning": " colspan='{ColumnsToSpan}'",
 	"ValueNormalDecoration": "style='background-color:whitesmoke;'",
     "ValueEmphasizedDecoration": "style='background-color:silver;font-weight:bold;'",
 	"ValueTitleDecoration": "style='background-color:silver;font-weight:bold;font-size:10pt;'",

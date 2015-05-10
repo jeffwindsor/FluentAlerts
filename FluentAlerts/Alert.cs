@@ -7,11 +7,11 @@ namespace FluentAlerts
     /// <summary>
     /// Alert as simple list of items 
     /// </summary>
-    public class Alert : List<IAlertItem>, IAlert
+    public class Alert : List<IFluentAlertItem>, IFluentAlert
     {
         public Alert(){}
 
-        public Alert(List<IAlertItem> items)
+        public Alert(List<IFluentAlertItem> items)
         {
             if (items == null) return;
             AddRange(items);

@@ -4,24 +4,24 @@ namespace FluentAlerts
 {
     public class FluentAlerts: IFluentAlerts
     {
-        public IFluentAlertsBuilder Create()
+        public IFluentAlertBuilder Create()
         {
             return CreateAlertBuilder();
         }
 
-        public IFluentAlertsBuilder Create(string title)
+        public IFluentAlertBuilder Create(string title)
         {
             return Create().WithTitle(title);
         }
 
-        public IFluentAlertsBuilder Create(object obj)
+        public IFluentAlertBuilder Create(object obj)
         {
             return CreateAlertBuilder().With(obj);
         }
 
-        private static FluentAlertsBuilder CreateAlertBuilder()
+        private static FluentAlertBuilder CreateAlertBuilder()
         {
-            return new FluentAlertsBuilder();
+            return new FluentAlertBuilder();
         }
     }
 }

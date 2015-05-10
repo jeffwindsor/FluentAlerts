@@ -34,14 +34,15 @@
 		"AlertItemHeader": "<TR>",
 		"AlertItemFooter": "</TR>",
 		"ValueHeader": "<TD{Decorations}>",
-		"ValueFooter": "</TD>",	
-		"ValueSpanningDecoration": "colspan='{SpanColumns}'",
+        "ValueFooter": "</TD>",
+
+        "ValueHeaderDecorationForSpanningFormat": "colspan='{0}'",
 		"ValueNormalDecoration": "class='value-normal'",
 		"ValueEmphasizedDecoration": "class='value-emphasized'",
 		"ValueTitleDecoration": "class='value-title'",
 		"ValueUrlDecoration":"class='value-url'",	
-		"ValueFirstColumnId":"id='first-column'",
-		"ValueLastColumnId":"id='last-column'",
+		"ValueHeaderDecorationForFirstColumn":"id='first-column'",
+		"ValueHeaderDecorationForLastColumn":"id='last-column'",
 		"UrlValue": "<a href='{Url}'>{UrlTitle}</a>"    
 	}
 }

@@ -157,8 +157,8 @@ namespace FluentAlerts.Specs
         //Simulates an external exception derived from the alert exception
         public class SpecsAlertException : FluentAlertException
         {
-            public SpecsAlertException(IAlert alert) : base(alert) { }
-            public SpecsAlertException(IAlert alert, Exception inner) : base(alert, inner) { }
+            public SpecsAlertException(IFluentAlert alert) : base(alert) { }
+            public SpecsAlertException(IFluentAlert alert, Exception inner) : base(alert, inner) { }
         }
     }
 

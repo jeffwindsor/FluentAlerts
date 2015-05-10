@@ -2,50 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAlerts.Formatters;
+using FluentAlerts.Templates;
 using FluentAlerts.Transformers;
-using FluentAlerts.Renderers;
 using FluentAlerts.TypeInformers;
 
 namespace FluentAlerts.Examples
 {
     internal class Mother
     {
-        #region Ioc
-        //SIMULATE Inversion of Control or some other construction method
-        // life time is single use 
-
-        public static IFluentAlerts CreateDefaultAlertBuilderFactory()
+        public static IFluentAlertSerializer CreateDefaultAlertRender()
         {
-            return new FluentAlerts();
+            return new FluentAlertSerializer(
+                CreateDefaultAlertTransformer(),
+                new FluentAlertTemplateBasedTransformableSerializer(CreateDefaultAlertTemplate()));
         }
-
-        public static IAlertRenderer CreateDefaultAlertRender()
+        private static SerializationTemplate CreateDefaultAlertTemplate()
         {
-            return new AlertRenderer(CreateDefaultAlertTransformer(), 
-                CreateDefaultAlertTemplateRender());
-        }
-        
+            var templates = new RenderTemplateDictionary(new RenderTemplateDictionaryIssueHandler(new FluentAlerts()));
+            var settings = new FluentAlertDefaultedAppConfigSettings();
+
+            return templates.GetTemplate(settings.DefaultTemplateName());
+        }       
+
         private static ITransformer CreateDefaultAlertTransformer()
         {
             return new NameValueRowTransformer(new DefaultTransformStrategy(),
                                                new DefaultTypeInformerSelector(),
                                                new DefaultValueToStringFormatter(),
-                                               CreateDefaultAlertBuilderFactory());
+                                               new FluentAlerts());
         }
-
-        private static RenderTemplate CreateDefaultAlertTemplate()
-        {
-            var templates = new RenderTemplateDictionary(
-                    new RenderTemplateDictionaryIssueHandler(CreateDefaultAlertBuilderFactory()));
-            var settings = new FluentAlertDefaultedAppConfigSettings();
-            return templates.GetTemplate(settings.DefaultTemplateName());
-        }
-
-        private static ITemplateRender CreateDefaultAlertTemplateRender()
-        {
-            return new DecorationBasedTemplateRender(CreateDefaultAlertTemplate());
-        }
-        #endregion
 
         #region Exceptions
         public static Exception CreateNestedException(int nestingDepth)
@@ -85,7 +70,7 @@ namespace FluentAlerts.Examples
         #endregion
 
         #region ClassesAndStructs
-        public static NestedTestClass CreateNestedTestClass(int nestingDepth)
+        public static NestedTestClass CreateNestedTestObject(int nestingDepth)
         {
             return new NestedTestClass()
             {
@@ -95,10 +80,10 @@ namespace FluentAlerts.Examples
                 NumberField = (NumberEnum)nestingDepth,
                 Child = (nestingDepth < 1)
                             ? null
-                            : CreateNestedTestClass(nestingDepth - 1),
+                            : CreateNestedTestObject(nestingDepth - 1),
                 Children = (nestingDepth < 1)
                                ? Enumerable.Empty<NestedTestClass>()
-                               : from i in Enumerable.Range(0, 5) select CreateNestedTestClass(nestingDepth - 1)
+                               : from i in Enumerable.Range(0, 5) select CreateNestedTestObject(nestingDepth - 1)
             };
         }
 

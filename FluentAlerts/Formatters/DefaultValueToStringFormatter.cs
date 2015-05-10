@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace FluentAlerts.Formatters
@@ -17,12 +15,8 @@ namespace FluentAlerts.Formatters
                                     if(o == null) 
                                         return "Null";
 
-                                    //Exceptions
-                                    if (o.IsFundamental())
-                                        return o.ToString();
-                                    
-                                    //Otherwise Pretty Name
-                                    return PrettyTypeName(o.GetType());
+                                    //Exceptions otherwise Pretty Name
+                                    return o.IsFundamental() ? o.ToString() : PrettyTypeName(o.GetType());
                                 });
 
             //Base Title rule: all objects return pretty type name

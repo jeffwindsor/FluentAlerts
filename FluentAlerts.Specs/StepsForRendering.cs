@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
-using FluentAlerts.Renderers;
+using FluentAlerts.Templates;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 
@@ -16,10 +16,10 @@ namespace FluentAlerts.Specs
         private IFluentAlertsSettings _appsettings;
         private RenderTemplateDictionary _templateDictionary;
         //private AlertRenderTemplateDictionary _otherTemplateDictionary;
-        private RenderTemplate _alertRenderTemplate;
+        private SerializationTemplate _alertRenderTemplate;
         //private AlertRenderTemplate _otherAlertRenderTemplate;
-        private ITemplateRender _alertTemplateRender;
-        private IAlertRenderer _render;
+        private IFluentAlertRender _alertTemplateRender;
+        private IFluentAlertSerializer _render;
         private string _renderResult;
 
         private readonly AlertContext _context;
@@ -82,13 +82,13 @@ namespace FluentAlerts.Specs
         [Given(@"I have a template render")]
         public void GivenIHaveATemplateRender()
         {
-            _alertTemplateRender = new DecorationBasedTemplateRender(_alertRenderTemplate);
+            _alertTemplateRender = new TemplateBasedTransformableSerializer(_alertRenderTemplate);
         }
 
         [Given(@"I have an alert render")]
         public void GivenIHaveAnAlertRender()
         {
-            _render = new AlertRenderer(_context.Transformer, _alertTemplateRender);
+            _render = new FluentAlertSerializer(_context.Transformer, _alertTemplateRender);
         }
 
 
@@ -120,7 +120,7 @@ namespace FluentAlerts.Specs
         [When(@"I render the alert")]
         public void WhenIRenderTheAlert()
         {
-            _renderResult = _render.Render(_context.Alert);
+            _renderResult = _render.Serialize(_context.Alert);
         }
 
         //[When(@"I create a new template dictionary from (.*)")]

@@ -1,14 +1,11 @@
-﻿using System;
+﻿using System.Diagnostics;
 using NUnit.Framework;
 
 namespace FluentAlerts.Examples
 {
     [TestFixture]
-    public class ExploringAlertCreation
-    {
-        //Simulating IoC 
-        private readonly IFluentAlerts _alerts = Mother.CreateDefaultAlertBuilderFactory();
-
+    public class ExploringAlertCreation:BaseExample
+    {        
         /*
          * Lets play around with creating some alerts, change up what you like,
          * but for the best experience pull the rendered alert text from the your 
@@ -28,40 +25,45 @@ namespace FluentAlerts.Examples
          */
 
         [Test]
-        public void A_CreateASimpleAlert()
+        public void CreateASimpleAlert()
         {
             // Note the title in the create statement (this is optional)
             // and the layout of the rendered table in HTML
             // ** You may have seen the create function has an overload focusing on objects
             //    there is an example of that below
-            var alert = _alerts.Create("Those pant's don't match that shirt, my man.")
+            var alerts = Get<IFluentAlerts>();
+            var alert = alerts.Create("Those pant's don't match that shirt, my man.")
                                .With("Shirt Color", "Yellow")
-                               .With("Pants Color", "Purple Plaid");
+                               .With("Pants Color", "Purple Plaid")
+                               .ToAlert();
 
-            alert.RenderToConsole();
+            SerializeToConsole(alert);
         }
 
         [Test]
-        public void B_CreateASimpleAlertWithALittleMoreFlair()
+        public void CreateAnAlertWithALittleMoreFlair()
         {
             // Note the change in the emphasized sections rendering
             // ** We will talk later about how to add and modify templates 
             //    so you can get your own formatting.
-            var alert = _alerts.Create("Those pant's don't match that shirt, my man.")
+            var alerts = Get<IFluentAlerts>();
+            var alert = alerts.Create("Those pant's don't match that shirt, my man.")
                                .With("Shirt Color", "Yellow")
                                .With("Pants Color", "Purple Plaid")
                                .WithEmphasized("Top 3 Reasons")
                                .With("One", "Yellow and Purple please.")
                                .With("Two", "Didn't work for Smoochie, and it won't work for you.")
-                               .With("Three", "everyone knows your jeans should be green.");
+                               .With("Three", "everyone knows your jeans should be green.")
+                               .ToAlert();
 
-            alert.RenderToConsole();
+            SerializeToConsole(alert);
         }
 
         [Test]
-        public void C_PlayingWithSeperators()
+        public void PlayingWithSeperators()
         {
-            var alert = _alerts.Create("Those pant's don't match that shirt, my man.")
+            var alerts = Get<IFluentAlerts>();
+            var alert = alerts.Create("Those pant's don't match that shirt, my man.")
                                .With("Shirt Color", "Yellow")
                                .With("Pants Color", "Purple Plaid")
                                .WithSeperator()
@@ -69,13 +71,16 @@ namespace FluentAlerts.Examples
                                .With("One", "Yellow and Purple please.")
                                .With("Two", "Didn't work for Smoochie, and it won't work for you.")
                                .WithSeperator()
-                               .With("Three", "everyone knows your jeans should be green.");
+                               .With("Three", "everyone knows your jeans should be green.")
+                               .ToAlert();
 
-            alert.RenderToConsole();
+            SerializeToConsole(alert);
         }
        
+
+
         [Test]
-        public void E_TurnAnObjectIntoAnAlert()
+        public void TurnAnObjectIntoAnAlert()
         {
             // Note how the objects public properties and fields are enumerated in
             // the result, with nested classes being enumerated to given depth.  And
@@ -83,24 +88,26 @@ namespace FluentAlerts.Examples
             // This is driven by the Transformer and Formatter classes used
             // as well as the type info and formatter rules.
             // ** We will get into modifying each one of those later
-            var testObject = Mother.CreateNestedTestClass(2);
-            var alert = _alerts.Create(testObject);
+            var alerts = Get<IFluentAlerts>();
+            var alert = alerts.Create(Mother.CreateNestedTestObject(2))
+                               .ToAlert();
             
-            alert.RenderToConsole();
+            SerializeToConsole(alert);
         }
 
         [Test]
-        public void F_TurnAnExceptionIntoAnAlert()
+        public void TurnAnExceptionIntoAnAlert()
         {
             // An exception, or in this a class derived from exception is just another
             // object like above, but since we will be using these a lot and I
             // needed an example of how to specify transformation by type, here it is.
             // Note how the properties are limited to a select list an ordered in 
             // a specific way (as apposed to alpha in the example above).
-            var testException = Mother.CreateNestedException(4);
-            var alert = _alerts.Create(testException);
+            var alerts = Get<IFluentAlerts>();
+            var alert = alerts.Create(Mother.CreateNestedException(4))
+                               .ToAlert();
 
-            alert.RenderToConsole();
+            SerializeToConsole(alert);
         }
 
         //  ** IMPORTANT SIDE NOTE **
@@ -115,21 +122,27 @@ namespace FluentAlerts.Examples
         //  So be explicit an convert the builder yourself or lean on the library and just get it for free.
 
         [Test]
-        public void G_EmbeddingStuffOrFunWithComposingAlerts()
+        public void PuttingItAllTogether()
         {
             // Here is a simple example of how you can compose alerts and objects.
             // The builder allows you to add alerts (or alert builders) to alerts, allowing
             // you to create complex trees of composed information.
-            var innerObject = Mother.CreateNestedTestClass(3);
-            var innerALert = _alerts.Create("This is the child alert").With(innerObject);
-            var alert = _alerts.Create("This is the parent alert")
+            var alerts = Get<IFluentAlerts>();
+            var innerALert = alerts.Create("This is the child alert").With(Mother.CreateNestedTestObject(3));
+            var alert = alerts.Create("This is the parent alert")
                                .With("Inner Alert", innerALert)
                                .WithEmphasized("Some new section")
-                               .With(innerObject);
+                               .With(Mother.CreateNestedTestObject(2))
+                               .ToAlert();
 
 
-            alert.RenderToConsole();
+            SerializeToConsole(alert);
         }
 
+        public void SerializeToConsole(IFluentAlert alert)
+        {
+            var serializer = Get<IFluentAlertSerializer>();
+            Trace.WriteLine(serializer.Serialize(alert));
+        }
     }
 }

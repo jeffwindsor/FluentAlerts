@@ -207,7 +207,7 @@ namespace FluentAlerts.Specs
         [Then(@"the alert should be a list of alert items")]
         public void ThenTheAlertShouldBeAListOfAlertItems()
         {
-            _context.Alert.Should().BeAssignableTo<IEnumerable<IAlertItem>>();
+            _context.Alert.Should().BeAssignableTo<IEnumerable<IFluentAlertItem>>();
         }
 
         [Then(@"the alert should contain title as the first item")]
@@ -271,19 +271,19 @@ namespace FluentAlerts.Specs
             return AssertGroupIs(_context.Alert.Last(), style);
         }
         
-        private static AlertItem AssertGroupIs(IAlertItem source, AlertItemStyle style) 
+        private static AlertItem AssertGroupIs(IFluentAlertItem source, AlertItemStyle style) 
         {
             var result = AssertItemIsTypeAndConvertTo<AlertItem>(source);
             result.ItemStyle.Should().Be(style);
             return result;
         }
         
-        private T AssertLastItemIsTypeAndConvertTo<T>() where T : IAlertItem
+        private T AssertLastItemIsTypeAndConvertTo<T>() where T : IFluentAlertItem
         {
             return AssertItemIsTypeAndConvertTo<T>(_context.Alert.Last());
         }
 
-        private static T AssertItemIsTypeAndConvertTo<T>(IAlertItem source) where T : IAlertItem
+        private static T AssertItemIsTypeAndConvertTo<T>(IFluentAlertItem source) where T : IFluentAlertItem
         {
             var result = source.As<T>();
             result.Should().NotBeNull();

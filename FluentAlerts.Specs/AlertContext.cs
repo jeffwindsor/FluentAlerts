@@ -10,9 +10,9 @@ namespace FluentAlerts.Specs
         public object TestValue;
         public readonly object[] TestValues = { "one", 12, DateTime.UtcNow };
         public readonly IFluentAlerts Alerts = new FluentAlerts();
-        public IFluentAlertsBuilder Builder;
-        public IAlert Alert;
-        public IAlert OtherAlert;
+        public IFluentAlertBuilder Builder;
+        public IFluentAlert Alert;
+        public IFluentAlert OtherAlert;
         public ITransformer Transformer;
         internal TestFluentAlertSettings Settings;
 

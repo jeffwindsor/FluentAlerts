@@ -4,8 +4,8 @@ namespace FluentAlerts
 {
     public interface IFluentAlerts
     {
-        IFluentAlertsBuilder Create();
-        IFluentAlertsBuilder Create(string title);
-        IFluentAlertsBuilder Create(object obj);
+        IFluentAlertBuilder Create();
+        IFluentAlertBuilder Create(string title);
+        IFluentAlertBuilder Create(object obj);
     }
 }
