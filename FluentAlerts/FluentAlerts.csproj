@@ -50,21 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FluentAlertException.cs" />
-    <Compile Include="Extensions\ExtensionsToString.cs" />
-    <Compile Include="Extensions\ExtensionsToIAlertBuilder.cs" />
-    <Compile Include="Extensions\TraceExtensions.cs" />
     <Compile Include="IFluentAlert.cs" />
     <Compile Include="IFluentAlertBuilder.cs" />
     <Compile Include="IFluentAlerts.cs" />
     <Compile Include="IFluentAlertItem.cs" />
-    <Compile Include="Templates\ISerializationTemplate.cs" />
     <Compile Include="IFluentAlertSerializer.cs" />
-    <Compile Include="Extensions\ExtensionsToDateTime.cs" />
-    <Compile Include="Extensions\ExtensionsToIAlert.cs" />
-    <Compile Include="Extensions\ExtensionsToIEnumerableOfString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FluentAlertTemplateSerializer.cs" />
-    <Compile Include="Extensions\ExtensionsToType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
