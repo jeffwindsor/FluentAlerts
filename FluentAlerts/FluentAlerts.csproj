@@ -49,48 +49,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FluentAlerts.cs" />
     <Compile Include="FluentAlertException.cs" />
-    <Compile Include="FluentAlertBuilder.cs" />
-    <Compile Include="AlertItemValueList.cs" />
     <Compile Include="Extensions\ExtensionsToString.cs" />
-    <Compile Include="Extensions\ExtensionsToEnums.cs" />
     <Compile Include="Extensions\ExtensionsToIAlertBuilder.cs" />
     <Compile Include="Extensions\TraceExtensions.cs" />
     <Compile Include="IFluentAlert.cs" />
     <Compile Include="IFluentAlertBuilder.cs" />
     <Compile Include="IFluentAlerts.cs" />
     <Compile Include="IFluentAlertItem.cs" />
-    <Compile Include="Formatters\IValueFormatter.cs" />
     <Compile Include="Templates\ISerializationTemplate.cs" />
-    <Compile Include="Templates\SerializationTemplate.cs" />
     <Compile Include="IFluentAlertSerializer.cs" />
-    <Compile Include="Transformers\ITransformer.cs" />
     <Compile Include="Extensions\ExtensionsToDateTime.cs" />
     <Compile Include="Extensions\ExtensionsToIAlert.cs" />
-    <Compile Include="Templates\SerializationTemplateItemType.cs" />
-    <Compile Include="Templates\SerializationTemplateArguementType.cs" />
-    <Compile Include="AlertItem.cs" />
-    <Compile Include="Alert.cs" />
-    <Compile Include="Transformers\BaseRowTransformer.cs" />
     <Compile Include="Extensions\ExtensionsToIEnumerableOfString.cs" />
-    <Compile Include="Transformers\MemberPath.cs" />
-    <Compile Include="Transformers\NameTypeValueRowTransformer.cs" />
-    <Compile Include="Transformers\BaseTransformer.cs" />
-    <Compile Include="Formatters\FluentAlertFormattingException.cs" />
-    <Compile Include="Formatters\FormatterRule.cs" />
-    <Compile Include="Formatters\DefaultValueToStringFormatter.cs" />
-    <Compile Include="Transformers\DefaultTransformStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FluentAlertTemplateSerializer.cs" />
-    <Compile Include="Formatters\BaseValueFormatter.cs" />
-    <Compile Include="FluentAlertTemplateBasedTransformableSerializer.cs" />
-    <Compile Include="Transformers\NameValueRowTransformer.cs" />
-    <Compile Include="Transformers\ITransformStrategy.cs" />
     <Compile Include="Extensions\ExtensionsToType.cs" />
-    <Compile Include="TypeInformers\DefaultTypeInfoSelector.cs" />
-    <Compile Include="TypeInformers\TypeInformer.cs" />
-    <Compile Include="TypeInformers\TypeInformerSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -101,9 +75,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Renderers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
