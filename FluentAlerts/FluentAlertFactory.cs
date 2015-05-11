@@ -1,4 +1,5 @@
-﻿using FluentAlerts.Domain;
+﻿using FluentAlerts.Builders;
+using FluentAlerts.Domain;
 
 namespace FluentAlerts
 {

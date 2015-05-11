@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentAlerts.Domain;
 
-namespace FluentAlerts
+namespace FluentAlerts.Builders
 {
     public class FluentDocumentBuilder: IAlertable
     {

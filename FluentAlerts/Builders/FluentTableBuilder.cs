@@ -2,7 +2,7 @@
 using System.Linq;
 using FluentAlerts.Domain;
 
-namespace FluentAlerts
+namespace FluentAlerts.Builders
 {
     public class FluentTableBuilder : IAlertable
     {
@@ -10,17 +10,17 @@ namespace FluentAlerts
         
         public FluentTableBuilder WithRow(params object[] cells)
         {
-            return With(new Row(cells.ToCells()));
+            return With(new Row(cells.Select(c => new Cell { Content = c })));
         }
 
         public FluentTableBuilder WithEmphasizedRow(params object[] cells)
         {
-            return With(new EmphasizedRow(cells.ToCells()));
+            return With(new Row(cells.Select(c => new EmphasizedCell { Content = c } )));
         }
 
         public FluentTableBuilder WithHeaderRow(params object[] cells)
         {
-            return With(new HeaderRow(cells.ToCells()));
+            return With(new Row(cells.Select(c => new HeaderCell {Content = c})));
         }
 
         private FluentTableBuilder With<T>(T item) where T: Row
@@ -35,13 +35,6 @@ namespace FluentAlerts
         public object ToAlert()
         {
             return ToTable();
-        }
-    }
-    public static class CellExtensions
-    {
-        public static IEnumerable<Cell> ToCells(this IEnumerable<object> items)
-        {
-            return items.Select(c => new Cell { Content = c });
         }
     }
 }
