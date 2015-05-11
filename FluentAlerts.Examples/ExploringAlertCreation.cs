@@ -24,35 +24,18 @@ namespace FluentAlerts.Examples
          *      > how to customize formatting rules down to a specific type and depth
          *  > 
          */
-        [Test]
-        public void TurnAnObjectIntoAnAlert()
-        {
-            // Note how the objects public properties and fields are enumerated in
-            // the result, with nested classes being enumerated to given depth.  And
-            // the format of the each types string representation.
-            // This is driven by the Transformer and Formatter classes used
-            // as well as the type info and formatter rules.
-            // ** We will get into modifying each one of those later
-            var alerts = Get<IFluentAlerts>();
-            var alert = alerts.ObjectBlock(Mother.CreateNestedTestObject(2));
+        ////  ** IMPORTANT SIDE NOTE **
+        ////  Something i have been hiding from you up to now is the ToAlert() function, which converts an
+        ////  IAlertBuilder (the thing with the fluent interface we have been using) to an IAlert
+        ////  (which is what we want).  In fact when you see the Alerts.Create(...).With(...) the 
+        ////  result of this fluent building process is the IAlertBuilder, not the IAlert.   
+        ////  But as you may have noticed the RenderToConsole() extension methods hides this fact.
+        ////  Not to worry I am not leading down the bad practice path, but simulating what will happen for you in the 
+        ////  library.  Most of the down stream objects that can take an IAlert will take an IAlertBUilder as well
+        ////  and will just convert it for you by calling ToAlert.
+        ////  So be explicit an convert the builder yourself or lean on the library and just get it for free.
+   
 
-            SerializeToConsole(alert);
-        }
-
-        [Test]
-        public void TurnAnExceptionIntoAnAlert()
-        {
-            // An exception, or in this a class derived from exception is just another
-            // object like above, but since we will be using these a lot and I
-            // needed an example of how to specify transformation by type, here it is.
-            // Note how the properties are limited to a select list an ordered in 
-            // a specific way (as apposed to alpha in the example above).
-            var alerts = Get<IFluentAlerts>();
-            var alert = alerts.ExceptionBlock(Mother.CreateNestedException(4));
-
-            SerializeToConsole(alert);
-        }
-        
         [Test]
         public void CreateSimpleTableLikeAlert()
         {
@@ -69,7 +52,7 @@ namespace FluentAlerts.Examples
         }
         
         [Test]
-        public void CreateSimpleDocumentLikeAlerts()
+        public void CreateSimpleDocumentLikeAlert()
         {
             var alerts = Get<IFluentAlerts>();
             var alert = alerts.Document("Create a simple document like alert")
@@ -88,28 +71,17 @@ namespace FluentAlerts.Examples
                     }")
                 .WithLink("https://github.com/jeffwindsor/FluentAlerts", "Link to Github Source Code")
                 .WithHorizontalRule()
-                .WithObjectBlock(Mother.CreateNestedTestObject(3))
+                .With(Mother.CreateNestedTestObject(3))
                 .WithHorizontalRule()
-                .WithExceptionBlock(Mother.CreateNestedException(2))
+                .With(Mother.CreateNestedException(2))
                 .WithHorizontalRule()
                 .WithOrderedList("one", "two", "three", 25, Guid.NewGuid(), "whatever you wants");
 
             SerializeToConsole(alert);
         }
 
-        ////  ** IMPORTANT SIDE NOTE **
-        ////  Something i have been hiding from you up to now is the ToAlert() function, which converts an
-        ////  IAlertBuilder (the thing with the fluent interface we have been using) to an IAlert
-        ////  (which is what we want).  In fact when you see the Alerts.Create(...).With(...) the 
-        ////  result of this fluent building process is the IAlertBuilder, not the IAlert.   
-        ////  But as you may have noticed the RenderToConsole() extension methods hides this fact.
-        ////  Not to worry I am not leading down the bad practice path, but simulating what will happen for you in the 
-        ////  library.  Most of the down stream objects that can take an IAlert will take an IAlertBUilder as well
-        ////  and will just convert it for you by calling ToAlert.
-        ////  So be explicit an convert the builder yourself or lean on the library and just get it for free.
-
         [Test]
-        public void CompositionForMoreFlare()
+        public void ComposeAnythingForMoreFlare()
         {
             // Here is a simple example of how you can compose alerts and objects.
             // The builder allows you to add alerts (or alert builders) to alerts, allowing
@@ -124,23 +96,27 @@ namespace FluentAlerts.Examples
                     .WithUnderscore(" And some underscore")
                     .WithText(" and some normal text"))
                 .WithHorizontalRule()
+                .WithHeader("Note you can but any object into this tree")
+                .With(Mother.CreateNestedTestObject(3))
+                .With(Guid.NewGuid())
+                .With(DateTime.UtcNow)
+                .WithHorizontalRule()
                 .With(alerts.Table("My Inner Table")
                     .WithHeaderRow("one", "two", "three")
-                    .WithRow(1, alerts.ExceptionBlock(Mother.CreateNestedException(2)), alerts.Document("Compose what you will"))
+                    .WithRow(1, Mother.CreateNestedException(2), alerts.Document("Note this row will take any type, Compose what you will"))
                     .WithEmphasizedRow("one", "last cell will be spanned if not all cells are given"));
             
             SerializeToConsole(alert);
         }
-        
-        public void SerializeToConsole(IAlertable convertable)
+
+
+        private static void SerializeToConsole(IAlertable convertable)
         {
             SerializeToConsole(convertable.ToAlert());
         }
-        public void SerializeToConsole(Alert alert)
+        private static void SerializeToConsole(object o)
         {
-            Trace.WriteLine(JsonConvert.SerializeObject(alert));
-            //var serializer = Get<IFluentAlertSerializer>();
-            //Trace.WriteLine(serializer.Serialize(alert));
+            SendToConsole(JsonConvert.SerializeObject(o));
         }
     }
 }

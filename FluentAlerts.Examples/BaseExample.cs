@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using System.Diagnostics;
+using Ninject;
 using Ninject.Modules;
 
 namespace FluentAlerts.Examples
@@ -15,6 +16,10 @@ namespace FluentAlerts.Examples
         {
             return _container.Get<T>();
         }
+        protected static void SendToConsole(string value)
+        {
+            Trace.WriteLine(value);
+        }
     }
 
 
@@ -23,7 +28,8 @@ namespace FluentAlerts.Examples
         public override void Load()
         {
             //Default IoC Bindings
-            Bind<IFluentAlerts>().To<FluentAlertBuilder>();
+            Bind<IFluentAlerts>().To<FluentAlertFactory>();
+            Bind<IFluentAlertSerializer>().To<FluentAlertSerializer>();
         }
     }
 }
