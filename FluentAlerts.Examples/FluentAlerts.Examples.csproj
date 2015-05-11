@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseExample.cs" />
+    <Compile Include="ExamplesIocConfig.cs" />
     <Compile Include="ExploringAlertRendering.cs" />
     <Compile Include="ExploringAlertTransformation.cs" />
     <Compile Include="ExploringAlertCreation.cs" />

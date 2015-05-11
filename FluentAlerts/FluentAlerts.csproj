@@ -54,6 +54,9 @@
     <Compile Include="Domain\HorizontalRule.cs" />
     <Compile Include="Domain\Link.cs" />
     <Compile Include="Domain\Lists.cs" />
+    <Compile Include="Domain\ObjectContainer.cs" />
+    <Compile Include="Serializers\FluentAlertHtmlSerializer.cs" />
+    <Compile Include="Serializers\MemberPath.cs" />
     <Compile Include="Domain\Table.cs" />
     <Compile Include="Domain\Text.cs" />
     <Compile Include="Domain\TextBlock.cs" />
@@ -61,7 +64,7 @@
     <Compile Include="Builders\FluentDocumentBuilder.cs" />
     <Compile Include="Builders\FluentTableBuilder.cs" />
     <Compile Include="Builders\FluentTextBlockBuilder.cs" />
-    <Compile Include="FluentAlertSerializer.cs" />
+    <Compile Include="Serializers\FluentAlertSerializer.cs" />
     <Compile Include="IAlertable.cs" />
     <Compile Include="IFluentAlerts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,9 +73,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Serializers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

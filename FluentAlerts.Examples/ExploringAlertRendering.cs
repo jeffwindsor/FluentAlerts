@@ -1,4 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using FluentAlerts.Domain;
+using FluentAlerts.Serializers;
 using Newtonsoft.Json;
 using Ninject;
 using NUnit.Framework;
@@ -54,18 +57,47 @@ namespace FluentAlerts.Examples
         //TODO: show alerts are just object trees so no need for anything but your own object
         //TODO: Show 
         [Test]
-        public void A_HowTableAutoLayoutWorksInTheDefaultRender()
+        public void HtmlSerializer()
         {
-            var serializer = Get<IFluentAlertSerializer>();
-            var alert = GetTestTableAlert();
-            SendToConsole(serializer.Serialize(alert));
+            var serializer = new FluentAlertHtmlSerializer();
+            SendToConsole("Document");
+            SendToConsole(serializer.Serialize(GetTestDocumentAlert()));
+            SendToConsole("Table");
+            SendToConsole(serializer.Serialize(GetTestTableAlert()));
         }
 
-        private object GetTestTableAlert()
+        private Document GetTestDocumentAlert()
+        {
+            var alerts = Get<IFluentAlerts>();
+            return alerts.Document("Create a simple document like alert")
+                .WithHorizontalRule()
+                .WithHeader("Hear is some code that is relevant to this alert", 2)
+                .WithCodeBlock("C#", @"        private string GetSpanningDecoration(int index, int maximumValueIndex)
+                    {
+                        //span all remaining columns
+                        var span = 1 + (maximumValueIndex - index);
+                        var spanArgs = new[]
+                            {
+                                new RenderTemplateArguement(DecorationBasedRenderTemplateArguementType.SpanColumns,
+                                                            span.ToString())
+                            };
+                        return RenderTemplateItem(DecorationBasedRenderTemplateItemType.ValueSpanningDecoration, spanArgs);
+                    }")
+                .WithLink("https://github.com/jeffwindsor/FluentAlerts", "Link to Github Source Code")
+                .WithHorizontalRule()
+                .With(Mother.CreateNestedTestObject(3))
+                .WithHorizontalRule()
+                .With(Mother.CreateNestedException(2))
+                .WithHorizontalRule()
+                .WithOrderedList("one", "two", "three", 25, Guid.NewGuid(), "whatever you wants")
+                .ToDocument();
+        }
+
+        private Table GetTestTableAlert()
         {
             var alerts = Get<IFluentAlerts>();
             return alerts.Table("Lets Play with layout to see what the render does.")
-                               .WithEmphasizedRow("Putting the largest number of values in a section sets the number of columns, this is dynamic so this can happen anywhere in the alert")
+                               .WithHeaderRow("Putting the largest number of values in a section sets the number of columns, this is dynamic so this can happen anywhere in the alert")
                                .WithRow("One", "Two", "Three", "Four", "Five")
                                .WithEmphasizedRow("Any other value list with fewer columns will span the last column by default")
                                .WithRow("One", "Two", "Three", "Four")
@@ -76,11 +108,13 @@ namespace FluentAlerts.Examples
                                .WithRow("One", "Two", "Three")
                                .WithRow("One", "Two", "Three", "Four")
                                .WithEmphasizedRow("This works on any style, but this is Emphasized")
-                               .WithEmphasizedRow("One", "Two", "Three", "Four")
                                .WithEmphasizedRow("One", "Two", "Three")
-                               .WithEmphasizedRow("One", "Two")
-                               .WithEmphasizedRow("One")
-                               .ToAlert();
+                               .WithEmphasizedRow("This works on any style, but this is Emphasized")
+                               .WithRow("one", 25, Guid.NewGuid(), "whatever you wants")
+                               .WithRow("test object", Mother.CreateNestedTestObject(3))
+                               .WithRow("test exception", Mother.CreateNestedException(3))
+                               .ToTable();
+
         }
     }
 }

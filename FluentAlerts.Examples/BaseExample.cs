@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Ninject;
-using Ninject.Modules;
 
 namespace FluentAlerts.Examples
 {
@@ -9,7 +8,7 @@ namespace FluentAlerts.Examples
         private readonly IKernel _container;
         protected BaseExample()
         {
-            _container = new StandardKernel(new ExamplesNinjectModule());
+            _container = new StandardKernel(new ExamplesIocConfig());
         }
 
         protected T Get<T>()
@@ -19,17 +18,6 @@ namespace FluentAlerts.Examples
         protected static void SendToConsole(string value)
         {
             Trace.WriteLine(value);
-        }
-    }
-
-
-    public class ExamplesNinjectModule : NinjectModule
-    {
-        public override void Load()
-        {
-            //Default IoC Bindings
-            Bind<IFluentAlerts>().To<FluentAlertFactory>();
-            Bind<IFluentAlertSerializer>().To<FluentAlertSerializer>();
         }
     }
 }

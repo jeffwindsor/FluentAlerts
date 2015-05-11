@@ -8,21 +8,25 @@ namespace FluentAlerts.Domain
         public Table(IEnumerable<Row> items) : base(items) { }
     }
 
-    public class Row : List<object>
+    public class Row : List<Cell>
     {
-        public Row(params object[] items) : base(items) { }
-        public Row(IEnumerable<object> items) : base(items) { }
+        public Row(params Cell[] items) : base(items) { }
+        public Row(IEnumerable<Cell> items) : base(items) { }
     }
 
     public class EmphasizedRow : Row
     {
-        public EmphasizedRow(params object[] items) : base(items) { }
-        public EmphasizedRow(IEnumerable<object> items) : base(items) { }
+        public EmphasizedRow(params Cell[] items) : base(items) { }
+        public EmphasizedRow(IEnumerable<Cell> items) : base(items) { }
     }
 
     public class HeaderRow : Row
     {
-        public HeaderRow(params object[] items) : base(items) { }
-        public HeaderRow(IEnumerable<object> items) : base(items) { }
+        public HeaderRow(params Cell[] items) : base(items) { }
+        public HeaderRow(IEnumerable<Cell> items) : base(items) { }
+    }
+
+    public class Cell : ObjectContainer
+    {
     }
 }
