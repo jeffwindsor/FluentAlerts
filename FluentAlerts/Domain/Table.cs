@@ -31,8 +31,9 @@ namespace FluentAlerts.Domain
         public Row(IEnumerable<Cell> items) : base(items) { }
     }
 
-    public class Cell : ObjectContainer
+    public class Cell
     {
+        public object Content { get; set; }
         public uint MaxTableColumnNumber { get; set; }
         public uint MaxRowColumnNumber { get; set; }
         public uint ColumnNumber { get; set; }

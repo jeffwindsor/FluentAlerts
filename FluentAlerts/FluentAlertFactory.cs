@@ -1,4 +1,5 @@
-﻿using FluentAlerts.Builders;
+﻿using System.Linq;
+using FluentAlerts.Builders;
 using FluentAlerts.Domain;
 
 namespace FluentAlerts
@@ -32,7 +33,7 @@ namespace FluentAlerts
 
         public FluentTextBlockBuilder TextBlock(string text)
         {
-            return TextBlock().WithText(text);
+            return TextBlock().WithNormal(text);
         }
 
         public FluentTextBlockBuilder HeaderTextBlock(uint level)
@@ -42,7 +43,7 @@ namespace FluentAlerts
 
         public FluentTextBlockBuilder HeaderTextBlock(string text, uint level)
         {
-            return HeaderTextBlock(level).WithText(text);
+            return HeaderTextBlock(level).WithNormal(text);
         }
 
         public Document From(object obj)
@@ -52,12 +53,12 @@ namespace FluentAlerts
 
         public OrderedList OrderedList(params object[] items)
         {
-            return new OrderedList(items);
+            return new OrderedList(items.Select(i=> new ListItem{Content = i}));
         }
 
         public UnOrderedList UnOrderedList(params object[] items)
         {
-            return new UnOrderedList(items);
+            return new UnOrderedList(items.Select(i => new ListItem { Content = i }));
         }
 
         public CodeBlock CodeBlock(string language, string code)

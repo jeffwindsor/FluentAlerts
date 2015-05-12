@@ -3,7 +3,7 @@ using FluentAlerts.Domain;
 
 namespace FluentAlerts.Builders
 {
-    public class FluentTextBlockBuilder : IAlertable
+    public class FluentTextBlockBuilder
     {
         private readonly List<Text> _textItems;
         private readonly uint _headerLevel;
@@ -13,7 +13,7 @@ namespace FluentAlerts.Builders
             _headerLevel = headerLevel;
         }
 
-        public FluentTextBlockBuilder WithText(string text)
+        public FluentTextBlockBuilder WithNormal(string text)
         {
             return With(new Text { Content = text });
         }
@@ -28,9 +28,14 @@ namespace FluentAlerts.Builders
             return With(new Underscore{Content= text});
         }
 
-        public FluentTextBlockBuilder WithStrong(string text)
+        public FluentTextBlockBuilder WithBold(string text)
         {
-            return With(new Strong{Content= text});
+            return With(new Bold{Content= text});
+        }
+
+        public FluentTextBlockBuilder WithStrikeThrough(string text)
+        {
+            return With(new StrikeThrough { Content = text });
         }
 
         public FluentTextBlockBuilder WithNewLine()
@@ -44,7 +49,7 @@ namespace FluentAlerts.Builders
             return this;
         }
 
-        public TextBlock ToTextBox()
+        public TextBlock ToTextBlock()
         {
             switch (_headerLevel)
             {
@@ -53,11 +58,6 @@ namespace FluentAlerts.Builders
                 default:
                     return new HeaderTextBlock(_textItems, _headerLevel);
             }
-        }
-
-        public object ToAlert()
-        {
-            return ToTextBox();
         }
     }
 }

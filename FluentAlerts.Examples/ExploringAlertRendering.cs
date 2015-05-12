@@ -57,39 +57,52 @@ namespace FluentAlerts.Examples
         //TODO: show alerts are just object trees so no need for anything but your own object
         //TODO: Show 
         [Test]
-        public void HtmlSerializer()
+        public void HtmlSerializeTable()
         {
             var serializer = new FluentAlertHtmlSerializer();
-            SendToConsole("Document");
-            SendToConsole(serializer.Serialize(GetTestDocumentAlert()));
-            SendToConsole("Table");
             SendToConsole(serializer.Serialize(GetTestTableAlert()));
         }
+        [Test]
+        public void HtmlSerializeDocument()
+        {
+            var serializer = new FluentAlertHtmlSerializer();
+            SendToConsole(serializer.Serialize(GetTestDocumentAlert()));
+        }
+
+
 
         private Document GetTestDocumentAlert()
         {
             var alerts = Get<IFluentAlerts>();
             return alerts.Document("Create a simple document like alert")
                 .WithHorizontalRule()
-                .WithHeader("Hear is some code that is relevant to this alert", 2)
-                .WithCodeBlock("C#", @"        private string GetSpanningDecoration(int index, int maximumValueIndex)
-                    {
-                        //span all remaining columns
-                        var span = 1 + (maximumValueIndex - index);
-                        var spanArgs = new[]
-                            {
-                                new RenderTemplateArguement(DecorationBasedRenderTemplateArguementType.SpanColumns,
-                                                            span.ToString())
-                            };
-                        return RenderTemplateItem(DecorationBasedRenderTemplateItemType.ValueSpanningDecoration, spanArgs);
-                    }")
+                .WithHeader("Hear is some code that is relevant to this alert (at Header 2)", 2)
+                .WithCodeBlock("C#", 
+@"private string GetSpanningDecoration(int index, int maximumValueIndex)
+{
+    //span all remaining columns
+    var span = 1 + (maximumValueIndex - index);
+    var spanArgs = new[]
+        {
+            new RenderTemplateArguement(DecorationBasedRenderTemplateArguementType.SpanColumns,
+                                        span.ToString())
+        };
+    return RenderTemplateItem(DecorationBasedRenderTemplateItemType.ValueSpanningDecoration, spanArgs);
+}"
+                )
                 .WithLink("https://github.com/jeffwindsor/FluentAlerts", "Link to Github Source Code")
                 .WithHorizontalRule()
-                .With(Mother.CreateNestedTestObject(3))
+                .WithTextBlock("Simple Text")
                 .WithHorizontalRule()
-                .With(Mother.CreateNestedException(2))
+                .With(alerts.TextBlock().WithNormal("Starting normal").WithItalic(" then italics").WithBold(" then bold").WithUnderscore(" then underscore").WithStrikeThrough(" strike through").WithNewLine().WithNormal("And a new line"))
                 .WithHorizontalRule()
-                .WithOrderedList("one", "two", "three", 25, Guid.NewGuid(), "whatever you wants")
+                .With(alerts.HeaderTextBlock(1).WithNormal("Starting Header 1").WithItalic(" then italics").WithBold(" then bold").WithUnderscore(" then underscore").WithStrikeThrough(" strike through").WithNewLine().WithNormal("And a new line"))
+                .WithHorizontalRule()
+                .With(alerts.HeaderTextBlock(3).WithNormal("Starting Header 3").WithItalic(" then italics").WithBold(" then bold").WithUnderscore(" then underscore").WithStrikeThrough(" strike through").WithNewLine().WithNormal("And a new line"))
+                .WithHorizontalRule()
+                .WithOrderedList("one", "two", "three", 25, Guid.NewGuid(), "whatever you wants", "substitutions < & >")
+                .WithHorizontalRule()
+                .With(GetTestTableAlert())
                 .ToDocument();
         }
 
@@ -104,15 +117,25 @@ namespace FluentAlerts.Examples
                                .WithRow("One", "Two", "Three")
                                .WithRow("One", "Two")
                                .WithRow("One")
-                               .WithRow("One", "Two")
-                               .WithRow("One", "Two", "Three")
-                               .WithRow("One", "Two", "Three", "Four")
                                .WithEmphasizedRow("This works on any style, but this is Emphasized")
-                               .WithEmphasizedRow("One", "Two", "Three")
-                               .WithEmphasizedRow("This works on any style, but this is Emphasized")
-                               .WithRow("one", 25, Guid.NewGuid(), "whatever you wants")
-                               .WithRow("test object", Mother.CreateNestedTestObject(3))
-                               .WithRow("test exception", Mother.CreateNestedException(3))
+                               .WithEmphasizedRow("Emp One", "Emp Two", "Emp Three")
+                               .WithEmphasizedRow("Put What Ever you want into the Rows")
+                               .WithRow("Like Mixed Types", 25, Guid.NewGuid(), "whatever you wants")
+                               .WithRow("Like Code", alerts.CodeBlock("C#", 
+@"private string GetSpanningDecoration(int index, int maximumValueIndex)
+{
+    //span all remaining columns
+    var span = 1 + (maximumValueIndex - index);
+    var spanArgs = new[]
+        {
+            new RenderTemplateArguement(DecorationBasedRenderTemplateArguementType.SpanColumns,
+                                        span.ToString())
+        };
+    return RenderTemplateItem(DecorationBasedRenderTemplateItemType.ValueSpanningDecoration, spanArgs);
+}"
+                               ))
+                               .WithRow("Like Objects", Mother.CreateNestedTestObject(3))
+                               .WithRow("Like Exceptions", Mother.CreateNestedException(3))
                                .ToTable();
 
         }

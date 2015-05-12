@@ -4,7 +4,7 @@ using FluentAlerts.Domain;
 
 namespace FluentAlerts.Builders
 {
-    public class FluentTableBuilder : IAlertable
+    public class FluentTableBuilder
     {
         private readonly List<Row> _rows = new List<Row>();
         
@@ -31,10 +31,6 @@ namespace FluentAlerts.Builders
         public Table ToTable()
         {
             return new Table(_rows);
-        }
-        public object ToAlert()
-        {
-            return ToTable();
         }
     }
 }

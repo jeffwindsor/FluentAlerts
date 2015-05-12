@@ -7,6 +7,7 @@
 
     public class Italic : Text { }
     public class Underscore : Text { }
-    public class Strong : Text { }
+    public class Bold : Text { }
+    public class StrikeThrough : Text { }
     public class NewLine : Text { }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using FluentAlerts.Builders;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -92,9 +93,9 @@ namespace FluentAlerts.Examples
                 .With(alerts.TextBlock("A more complex text block")
                     .WithItalic(" with some italic")
                     .WithNewLine()
-                    .WithStrong("And some stronger text")
+                    .WithBold("And some stronger text")
                     .WithUnderscore(" And some underscore")
-                    .WithText(" and some normal text"))
+                    .WithNormal(" and some normal text"))
                 .WithHorizontalRule()
                 .WithHeader("Note you can but any object into this tree")
                 .With(Mother.CreateNestedTestObject(3))
@@ -110,9 +111,17 @@ namespace FluentAlerts.Examples
         }
 
 
-        private static void SerializeToConsole(IAlertable convertable)
+        private static void SerializeToConsole(FluentDocumentBuilder builder)
         {
-            SerializeToConsole(convertable.ToAlert());
+            SerializeToConsole(builder.ToDocument());
+        }
+        private static void SerializeToConsole(FluentTextBlockBuilder builder)
+        {
+            SerializeToConsole(builder.ToTextBlock());
+        }
+        private static void SerializeToConsole(FluentTableBuilder builder)
+        {
+            SerializeToConsole(builder.ToTable());
         }
         private static void SerializeToConsole(object o)
         {

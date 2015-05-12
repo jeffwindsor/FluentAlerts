@@ -2,13 +2,19 @@
 
 namespace FluentAlerts.Domain
 {
-    public class OrderedList : List<object> {
-        public OrderedList(params object[] items) : base(items) { }
-        public OrderedList(IEnumerable<object> items): base(items){}
-    }
-    public class UnOrderedList : List<object>
+    public class OrderedList : List<ListItem>
     {
-        public UnOrderedList(params object[] items) : base(items) { }
-        public UnOrderedList(IEnumerable<object> items) : base(items) { }
+        public OrderedList(params ListItem[] items) : base(items) { }
+        public OrderedList(IEnumerable<ListItem> items) : base(items) { }
+    }
+    public class UnOrderedList : List<ListItem>
+    {
+        public UnOrderedList(params ListItem[] items) : base(items) { }
+        public UnOrderedList(IEnumerable<ListItem> items) : base(items) { }
+    }
+
+    public class ListItem
+    {
+        public object Content { get; set; }
     }
 }

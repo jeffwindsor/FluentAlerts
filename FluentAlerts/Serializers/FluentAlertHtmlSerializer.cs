@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using System.Text;
 using FluentAlerts.Domain;
 
 namespace FluentAlerts.Serializers
@@ -17,8 +13,8 @@ namespace FluentAlerts.Serializers
         {
             //Document 
             SerializeAsListWith<Document>("<div class='alert-document'>", "</div>");
-            SerializeWith<HorizontalRule>("<div class='alert-document'>", "</div>");
-
+            SerializeWith<HorizontalRule>("<HR>", "");
+            
             //Table
             SerializeAsListWith<Table>("<table class='alert-table' cellspacing='1' cellpadding='2' width='100%'>","</table>",
                 table =>
@@ -29,9 +25,24 @@ namespace FluentAlerts.Serializers
             SerializeAsListWith<Row>("<TR>", "</TR>");
             SerializeWith<Cell>(source => GetPrefix(source, "<TD class='value-normal'{0}>"), source => "</TD>", (source) => new[] { source.Content });
             SerializeWith<EmphasizedCell>(source => GetPrefix(source, "<TD class='value-emphasized'{0}>"), source => "</TD>", (source) => new[] { source.Content });
-            SerializeWith<HeaderCell>(source => GetPrefix(source, "<TH{0}>"), source => "</TH>", (source) => new[] { source.Content });
+            SerializeWith<HeaderCell>(source => GetPrefix(source, "<TH class='value-emphasized'{0}>"), source => "</TH>", (source) => new[] { source.Content });
 
-            //Other
+            //Code Block -- Insert pure code, if we inner serialize the code string the string binding will apply substitutions
+            SerializeWith<CodeBlock>("<pre><code>", "</code></pre>", (source, result) => result.Append(source.Code));
+            SerializeWith<Link>((source, result) => result.AppendFormat("<a href='{0}'>{1}</a>", source.Url, source.Text));
+            SerializeAsListWith<OrderedList>("<ol>", "</ol>");
+            SerializeAsListWith<UnOrderedList>("<ul>", "</ul>");
+            SerializeWith<ListItem>("<li>", "</li>", item => new[] {item.Content});
+
+            SerializeAsListWith<TextBlock>("<p>", "</p>");
+            SerializeAsListWith<HeaderTextBlock>(source => string.Format("<H{0}>",source.Level), source => string.Format("</H{0}>",source.Level));
+            SerializeWith<Text>("", "", item => new[] { item.Content });
+            SerializeWith<Italic>("<i>", "</i>", item => new[] { item.Content });
+            SerializeWith<Underscore>("<ins>", "</ins>", item => new[] { item.Content });
+            SerializeWith<Bold>("<b>", "</b>", item => new[] { item.Content });
+            SerializeWith<StrikeThrough>("<del>", "</del>", item => new[] { item.Content });
+            SerializeWith<NewLine>("<BR>", "");
+
             SerializeWith<string>((source, result, serialize) => result.Append(ApplySubstitutions(source)));
         }
 
@@ -44,7 +55,12 @@ namespace FluentAlerts.Serializers
 		font-size:8pt; 
 		background-color: #FFFFFF;
 		}
-	td.value-title{
+	th.value-emphasized{
+		background-color: #E0E0E0;
+		font-weight:bold;
+        font-size:10pt;
+		}
+    td.value-title{
 		background-color: #A0A0A0;
 		font-size:10pt;
 		font-weight:bold;
@@ -70,11 +86,11 @@ namespace FluentAlerts.Serializers
         {
             var decorations = new StringBuilder();
 
-            //Column ids
-            if (cell.ColumnNumber == 1)
-                decorations.Append(" id='first-column'");
-            else if (cell.ColumnNumber == cell.MaxRowColumnNumber)
+            //Column ids - colored correctly if single column is assigned last column
+            if (cell.ColumnNumber == cell.MaxRowColumnNumber)
                 decorations.Append(" id='last-column'");
+            else if (cell.ColumnNumber == 1)
+                decorations.Append(" id='first-column'");
 
             //SPAN
             if (cell.ColumnNumber == cell.MaxRowColumnNumber)
