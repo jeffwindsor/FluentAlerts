@@ -54,10 +54,10 @@
     <Compile Include="Domain\HorizontalRule.cs" />
     <Compile Include="Domain\Link.cs" />
     <Compile Include="Domain\Lists.cs" />
-    <Compile Include="ExtensionsToEnumerable.cs" />
-    <Compile Include="ExtensionsToType.cs" />
-    <Compile Include="FluentAlertHtmlSerializer.cs" />
-    <Compile Include="IFluentAlertHtmlSerializer.cs" />
+    <Compile Include="Extensions\ExtensionsToEnumerable.cs" />
+    <Compile Include="Extensions\ExtensionsToType.cs" />
+    <Compile Include="SerializationTemplates\Html.cs" />
+    <Compile Include="SerializationTemplates\FluentAlertSerializerTemplate.cs" />
     <Compile Include="IFluentAlertSerializer.cs" />
     <Compile Include="Domain\Table.cs" />
     <Compile Include="Domain\Text.cs" />

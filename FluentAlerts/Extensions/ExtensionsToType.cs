@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-namespace FluentAlerts
+namespace FluentAlerts.Extensions
 {
-    public static class ExtensionsToType
+    internal static class ExtensionsToType
     {
         public static string ToPrettyName(this Type type)
         {

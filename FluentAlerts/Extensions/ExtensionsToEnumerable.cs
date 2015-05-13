@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using FluentAlerts.Domain;
 
-namespace FluentAlerts
+namespace FluentAlerts.Extensions
 {
-    public static class ExtensionsToEnumerable
+    internal static class ExtensionsToEnumerable
     {
         public static IEnumerable<ListItem> ToListItems(this IEnumerable<object> items)
         {

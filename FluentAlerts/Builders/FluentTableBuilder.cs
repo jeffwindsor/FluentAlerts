@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FluentAlerts.Domain;
+using FluentAlerts.Extensions;
 
 namespace FluentAlerts.Builders
 {

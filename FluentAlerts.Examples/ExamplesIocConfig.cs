@@ -6,9 +6,7 @@ namespace FluentAlerts.Examples
     {
         public override void Load()
         {
-            //Default IoC Bindings
             Bind<IFluentAlerts>().To<FluentAlerts>();
-            Bind<IFluentAlertHtmlSerializer>().To<FluentAlertHtmlSerializer>();
         }
     }
 }

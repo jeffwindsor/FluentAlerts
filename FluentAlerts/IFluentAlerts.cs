@@ -19,6 +19,6 @@ namespace FluentAlerts
         CodeBlock CodeBlock(string language, string code);
         Link Link(string url, string text = "");
 
-        IFluentAlertSerializer HtmlSerializer();
+        IFluentAlertSerializer Serializer<TTemplate>() where TTemplate : FluentAlertSerializerTemplate, new();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FluentAlerts.Builders;
 using FluentAlerts.Domain;
+using FluentAlerts.Extensions;
 
 namespace FluentAlerts
 {
@@ -69,10 +70,11 @@ namespace FluentAlerts
             };
         }
 
-
-        public IFluentAlertSerializer HtmlSerializer()
+        public IFluentAlertSerializer Serializer<TTemplate>()
+            where TTemplate : FluentAlertSerializerTemplate, new()
         {
-            return new FluentAlertHtmlSerializer();
+            return new FluentAlertSerializer<TTemplate>(new TTemplate());
         }
+
     }
 }

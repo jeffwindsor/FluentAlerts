@@ -3,9 +3,9 @@ using FluentAlerts.Domain;
 
 namespace FluentAlerts
 {
-    public class FluentAlertHtmlSerializer : FluentAlertSerializer, IFluentAlertHtmlSerializer
+    public class Html : FluentAlertSerializerTemplate
     {
-        public FluentAlertHtmlSerializer()
+        public Html()
         {
             //Document 
             SerializeTypeAsListWith<Document>("<div class='alert-document'>", "</div>");
@@ -42,7 +42,7 @@ namespace FluentAlerts
             SerializeTypeWith<string>((source, result, serialize) => result.Append(ApplySubstitutions(source)));
         }
 
-        protected override void PreSerializationHook(StringBuilder results)
+        public override void PreSerializationHook(StringBuilder results)
         {
             //Add Styles
             results.Append(@"<style type='text/css'>

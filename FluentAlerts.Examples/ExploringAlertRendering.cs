@@ -24,7 +24,7 @@ namespace FluentAlerts.Examples
             // This is driven by the Transformer and Formatter classes used
             // as well as the type info and formatter rules.
             // ** We will get into modifying each one of those later
-            SerializeToConsole(Mother.CreateNestedTestObject(3), Alerts.HtmlSerializer());
+            SerializeToConsole(Mother.CreateNestedTestObject(0), Alerts.Serializer<Html>());
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace FluentAlerts.Examples
             }
             catch (Exception ex)
             {
-                SerializeToConsole(Mother.CreateNestedTestObject(3), Alerts.HtmlSerializer());
+                SerializeToConsole(ex, Alerts.Serializer<Html>());
             }
         }
 
@@ -50,7 +50,7 @@ namespace FluentAlerts.Examples
         [Test]
         public void HtmlSerializeTable()
         {
-            SerializeToConsole(GetTestTableAlert(), Alerts.HtmlSerializer());
+            SerializeToConsole(GetTestTableAlert(), Alerts.Serializer<Html>());
         }
         [Test]
         public void HtmlSerializeDocument()
@@ -82,20 +82,19 @@ namespace FluentAlerts.Examples
                 .With(Alerts.HeaderTextBlock(3).WithNormal("Starting Header 3").WithItalic(" then italics").WithBold(" then bold").WithUnderscore(" then underscore").WithStrikeThrough(" strike through").WithNewLine().WithNormal("And a new line"))
                 .WithHorizontalRule()
                 .WithOrderedList("one", "two", "three", 25, Guid.NewGuid(), "whatever you wants", "substitutions < & >")
-                .WithHorizontalRule()
-                .With(Mother.CreateNestedTestObject(1))
+                //.WithHorizontalRule()
+                //.With(Mother.CreateNestedTestObject(1))
                 //.WithHorizontalRule()
                 //.With(Mother.CreateNestedException(3))
                 //.WithHorizontalRule()
                 //.With(GetTestTableAlert())
                 .ToDocument();
 
-            SerializeToConsole(doc, Alerts.HtmlSerializer());
+            SerializeToConsole(doc, Alerts.Serializer<Html>());
         }
 
         private Table GetTestTableAlert()
         {
-            var Alerts = Get<IFluentAlerts>();
             return Alerts.Table("Lets Play with layout to see what the render does.")
                                .WithHeaderRow("Putting the largest number of values in a section sets the number of columns, this is dynamic so this can happen anywhere in the alert")
                                .WithRow("One", "Two", "Three", "Four", "Five")
