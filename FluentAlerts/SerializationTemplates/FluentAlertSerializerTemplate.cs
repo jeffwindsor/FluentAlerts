@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using FluentAlerts.Builders;
@@ -11,15 +12,15 @@ namespace FluentAlerts
 {
     public abstract class FluentAlertSerializerTemplate
     {
+        protected delegate bool Predicate(object o);
         protected delegate void SerializerCallBack(object source, StringBuilder result);
+        protected delegate void CustomSerializer(object source, StringBuilder result, SerializerCallBack serializerCallback);
         protected delegate void CustomTypeSerializer<in T>(T source, StringBuilder result);
         protected delegate void CustomTypeSerializerWithCallBack<in T>(T source, StringBuilder result, SerializerCallBack serializerCallback);
-        protected delegate void CustomSerializer(object source, StringBuilder result, SerializerCallBack serializerCallback);
-        protected delegate IEnumerable EnumerableMap<in T>(T list) where T : IEnumerable;
-        protected delegate IEnumerable ItemMap<in T>(T item);
         protected delegate string TextMap<in T>(T item);
-        protected delegate bool Predicate(object o);
-
+        protected delegate IEnumerable ItemMap<in T>(T item);
+        protected delegate IEnumerable EnumerableMap<in T>(T list) where T : IEnumerable;
+        
         private readonly Dictionary<Type, CustomSerializer> _customTypeSerializers = new Dictionary<Type, CustomSerializer>();
         private readonly CustomMatchSerializers _customMatchSerializers = new CustomMatchSerializers();
 
@@ -68,10 +69,12 @@ namespace FluentAlerts
         }
         protected void ClearCustomTypeSerializers()
         {
+            Debug.Print("ClearCustomTypeSerializers");
             _customTypeSerializers.Clear();
         }
         protected void ClearCustomMatchSerializers()
         {
+            Debug.Print("ClearCustomMatchSerializers");
             _customMatchSerializers.Clear();
         }
 
@@ -99,6 +102,7 @@ namespace FluentAlerts
             SerializeTypeWith(typeof(T),
                 (source, result, serializerCallBack) =>
                 {
+                    Debug.Print("SerializeTypeWith > CustomTypeSerializer<T>");
                     if (customTypeSerializer != null) customTypeSerializer((T)source, result);
                 });
         }
@@ -108,6 +112,7 @@ namespace FluentAlerts
             SerializeTypeWith(typeof(T),
                 (source, result, serializerCallBack) =>
                 {
+                    Debug.Print("SerializeTypeWith > CustomTypeSerializerWithCallBack<T>");
                     if (customTypeSerializer != null) customTypeSerializer((T)source, result, serializerCallBack);
                 });
         }
@@ -121,8 +126,10 @@ namespace FluentAlerts
             SerializeTypeWith(prefix,postfix, (source, result, serializerCallBack) =>
             {
                 if (itemMap == null) return;
+                Debug.Print("SerializeTypeWith > ItemMap");
                 foreach (var item in itemMap(source))
                 {
+                    Debug.Print("  MapItem: {0}", item);
                     serializerCallBack(item, result);
                 }
             });
@@ -136,6 +143,7 @@ namespace FluentAlerts
         {
             SerializeTypeWith(prefix,postfix, (source, result, serializerCallBack) =>
             {
+                Debug.Print("SerializeTypeWith > CustomTypeSerializer<T> INNER");
                 if (innerCustomTypeSerializer != null) innerCustomTypeSerializer(source, result);
             });
         }
@@ -151,6 +159,7 @@ namespace FluentAlerts
                 {
                     //Wrap item in the given pre and post fix text, then call give item serializer on T
                     var item = (T)source;
+                    Debug.Print("SerializeTypeWith > CustomTypeSerializerWithCallBack<T> INNER for {0}", item);
                     if (prefix != null) result.Append(prefix(item));
                     if (innerCustomTypeSerializer != null) innerCustomTypeSerializer(item, result, serializerCallBack);
                     if (postfix != null) result.Append(postfix(item));
@@ -171,13 +180,19 @@ namespace FluentAlerts
             SerializeTypeWith(typeof (T),
                 (source, result, serializerCallBack) =>
                 {
+                    Debug.Print("SerializeTypeAsListWith");
                     var list = (T) source;
                     var items = (enumerableMap == null) ? list : enumerableMap(list);
-                    if (serializerCallBackOverride == null) serializerCallBackOverride = serializerCallBack;
+                    if (serializerCallBackOverride == null)
+                    {
+                        Debug.Print("  SerializerCallBackOverride not given");
+                        serializerCallBackOverride = serializerCallBack;
+                    }
                     //Wrap serialization of list items in the given pre and post fix text, inside wrapper call serialization on all list items
                     if (prefix != null) result.Append(prefix(list));
                     foreach (var item in items)
                     {
+                        Debug.Print("  ListItem: {0}", item);
                         serializerCallBackOverride(item, result);
                     }
                     if (postfix != null) result.Append(postfix(list));
@@ -189,36 +204,36 @@ namespace FluentAlerts
         {
             public static void SerializeAsListToRows(object source, StringBuilder result,SerializerCallBack serializeCallback)
             {
+                Debug.Print("SerializeAsListToRows");
                 var table = new Table(from object item in (source as IEnumerable) select new Row(new Cell {Content = item}));
                 serializeCallback(table, result);
             }
 
             public static void SerializeToPublicPropertiesPropertyNameValueIntoNestedTables(object source, StringBuilder result,SerializerCallBack serializeCallback)
             {
-                var table = new Table(from pi in source.GetType().GetProperties()
+                Debug.Print("SerializeToPublicPropertiesPropertyNameValueIntoNestedTables");
+                var type = source.GetType();
+                var table = new Table(from pi in type.GetProperties()
                     select new Row(new Cell { Content = pi.Name }, new Cell { Content = pi.GetValue(source) }));
-                serializeCallback(table, result);
-            }
-
-            public static void SerializeToPublicPropertiesPropertyNameTypeValueIntoNestedTables(object source, StringBuilder result, SerializerCallBack serializeCallback)
-            {
-                var table = new Table(from pi in source.GetType().GetProperties()
-                    select new Row(new Cell { Content = pi.Name }, new Cell { Content = pi.GetType().Name }, new Cell { Content = pi.GetValue(source) }));
+                table.Insert(0, new Row(new HeaderCell{Content = type.ToPrettyName()}));
                 serializeCallback(table, result);
             }
 
             public static void SerializeToString(object source, StringBuilder result, SerializerCallBack serializeCallback)
             {
+                Debug.Print("SerializeToString");
                 result.Append(source);
             }
 
             public static void SerializeToPrettyTypeName(object source, StringBuilder result, SerializerCallBack serializeCallback)
             {
+                Debug.Print("SerializeToPrettyTypeName");
                 result.Append(source.GetType().ToPrettyName());
             }
 
             public static void SerializeToNullString(object source, StringBuilder result, SerializerCallBack serializeCallback)
             {
+                Debug.Print("SerializeToNullString");
                 result.Append("Null");
             }
         }
