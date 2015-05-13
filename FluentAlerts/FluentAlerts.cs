@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using FluentAlerts.Builders;
+﻿using FluentAlerts.Builders;
 using FluentAlerts.Domain;
 
 namespace FluentAlerts
 {
-    public class FluentAlertFactory : IFluentAlerts
+    public class FluentAlerts : IFluentAlerts
     {
         public FluentDocumentBuilder Document()
         {
@@ -46,19 +45,14 @@ namespace FluentAlerts
             return HeaderTextBlock(level).WithNormal(text);
         }
 
-        public Document From(object obj)
-        {
-            return Document().With(obj).ToDocument();
-        }
-
         public OrderedList OrderedList(params object[] items)
         {
-            return new OrderedList(items.Select(i=> new ListItem{Content = i}));
+            return new OrderedList(items.ToListItems());
         }
 
         public UnOrderedList UnOrderedList(params object[] items)
         {
-            return new UnOrderedList(items.Select(i => new ListItem { Content = i }));
+            return new UnOrderedList(items.ToListItems());
         }
 
         public CodeBlock CodeBlock(string language, string code)
@@ -73,6 +67,12 @@ namespace FluentAlerts
                 Url = url,
                 Text = text
             };
+        }
+
+
+        public IFluentAlertSerializer HtmlSerializer()
+        {
+            return new FluentAlertHtmlSerializer();
         }
     }
 }

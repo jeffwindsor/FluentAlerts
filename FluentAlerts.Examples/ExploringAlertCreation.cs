@@ -10,7 +10,7 @@ namespace FluentAlerts.Examples
     public class ExploringAlertCreation:BaseExample
     {        
         /*
-         * Lets play around with creating some alerts.  
+         * Lets play around with creating some Alerts.  
          * The test will serialize the alert to json and put it into the trace stream,
          * just so you can see the data.   
          * 
@@ -40,8 +40,7 @@ namespace FluentAlerts.Examples
         [Test]
         public void CreateSimpleTableLikeAlert()
         {
-            var alerts = Get<IFluentAlerts>();
-            var alert = alerts.Table("Those pant's don't match that shirt, my man.")
+            var alert = Alerts.Table("Those pant's don't match that shirt, my man.")
                 .WithRow("Shirt Color", "Yellow")
                 .WithRow("Pants Color", "Purple Plaid")
                 .WithEmphasizedRow("Top 3 Reasons")
@@ -49,14 +48,13 @@ namespace FluentAlerts.Examples
                 .WithRow("Two", "Didn't work for Smoochie, and it won't work for you.")
                 .WithRow("Three", "everyone knows your jeans should be green.");
 
-            SerializeToConsole(alert);
+            SerializeToConsoleAsJson(alert.ToTable());
         }
         
         [Test]
         public void CreateSimpleDocumentLikeAlert()
         {
-            var alerts = Get<IFluentAlerts>();
-            var alert = alerts.Document("Create a simple document like alert")
+            var alert = Alerts.Document("Create a simple document like alert")
                 .WithHorizontalRule()
                 .WithHeader("Hear is some code that is relevant to this alert", 2)
                 .WithCodeBlock("C#", @"        private string GetSpanningDecoration(int index, int maximumValueIndex)
@@ -78,19 +76,18 @@ namespace FluentAlerts.Examples
                 .WithHorizontalRule()
                 .WithOrderedList("one", "two", "three", 25, Guid.NewGuid(), "whatever you wants");
 
-            SerializeToConsole(alert);
+            SerializeToConsoleAsJson(alert.ToDocument());
         }
 
         [Test]
         public void ComposeAnythingForMoreFlare()
         {
-            // Here is a simple example of how you can compose alerts and objects.
-            // The builder allows you to add alerts (or alert builders) to alerts, allowing
+            // Here is a simple example of how you can compose Alerts and objects.
+            // The builder allows you to add Alerts (or alert builders) to Alerts, allowing
             // you to create complex trees of composed information.
-            var alerts = Get<IFluentAlerts>();
-            var alert = alerts.Document(
+            var alert = Alerts.Document(
                 "We are going to start with a document, but you would start with Table if you prefer")
-                .With(alerts.TextBlock("A more complex text block")
+                .With(Alerts.TextBlock("A more complex text block")
                     .WithItalic(" with some italic")
                     .WithNewLine()
                     .WithBold("And some stronger text")
@@ -102,28 +99,15 @@ namespace FluentAlerts.Examples
                 .With(Guid.NewGuid())
                 .With(DateTime.UtcNow)
                 .WithHorizontalRule()
-                .With(alerts.Table("My Inner Table")
+                .With(Alerts.Table("My Inner Table")
                     .WithHeaderRow("one", "two", "three")
-                    .WithRow(1, Mother.CreateNestedException(2), alerts.Document("Note this row will take any type, Compose what you will"))
+                    .WithRow(1, Mother.CreateNestedException(2), Alerts.Document("Note this row will take any type, Compose what you will"))
                     .WithEmphasizedRow("one", "last cell will be spanned if not all cells are given"));
             
-            SerializeToConsole(alert);
+            SerializeToConsoleAsJson(alert.ToDocument());
         }
 
-
-        private static void SerializeToConsole(FluentDocumentBuilder builder)
-        {
-            SerializeToConsole(builder.ToDocument());
-        }
-        private static void SerializeToConsole(FluentTextBlockBuilder builder)
-        {
-            SerializeToConsole(builder.ToTextBlock());
-        }
-        private static void SerializeToConsole(FluentTableBuilder builder)
-        {
-            SerializeToConsole(builder.ToTable());
-        }
-        private static void SerializeToConsole(object o)
+        private static void SerializeToConsoleAsJson(object o)
         {
             SendToConsole(JsonConvert.SerializeObject(o));
         }

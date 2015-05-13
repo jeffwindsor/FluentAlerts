@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace FluentAlerts.Domain
 {
@@ -10,6 +11,7 @@ namespace FluentAlerts.Domain
 
         public void ProcessTableIndexes()
         {
+            if (!this.Any()) return;
             //Set cell values based on current row make-up
             var maxTableColumnNumber = (uint)this.Max(r => r.Count);
             foreach (var row in this)

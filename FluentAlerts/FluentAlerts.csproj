@@ -54,19 +54,21 @@
     <Compile Include="Domain\HorizontalRule.cs" />
     <Compile Include="Domain\Link.cs" />
     <Compile Include="Domain\Lists.cs" />
-    <Compile Include="Serializers\FluentAlertHtmlSerializer.cs" />
-    <Compile Include="Serializers\MemberPath.cs" />
+    <Compile Include="ExtensionsToEnumerable.cs" />
+    <Compile Include="ExtensionsToType.cs" />
+    <Compile Include="FluentAlertHtmlSerializer.cs" />
+    <Compile Include="IFluentAlertHtmlSerializer.cs" />
+    <Compile Include="IFluentAlertSerializer.cs" />
     <Compile Include="Domain\Table.cs" />
     <Compile Include="Domain\Text.cs" />
     <Compile Include="Domain\TextBlock.cs" />
-    <Compile Include="FluentAlertFactory.cs" />
+    <Compile Include="FluentAlerts.cs" />
     <Compile Include="Builders\FluentDocumentBuilder.cs" />
     <Compile Include="Builders\FluentTableBuilder.cs" />
     <Compile Include="Builders\FluentTextBlockBuilder.cs" />
-    <Compile Include="Serializers\FluentAlertSerializer.cs" />
+    <Compile Include="FluentAlertSerializer.cs" />
     <Compile Include="IFluentAlerts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IFluentAlertSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

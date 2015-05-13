@@ -1,49 +1,45 @@
 ﻿using System.Text;
 using FluentAlerts.Domain;
 
-namespace FluentAlerts.Serializers
+namespace FluentAlerts
 {
-    public interface IFluentAlertHtmlSerializer
-    {
-        string Serialize(object source);
-    }
     public class FluentAlertHtmlSerializer : FluentAlertSerializer, IFluentAlertHtmlSerializer
     {
         public FluentAlertHtmlSerializer()
         {
             //Document 
-            SerializeAsListWith<Document>("<div class='alert-document'>", "</div>");
-            SerializeWith<HorizontalRule>("<HR>", "");
+            SerializeTypeAsListWith<Document>("<div class='alert-document'>", "</div>");
+            SerializeTypeWith<HorizontalRule>("<HR>", "");
             
             //Table
-            SerializeAsListWith<Table>("<table class='alert-table' cellspacing='1' cellpadding='2' width='100%'>","</table>",
+            SerializeTypeAsListWith<Table>("<table class='alert-table' cellspacing='1' cellpadding='2' width='100%'>","</table>",
                 table =>
                 {
                     table.ProcessTableIndexes();
                     return table;
                 });
-            SerializeAsListWith<Row>("<TR>", "</TR>");
-            SerializeWith<Cell>(source => GetPrefix(source, "<TD class='value-normal'{0}>"), source => "</TD>", (source) => new[] { source.Content });
-            SerializeWith<EmphasizedCell>(source => GetPrefix(source, "<TD class='value-emphasized'{0}>"), source => "</TD>", (source) => new[] { source.Content });
-            SerializeWith<HeaderCell>(source => GetPrefix(source, "<TH class='value-emphasized'{0}>"), source => "</TH>", (source) => new[] { source.Content });
+            SerializeTypeAsListWith<Row>("<TR>", "</TR>");
+            SerializeTypeWith<Cell>(source => GetPrefix(source, "<TD class='value-normal'{0}>"), source => "</TD>", (source) => new[] { source.Content });
+            SerializeTypeWith<EmphasizedCell>(source => GetPrefix(source, "<TD class='value-emphasized'{0}>"), source => "</TD>", (source) => new[] { source.Content });
+            SerializeTypeWith<HeaderCell>(source => GetPrefix(source, "<TH class='value-emphasized'{0}>"), source => "</TH>", (source) => new[] { source.Content });
 
             //Code Block -- Insert pure code, if we inner serialize the code string the string binding will apply substitutions
-            SerializeWith<CodeBlock>("<pre><code>", "</code></pre>", (source, result) => result.Append(source.Code));
-            SerializeWith<Link>((source, result) => result.AppendFormat("<a href='{0}'>{1}</a>", source.Url, source.Text));
-            SerializeAsListWith<OrderedList>("<ol>", "</ol>");
-            SerializeAsListWith<UnOrderedList>("<ul>", "</ul>");
-            SerializeWith<ListItem>("<li>", "</li>", item => new[] {item.Content});
+            SerializeTypeWith<CodeBlock>("<pre><code>", "</code></pre>", (source, result) => result.Append(source.Code));
+            SerializeTypeWith<Link>((source, result) => result.AppendFormat("<a href='{0}'>{1}</a>", source.Url, source.Text));
+            SerializeTypeAsListWith<OrderedList>("<ol>", "</ol>");
+            SerializeTypeAsListWith<UnOrderedList>("<ul>", "</ul>");
+            SerializeTypeWith<ListItem>("<li>", "</li>", item => new[] {item.Content});
 
-            SerializeAsListWith<TextBlock>("<p>", "</p>");
-            SerializeAsListWith<HeaderTextBlock>(source => string.Format("<H{0}>",source.Level), source => string.Format("</H{0}>",source.Level));
-            SerializeWith<Text>("", "", item => new[] { item.Content });
-            SerializeWith<Italic>("<i>", "</i>", item => new[] { item.Content });
-            SerializeWith<Underscore>("<ins>", "</ins>", item => new[] { item.Content });
-            SerializeWith<Bold>("<b>", "</b>", item => new[] { item.Content });
-            SerializeWith<StrikeThrough>("<del>", "</del>", item => new[] { item.Content });
-            SerializeWith<NewLine>("<BR>", "");
+            SerializeTypeAsListWith<TextBlock>("<p>", "</p>");
+            SerializeTypeAsListWith<HeaderTextBlock>(source => string.Format("<H{0}>",source.Level), source => string.Format("</H{0}>",source.Level));
+            SerializeTypeWith<Text>("", "", item => new[] { item.Content });
+            SerializeTypeWith<Italic>("<i>", "</i>", item => new[] { item.Content });
+            SerializeTypeWith<Underscore>("<ins>", "</ins>", item => new[] { item.Content });
+            SerializeTypeWith<Bold>("<b>", "</b>", item => new[] { item.Content });
+            SerializeTypeWith<StrikeThrough>("<del>", "</del>", item => new[] { item.Content });
+            SerializeTypeWith<NewLine>("<BR>", "");
 
-            SerializeWith<string>((source, result, serialize) => result.Append(ApplySubstitutions(source)));
+            SerializeTypeWith<string>((source, result, serialize) => result.Append(ApplySubstitutions(source)));
         }
 
         protected override void PreSerializationHook(StringBuilder results)

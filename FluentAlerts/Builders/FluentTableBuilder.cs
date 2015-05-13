@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using FluentAlerts.Domain;
 
 namespace FluentAlerts.Builders
@@ -10,17 +9,17 @@ namespace FluentAlerts.Builders
         
         public FluentTableBuilder WithRow(params object[] cells)
         {
-            return With(new Row(cells.Select(c => new Cell { Content = c })));
+            return With(new Row(cells.ToCellItems()));
         }
 
         public FluentTableBuilder WithEmphasizedRow(params object[] cells)
         {
-            return With(new Row(cells.Select(c => new EmphasizedCell { Content = c } )));
+            return With(new Row(cells.ToEmphasizedCellItems()));
         }
 
         public FluentTableBuilder WithHeaderRow(params object[] cells)
         {
-            return With(new Row(cells.Select(c => new HeaderCell {Content = c})));
+            return With(new Row(cells.ToHeaderCellItems()));
         }
 
         private FluentTableBuilder With<T>(T item) where T: Row

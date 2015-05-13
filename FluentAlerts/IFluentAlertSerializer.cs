@@ -1,4 +1,4 @@
-﻿namespace FluentAlerts
+namespace FluentAlerts
 {
     public interface IFluentAlertSerializer
     {

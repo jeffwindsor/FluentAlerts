@@ -1,5 +1,4 @@
-﻿using FluentAlerts.Serializers;
-using Ninject.Modules;
+﻿using Ninject.Modules;
 
 namespace FluentAlerts.Examples
 {
@@ -8,8 +7,8 @@ namespace FluentAlerts.Examples
         public override void Load()
         {
             //Default IoC Bindings
-            Bind<IFluentAlerts>().To<FluentAlertFactory>();
-            Bind<IFluentAlertSerializer>().To<FluentAlertSerializer>();
+            Bind<IFluentAlerts>().To<FluentAlerts>();
+            Bind<IFluentAlertHtmlSerializer>().To<FluentAlertHtmlSerializer>();
         }
     }
 }
