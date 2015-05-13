@@ -11,10 +11,10 @@ namespace FluentAlerts
 {
     public abstract class FluentAlertSerializerTemplate
     {
-        public delegate void SerializerCallBack(object source, StringBuilder result);
+        protected delegate void SerializerCallBack(object source, StringBuilder result);
         protected delegate void CustomTypeSerializer<in T>(T source, StringBuilder result);
         protected delegate void CustomTypeSerializerWithCallBack<in T>(T source, StringBuilder result, SerializerCallBack serializerCallback);
-        public delegate void CustomSerializer(object source, StringBuilder result, SerializerCallBack serializerCallback);
+        protected delegate void CustomSerializer(object source, StringBuilder result, SerializerCallBack serializerCallback);
         protected delegate IEnumerable EnumerableMap<in T>(T list) where T : IEnumerable;
         protected delegate IEnumerable ItemMap<in T>(T item);
         protected delegate string TextMap<in T>(T item);
@@ -34,10 +34,17 @@ namespace FluentAlerts
             SerializeMatchWith(source => true, DefaultSerializers.SerializeToPublicPropertiesPropertyNameValueIntoNestedTables);   // Default rule, object to Public Property NameValue Table
             SerializeMatchWith(source => source.GetType().IsValueType, DefaultSerializers.SerializeToString);  // Value types to string           
         }
-
+        
         public virtual void PreSerializationHook(StringBuilder result) { }
         public virtual void PostSerializationHook(StringBuilder result) { }
-        public CustomSerializer GetSerializer(object source)
+
+        public void Serialize(object source, StringBuilder result)
+        {
+            var serializer = GetSerializer(source);
+            serializer(source, result, Serialize);
+        }
+
+        protected CustomSerializer GetSerializer(object source)
         {
             //Catch any null value
             if (source == null)

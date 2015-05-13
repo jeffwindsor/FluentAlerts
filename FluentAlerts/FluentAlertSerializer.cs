@@ -6,6 +6,7 @@ namespace FluentAlerts
         IFluentAlertSerializer where TTemplate : FluentAlertSerializerTemplate, new()
     {
         private readonly TTemplate _template;
+        public FluentAlertSerializer():this(new TTemplate()){}
         public FluentAlertSerializer(TTemplate template)
         {
             _template = template;
@@ -20,15 +21,9 @@ namespace FluentAlerts
         {
             var result = new StringBuilder();
             _template.PreSerializationHook(result);
-            SerializeToBuilder(source, result);
+            _template.Serialize(source, result);
             _template.PostSerializationHook(result);
             return result.ToString();
-        }
-
-        private void SerializeToBuilder(object source, StringBuilder result)
-        {
-            var serializer = _template.GetSerializer(source);
-            serializer(source, result, SerializeToBuilder);
         }
     }
 }
