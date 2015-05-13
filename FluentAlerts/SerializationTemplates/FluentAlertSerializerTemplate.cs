@@ -32,6 +32,7 @@ namespace FluentAlerts
             SerializeTypeWith<FluentTableBuilder>((source, result, callback) => callback(source.ToTable(), result));
 
             //Default Value Type rule
+//            SerializeMatchWith(source => true, DefaultSerializers.SerializeToString);   // Default rule, object to Public Property NameValue Table
             SerializeMatchWith(source => true, DefaultSerializers.SerializeToPublicPropertiesPropertyNameValueIntoNestedTables);   // Default rule, object to Public Property NameValue Table
             SerializeMatchWith(source => source.GetType().IsValueType, DefaultSerializers.SerializeToString);  // Value types to string           
         }
@@ -127,10 +128,22 @@ namespace FluentAlerts
             {
                 if (itemMap == null) return;
                 Debug.Print("SerializeTypeWith > ItemMap");
-                foreach (var item in itemMap(source))
+	            var items = itemMap(source).Cast<object>().ToArray();
+                foreach (var item in items)
                 {
                     Debug.Print("  MapItem: {0}", item);
-                    serializerCallBack(item, result);
+	                if (item == null) continue;
+	                if (item.GetType().IsArray)
+	                {
+		                var contents = item as object[];
+		                if (contents == null) continue;
+		                if ((item as object[]).Length == 0)
+		                {
+			                result.Append("Empty");
+							continue;
+		                }
+	                }
+					serializerCallBack(item, result);
                 }
             });
         }
