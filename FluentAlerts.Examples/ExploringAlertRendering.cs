@@ -24,7 +24,7 @@ namespace FluentAlerts.Examples
             // This is driven by the Transformer and Formatter classes used
             // as well as the type info and formatter rules.
             // ** We will get into modifying each one of those later
-            SerializeToConsole(Mother.CreateNestedTestObject(0), Alerts.Serializer<Html>());
+            SerializeToConsole(Mother.CreateNestedTestObject(3), Alerts.Serializer<Html>());
         }
 
         [Test]
@@ -82,12 +82,12 @@ namespace FluentAlerts.Examples
                 .With(Alerts.HeaderTextBlock(3).WithNormal("Starting Header 3").WithItalic(" then italics").WithBold(" then bold").WithUnderscore(" then underscore").WithStrikeThrough(" strike through").WithNewLine().WithNormal("And a new line"))
                 .WithHorizontalRule()
                 .WithOrderedList("one", "two", "three", 25, Guid.NewGuid(), "whatever you wants", "substitutions < & >")
-                //.WithHorizontalRule()
-                //.With(Mother.CreateNestedTestObject(1))
-                //.WithHorizontalRule()
-                //.With(Mother.CreateNestedException(3))
-                //.WithHorizontalRule()
-                //.With(GetTestTableAlert())
+                .WithHorizontalRule()
+                .With(Mother.CreateNestedTestObject(1))
+                .WithHorizontalRule()
+                .With(Mother.CreateNestedException(3))
+                .WithHorizontalRule()
+                .With(GetTestTableAlert())
                 .ToDocument();
 
             SerializeToConsole(doc, Alerts.Serializer<Html>());
