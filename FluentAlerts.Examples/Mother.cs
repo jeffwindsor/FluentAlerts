@@ -1,34 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FluentAlerts.Examples
 {
     internal class Mother
     {
-        //public static IFluentAlertSerializer CreateDefaultAlertRender()
-        //{
-        //    return new FluentAlertSerializer(
-        //        CreateDefaultAlertTransformer(),
-        //        new FluentAlertTemplateBasedTransformableSerializer(CreateDefaultAlertTemplate()));
-        //}
-        //private static SerializationTemplate CreateDefaultAlertTemplate()
-        //{
-        //    var templates = new RenderTemplateDictionary(new RenderTemplateDictionaryIssueHandler(new FluentAlerts()));
-        //    var settings = new FluentAlertDefaultedAppConfigSettings();
+        private static Guid GUID = new Guid("9149cae6-b300-44a7-8130-034f742477c4");
+        private static DateTime DATETIME = new DateTime(2000, 01, 01);
 
-        //    return templates.GetTemplate(settings.DefaultTemplateName());
-        //}       
+        public static IEnumerable<object> CreateMixedList()
+        {
+            return new Object[]
+            {
+                "Test String",
+                12.2324,
+                GUID,
+                DATETIME,
+                new Tuple<string,string>("a","b"),
+                new []{"one","two","three"},
+                new string[]{}
+            };
+        }
+        public static TestClass CreateTestObject(int nestingDepth = 0)
+        {
+            return new TestClass()
+            {
+                DateProperty = DATETIME,
+                NumberProperty = (NumberEnum)nestingDepth,
+                DateField = DATETIME,
+                NumberField = (NumberEnum)nestingDepth,
+                InnerObject = (nestingDepth < 1) ? null : CreateTestObject(nestingDepth - 1),
+                InnerObjectList = CreateMixedList()
+            };
+        }
 
-        //private static ITransformer CreateDefaultAlertTransformer()
-        //{
-        //    return new NameValueRowTransformer(new DefaultTransformStrategy(),
-        //                                       new DefaultTypeInformerSelector(),
-        //                                       new DefaultValueToStringFormatter(),
-        //                                       new FluentAlerts());
-        //}
+        public static TestStruct CreateTestStruct(int nestingDepth)
+        {
+            return new TestStruct()
+            {
+                DateProperty = DATETIME,
+                NumberProperty = (NumberEnum)nestingDepth,
+                DateField = DATETIME,
+                NumberField = (NumberEnum)nestingDepth,
+                InnerObjectList =  CreateMixedList()
+            };
+        }
 
-        #region Exceptions
         public static Exception CreateNestedException(int nestingDepth)
         {
             try
@@ -63,38 +80,7 @@ namespace FluentAlerts.Examples
             }
         }       
 
-        #endregion
-
         #region ClassesAndStructs
-        public static NestedTestClass CreateNestedTestObject(int nestingDepth)
-        {
-            return new NestedTestClass()
-            {
-                DateProperty = DateTime.Now,
-                NumberProperty = (NumberEnum)nestingDepth,
-                DateField = DateTime.Now,
-                NumberField = (NumberEnum)nestingDepth,
-                Child = (nestingDepth < 1)
-                            ? null
-                            : CreateNestedTestObject(nestingDepth - 1),
-                Children = (nestingDepth < 1)
-                               ? Enumerable.Empty<NestedTestClass>()
-                               : from i in Enumerable.Range(0, 5) select CreateNestedTestObject(nestingDepth - 1)
-            };
-        }
-
-        public static NestedTestStruct GetNestedTestStruct(int nestingDepth)
-        {
-            return new NestedTestStruct()
-            {
-                TestDate = DateTime.Now,
-                Number = (NumberEnum)nestingDepth,
-                Children = (nestingDepth < 1)
-                               ? Enumerable.Empty<NestedTestStruct>()
-                               : from i in Enumerable.Range(0, 5) select GetNestedTestStruct(nestingDepth - 1)
-            };
-        }
-
         internal enum NumberEnum
         {
             One,
@@ -106,21 +92,23 @@ namespace FluentAlerts.Examples
             Seven
         }
 
-        internal class NestedTestClass
+        internal class TestClass
         {
             public DateTime DateProperty { get; set; }
-            public NumberEnum NumberProperty;
+            public NumberEnum NumberProperty  { get; set; }
             public DateTime DateField;
             public NumberEnum NumberField;
-            public NestedTestClass Child { get; set; }
-            public IEnumerable<NestedTestClass> Children { get; set; }
+            public TestClass InnerObject { get; set; }
+            public IEnumerable<object> InnerObjectList { get; set; }
         }
 
-        internal struct NestedTestStruct
+        internal struct TestStruct
         {
-            public DateTime TestDate { get; set; }
-            public NumberEnum Number;
-            public IEnumerable<NestedTestStruct> Children { get; set; }
+            public DateTime DateProperty { get; set; }
+            public NumberEnum NumberProperty { get; set; }
+            public DateTime DateField;
+            public NumberEnum NumberField;
+            public IEnumerable<object> InnerObjectList { get; set; }
         }
         #endregion
     }
