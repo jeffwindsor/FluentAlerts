@@ -36,24 +36,24 @@ namespace FluentAlerts
             return TextBlock().WithNormal(text);
         }
 
-        public FluentTextBlockBuilder HeaderTextBlock(uint level)
+        public FluentTextBlockBuilder HeaderTextBlock(int level)
         {
             return new FluentTextBlockBuilder(level);
         }
 
-        public FluentTextBlockBuilder HeaderTextBlock(string text, uint level)
+        public FluentTextBlockBuilder HeaderTextBlock(string text, int level)
         {
             return HeaderTextBlock(level).WithNormal(text);
         }
 
         public OrderedList OrderedList(params object[] items)
         {
-            return new OrderedList(items.ToListItems());
+            return new OrderedList(items.ToOrderedListItems());
         }
 
         public UnOrderedList UnOrderedList(params object[] items)
         {
-            return new UnOrderedList(items.ToListItems());
+            return new UnOrderedList(items.ToUnOrderedListItems());
         }
 
         public CodeBlock CodeBlock(string language, string code)

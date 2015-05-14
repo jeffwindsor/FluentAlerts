@@ -9,14 +9,14 @@ namespace FluentAlerts.Domain
     }
     public class HeaderTextBlock : TextBlock
     {
-        public uint Level { get; set; }
+        public int Level { get; set; }
 
-        public HeaderTextBlock(uint level, params object[] items)
+        public HeaderTextBlock(int level, params object[] items)
             : base(items)
         {
             Level = level;
         }
-        public HeaderTextBlock(IEnumerable<object> items, uint level)
+        public HeaderTextBlock(IEnumerable<object> items, int level)
             : base(items)
         {
             Level = level;

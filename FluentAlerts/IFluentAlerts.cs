@@ -11,8 +11,8 @@ namespace FluentAlerts
         FluentTableBuilder Table(string title);
         FluentTextBlockBuilder TextBlock();
         FluentTextBlockBuilder TextBlock(string text);
-        FluentTextBlockBuilder HeaderTextBlock(uint level);
-        FluentTextBlockBuilder HeaderTextBlock(string text, uint level);
+        FluentTextBlockBuilder HeaderTextBlock(int level);
+        FluentTextBlockBuilder HeaderTextBlock(string text, int level);
 
         OrderedList OrderedList(params object[] items);
         UnOrderedList UnOrderedList(params object[] items);

@@ -57,8 +57,9 @@
     <Compile Include="Extensions\ExtensionsToEnumerable.cs" />
     <Compile Include="Extensions\ExtensionsToStringBuilder.cs" />
     <Compile Include="Extensions\ExtensionsToType.cs" />
-    <Compile Include="SerializationTemplates\Html.cs" />
-    <Compile Include="SerializationTemplates\FluentAlertSerializerTemplate.cs" />
+    <Compile Include="Outlook.cs" />
+    <Compile Include="Html.cs" />
+    <Compile Include="FluentAlertSerializerTemplate.cs" />
     <Compile Include="IFluentAlertSerializer.cs" />
     <Compile Include="Domain\Table.cs" />
     <Compile Include="Domain\Text.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="FluentAlertSerializer.cs" />
     <Compile Include="IFluentAlerts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GitHubMarkdown.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

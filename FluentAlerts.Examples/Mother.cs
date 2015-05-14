@@ -5,8 +5,8 @@ namespace FluentAlerts.Examples
 {
     internal class Mother
     {
-        private static Guid GUID = new Guid("9149cae6-b300-44a7-8130-034f742477c4");
-        private static DateTime DATETIME = new DateTime(2000, 01, 01);
+        private static readonly Guid TestGuid = new Guid("9149cae6-b300-44a7-8130-034f742477c4");
+        private static readonly DateTime TestDate = new DateTime(2000, 01, 01);
 
         public static IEnumerable<object> CreateMixedList()
         {
@@ -14,8 +14,8 @@ namespace FluentAlerts.Examples
             {
                 "Test String",
                 12.2324,
-                GUID,
-                DATETIME,
+                TestGuid,
+                TestDate,
                 new Tuple<string,string>("a","b"),
                 new []{"one","two","three"},
                 new string[]{}
@@ -25,9 +25,9 @@ namespace FluentAlerts.Examples
         {
             return new TestClass()
             {
-                DateProperty = DATETIME,
+                DateProperty = TestDate,
                 NumberProperty = (NumberEnum)nestingDepth,
-                DateField = DATETIME,
+                DateField = TestDate,
                 NumberField = (NumberEnum)nestingDepth,
                 InnerObject = (nestingDepth < 1) ? null : CreateTestObject(nestingDepth - 1),
                 InnerObjectList = CreateMixedList()
@@ -38,9 +38,9 @@ namespace FluentAlerts.Examples
         {
             return new TestStruct()
             {
-                DateProperty = DATETIME,
+                DateProperty = TestDate,
                 NumberProperty = (NumberEnum)nestingDepth,
-                DateField = DATETIME,
+                DateField = TestDate,
                 NumberField = (NumberEnum)nestingDepth,
                 InnerObjectList =  CreateMixedList()
             };

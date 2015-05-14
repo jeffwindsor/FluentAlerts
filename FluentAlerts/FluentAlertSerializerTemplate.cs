@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Security.Permissions;
 using System.Text;
 using FluentAlerts.Builders;
 using FluentAlerts.Domain;
@@ -12,7 +10,7 @@ using FluentAlerts.Extensions;
 namespace FluentAlerts
 {
     public delegate string TextMap<in T>(T item);
-    public class FluentAlertSerializerTemplate
+    public abstract class FluentAlertSerializerTemplate
     {
         protected delegate bool Predicate(object o);
         //protected delegate void SerializerCallBack(object source, StringBuilder result);
@@ -26,7 +24,7 @@ namespace FluentAlerts
         private readonly Dictionary<Type, CustomSerializer> _customTypeSerializers = new Dictionary<Type, CustomSerializer>();
         private readonly CustomMatchSerializers _customMatchSerializers = new CustomMatchSerializers();
 
-        public FluentAlertSerializerTemplate()
+        protected FluentAlertSerializerTemplate()
         {
             //Standard Builder Overrides, makes sure the builders are converted to output objects before serialization, just in case
             SerializeTypeWith<FluentDocumentBuilder>((source, result) => Serialize(source.ToDocument(), result));
@@ -34,7 +32,14 @@ namespace FluentAlerts
             SerializeTypeWith<FluentTableBuilder>((source, result) => Serialize(source.ToTable(), result));
 
             //Default Value Type rule
-            SerializeMatchWith(source => true, SerializeAsTypeName);   // Default rule, object to Public Property NameValue Table         
+            SerializeTypeWith<Guid>(SerializeAsToString);
+            SerializeTypeWith<DateTime>(SerializeAsToString);
+            SerializeTypeWith<string>((source,result) => result.Append(source));
+
+            //Matches
+            SerializeMatchWith(Match.Anything, SerializeAsPropertyNameValueTable);   // Default rule, object to Public Property NameValue Table         
+            SerializeMatchWith(Match.EnumsAndPrimitives, SerializeAsToString);  // Primitive and Enums
+            SerializeMatchWith(Match.Exceptions, (source,result) =>  SerializeException(source, result, "Message", "StackTrace", "InnerException"));
         }
         
         public virtual void PreSerializationHook(StringBuilder result) { }
@@ -80,6 +85,10 @@ namespace FluentAlerts
                 _customTypeSerializers[type] = customSerializer;
         }
 
+        protected void SerializeIgnoreType<T>()
+        {
+            SerializeTypeWith(typeof (T), (source, result) => { });
+        }
         protected void SerializeTypeWith<T>(CustomTypeSerializer<T> customTypeSerializer)
         {
             //Typed Serialization
@@ -87,11 +96,11 @@ namespace FluentAlerts
                 SerializeTypeWith(typeof (T), (source, result) => customTypeSerializer((T) source, result));
         }
 
-        protected void SerializeTypeWith<T>(string prefix, string postfix = null)
+        protected void SerializeTypeWith<T>(string prefix, string postfix = "")
         {
             SerializeTypeWith<T>(source => prefix, source => postfix);
         }
-        protected void SerializeTypeWith<T>(TextMap<T> prefix, TextMap<T> postfix)
+        protected void SerializeTypeWith<T>(TextMap<T> prefix, TextMap<T> postfix = null)
         {
             SerializeTypeWith(typeof(T),
                 (source, result) =>
@@ -134,13 +143,13 @@ namespace FluentAlerts
                 });
         }
 
-        protected void SerializeTypeAsEnumerable<T>(string prefix, string postfix, EnumerableMap<T> enumerableMap = null)
+        protected void SerializeTypeAsEnumerable<T>(string prefix, string postfix = "", EnumerableMap<T> enumerableMap = null)
             where T : IEnumerable
         {
             SerializeTypeAsEnumerable(source => prefix, source => postfix, enumerableMap);
         }
 
-        protected void SerializeTypeAsEnumerable<T>(TextMap<T> prefix, TextMap<T> postfix, EnumerableMap<T> enumerableMap = null)
+        protected void SerializeTypeAsEnumerable<T>(TextMap<T> prefix, TextMap<T> postfix = null, EnumerableMap<T> enumerableMap = null)
             where T : IEnumerable
         {
             SerializeTypeWith(typeof(T),
@@ -170,33 +179,54 @@ namespace FluentAlerts
                 return;
             }
 
-            var type = source.GetType();
             var enumerable = (source as IEnumerable);
             if (enumerable == null)
             {
                 // Object => Table of Properties
-                var rows = from pi in type.GetProperties()
-                            select new Row(new Cell { Content = pi.Name }, new Cell { Content = pi.GetValue(source) });
-
-                var table = new Table(rows);
-                table.Insert(0, new Row(new HeaderCell { Content = type.ToPrettyName() }));
-                Serialize(table, result);
+                SerializeAsTableOfProperties(source, result);
                 return;
             }
 
             // Enumerable => Table of Rows
             var array = enumerable.Cast<object>().ToArray();
             if (array.Any())
-            {                    
-                var table = new Table(array.Select( (item,index) => new Row(new Cell {Content = index}, new Cell {Content = item})));
-                table.Insert(0, new Row(new HeaderCell { Content = type.ToPrettyName() }));
-                Serialize(table, result);
+            {
+                SerializeEnumerableAsTable(array, result);
                 return;
             }
 
             // Empty
-            result.AppendFormat("Empty {0}", type.ToPrettyName());
+            result.AppendFormat("Empty {0}", source.GetType().ToPrettyName());
         }
+
+        private void SerializeEnumerableAsTable(object[] array, StringBuilder result)
+        {
+            var table = new Table(array.Select((item, index) => new Row(new Cell {Content = index}, new Cell {Content = item})));
+            table.Insert(0, new Row(new HeaderCell { Content = array.GetType().ToPrettyName() }));
+            Serialize(table, result);
+        }
+
+        private void SerializeAsTableOfProperties(object source, StringBuilder result, params string[] propertyNames)
+        {
+            var rows = (propertyNames.Any())
+                ? from pi in source.GetType().GetProperties()
+                    where propertyNames.Contains(pi.Name)
+                    select new Row(new Cell {Content = pi.Name}, new Cell {Content = pi.GetValue(source)})
+                : from pi in source.GetType().GetProperties()
+                    select new Row(new Cell {Content = pi.Name}, new Cell {Content = pi.GetValue(source)});
+
+            var table = new Table(rows);
+            table.Insert(0, new Row(new HeaderCell {Content = source.GetType().ToPrettyName()}));
+            Serialize(table, result);
+        }
+
+        protected void SerializeException(object source, StringBuilder result, params string[] propertyNames)
+        {
+            var ex = source as Exception;
+            if (ex != null)
+                SerializeAsTableOfProperties(source, result, propertyNames);
+        }
+
 
         protected void SerializeAsToString<T>(T source, StringBuilder result)
         {
@@ -218,11 +248,6 @@ namespace FluentAlerts
                 result.Append(source);
         }
 
-        private void SerializeString(string source, StringBuilder result)
-        {
-            if (source == null) return;
-            result.Append(source);
-        }
 
         protected void SerializeAsTypeName(object source, StringBuilder result)
         {
@@ -245,19 +270,22 @@ namespace FluentAlerts
         #endregion
 
         #region Predicate Matches
-        protected bool MatchAnything(object o)
+        protected static class Match 
         {
-            return true;
-        }
-        protected bool MatchEnumsAndPrimitives(object o)
-        {
-            var type = o.GetType();
-            return type.IsPrimitive || type.IsEnum;
-        }
-        protected bool MatchExceptions(object o)
-        {
-            var type = o.GetType();
-            return type.IsSubclassOf(typeof(Exception));
+            public static bool Anything(object o)
+            {
+                return true;
+            }
+            public static bool EnumsAndPrimitives(object o)
+            {
+                var type = o.GetType();
+                return type.IsPrimitive || type.IsEnum;
+            }
+            public static bool Exceptions(object o)
+            {
+                var type = o.GetType();
+                return type.IsSubclassOf(typeof(Exception));
+            }
         }
         #endregion
 
@@ -282,7 +310,7 @@ namespace FluentAlerts
         #region Classes
         private class CustomMatchSerializer
         {
-            public Predicate Predicate { get; set; }
+            public Predicate Predicate { private get; set; }
             public CustomSerializer CustomSerializer { get; set; }
 
             public bool IsMatch(object o)

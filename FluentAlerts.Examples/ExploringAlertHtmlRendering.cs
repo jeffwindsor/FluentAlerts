@@ -1,5 +1,4 @@
 ﻿using System;
-using FluentAlerts.Domain;
 using NUnit.Framework;
 
 namespace FluentAlerts.Examples
@@ -9,7 +8,7 @@ namespace FluentAlerts.Examples
      * Lets play around with serializing some Alerts, change up what you like,
      * but for the best experience pull the rendered alert text from the your 
      * test runners output window and view it in a browser or on some site like 
-     * cssdesk.com
+     * http://www.cssdesk.com to view html or // Use http://dillinger.io/ to view markdown
      */
 
     [TestFixture]
@@ -60,7 +59,7 @@ namespace FluentAlerts.Examples
                                .WithRow("Like Exceptions", Mother.CreateNestedException(3))
                                .ToTable();
 
-            SerializeToConsole(table, Alerts.Serializer<Html>());
+            SerializeToConsole(table, Alerts.Serializer<GitHubMarkdown>());
         }
 
         [Test]
@@ -112,7 +111,7 @@ namespace FluentAlerts.Examples
                             .WithRow("Like Mixed Types", 25, Guid.NewGuid(), "whatever you wants"))
                 .ToDocument();
 
-            SerializeToConsole(doc, Alerts.Serializer<Html>());
+            SerializeToConsole(doc, Alerts.Serializer<GitHubMarkdown>());
         }
     }
 }

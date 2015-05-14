@@ -18,7 +18,7 @@ namespace FluentAlerts.Builders
             return With(new HorizontalRule());
         }
 
-        public FluentDocumentBuilder WithHeader(string text, uint level = 1)
+        public FluentDocumentBuilder WithHeader(string text, int level = 1)
         {
             return With(_factory.HeaderTextBlock(text, level).ToTextBlock());
         }

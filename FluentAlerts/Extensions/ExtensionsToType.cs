@@ -5,6 +5,11 @@ namespace FluentAlerts.Extensions
 {
     internal static class ExtensionsToType
     {
+        public static string ToPrettyName(this object source)
+        {
+            return ToPrettyName(source.GetType());
+        }
+
         public static string ToPrettyName(this Type type)
         {
             var typeName = type.Name;

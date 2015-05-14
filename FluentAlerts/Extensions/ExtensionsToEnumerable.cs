@@ -6,10 +6,15 @@ namespace FluentAlerts.Extensions
 {
     internal static class ExtensionsToEnumerable
     {
-        public static IEnumerable<ListItem> ToListItems(this IEnumerable<object> items)
+        public static IEnumerable<OrderedListItem> ToOrderedListItems(this IEnumerable<object> items)
         {
-            return items.Select(i => new ListItem {Content = i});
+            return items.Select(i => new OrderedListItem { Content = i });
         }
+        public static IEnumerable<UnOrderedListItem> ToUnOrderedListItems(this IEnumerable<object> items)
+        {
+            return items.Select(i => new UnOrderedListItem { Content = i });
+        }
+
 
         public static IEnumerable<Cell> ToCellItems(this IEnumerable<object> items)
         {

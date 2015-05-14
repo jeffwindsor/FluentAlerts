@@ -6,8 +6,8 @@ namespace FluentAlerts.Builders
     public class FluentTextBlockBuilder
     {
         private readonly List<Text> _textItems;
-        private readonly uint _headerLevel;
-        public FluentTextBlockBuilder(uint headerLevel = 0)
+        private readonly int _headerLevel;
+        public FluentTextBlockBuilder(int headerLevel = 0)
         {
             _textItems = new List<Text>();
             _headerLevel = headerLevel;

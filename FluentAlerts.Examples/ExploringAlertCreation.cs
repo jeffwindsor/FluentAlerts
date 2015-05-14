@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using FluentAlerts.Builders;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -9,34 +7,7 @@ namespace FluentAlerts.Examples
     [TestFixture]
     public class ExploringAlertCreation:BaseExample
     {        
-        /*
-         * Lets play around with creating some Alerts.  
-         * The test will serialize the alert to json and put it into the trace stream,
-         * just so you can see the data.   
-         * 
-         * I will cover the following topics in other test files:
-         *  > how to control the rendering process
-         *    > how to set the default rendering template
-         *    > how to set a specific template during rendering
-         *    > how to create your own templates for custom output
-         *  > how to control the transformation process
-         *    > and advanced transformation topics like
-         *      > how to customize type info rules down to a specific type and depth
-         *      > how to customize formatting rules down to a specific type and depth
-         *  > 
-         */
-        ////  ** IMPORTANT SIDE NOTE **
-        ////  Something i have been hiding from you up to now is the ToAlert() function, which converts an
-        ////  IAlertBuilder (the thing with the fluent interface we have been using) to an IAlert
-        ////  (which is what we want).  In fact when you see the Alerts.Create(...).With(...) the 
-        ////  result of this fluent building process is the IAlertBuilder, not the IAlert.   
-        ////  But as you may have noticed the RenderToConsole() extension methods hides this fact.
-        ////  Not to worry I am not leading down the bad practice path, but simulating what will happen for you in the 
-        ////  library.  Most of the down stream objects that can take an IAlert will take an IAlertBUilder as well
-        ////  and will just convert it for you by calling ToAlert.
-        ////  So be explicit an convert the builder yourself or lean on the library and just get it for free.
-   
-
+ 
         [Test]
         public void CreateSimpleTableLikeAlert()
         {
@@ -82,9 +53,6 @@ namespace FluentAlerts.Examples
         [Test]
         public void ComposeAnythingForMoreFlare()
         {
-            // Here is a simple example of how you can compose Alerts and objects.
-            // The builder allows you to add Alerts (or alert builders) to Alerts, allowing
-            // you to create complex trees of composed information.
             var alert = Alerts.Document(
                 "We are going to start with a document, but you would start with Table if you prefer")
                 .With(Alerts.TextBlock("A more complex text block")
