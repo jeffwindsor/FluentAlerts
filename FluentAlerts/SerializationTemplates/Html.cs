@@ -33,6 +33,7 @@ namespace FluentAlerts
 
             SerializeTypeAsEnumerable<TextBlock>("<p>", "</p>");
             SerializeTypeAsEnumerable<HeaderTextBlock>(source => string.Format("<H{0}>",source.Level), source => string.Format("</H{0}>",source.Level));
+            
             SerializeTypeWith<Text>("", "", item => new[] { item.Content });
             SerializeTypeWith<Italic>("<i>", "</i>", item => new[] { item.Content });
             SerializeTypeWith<Underscore>("<ins>", "</ins>", item => new[] { item.Content });

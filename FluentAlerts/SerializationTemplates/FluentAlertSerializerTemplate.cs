@@ -11,6 +11,7 @@ using FluentAlerts.Extensions;
 
 namespace FluentAlerts
 {
+    public delegate string TextMap<in T>(T item);
     public class FluentAlertSerializerTemplate
     {
         protected delegate bool Predicate(object o);
@@ -18,11 +19,10 @@ namespace FluentAlerts
         protected delegate void CustomSerializer(object source, StringBuilder result); //, SerializerCallBack serializerCallback);
         protected delegate void CustomTypeSerializer<in T>(T source, StringBuilder result);
         //protected delegate void CustomTypeSerializerWithCallBack<in T>(T source, StringBuilder result); //, SerializerCallBack serializerCallback);
-        protected delegate string TextMap<in T>(T item);
+        
         protected delegate IEnumerable ItemMap<in T>(T item);
         protected delegate IEnumerable EnumerableMap<in T>(T list) where T : IEnumerable;
 
-        //todo: make this CustomTypeSerializer<T>
         private readonly Dictionary<Type, CustomSerializer> _customTypeSerializers = new Dictionary<Type, CustomSerializer>();
         private readonly CustomMatchSerializers _customMatchSerializers = new CustomMatchSerializers();
 
@@ -83,57 +83,64 @@ namespace FluentAlerts
         protected void SerializeTypeWith<T>(CustomTypeSerializer<T> customTypeSerializer)
         {
             //Typed Serialization
+            if (customTypeSerializer != null)
+                SerializeTypeWith(typeof (T), (source, result) => customTypeSerializer((T) source, result));
+        }
+
+        protected void SerializeTypeWith<T>(string prefix, string postfix = null)
+        {
+            SerializeTypeWith<T>(source => prefix, source => postfix);
+        }
+        protected void SerializeTypeWith<T>(TextMap<T> prefix, TextMap<T> postfix)
+        {
             SerializeTypeWith(typeof(T),
                 (source, result) =>
                 {
-                    //Debug.Print("SerializeTypeWith > CustomTypeSerializer<T>");
-                    if (customTypeSerializer != null) customTypeSerializer((T)source, result);
+                    var item = (T)source;
+                    result.AppendIfNotNull(prefix,item);
+                    result.AppendIfNotNull(postfix, item);
                 });
         }
 
-        protected void SerializeTypeWith<T>(string prefix, string postfix, ItemMap<T> itemMap = null)
+        protected void SerializeTypeWith<T>(string prefix, string postfix, ItemMap<T> map)
         {
-            SerializeTypeWith(source => prefix, source => postfix, itemMap);
+            SerializeTypeWith(source => prefix, source => postfix, map);
         }
-        protected void SerializeTypeWith<T>(TextMap<T> prefix, TextMap<T> postfix, ItemMap<T> itemMap = null)
+
+        protected void SerializeTypeWith<T>(TextMap<T> prefix, TextMap<T> postfix, ItemMap<T> map)
         {
-            SerializeTypeWith(prefix,postfix, (source, result) =>
+            SerializeTypeWith(prefix, postfix, (source, result) =>
             {
-                if (itemMap == null) return;
-                foreach (var item in itemMap(source))
+                foreach (var item in map(source))
                 {
                     Serialize(item, result);
                 }
             });
         }
 
-        protected void SerializeTypeWith<T>(string prefix, string postfix, CustomTypeSerializer<T> innerCustomTypeSerializer)
+        protected void SerializeTypeWith<T>(string prefix, string postfix, CustomTypeSerializer<T> serialize)
         {
-            SerializeTypeWith(source => prefix, source => postfix, innerCustomTypeSerializer);
+            SerializeTypeWith(source => prefix, source => postfix, serialize);
         }
-        protected void SerializeTypeWith<T>(TextMap<T> prefix, TextMap<T> postfix, CustomTypeSerializer<T> innerCustomTypeSerializer)
+        protected void SerializeTypeWith<T>(TextMap<T> prefix, TextMap<T> postfix, CustomTypeSerializer<T> serialize)
         {
             SerializeTypeWith(typeof (T),
                 (source, result) =>
                 {
-                    //Wrap item in the given pre and post fix text, then call give item serializer on T
                     var item = (T) source;
-                    //Debug.Print("SerializeTypeWith > CustomTypeSerializerWithCallBack<T> INNER for {0}", item);
-                    if (prefix != null) result.Append(prefix(item));
-                    if (innerCustomTypeSerializer != null) innerCustomTypeSerializer(item, result);
-                    if (postfix != null) result.Append(postfix(item));
+                    result.AppendIfNotNull(prefix, item);
+                    serialize(item, result);
+                    result.AppendIfNotNull(postfix, item);
                 });
         }
 
-        protected void SerializeTypeAsEnumerable<T>(string prefix, string postfix,
-            EnumerableMap<T> enumerableMap = null)
+        protected void SerializeTypeAsEnumerable<T>(string prefix, string postfix, EnumerableMap<T> enumerableMap = null)
             where T : IEnumerable
         {
             SerializeTypeAsEnumerable(source => prefix, source => postfix, enumerableMap);
         }
 
-        protected void SerializeTypeAsEnumerable<T>(TextMap<T> prefix, TextMap<T> postfix,
-            EnumerableMap<T> enumerableMap = null)
+        protected void SerializeTypeAsEnumerable<T>(TextMap<T> prefix, TextMap<T> postfix, EnumerableMap<T> enumerableMap = null)
             where T : IEnumerable
         {
             SerializeTypeWith(typeof(T),
@@ -157,6 +164,12 @@ namespace FluentAlerts
         #region Serialize As
         protected void SerializeAsPropertyNameValueTable(object source, StringBuilder result)
         {
+            if (source == null)
+            {
+                SerializeAsNull(result);
+                return;
+            }
+
             var type = source.GetType();
             var enumerable = (source as IEnumerable);
             if (enumerable == null)
@@ -187,25 +200,46 @@ namespace FluentAlerts
 
         protected void SerializeAsToString<T>(T source, StringBuilder result)
         {
-            //Debug.Print("SerializeToString");
-            result.Append(source);
+            if (source == null)
+            {
+                SerializeAsNull(result);
+                return;
+            }
+                result.Append(source);
         }
 
         protected void SerializeAsToString(object source, StringBuilder result)
         {
-            //Debug.Print("SerializeToString");
+            if (source == null)
+            {
+                SerializeAsNull(result);
+                return;
+            }
+                result.Append(source);
+        }
+
+        private void SerializeString(string source, StringBuilder result)
+        {
+            if (source == null) return;
             result.Append(source);
         }
 
         protected void SerializeAsTypeName(object source, StringBuilder result)
         {
-            //Debug.Print("SerializeToPrettyTypeName");
-            result.Append(source.GetType().ToPrettyName());
+            if (source == null)
+            {
+                SerializeAsNull(result);
+                return;
+            }
+                result.Append(source.GetType().ToPrettyName());
         }
 
         protected void SerializeAsNull(object source, StringBuilder result)
         {
-            //Debug.Print("SerializeToNullString");
+            SerializeAsNull(result);
+        }
+        protected void SerializeAsNull(StringBuilder result)
+        {
             result.Append("Null");
         }
         #endregion

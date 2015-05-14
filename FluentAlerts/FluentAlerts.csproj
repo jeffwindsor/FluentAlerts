@@ -55,6 +55,7 @@
     <Compile Include="Domain\Link.cs" />
     <Compile Include="Domain\Lists.cs" />
     <Compile Include="Extensions\ExtensionsToEnumerable.cs" />
+    <Compile Include="Extensions\ExtensionsToStringBuilder.cs" />
     <Compile Include="Extensions\ExtensionsToType.cs" />
     <Compile Include="SerializationTemplates\Html.cs" />
     <Compile Include="SerializationTemplates\FluentAlertSerializerTemplate.cs" />
