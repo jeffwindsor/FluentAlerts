@@ -40,14 +40,14 @@ namespace FluentAlerts
             SerializeTypeWith<StrikeThrough>("<del>", "</del>", item => new[] { item.Content });
             SerializeTypeWith<NewLine>("<BR>", "");
 
-            SerializeTypeWith<Guid>(SerializeTo.String);
-            SerializeTypeWith<DateTime>(SerializeTo.String);
-            SerializeTypeWith<string>((source, result, serialize) => result.Append(ApplySubstitutions(source)));
+            SerializeTypeWith<Guid>(SerializeAsToString);
+            SerializeTypeWith<DateTime>(SerializeAsToString);
+            SerializeTypeWith<string>((source, result) => result.Append(ApplySubstitutions(source)));
 
             //Matches
-            SerializeMatchWith(Match.Anything, SerializeTo.PropertyNameValueTable);   // Default rule, object to Public Property NameValue Table         
-            SerializeMatchWith(Match.EnumsAndPrimitives, SerializeTo.String);  // Primitive and Enums
-            SerializeMatchWith(Match.Exceptions, SerializeTo.PrettyTypeName);
+            SerializeMatchWith(MatchAnything, SerializeAsPropertyNameValueTable);   // Default rule, object to Public Property NameValue Table         
+            SerializeMatchWith(MatchEnumsAndPrimitives, SerializeAsToString);  // Primitive and Enums
+            SerializeMatchWith(MatchExceptions, SerializeAsTypeName);
         }
 
         public override void PreSerializationHook(StringBuilder results)
