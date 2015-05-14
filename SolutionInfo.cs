@@ -21,8 +21,7 @@ using System.Runtime.InteropServices;
 //Build metadata MAY be denoted by appending a plus sign and a series of dot separated identifiers immediately following the patch or pre-release version. Identifiers MUST comprise only ASCII alphanumerics and hyphen [0-9A-Za-z-]. Build metadata SHOULD be ignored when determining version precedence. Thus two packages with the same version, but different build metadata are considered to be the same version. Examples: 1.0.0-alpha+001, 1.0.0+20130313144700, 1.0.0-beta+exp.sha.5114f85.
 //Precedence MUST be calculated by separating the version into major, minor, patch and pre-release identifiers in that order (Build metadata does not figure into precedence). Major, minor, and patch versions are always compared numerically. Pre-release precedence MUST be determined by comparing each dot separated identifier as follows: identifiers consisting of only digits are compared numerically and identifiers with letters or hyphens are compared lexically in ASCII sort order. Numeric identifiers always have lower precedence than non-numeric identifiers. Example: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0.
 //  From : http://semver.org
-[assembly: AssemblyVersion("0.3.0")]
-//[assembly: AssemblyFileVersion("0.3.0.*")]
+[assembly: AssemblyVersion("0.9.0")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

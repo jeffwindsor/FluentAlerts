@@ -1,3 +1,0 @@
-IoC Config
-=========================================================
-IAlertFactory = > new AlertFactory<AlertList>()
