@@ -1,12 +1,12 @@
-﻿using Ninject.Modules;
+﻿//using Ninject.Modules;
 
-namespace FluentAlerts.Examples
-{
-    public class ExamplesIocConfig : NinjectModule
-    {
-        public override void Load()
-        {
-            Bind<IFluentAlerts>().To<FluentAlerts>();
-        }
-    }
-}
+//namespace FluentAlerts.Examples
+//{
+//    public class ExamplesIocConfig : NinjectModule
+//    {
+//        public override void Load()
+//        {
+//            Bind<IFluentAlerts>().To<FluentAlerts>();
+//        }
+//    }
+//}

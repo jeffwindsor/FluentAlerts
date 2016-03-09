@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("www.jeffreywindsor.com")]
-[assembly: AssemblyCopyright("Copyright Jeff Windsor 2010-2013")]
+[assembly: AssemblyCopyright("Copyright Jeff Windsor 2010-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
